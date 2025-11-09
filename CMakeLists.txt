@@ -122,7 +122,7 @@ include_directories(
 
 
 # Only main.cpp is kept locally, other utility files will be downloaded automatically
-set(SRC src/main.cpp)
+set(SRC src/main.cpp src/animator.cpp)
 add_executable(PlayableCharacter ${SRC})
 
 # Ensure target can find downloaded headers in the build directory

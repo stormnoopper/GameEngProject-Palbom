@@ -1121,7 +1121,8 @@ CMakeFiles/PlayableCharacter.dir/src/main.cpp.o: \
   /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk/usr/include/c++/v1/sstream \
   /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk/usr/include/c++/v1/iostream \
   /Users/sarootareerattanawetch/OpenGL/GameEngProject-Palbomb-2.0-/build/learnopengl/camera.h \
-  /Users/sarootareerattanawetch/OpenGL/GameEngProject-Palbomb-2.0-/build/learnopengl/animator.h \
+  /Users/sarootareerattanawetch/OpenGL/GameEngProject-Palbomb-2.0-/src/animator.h \
+  /Users/sarootareerattanawetch/OpenGL/GameEngProject-Palbomb-2.0-/build/learnopengl/animation.h \
   /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk/usr/include/c++/v1/map \
   /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk/usr/include/c++/v1/__tree \
   /Users/sarootareerattanawetch/OpenGL/GameEngProject-Palbomb-2.0-/build/_deps/assimp-src/include/assimp/scene.h \
@@ -1152,8 +1153,6 @@ CMakeFiles/PlayableCharacter.dir/src/main.cpp.o: \
   /Users/sarootareerattanawetch/OpenGL/GameEngProject-Palbomb-2.0-/build/_deps/assimp-src/include/assimp/material.inl \
   /Users/sarootareerattanawetch/OpenGL/GameEngProject-Palbomb-2.0-/build/_deps/assimp-src/include/assimp/anim.h \
   /Users/sarootareerattanawetch/OpenGL/GameEngProject-Palbomb-2.0-/build/_deps/assimp-src/include/assimp/metadata.h \
-  /Users/sarootareerattanawetch/OpenGL/GameEngProject-Palbomb-2.0-/build/_deps/assimp-src/include/assimp/Importer.hpp \
-  /Users/sarootareerattanawetch/OpenGL/GameEngProject-Palbomb-2.0-/build/learnopengl/animation.h \
   /Users/sarootareerattanawetch/OpenGL/GameEngProject-Palbomb-2.0-/build/learnopengl/bone.h \
   /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk/usr/include/c++/v1/list \
   /Users/sarootareerattanawetch/OpenGL/GameEngProject-Palbomb-2.0-/build/_deps/glm-src/glm/gtx/quaternion.hpp \
@@ -1182,6 +1181,7 @@ CMakeFiles/PlayableCharacter.dir/src/main.cpp.o: \
   /Users/sarootareerattanawetch/OpenGL/GameEngProject-Palbomb-2.0-/build/learnopengl/animdata.h \
   /Users/sarootareerattanawetch/OpenGL/GameEngProject-Palbomb-2.0-/build/learnopengl/model_animation.h \
   /Users/sarootareerattanawetch/OpenGL/GameEngProject-Palbomb-2.0-/build/_deps/stb-src/stb_image.h \
+  /Users/sarootareerattanawetch/OpenGL/GameEngProject-Palbomb-2.0-/build/_deps/assimp-src/include/assimp/Importer.hpp \
   /Users/sarootareerattanawetch/OpenGL/GameEngProject-Palbomb-2.0-/build/_deps/assimp-src/include/assimp/postprocess.h \
   /Users/sarootareerattanawetch/OpenGL/GameEngProject-Palbomb-2.0-/build/learnopengl/mesh.h \
   /Users/sarootareerattanawetch/OpenGL/GameEngProject-Palbomb-2.0-/build/learnopengl/filesystem.h \

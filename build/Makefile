@@ -653,6 +653,30 @@ external/glad/src/glad.c.s:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/glad.dir/build.make CMakeFiles/glad.dir/external/glad/src/glad.c.s
 .PHONY : external/glad/src/glad.c.s
 
+src/animator.o: src/animator.cpp.o
+.PHONY : src/animator.o
+
+# target to build an object file
+src/animator.cpp.o:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/PlayableCharacter.dir/build.make CMakeFiles/PlayableCharacter.dir/src/animator.cpp.o
+.PHONY : src/animator.cpp.o
+
+src/animator.i: src/animator.cpp.i
+.PHONY : src/animator.i
+
+# target to preprocess a source file
+src/animator.cpp.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/PlayableCharacter.dir/build.make CMakeFiles/PlayableCharacter.dir/src/animator.cpp.i
+.PHONY : src/animator.cpp.i
+
+src/animator.s: src/animator.cpp.s
+.PHONY : src/animator.s
+
+# target to generate assembly for a file
+src/animator.cpp.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/PlayableCharacter.dir/build.make CMakeFiles/PlayableCharacter.dir/src/animator.cpp.s
+.PHONY : src/animator.cpp.s
+
 src/main.o: src/main.cpp.o
 .PHONY : src/main.o
 
@@ -728,6 +752,9 @@ help:
 	@echo "... external/glad/src/glad.o"
 	@echo "... external/glad/src/glad.i"
 	@echo "... external/glad/src/glad.s"
+	@echo "... src/animator.o"
+	@echo "... src/animator.i"
+	@echo "... src/animator.s"
 	@echo "... src/main.o"
 	@echo "... src/main.i"
 	@echo "... src/main.s"

@@ -28,7 +28,7 @@ bool firstMouse = true;
 float cameraDistance = 4.0f;
 float cameraHeight = 2.0f;
 float cameraAngleX = 0.0f;  // Horizontal rotation around character (radians)
-float cameraAngleY = glm::radians(20.0f); // Vertical angle (pitch) in radians
+float cameraAngleY = glm::radians(25.0f); // Vertical angle (pitch) in radians
 
 float deltaTime = 0.0f;
 float lastFrame = 0.0f;
@@ -51,7 +51,11 @@ enum class AnimationState
     Sliding
 };
 
-AnimationState g_currentState = AnimationState::Running;
+    AnimationState g_currentState = AnimationState::Running;
+float g_runningAnimationTime = 0.0f; // Preserve running animation time for seamless looping
+
+// Track previous animation time to detect wraparound for one-shot clips
+float g_prevAnimTime = 0.0f;
 
 void SwitchAnimation(Animator& animator, AnimationState newState);
 
@@ -65,7 +69,7 @@ int main()
     glfwWindowHint(GLFW_OPENGL_FORWARD_COMPAT, GL_TRUE);
 #endif
 
-    GLFWwindow* window = glfwCreateWindow(SCR_WIDTH,SCR_HEIGHT,"Character Animation Control - A/D to turn, W to jump, S to slide",NULL,NULL);
+    GLFWwindow* window = glfwCreateWindow(SCR_WIDTH,SCR_HEIGHT,"Character Animation Control - A/D to turn, W to jump, S to roll",NULL,NULL);
     if(!window){
         std::cout<<"Failed to create GLFW window\n";
         glfwTerminate();
@@ -89,9 +93,9 @@ int main()
     glEnable(GL_DEPTH_TEST);
 
     // Resolve the animation assets from the new assets directory
-    const std::string runAnimationPath   = FileSystem::getPath("assets/Run.dae");
+    const std::string runAnimationPath   = FileSystem::getPath("assets/RunInPlace.dae");
     const std::string jumpAnimationPath  = FileSystem::getPath("assets/Jump.dae");
-    const std::string slideAnimationPath = FileSystem::getPath("assets/Slide.dae");
+    const std::string slideAnimationPath = FileSystem::getPath("assets/Roll.dae");
     std::string shaderVSPath = FileSystem::getPath("shaders/anim_model.vs");
     std::string shaderFSPath = FileSystem::getPath("shaders/anim_model.fs");
     
@@ -99,7 +103,6 @@ int main()
     Shader ourShader(shaderVSPath.c_str(), shaderFSPath.c_str());
 
     // Load models using relative paths
-
     Model ourModel(runAnimationPath);
     Animation runAnimation(runAnimationPath, &ourModel);
     Animation jumpAnimation(jumpAnimationPath, &ourModel);
@@ -116,10 +119,11 @@ int main()
     glm::vec3 characterPos(0.0f, -0.5f, 0.0f);
     float characterRotation = 0.0f;
     
-    // Initialize with idle animation
+    // Initialize with run animation
     animator.PlayAnimation(runAnim_ptr);
     g_currentAnimation = runAnim_ptr;
     g_currentState = AnimationState::Running;
+    g_prevAnimTime = animator.GetCurrentTime();
 
     while(!glfwWindowShouldClose(window)){
         float currentFrame = glfwGetTime();
@@ -129,10 +133,36 @@ int main()
         processInput(window, animator, characterPos, characterRotation);
         animator.UpdateAnimation(deltaTime);
 
+        // Grab current time for wrap detection
+        float curAnimTime = animator.GetCurrentTime();
+
+        // If we are Running, remember time to keep phase and loop seamlessly
+        if(g_currentState == AnimationState::Running && g_currentAnimation == runAnim_ptr)
+        {
+            g_runningAnimationTime = curAnimTime;
+        }
+        else
+        {
+            // For Jump/Slide: detect wrap-around (animation played once and looped back to ~0)
+            // When current time becomes smaller than previous, a loop occurred.
+            if (curAnimTime + 1e-4f < g_prevAnimTime)
+            {
+                // Immediately go back to Running, restoring previous run phase
+                SwitchAnimation(animator, AnimationState::Running);
+            }
+        }
+
+        // Update prev time for next frame
+        g_prevAnimTime = animator.GetCurrentTime();
+
+        // Continuous forward movement (endless runner)
+        float runSpeed = 2.0f * deltaTime;
+        characterPos.z -= runSpeed * cos(characterRotation);
+        characterPos.x -= runSpeed * sin(characterRotation);
+
         // Update third-person camera position
-        // Combine character rotation with camera angle for natural following
         float totalAngle = characterRotation + cameraAngleX;
-        // Calculate camera position behind and above the character
+
         float camX = characterPos.x - cameraDistance * sin(totalAngle) * cos(cameraAngleY);
         float camY = characterPos.y + cameraHeight + cameraDistance * sin(cameraAngleY);
         float camZ = characterPos.z - cameraDistance * cos(totalAngle) * cos(cameraAngleY);
@@ -176,9 +206,7 @@ void processInput(GLFWwindow* window, Animator &animator, glm::vec3 &characterPo
     if(glfwGetKey(window,GLFW_KEY_ESCAPE)==GLFW_PRESS)
         glfwSetWindowShouldClose(window,true);
 
-    // Character movement controls
-    float moveSpeed = 2.0f * deltaTime;
-    
+    // Character rotation controls
     if(glfwGetKey(window,GLFW_KEY_A)==GLFW_PRESS) {
         // Turn left
         characterRotation += 2.0f * deltaTime;
@@ -190,10 +218,12 @@ void processInput(GLFWwindow* window, Animator &animator, glm::vec3 &characterPo
     
     AnimationState desiredState = AnimationState::Running;
 
+    // W key: Jump (hold to jump)
     if(glfwGetKey(window, GLFW_KEY_W) == GLFW_PRESS)
     {
         desiredState = AnimationState::Jumping;
     }
+    // S key: Roll (hold to roll)
     else if(glfwGetKey(window, GLFW_KEY_S) == GLFW_PRESS)
     {
         desiredState = AnimationState::Sliding;
@@ -205,18 +235,6 @@ void processInput(GLFWwindow* window, Animator &animator, glm::vec3 &characterPo
 void framebuffer_size_callback(GLFWwindow* window,int width,int height){ glViewport(0,0,width,height);}
 void mouse_callback(GLFWwindow* window,double xpos,double ypos){
     // Mouse control disabled - camera is locked
-    // if(firstMouse){ lastX=xpos; lastY=ypos; firstMouse=false; }
-    // float xoffset=xpos-lastX;
-    // float yoffset=lastY-ypos;
-    // lastX=xpos; lastY=ypos;
-    
-    // Third-person camera rotation around character - DISABLED
-    // cameraAngleX += glm::radians(xoffset * camera.MouseSensitivity);
-    // cameraAngleY += glm::radians(yoffset * camera.MouseSensitivity);
-    
-    // Constrain vertical angle
-    // if(cameraAngleY > glm::radians(80.0f)) cameraAngleY = glm::radians(80.0f);
-    // if(cameraAngleY < glm::radians(-20.0f)) cameraAngleY = glm::radians(-20.0f);
 }
 void scroll_callback(GLFWwindow* window,double xoffset,double yoffset){ 
     // Adjust camera distance with scroll wheel
@@ -229,6 +247,12 @@ void SwitchAnimation(Animator& animator, AnimationState newState)
 {
     if(newState == g_currentState)
         return;
+
+    // Save running animation time before switching away
+    if(g_currentState == AnimationState::Running && g_currentAnimation == runAnim_ptr)
+    {
+        g_runningAnimationTime = animator.GetCurrentTime();
+    }
 
     Animation* targetAnimation = nullptr;
     switch(newState)
@@ -246,7 +270,19 @@ void SwitchAnimation(Animator& animator, AnimationState newState)
 
     if(targetAnimation && targetAnimation != g_currentAnimation)
     {
-        animator.PlayAnimation(targetAnimation);
+        if(newState == AnimationState::Running && targetAnimation == runAnim_ptr)
+        {
+            // Restore running animation time for seamless continuation
+            animator.SwitchAnimation(targetAnimation, false);
+            animator.SetCurrentTime(g_runningAnimationTime);
+        }
+        else
+        {
+            // Reset time for jump/slide animations (they will play once; we detect wrap to return to Run)
+            animator.PlayAnimation(targetAnimation);
+            // Reset previous-time tracker so wrap detection works correctly
+            g_prevAnimTime = 0.0f;
+        }
         g_currentAnimation = targetAnimation;
         g_currentState = newState;
     }
