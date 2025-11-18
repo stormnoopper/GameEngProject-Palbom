@@ -352,7 +352,7 @@ CMakeFiles/PlayableCharacter.dir/all: _deps/assimp-build/code/CMakeFiles/assimp.
 
 # Build rule for subdir invocation for target.
 CMakeFiles/PlayableCharacter.dir/rule: cmake_check_build_system
-	$(CMAKE_COMMAND) -E cmake_progress_start /Users/sarootareerattanawetch/OpenGL/GameEngProject-Palbomb-2.0-/build/CMakeFiles 51
+	$(CMAKE_COMMAND) -E cmake_progress_start /Users/sarootareerattanawetch/OpenGL/GameEngProject-Palbomb-2.0-/build/CMakeFiles 52
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 CMakeFiles/PlayableCharacter.dir/all
 	$(CMAKE_COMMAND) -E cmake_progress_start /Users/sarootareerattanawetch/OpenGL/GameEngProject-Palbomb-2.0-/build/CMakeFiles 0
 .PHONY : CMakeFiles/PlayableCharacter.dir/rule
@@ -379,12 +379,12 @@ CMakeFiles/PlayableCharacter.dir/clean:
 CMakeFiles/glad.dir/all:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/glad.dir/build.make CMakeFiles/glad.dir/depend
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/glad.dir/build.make CMakeFiles/glad.dir/build
-	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --progress-dir=/Users/sarootareerattanawetch/OpenGL/GameEngProject-Palbomb-2.0-/build/CMakeFiles --progress-num= "Built target glad"
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --progress-dir=/Users/sarootareerattanawetch/OpenGL/GameEngProject-Palbomb-2.0-/build/CMakeFiles --progress-num=54 "Built target glad"
 .PHONY : CMakeFiles/glad.dir/all
 
 # Build rule for subdir invocation for target.
 CMakeFiles/glad.dir/rule: cmake_check_build_system
-	$(CMAKE_COMMAND) -E cmake_progress_start /Users/sarootareerattanawetch/OpenGL/GameEngProject-Palbomb-2.0-/build/CMakeFiles 0
+	$(CMAKE_COMMAND) -E cmake_progress_start /Users/sarootareerattanawetch/OpenGL/GameEngProject-Palbomb-2.0-/build/CMakeFiles 1
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 CMakeFiles/glad.dir/all
 	$(CMAKE_COMMAND) -E cmake_progress_start /Users/sarootareerattanawetch/OpenGL/GameEngProject-Palbomb-2.0-/build/CMakeFiles 0
 .PHONY : CMakeFiles/glad.dir/rule
@@ -396,7 +396,7 @@ glad: CMakeFiles/glad.dir/rule
 # codegen rule for target.
 CMakeFiles/glad.dir/codegen:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/glad.dir/build.make CMakeFiles/glad.dir/codegen
-	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --progress-dir=/Users/sarootareerattanawetch/OpenGL/GameEngProject-Palbomb-2.0-/build/CMakeFiles --progress-num= "Finished codegen for target glad"
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --progress-dir=/Users/sarootareerattanawetch/OpenGL/GameEngProject-Palbomb-2.0-/build/CMakeFiles --progress-num=54 "Finished codegen for target glad"
 .PHONY : CMakeFiles/glad.dir/codegen
 
 # clean rule for target.
@@ -539,12 +539,12 @@ _deps/glfw-build/examples/CMakeFiles/boing.dir/clean:
 _deps/glfw-build/examples/CMakeFiles/gears.dir/all: _deps/glfw-build/src/CMakeFiles/glfw.dir/all
 	$(MAKE) $(MAKESILENT) -f _deps/glfw-build/examples/CMakeFiles/gears.dir/build.make _deps/glfw-build/examples/CMakeFiles/gears.dir/depend
 	$(MAKE) $(MAKESILENT) -f _deps/glfw-build/examples/CMakeFiles/gears.dir/build.make _deps/glfw-build/examples/CMakeFiles/gears.dir/build
-	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --progress-dir=/Users/sarootareerattanawetch/OpenGL/GameEngProject-Palbomb-2.0-/build/CMakeFiles --progress-num=54 "Built target gears"
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --progress-dir=/Users/sarootareerattanawetch/OpenGL/GameEngProject-Palbomb-2.0-/build/CMakeFiles --progress-num= "Built target gears"
 .PHONY : _deps/glfw-build/examples/CMakeFiles/gears.dir/all
 
 # Build rule for subdir invocation for target.
 _deps/glfw-build/examples/CMakeFiles/gears.dir/rule: cmake_check_build_system
-	$(CMAKE_COMMAND) -E cmake_progress_start /Users/sarootareerattanawetch/OpenGL/GameEngProject-Palbomb-2.0-/build/CMakeFiles 4
+	$(CMAKE_COMMAND) -E cmake_progress_start /Users/sarootareerattanawetch/OpenGL/GameEngProject-Palbomb-2.0-/build/CMakeFiles 3
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 _deps/glfw-build/examples/CMakeFiles/gears.dir/all
 	$(CMAKE_COMMAND) -E cmake_progress_start /Users/sarootareerattanawetch/OpenGL/GameEngProject-Palbomb-2.0-/build/CMakeFiles 0
 .PHONY : _deps/glfw-build/examples/CMakeFiles/gears.dir/rule
@@ -556,7 +556,7 @@ gears: _deps/glfw-build/examples/CMakeFiles/gears.dir/rule
 # codegen rule for target.
 _deps/glfw-build/examples/CMakeFiles/gears.dir/codegen:
 	$(MAKE) $(MAKESILENT) -f _deps/glfw-build/examples/CMakeFiles/gears.dir/build.make _deps/glfw-build/examples/CMakeFiles/gears.dir/codegen
-	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --progress-dir=/Users/sarootareerattanawetch/OpenGL/GameEngProject-Palbomb-2.0-/build/CMakeFiles --progress-num=54 "Finished codegen for target gears"
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --progress-dir=/Users/sarootareerattanawetch/OpenGL/GameEngProject-Palbomb-2.0-/build/CMakeFiles --progress-num= "Finished codegen for target gears"
 .PHONY : _deps/glfw-build/examples/CMakeFiles/gears.dir/codegen
 
 # clean rule for target.
@@ -923,12 +923,12 @@ _deps/glfw-build/tests/CMakeFiles/glfwinfo.dir/clean:
 _deps/glfw-build/tests/CMakeFiles/iconify.dir/all: _deps/glfw-build/src/CMakeFiles/glfw.dir/all
 	$(MAKE) $(MAKESILENT) -f _deps/glfw-build/tests/CMakeFiles/iconify.dir/build.make _deps/glfw-build/tests/CMakeFiles/iconify.dir/depend
 	$(MAKE) $(MAKESILENT) -f _deps/glfw-build/tests/CMakeFiles/iconify.dir/build.make _deps/glfw-build/tests/CMakeFiles/iconify.dir/build
-	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --progress-dir=/Users/sarootareerattanawetch/OpenGL/GameEngProject-Palbomb-2.0-/build/CMakeFiles --progress-num=61 "Built target iconify"
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --progress-dir=/Users/sarootareerattanawetch/OpenGL/GameEngProject-Palbomb-2.0-/build/CMakeFiles --progress-num= "Built target iconify"
 .PHONY : _deps/glfw-build/tests/CMakeFiles/iconify.dir/all
 
 # Build rule for subdir invocation for target.
 _deps/glfw-build/tests/CMakeFiles/iconify.dir/rule: cmake_check_build_system
-	$(CMAKE_COMMAND) -E cmake_progress_start /Users/sarootareerattanawetch/OpenGL/GameEngProject-Palbomb-2.0-/build/CMakeFiles 4
+	$(CMAKE_COMMAND) -E cmake_progress_start /Users/sarootareerattanawetch/OpenGL/GameEngProject-Palbomb-2.0-/build/CMakeFiles 3
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 _deps/glfw-build/tests/CMakeFiles/iconify.dir/all
 	$(CMAKE_COMMAND) -E cmake_progress_start /Users/sarootareerattanawetch/OpenGL/GameEngProject-Palbomb-2.0-/build/CMakeFiles 0
 .PHONY : _deps/glfw-build/tests/CMakeFiles/iconify.dir/rule
@@ -940,7 +940,7 @@ iconify: _deps/glfw-build/tests/CMakeFiles/iconify.dir/rule
 # codegen rule for target.
 _deps/glfw-build/tests/CMakeFiles/iconify.dir/codegen:
 	$(MAKE) $(MAKESILENT) -f _deps/glfw-build/tests/CMakeFiles/iconify.dir/build.make _deps/glfw-build/tests/CMakeFiles/iconify.dir/codegen
-	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --progress-dir=/Users/sarootareerattanawetch/OpenGL/GameEngProject-Palbomb-2.0-/build/CMakeFiles --progress-num=61 "Finished codegen for target iconify"
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --progress-dir=/Users/sarootareerattanawetch/OpenGL/GameEngProject-Palbomb-2.0-/build/CMakeFiles --progress-num= "Finished codegen for target iconify"
 .PHONY : _deps/glfw-build/tests/CMakeFiles/iconify.dir/codegen
 
 # clean rule for target.
@@ -1019,12 +1019,12 @@ _deps/glfw-build/tests/CMakeFiles/reopen.dir/clean:
 _deps/glfw-build/tests/CMakeFiles/cursor.dir/all: _deps/glfw-build/src/CMakeFiles/glfw.dir/all
 	$(MAKE) $(MAKESILENT) -f _deps/glfw-build/tests/CMakeFiles/cursor.dir/build.make _deps/glfw-build/tests/CMakeFiles/cursor.dir/depend
 	$(MAKE) $(MAKESILENT) -f _deps/glfw-build/tests/CMakeFiles/cursor.dir/build.make _deps/glfw-build/tests/CMakeFiles/cursor.dir/build
-	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --progress-dir=/Users/sarootareerattanawetch/OpenGL/GameEngProject-Palbomb-2.0-/build/CMakeFiles --progress-num=51 "Built target cursor"
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --progress-dir=/Users/sarootareerattanawetch/OpenGL/GameEngProject-Palbomb-2.0-/build/CMakeFiles --progress-num= "Built target cursor"
 .PHONY : _deps/glfw-build/tests/CMakeFiles/cursor.dir/all
 
 # Build rule for subdir invocation for target.
 _deps/glfw-build/tests/CMakeFiles/cursor.dir/rule: cmake_check_build_system
-	$(CMAKE_COMMAND) -E cmake_progress_start /Users/sarootareerattanawetch/OpenGL/GameEngProject-Palbomb-2.0-/build/CMakeFiles 4
+	$(CMAKE_COMMAND) -E cmake_progress_start /Users/sarootareerattanawetch/OpenGL/GameEngProject-Palbomb-2.0-/build/CMakeFiles 3
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 _deps/glfw-build/tests/CMakeFiles/cursor.dir/all
 	$(CMAKE_COMMAND) -E cmake_progress_start /Users/sarootareerattanawetch/OpenGL/GameEngProject-Palbomb-2.0-/build/CMakeFiles 0
 .PHONY : _deps/glfw-build/tests/CMakeFiles/cursor.dir/rule
@@ -1036,7 +1036,7 @@ cursor: _deps/glfw-build/tests/CMakeFiles/cursor.dir/rule
 # codegen rule for target.
 _deps/glfw-build/tests/CMakeFiles/cursor.dir/codegen:
 	$(MAKE) $(MAKESILENT) -f _deps/glfw-build/tests/CMakeFiles/cursor.dir/build.make _deps/glfw-build/tests/CMakeFiles/cursor.dir/codegen
-	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --progress-dir=/Users/sarootareerattanawetch/OpenGL/GameEngProject-Palbomb-2.0-/build/CMakeFiles --progress-num=51 "Finished codegen for target cursor"
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --progress-dir=/Users/sarootareerattanawetch/OpenGL/GameEngProject-Palbomb-2.0-/build/CMakeFiles --progress-num= "Finished codegen for target cursor"
 .PHONY : _deps/glfw-build/tests/CMakeFiles/cursor.dir/codegen
 
 # clean rule for target.
@@ -1051,12 +1051,12 @@ _deps/glfw-build/tests/CMakeFiles/cursor.dir/clean:
 _deps/glfw-build/tests/CMakeFiles/empty.dir/all: _deps/glfw-build/src/CMakeFiles/glfw.dir/all
 	$(MAKE) $(MAKESILENT) -f _deps/glfw-build/tests/CMakeFiles/empty.dir/build.make _deps/glfw-build/tests/CMakeFiles/empty.dir/depend
 	$(MAKE) $(MAKESILENT) -f _deps/glfw-build/tests/CMakeFiles/empty.dir/build.make _deps/glfw-build/tests/CMakeFiles/empty.dir/build
-	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --progress-dir=/Users/sarootareerattanawetch/OpenGL/GameEngProject-Palbomb-2.0-/build/CMakeFiles --progress-num= "Built target empty"
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --progress-dir=/Users/sarootareerattanawetch/OpenGL/GameEngProject-Palbomb-2.0-/build/CMakeFiles --progress-num=51 "Built target empty"
 .PHONY : _deps/glfw-build/tests/CMakeFiles/empty.dir/all
 
 # Build rule for subdir invocation for target.
 _deps/glfw-build/tests/CMakeFiles/empty.dir/rule: cmake_check_build_system
-	$(CMAKE_COMMAND) -E cmake_progress_start /Users/sarootareerattanawetch/OpenGL/GameEngProject-Palbomb-2.0-/build/CMakeFiles 3
+	$(CMAKE_COMMAND) -E cmake_progress_start /Users/sarootareerattanawetch/OpenGL/GameEngProject-Palbomb-2.0-/build/CMakeFiles 4
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 _deps/glfw-build/tests/CMakeFiles/empty.dir/all
 	$(CMAKE_COMMAND) -E cmake_progress_start /Users/sarootareerattanawetch/OpenGL/GameEngProject-Palbomb-2.0-/build/CMakeFiles 0
 .PHONY : _deps/glfw-build/tests/CMakeFiles/empty.dir/rule
@@ -1068,7 +1068,7 @@ empty: _deps/glfw-build/tests/CMakeFiles/empty.dir/rule
 # codegen rule for target.
 _deps/glfw-build/tests/CMakeFiles/empty.dir/codegen:
 	$(MAKE) $(MAKESILENT) -f _deps/glfw-build/tests/CMakeFiles/empty.dir/build.make _deps/glfw-build/tests/CMakeFiles/empty.dir/codegen
-	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --progress-dir=/Users/sarootareerattanawetch/OpenGL/GameEngProject-Palbomb-2.0-/build/CMakeFiles --progress-num= "Finished codegen for target empty"
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --progress-dir=/Users/sarootareerattanawetch/OpenGL/GameEngProject-Palbomb-2.0-/build/CMakeFiles --progress-num=51 "Finished codegen for target empty"
 .PHONY : _deps/glfw-build/tests/CMakeFiles/empty.dir/codegen
 
 # clean rule for target.
@@ -1147,12 +1147,12 @@ _deps/glfw-build/tests/CMakeFiles/icon.dir/clean:
 _deps/glfw-build/tests/CMakeFiles/inputlag.dir/all: _deps/glfw-build/src/CMakeFiles/glfw.dir/all
 	$(MAKE) $(MAKESILENT) -f _deps/glfw-build/tests/CMakeFiles/inputlag.dir/build.make _deps/glfw-build/tests/CMakeFiles/inputlag.dir/depend
 	$(MAKE) $(MAKESILENT) -f _deps/glfw-build/tests/CMakeFiles/inputlag.dir/build.make _deps/glfw-build/tests/CMakeFiles/inputlag.dir/build
-	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --progress-dir=/Users/sarootareerattanawetch/OpenGL/GameEngProject-Palbomb-2.0-/build/CMakeFiles --progress-num= "Built target inputlag"
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --progress-dir=/Users/sarootareerattanawetch/OpenGL/GameEngProject-Palbomb-2.0-/build/CMakeFiles --progress-num=61 "Built target inputlag"
 .PHONY : _deps/glfw-build/tests/CMakeFiles/inputlag.dir/all
 
 # Build rule for subdir invocation for target.
 _deps/glfw-build/tests/CMakeFiles/inputlag.dir/rule: cmake_check_build_system
-	$(CMAKE_COMMAND) -E cmake_progress_start /Users/sarootareerattanawetch/OpenGL/GameEngProject-Palbomb-2.0-/build/CMakeFiles 3
+	$(CMAKE_COMMAND) -E cmake_progress_start /Users/sarootareerattanawetch/OpenGL/GameEngProject-Palbomb-2.0-/build/CMakeFiles 4
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 _deps/glfw-build/tests/CMakeFiles/inputlag.dir/all
 	$(CMAKE_COMMAND) -E cmake_progress_start /Users/sarootareerattanawetch/OpenGL/GameEngProject-Palbomb-2.0-/build/CMakeFiles 0
 .PHONY : _deps/glfw-build/tests/CMakeFiles/inputlag.dir/rule
@@ -1164,7 +1164,7 @@ inputlag: _deps/glfw-build/tests/CMakeFiles/inputlag.dir/rule
 # codegen rule for target.
 _deps/glfw-build/tests/CMakeFiles/inputlag.dir/codegen:
 	$(MAKE) $(MAKESILENT) -f _deps/glfw-build/tests/CMakeFiles/inputlag.dir/build.make _deps/glfw-build/tests/CMakeFiles/inputlag.dir/codegen
-	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --progress-dir=/Users/sarootareerattanawetch/OpenGL/GameEngProject-Palbomb-2.0-/build/CMakeFiles --progress-num= "Finished codegen for target inputlag"
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --progress-dir=/Users/sarootareerattanawetch/OpenGL/GameEngProject-Palbomb-2.0-/build/CMakeFiles --progress-num=61 "Finished codegen for target inputlag"
 .PHONY : _deps/glfw-build/tests/CMakeFiles/inputlag.dir/codegen
 
 # clean rule for target.

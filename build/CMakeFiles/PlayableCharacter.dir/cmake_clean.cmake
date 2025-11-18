@@ -1,6 +1,4 @@
 file(REMOVE_RECURSE
-  "CMakeFiles/PlayableCharacter.dir/src/animator.cpp.o"
-  "CMakeFiles/PlayableCharacter.dir/src/animator.cpp.o.d"
   "CMakeFiles/PlayableCharacter.dir/src/main.cpp.o"
   "CMakeFiles/PlayableCharacter.dir/src/main.cpp.o.d"
   "PlayableCharacter"

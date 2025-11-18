@@ -1,289 +1,265 @@
 #include <glad/glad.h>
 #include <GLFW/glfw3.h>
+#include <stb_image.h>
 
 #include <glm/glm.hpp>
 #include <glm/gtc/matrix_transform.hpp>
 #include <glm/gtc/type_ptr.hpp>
 
-#include "shader.h"
-#include "camera.h"
-#include "animator.h"
-#include "model_animation.h"
-#include "filesystem.h"
+#include <learnopengl/filesystem.h>
+#include <learnopengl/shader_m.h>
 
 #include <iostream>
-#ifdef _WIN32
-#include <direct.h>
-#endif
+#include <vector>
 
+void framebuffer_size_callback(GLFWwindow* window, int width, int height);
+void processInput(GLFWwindow *window);
+
+// settings
 const unsigned int SCR_WIDTH = 800;
 const unsigned int SCR_HEIGHT = 600;
 
-Camera camera(glm::vec3(0.0f, 1.0f, 5.0f));
-float lastX = SCR_WIDTH / 2.0f;
-float lastY = SCR_HEIGHT / 2.0f;
-bool firstMouse = true;
-
-// Third-person camera parameters
-float cameraDistance = 4.0f;
-float cameraHeight = 2.0f;
-float cameraAngleX = 0.0f;  // Horizontal rotation around character (radians)
-float cameraAngleY = glm::radians(25.0f); // Vertical angle (pitch) in radians
-
-float deltaTime = 0.0f;
-float lastFrame = 0.0f;
-
-void framebuffer_size_callback(GLFWwindow* window, int width, int height);
-void mouse_callback(GLFWwindow* window, double xpos, double ypos);
-void scroll_callback(GLFWwindow* window, double xoffset, double yoffset);
-void processInput(GLFWwindow *window, Animator &animator, glm::vec3 &characterPos, float &characterRotation);
-
-// Global animation pointers
-Animation* runAnim_ptr = nullptr;
-Animation* jumpAnim_ptr = nullptr;
-Animation* slideAnim_ptr = nullptr;
-Animation* g_currentAnimation = nullptr;  // Track current animation to prevent restarting
-
-enum class AnimationState
+// Function to load texture
+unsigned int loadTexture(const char* path)
 {
-    Running,
-    Jumping,
-    Sliding
-};
+    unsigned int textureID;
+    glGenTextures(1, &textureID);
 
-    AnimationState g_currentState = AnimationState::Running;
-float g_runningAnimationTime = 0.0f; // Preserve running animation time for seamless looping
+    int width, height, nrComponents;
+    unsigned char *data = stbi_load(path, &width, &height, &nrComponents, 0);
+    if (data)
+    {
+        GLenum format;
+        if (nrComponents == 1)
+            format = GL_RED;
+        else if (nrComponents == 3)
+            format = GL_RGB;
+        else if (nrComponents == 4)
+            format = GL_RGBA;
 
-// Track previous animation time to detect wraparound for one-shot clips
-float g_prevAnimTime = 0.0f;
+        glBindTexture(GL_TEXTURE_2D, textureID);
+        glTexImage2D(GL_TEXTURE_2D, 0, format, width, height, 0, format, GL_UNSIGNED_BYTE, data);
+        glGenerateMipmap(GL_TEXTURE_2D);
 
-void SwitchAnimation(Animator& animator, AnimationState newState);
+        glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_REPEAT);
+        glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_REPEAT);
+        glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR_MIPMAP_LINEAR);
+        glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
+
+        stbi_image_free(data);
+    }
+    else
+    {
+        std::cout << "Texture failed to load at path: " << path << std::endl;
+        stbi_image_free(data);
+    }
+
+    return textureID;
+}
 
 int main()
 {
+    // glfw: initialize and configure
     glfwInit();
-    glfwWindowHint(GLFW_CONTEXT_VERSION_MAJOR,3);
-    glfwWindowHint(GLFW_CONTEXT_VERSION_MINOR,3);
-    glfwWindowHint(GLFW_OPENGL_PROFILE,GLFW_OPENGL_CORE_PROFILE);
+    glfwWindowHint(GLFW_CONTEXT_VERSION_MAJOR, 3);
+    glfwWindowHint(GLFW_CONTEXT_VERSION_MINOR, 3);
+    glfwWindowHint(GLFW_OPENGL_PROFILE, GLFW_OPENGL_CORE_PROFILE);
+
 #ifdef __APPLE__
     glfwWindowHint(GLFW_OPENGL_FORWARD_COMPAT, GL_TRUE);
 #endif
 
-    GLFWwindow* window = glfwCreateWindow(SCR_WIDTH,SCR_HEIGHT,"Character Animation Control - A/D to turn, W to jump, S to roll",NULL,NULL);
-    if(!window){
-        std::cout<<"Failed to create GLFW window\n";
+    // glfw window creation
+    GLFWwindow* window = glfwCreateWindow(SCR_WIDTH, SCR_HEIGHT, "Bomber-Style Top-Down Map", NULL, NULL);
+    if (window == NULL)
+    {
+        std::cout << "Failed to create GLFW window" << std::endl;
         glfwTerminate();
         return -1;
     }
     glfwMakeContextCurrent(window);
-    glfwSetFramebufferSizeCallback(window,framebuffer_size_callback);
-    glfwSetCursorPosCallback(window,mouse_callback);
-    glfwSetScrollCallback(window,scroll_callback);
+    glfwSetFramebufferSizeCallback(window, framebuffer_size_callback);
 
-    glfwSetInputMode(window,GLFW_CURSOR,GLFW_CURSOR_NORMAL); // Cursor enabled since mouse control is disabled
-
-    if(!gladLoadGLLoader((GLADloadproc)glfwGetProcAddress)){
-        std::cout<<"Failed to initialize GLAD\n";
+    // glad: load all OpenGL function pointers
+    if (!gladLoadGLLoader((GLADloadproc)glfwGetProcAddress))
+    {
+        std::cout << "Failed to initialize GLAD" << std::endl;
         return -1;
     }
 
-    // Tell stb_image.h to flip loaded texture's on the y-axis (before loading model).
-    stbi_set_flip_vertically_on_load(true);
-
+    // configure global opengl state
     glEnable(GL_DEPTH_TEST);
 
-    // Resolve the animation assets from the new assets directory
-    const std::string runAnimationPath   = FileSystem::getPath("assets/RunInPlace.dae");
-    const std::string jumpAnimationPath  = FileSystem::getPath("assets/Jump.dae");
-    const std::string slideAnimationPath = FileSystem::getPath("assets/Roll.dae");
-    std::string shaderVSPath = FileSystem::getPath("shaders/anim_model.vs");
-    std::string shaderFSPath = FileSystem::getPath("shaders/anim_model.fs");
-    
-    // Load shader first
-    Shader ourShader(shaderVSPath.c_str(), shaderFSPath.c_str());
+    // build and compile shaders
+    Shader shader("shaders/tile.vs", "shaders/tile.fs");
 
-    // Load models using relative paths
-    Model ourModel(runAnimationPath);
-    Animation runAnimation(runAnimationPath, &ourModel);
-    Animation jumpAnimation(jumpAnimationPath, &ourModel);
-    Animation slideAnimation(slideAnimationPath, &ourModel);
-    
-    // Set global pointers
-    runAnim_ptr = &runAnimation;
-    jumpAnim_ptr = &jumpAnimation;
-    slideAnim_ptr = &slideAnimation;
-    
-    Animator animator(runAnim_ptr);
-    
-    // Character position and rotation
-    glm::vec3 characterPos(0.0f, -0.5f, 0.0f);
-    float characterRotation = 0.0f;
-    
-    // Initialize with run animation
-    animator.PlayAnimation(runAnim_ptr);
-    g_currentAnimation = runAnim_ptr;
-    g_currentState = AnimationState::Running;
-    g_prevAnimTime = animator.GetCurrentTime();
+    // set up vertex data for a 3D block (cube)
+    float blockHeight = 0.2f; // Height of each block
+    float blockSize = 1.0f;
+    float vertices[] = {
+        // positions          // texture coords
+        // Top face
+         0.5f,  blockHeight,  0.5f,   1.0f, 1.0f,
+         0.5f,  blockHeight, -0.5f,   1.0f, 0.0f,
+        -0.5f,  blockHeight, -0.5f,   0.0f, 0.0f,
+        -0.5f,  blockHeight,  0.5f,   0.0f, 1.0f,
+        // Bottom face
+         0.5f,  0.0f, -0.5f,   1.0f, 1.0f,
+         0.5f,  0.0f,  0.5f,   1.0f, 0.0f,
+        -0.5f,  0.0f,  0.5f,   0.0f, 0.0f,
+        -0.5f,  0.0f, -0.5f,   0.0f, 1.0f,
+        // Front face
+         0.5f,  0.0f,  0.5f,   1.0f, 0.0f,
+         0.5f,  blockHeight,  0.5f,   1.0f, 1.0f,
+        -0.5f,  blockHeight,  0.5f,   0.0f, 1.0f,
+        -0.5f,  0.0f,  0.5f,   0.0f, 0.0f,
+        // Back face
+         0.5f,  blockHeight, -0.5f,   1.0f, 1.0f,
+         0.5f,  0.0f, -0.5f,   1.0f, 0.0f,
+        -0.5f,  0.0f, -0.5f,   0.0f, 0.0f,
+        -0.5f,  blockHeight, -0.5f,   0.0f, 1.0f,
+        // Right face
+         0.5f,  0.0f, -0.5f,   0.0f, 0.0f,
+         0.5f,  blockHeight, -0.5f,   0.0f, 1.0f,
+         0.5f,  blockHeight,  0.5f,   1.0f, 1.0f,
+         0.5f,  0.0f,  0.5f,   1.0f, 0.0f,
+        // Left face
+        -0.5f,  blockHeight, -0.5f,   0.0f, 1.0f,
+        -0.5f,  0.0f, -0.5f,   0.0f, 0.0f,
+        -0.5f,  0.0f,  0.5f,   1.0f, 0.0f,
+        -0.5f,  blockHeight,  0.5f,   1.0f, 1.0f
+    };
+    unsigned int indices[] = {
+        // Top face
+        0, 1, 2,  2, 3, 0,
+        // Bottom face
+        4, 5, 6,  6, 7, 4,
+        // Front face
+        8, 9, 10,  10, 11, 8,
+        // Back face
+        12, 13, 14,  14, 15, 12,
+        // Right face
+        16, 17, 18,  18, 19, 16,
+        // Left face
+        20, 21, 22,  22, 23, 20
+    };
 
-    while(!glfwWindowShouldClose(window)){
-        float currentFrame = glfwGetTime();
-        deltaTime = currentFrame - lastFrame;
-        lastFrame = currentFrame;
+    unsigned int VBO, VAO, EBO;
+    glGenVertexArrays(1, &VAO);
+    glGenBuffers(1, &VBO);
+    glGenBuffers(1, &EBO);
 
-        processInput(window, animator, characterPos, characterRotation);
-        animator.UpdateAnimation(deltaTime);
+    glBindVertexArray(VAO);
 
-        // Grab current time for wrap detection
-        float curAnimTime = animator.GetCurrentTime();
+    glBindBuffer(GL_ARRAY_BUFFER, VBO);
+    glBufferData(GL_ARRAY_BUFFER, sizeof(vertices), vertices, GL_STATIC_DRAW);
 
-        // If we are Running, remember time to keep phase and loop seamlessly
-        if(g_currentState == AnimationState::Running && g_currentAnimation == runAnim_ptr)
+    glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, EBO);
+    glBufferData(GL_ELEMENT_ARRAY_BUFFER, sizeof(indices), indices, GL_STATIC_DRAW);
+
+    // position attribute
+    glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, 5 * sizeof(float), (void*)0);
+    glEnableVertexAttribArray(0);
+    // texture coord attribute
+    glVertexAttribPointer(1, 2, GL_FLOAT, GL_FALSE, 5 * sizeof(float), (void*)(3 * sizeof(float)));
+    glEnableVertexAttribArray(1);
+
+    // load and create texture
+    stbi_set_flip_vertically_on_load(true);
+    std::string texturePath = FileSystem::getPath("assets/floor/ground_tiles_06_color_1k.png");
+    unsigned int floorTexture = loadTexture(texturePath.c_str());
+    if (floorTexture == 0)
+    {
+        std::cout << "Failed to load floor texture. Trying alternative path..." << std::endl;
+        // Try direct path as fallback
+        floorTexture = loadTexture("assets/floor/ground_tiles_06_color_1k.png");
+    }
+
+    shader.use();
+    shader.setInt("texture1", 0);
+
+    // Map dimensions
+    const int MAP_SIZE = 15;
+    const float TILE_SIZE = 1.0f;
+    const float MAP_OFFSET = -(MAP_SIZE - 1) * TILE_SIZE / 2.0f;
+
+    // render loop
+    while (!glfwWindowShouldClose(window))
+    {
+        // input
+        processInput(window);
+
+        // render
+        glClearColor(0.1f, 0.1f, 0.15f, 1.0f);
+        glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
+
+        // activate shader
+        shader.use();
+
+        // create orthographic projection
+        // Adjust size to fit the 15x15 map nicely in view
+        float aspect = static_cast<float>(SCR_WIDTH) / static_cast<float>(SCR_HEIGHT);
+        glm::mat4 projection = glm::perspective(glm::radians(45.0f), aspect, 0.1f, 200.0f);
+
+        // position camera above board looking toward origin (tilted ~60°)
+        glm::vec3 cameraPos(0.0f, MAP_SIZE * 0.9f, MAP_SIZE * 1.1f);
+        glm::vec3 cameraTarget(0.0f, 0.0f, 0.0f);
+        glm::vec3 cameraUp(0.0f, 1.0f, 0.0f);
+        glm::mat4 view = glm::lookAt(cameraPos, cameraTarget, cameraUp);
+
+        // set uniforms
+        shader.setMat4("projection", projection);
+        shader.setMat4("view", view);
+
+        // bind texture
+        glActiveTexture(GL_TEXTURE0);
+        glBindTexture(GL_TEXTURE_2D, floorTexture);
+
+        // render all tiles in the 15x15 grid
+        glBindVertexArray(VAO);
+        for (int x = 0; x < MAP_SIZE; x++)
         {
-            g_runningAnimationTime = curAnimTime;
-        }
-        else
-        {
-            // For Jump/Slide: detect wrap-around (animation played once and looped back to ~0)
-            // When current time becomes smaller than previous, a loop occurred.
-            if (curAnimTime + 1e-4f < g_prevAnimTime)
+            for (int z = 0; z < MAP_SIZE; z++)
             {
-                // Immediately go back to Running, restoring previous run phase
-                SwitchAnimation(animator, AnimationState::Running);
+                // calculate tile position
+                float tileX = MAP_OFFSET + x * TILE_SIZE;
+                float tileZ = MAP_OFFSET + z * TILE_SIZE;
+
+                // create model matrix for this block
+                glm::mat4 model = glm::mat4(1.0f);
+                model = glm::translate(model, glm::vec3(tileX, 0.0f, tileZ));
+                shader.setMat4("model", model);
+
+                // draw the block (36 indices for a cube: 6 faces * 2 triangles * 3 vertices)
+                glDrawElements(GL_TRIANGLES, 36, GL_UNSIGNED_INT, 0);
             }
         }
 
-        // Update prev time for next frame
-        g_prevAnimTime = animator.GetCurrentTime();
-
-        // Continuous forward movement (endless runner)
-        float runSpeed = 2.0f * deltaTime;
-        characterPos.z -= runSpeed * cos(characterRotation);
-        characterPos.x -= runSpeed * sin(characterRotation);
-
-        // Update third-person camera position
-        float totalAngle = characterRotation + cameraAngleX;
-
-        float camX = characterPos.x - cameraDistance * sin(totalAngle) * cos(cameraAngleY);
-        float camY = characterPos.y + cameraHeight + cameraDistance * sin(cameraAngleY);
-        float camZ = characterPos.z - cameraDistance * cos(totalAngle) * cos(cameraAngleY);
-        
-        camera.Position = glm::vec3(camX, camY, camZ);
-        // Make camera look at the character (slightly above ground level)
-        glm::vec3 lookAtTarget = characterPos + glm::vec3(0.0f, cameraHeight * 0.5f, 0.0f);
-        glm::mat4 view = glm::lookAt(camera.Position, lookAtTarget, glm::vec3(0.0f, 1.0f, 0.0f));
-
-        glClearColor(0.1f,0.1f,0.1f,1.0f);
-        glClear(GL_COLOR_BUFFER_BIT|GL_DEPTH_BUFFER_BIT);
-
-        ourShader.use();
-
-        glm::mat4 projection = glm::perspective(glm::radians(camera.Zoom), (float)SCR_WIDTH/(float)SCR_HEIGHT, 0.1f,100.0f);
-        ourShader.setMat4("projection",projection);
-        ourShader.setMat4("view",view);
-
-        auto transforms = animator.GetFinalBoneMatrices();
-        for(int i=0;i<transforms.size();++i)
-            ourShader.setMat4("finalBonesMatrices["+std::to_string(i)+"]",transforms[i]);
-
-        glm::mat4 model=glm::mat4(1.0f);
-        model=glm::translate(model, characterPos);
-        model=glm::rotate(model, characterRotation, glm::vec3(0.0f, 1.0f, 0.0f));
-        model=glm::scale(model,glm::vec3(0.5f));
-        ourShader.setMat4("model",model);
-
-        ourModel.Draw(ourShader);
-
+        // glfw: swap buffers and poll IO events
         glfwSwapBuffers(window);
         glfwPollEvents();
     }
 
+    // optional: de-allocate all resources
+    glDeleteVertexArrays(1, &VAO);
+    glDeleteBuffers(1, &VBO);
+    glDeleteBuffers(1, &EBO);
+
+    // glfw: terminate, clearing all previously allocated GLFW resources
     glfwTerminate();
     return 0;
 }
 
-void processInput(GLFWwindow* window, Animator &animator, glm::vec3 &characterPos, float &characterRotation)
+// process all input: query GLFW whether relevant keys are pressed/released this frame and react accordingly
+void processInput(GLFWwindow *window)
 {
-    if(glfwGetKey(window,GLFW_KEY_ESCAPE)==GLFW_PRESS)
-        glfwSetWindowShouldClose(window,true);
-
-    // Character rotation controls
-    if(glfwGetKey(window,GLFW_KEY_A)==GLFW_PRESS) {
-        // Turn left
-        characterRotation += 2.0f * deltaTime;
-    }
-    if(glfwGetKey(window,GLFW_KEY_D)==GLFW_PRESS) {
-        // Turn right
-        characterRotation -= 2.0f * deltaTime;
-    }
-    
-    AnimationState desiredState = AnimationState::Running;
-
-    // W key: Jump (hold to jump)
-    if(glfwGetKey(window, GLFW_KEY_W) == GLFW_PRESS)
-    {
-        desiredState = AnimationState::Jumping;
-    }
-    // S key: Roll (hold to roll)
-    else if(glfwGetKey(window, GLFW_KEY_S) == GLFW_PRESS)
-    {
-        desiredState = AnimationState::Sliding;
-    }
-
-    SwitchAnimation(animator, desiredState);
+    if (glfwGetKey(window, GLFW_KEY_ESCAPE) == GLFW_PRESS)
+        glfwSetWindowShouldClose(window, true);
 }
 
-void framebuffer_size_callback(GLFWwindow* window,int width,int height){ glViewport(0,0,width,height);}
-void mouse_callback(GLFWwindow* window,double xpos,double ypos){
-    // Mouse control disabled - camera is locked
-}
-void scroll_callback(GLFWwindow* window,double xoffset,double yoffset){ 
-    // Adjust camera distance with scroll wheel
-    cameraDistance -= yoffset * 0.5f;
-    if(cameraDistance < 2.0f) cameraDistance = 2.0f;
-    if(cameraDistance > 10.0f) cameraDistance = 10.0f;
-}
-
-void SwitchAnimation(Animator& animator, AnimationState newState)
+// glfw: whenever the window size changed (by OS or user resize) this callback function executes
+void framebuffer_size_callback(GLFWwindow* window, int width, int height)
 {
-    if(newState == g_currentState)
-        return;
-
-    // Save running animation time before switching away
-    if(g_currentState == AnimationState::Running && g_currentAnimation == runAnim_ptr)
-    {
-        g_runningAnimationTime = animator.GetCurrentTime();
-    }
-
-    Animation* targetAnimation = nullptr;
-    switch(newState)
-    {
-        case AnimationState::Running:
-            targetAnimation = runAnim_ptr;
-            break;
-        case AnimationState::Jumping:
-            targetAnimation = jumpAnim_ptr;
-            break;
-        case AnimationState::Sliding:
-            targetAnimation = slideAnim_ptr;
-            break;
-    }
-
-    if(targetAnimation && targetAnimation != g_currentAnimation)
-    {
-        if(newState == AnimationState::Running && targetAnimation == runAnim_ptr)
-        {
-            // Restore running animation time for seamless continuation
-            animator.SwitchAnimation(targetAnimation, false);
-            animator.SetCurrentTime(g_runningAnimationTime);
-        }
-        else
-        {
-            // Reset time for jump/slide animations (they will play once; we detect wrap to return to Run)
-            animator.PlayAnimation(targetAnimation);
-            // Reset previous-time tracker so wrap detection works correctly
-            g_prevAnimTime = 0.0f;
-        }
-        g_currentAnimation = targetAnimation;
-        g_currentState = newState;
-    }
+    // make sure the viewport matches the new window dimensions
+    glViewport(0, 0, width, height);
 }

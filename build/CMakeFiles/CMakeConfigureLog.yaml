@@ -20,7 +20,6 @@ events:
     names:
       - "uname"
     candidate_directories:
-      - "/Users/sarootareerattanawetch/Library/Application Support/cloud-code/installer/google-cloud-sdk/bin/"
       - "/Library/Frameworks/Python.framework/Versions/3.12/bin/"
       - "/usr/local/bin/"
       - "/System/Cryptexes/App/usr/bin/"
@@ -31,21 +30,19 @@ events:
       - "/var/run/com.apple.security.cryptexd/codex.system/bootstrap/usr/local/bin/"
       - "/var/run/com.apple.security.cryptexd/codex.system/bootstrap/usr/bin/"
       - "/var/run/com.apple.security.cryptexd/codex.system/bootstrap/usr/appleinternal/bin/"
+      - "/opt/pmk/env/global/bin/"
       - "/Library/Apple/usr/bin/"
       - "/usr/local/go/bin/"
       - "/opt/homebrew/bin/"
       - "/opt/anaconda3/bin/"
       - "/opt/anaconda3/condabin/"
-      - "/Users/sarootareerattanawetch/.cursor/extensions/ms-python.debugpy-2025.14.1-darwin-arm64/bundled/scripts/noConfigScripts/"
     searched_directories:
-      - "/Users/sarootareerattanawetch/Library/Application Support/cloud-code/installer/google-cloud-sdk/bin/uname"
       - "/Library/Frameworks/Python.framework/Versions/3.12/bin/uname"
       - "/usr/local/bin/uname"
       - "/System/Cryptexes/App/usr/bin/uname"
     found: "/usr/bin/uname"
     search_context:
       ENV{PATH}:
-        - "/Users/sarootareerattanawetch/Library/Application Support/cloud-code/installer/google-cloud-sdk/bin"
         - "/Library/Frameworks/Python.framework/Versions/3.12/bin"
         - "/usr/local/bin"
         - "/System/Cryptexes/App/usr/bin"
@@ -56,21 +53,20 @@ events:
         - "/var/run/com.apple.security.cryptexd/codex.system/bootstrap/usr/local/bin"
         - "/var/run/com.apple.security.cryptexd/codex.system/bootstrap/usr/bin"
         - "/var/run/com.apple.security.cryptexd/codex.system/bootstrap/usr/appleinternal/bin"
+        - "/opt/pmk/env/global/bin"
         - "/Library/Apple/usr/bin"
         - "/usr/local/go/bin"
         - "/opt/homebrew/bin"
-        - "/Users/sarootareerattanawetch/Library/Application Support/cloud-code/installer/google-cloud-sdk/bin"
         - "/opt/anaconda3/bin"
         - "/opt/anaconda3/condabin"
         - "/Library/Frameworks/Python.framework/Versions/3.12/bin"
-        - "/Users/sarootareerattanawetch/.cursor/extensions/ms-python.debugpy-2025.14.1-darwin-arm64/bundled/scripts/noConfigScripts"
   -
     kind: "message-v1"
     backtrace:
       - "/usr/local/share/cmake/Modules/CMakeDetermineSystem.cmake:212 (message)"
       - "CMakeLists.txt:58 (project)"
     message: |
-      The system is: Darwin - 25.0.0 - x86_64
+      The system is: Darwin - 25.1.0 - x86_64
   -
     kind: "find-v1"
     backtrace:
@@ -92,7 +88,6 @@ events:
       - "make"
       - "smake"
     candidate_directories:
-      - "/Users/sarootareerattanawetch/Library/Application Support/cloud-code/installer/google-cloud-sdk/bin/"
       - "/Library/Frameworks/Python.framework/Versions/3.12/bin/"
       - "/usr/local/bin/"
       - "/System/Cryptexes/App/usr/bin/"
@@ -103,14 +98,13 @@ events:
       - "/var/run/com.apple.security.cryptexd/codex.system/bootstrap/usr/local/bin/"
       - "/var/run/com.apple.security.cryptexd/codex.system/bootstrap/usr/bin/"
       - "/var/run/com.apple.security.cryptexd/codex.system/bootstrap/usr/appleinternal/bin/"
+      - "/opt/pmk/env/global/bin/"
       - "/Library/Apple/usr/bin/"
       - "/usr/local/go/bin/"
       - "/opt/homebrew/bin/"
       - "/opt/anaconda3/bin/"
       - "/opt/anaconda3/condabin/"
-      - "/Users/sarootareerattanawetch/.cursor/extensions/ms-python.debugpy-2025.14.1-darwin-arm64/bundled/scripts/noConfigScripts/"
     searched_directories:
-      - "/Users/sarootareerattanawetch/Library/Application Support/cloud-code/installer/google-cloud-sdk/bin/gmake"
       - "/Library/Frameworks/Python.framework/Versions/3.12/bin/gmake"
       - "/usr/local/bin/gmake"
       - "/System/Cryptexes/App/usr/bin/gmake"
@@ -121,20 +115,18 @@ events:
       - "/var/run/com.apple.security.cryptexd/codex.system/bootstrap/usr/local/bin/gmake"
       - "/var/run/com.apple.security.cryptexd/codex.system/bootstrap/usr/bin/gmake"
       - "/var/run/com.apple.security.cryptexd/codex.system/bootstrap/usr/appleinternal/bin/gmake"
+      - "/opt/pmk/env/global/bin/gmake"
       - "/Library/Apple/usr/bin/gmake"
       - "/usr/local/go/bin/gmake"
       - "/opt/homebrew/bin/gmake"
       - "/opt/anaconda3/bin/gmake"
       - "/opt/anaconda3/condabin/gmake"
-      - "/Users/sarootareerattanawetch/.cursor/extensions/ms-python.debugpy-2025.14.1-darwin-arm64/bundled/scripts/noConfigScripts/gmake"
-      - "/Users/sarootareerattanawetch/Library/Application Support/cloud-code/installer/google-cloud-sdk/bin/make"
       - "/Library/Frameworks/Python.framework/Versions/3.12/bin/make"
       - "/usr/local/bin/make"
       - "/System/Cryptexes/App/usr/bin/make"
     found: "/usr/bin/make"
     search_context:
       ENV{PATH}:
-        - "/Users/sarootareerattanawetch/Library/Application Support/cloud-code/installer/google-cloud-sdk/bin"
         - "/Library/Frameworks/Python.framework/Versions/3.12/bin"
         - "/usr/local/bin"
         - "/System/Cryptexes/App/usr/bin"
@@ -145,14 +137,13 @@ events:
         - "/var/run/com.apple.security.cryptexd/codex.system/bootstrap/usr/local/bin"
         - "/var/run/com.apple.security.cryptexd/codex.system/bootstrap/usr/bin"
         - "/var/run/com.apple.security.cryptexd/codex.system/bootstrap/usr/appleinternal/bin"
+        - "/opt/pmk/env/global/bin"
         - "/Library/Apple/usr/bin"
         - "/usr/local/go/bin"
         - "/opt/homebrew/bin"
-        - "/Users/sarootareerattanawetch/Library/Application Support/cloud-code/installer/google-cloud-sdk/bin"
         - "/opt/anaconda3/bin"
         - "/opt/anaconda3/condabin"
         - "/Library/Frameworks/Python.framework/Versions/3.12/bin"
-        - "/Users/sarootareerattanawetch/.cursor/extensions/ms-python.debugpy-2025.14.1-darwin-arm64/bundled/scripts/noConfigScripts"
   -
     kind: "find-v1"
     backtrace:
@@ -179,7 +170,6 @@ events:
       - "icx"
       - "clang"
     candidate_directories:
-      - "/Users/sarootareerattanawetch/Library/Application Support/cloud-code/installer/google-cloud-sdk/bin/"
       - "/Library/Frameworks/Python.framework/Versions/3.12/bin/"
       - "/usr/local/bin/"
       - "/System/Cryptexes/App/usr/bin/"
@@ -190,21 +180,19 @@ events:
       - "/var/run/com.apple.security.cryptexd/codex.system/bootstrap/usr/local/bin/"
       - "/var/run/com.apple.security.cryptexd/codex.system/bootstrap/usr/bin/"
       - "/var/run/com.apple.security.cryptexd/codex.system/bootstrap/usr/appleinternal/bin/"
+      - "/opt/pmk/env/global/bin/"
       - "/Library/Apple/usr/bin/"
       - "/usr/local/go/bin/"
       - "/opt/homebrew/bin/"
       - "/opt/anaconda3/bin/"
       - "/opt/anaconda3/condabin/"
-      - "/Users/sarootareerattanawetch/.cursor/extensions/ms-python.debugpy-2025.14.1-darwin-arm64/bundled/scripts/noConfigScripts/"
     searched_directories:
-      - "/Users/sarootareerattanawetch/Library/Application Support/cloud-code/installer/google-cloud-sdk/bin/cc"
       - "/Library/Frameworks/Python.framework/Versions/3.12/bin/cc"
       - "/usr/local/bin/cc"
       - "/System/Cryptexes/App/usr/bin/cc"
     found: "/usr/bin/cc"
     search_context:
       ENV{PATH}:
-        - "/Users/sarootareerattanawetch/Library/Application Support/cloud-code/installer/google-cloud-sdk/bin"
         - "/Library/Frameworks/Python.framework/Versions/3.12/bin"
         - "/usr/local/bin"
         - "/System/Cryptexes/App/usr/bin"
@@ -215,14 +203,13 @@ events:
         - "/var/run/com.apple.security.cryptexd/codex.system/bootstrap/usr/local/bin"
         - "/var/run/com.apple.security.cryptexd/codex.system/bootstrap/usr/bin"
         - "/var/run/com.apple.security.cryptexd/codex.system/bootstrap/usr/appleinternal/bin"
+        - "/opt/pmk/env/global/bin"
         - "/Library/Apple/usr/bin"
         - "/usr/local/go/bin"
         - "/opt/homebrew/bin"
-        - "/Users/sarootareerattanawetch/Library/Application Support/cloud-code/installer/google-cloud-sdk/bin"
         - "/opt/anaconda3/bin"
         - "/opt/anaconda3/condabin"
         - "/Library/Frameworks/Python.framework/Versions/3.12/bin"
-        - "/Users/sarootareerattanawetch/.cursor/extensions/ms-python.debugpy-2025.14.1-darwin-arm64/bundled/scripts/noConfigScripts"
   -
     kind: "find-v1"
     backtrace:
@@ -250,7 +237,6 @@ events:
     found: "/usr/local/share/cmake/Modules/CMakeCCompilerId.c.in"
     search_context:
       ENV{PATH}:
-        - "/Users/sarootareerattanawetch/Library/Application Support/cloud-code/installer/google-cloud-sdk/bin"
         - "/Library/Frameworks/Python.framework/Versions/3.12/bin"
         - "/usr/local/bin"
         - "/System/Cryptexes/App/usr/bin"
@@ -261,14 +247,13 @@ events:
         - "/var/run/com.apple.security.cryptexd/codex.system/bootstrap/usr/local/bin"
         - "/var/run/com.apple.security.cryptexd/codex.system/bootstrap/usr/bin"
         - "/var/run/com.apple.security.cryptexd/codex.system/bootstrap/usr/appleinternal/bin"
+        - "/opt/pmk/env/global/bin"
         - "/Library/Apple/usr/bin"
         - "/usr/local/go/bin"
         - "/opt/homebrew/bin"
-        - "/Users/sarootareerattanawetch/Library/Application Support/cloud-code/installer/google-cloud-sdk/bin"
         - "/opt/anaconda3/bin"
         - "/opt/anaconda3/condabin"
         - "/Library/Frameworks/Python.framework/Versions/3.12/bin"
-        - "/Users/sarootareerattanawetch/.cursor/extensions/ms-python.debugpy-2025.14.1-darwin-arm64/bundled/scripts/noConfigScripts"
   -
     kind: "message-v1"
     backtrace:
@@ -353,7 +338,6 @@ events:
       - "ar"
     candidate_directories:
       - "/usr/bin/"
-      - "/Users/sarootareerattanawetch/Library/Application Support/cloud-code/installer/google-cloud-sdk/bin/"
       - "/Library/Frameworks/Python.framework/Versions/3.12/bin/"
       - "/usr/local/bin/"
       - "/System/Cryptexes/App/usr/bin/"
@@ -363,16 +347,15 @@ events:
       - "/var/run/com.apple.security.cryptexd/codex.system/bootstrap/usr/local/bin/"
       - "/var/run/com.apple.security.cryptexd/codex.system/bootstrap/usr/bin/"
       - "/var/run/com.apple.security.cryptexd/codex.system/bootstrap/usr/appleinternal/bin/"
+      - "/opt/pmk/env/global/bin/"
       - "/Library/Apple/usr/bin/"
       - "/usr/local/go/bin/"
       - "/opt/homebrew/bin/"
       - "/opt/anaconda3/bin/"
       - "/opt/anaconda3/condabin/"
-      - "/Users/sarootareerattanawetch/.cursor/extensions/ms-python.debugpy-2025.14.1-darwin-arm64/bundled/scripts/noConfigScripts/"
     found: "/usr/bin/ar"
     search_context:
       ENV{PATH}:
-        - "/Users/sarootareerattanawetch/Library/Application Support/cloud-code/installer/google-cloud-sdk/bin"
         - "/Library/Frameworks/Python.framework/Versions/3.12/bin"
         - "/usr/local/bin"
         - "/System/Cryptexes/App/usr/bin"
@@ -383,14 +366,13 @@ events:
         - "/var/run/com.apple.security.cryptexd/codex.system/bootstrap/usr/local/bin"
         - "/var/run/com.apple.security.cryptexd/codex.system/bootstrap/usr/bin"
         - "/var/run/com.apple.security.cryptexd/codex.system/bootstrap/usr/appleinternal/bin"
+        - "/opt/pmk/env/global/bin"
         - "/Library/Apple/usr/bin"
         - "/usr/local/go/bin"
         - "/opt/homebrew/bin"
-        - "/Users/sarootareerattanawetch/Library/Application Support/cloud-code/installer/google-cloud-sdk/bin"
         - "/opt/anaconda3/bin"
         - "/opt/anaconda3/condabin"
         - "/Library/Frameworks/Python.framework/Versions/3.12/bin"
-        - "/Users/sarootareerattanawetch/.cursor/extensions/ms-python.debugpy-2025.14.1-darwin-arm64/bundled/scripts/noConfigScripts"
   -
     kind: "find-v1"
     backtrace:
@@ -412,7 +394,6 @@ events:
       - "ranlib"
     candidate_directories:
       - "/usr/bin/"
-      - "/Users/sarootareerattanawetch/Library/Application Support/cloud-code/installer/google-cloud-sdk/bin/"
       - "/Library/Frameworks/Python.framework/Versions/3.12/bin/"
       - "/usr/local/bin/"
       - "/System/Cryptexes/App/usr/bin/"
@@ -422,16 +403,15 @@ events:
       - "/var/run/com.apple.security.cryptexd/codex.system/bootstrap/usr/local/bin/"
       - "/var/run/com.apple.security.cryptexd/codex.system/bootstrap/usr/bin/"
       - "/var/run/com.apple.security.cryptexd/codex.system/bootstrap/usr/appleinternal/bin/"
+      - "/opt/pmk/env/global/bin/"
       - "/Library/Apple/usr/bin/"
       - "/usr/local/go/bin/"
       - "/opt/homebrew/bin/"
       - "/opt/anaconda3/bin/"
       - "/opt/anaconda3/condabin/"
-      - "/Users/sarootareerattanawetch/.cursor/extensions/ms-python.debugpy-2025.14.1-darwin-arm64/bundled/scripts/noConfigScripts/"
     found: "/usr/bin/ranlib"
     search_context:
       ENV{PATH}:
-        - "/Users/sarootareerattanawetch/Library/Application Support/cloud-code/installer/google-cloud-sdk/bin"
         - "/Library/Frameworks/Python.framework/Versions/3.12/bin"
         - "/usr/local/bin"
         - "/System/Cryptexes/App/usr/bin"
@@ -442,14 +422,13 @@ events:
         - "/var/run/com.apple.security.cryptexd/codex.system/bootstrap/usr/local/bin"
         - "/var/run/com.apple.security.cryptexd/codex.system/bootstrap/usr/bin"
         - "/var/run/com.apple.security.cryptexd/codex.system/bootstrap/usr/appleinternal/bin"
+        - "/opt/pmk/env/global/bin"
         - "/Library/Apple/usr/bin"
         - "/usr/local/go/bin"
         - "/opt/homebrew/bin"
-        - "/Users/sarootareerattanawetch/Library/Application Support/cloud-code/installer/google-cloud-sdk/bin"
         - "/opt/anaconda3/bin"
         - "/opt/anaconda3/condabin"
         - "/Library/Frameworks/Python.framework/Versions/3.12/bin"
-        - "/Users/sarootareerattanawetch/.cursor/extensions/ms-python.debugpy-2025.14.1-darwin-arm64/bundled/scripts/noConfigScripts"
   -
     kind: "find-v1"
     backtrace:
@@ -471,7 +450,6 @@ events:
       - "strip"
     candidate_directories:
       - "/usr/bin/"
-      - "/Users/sarootareerattanawetch/Library/Application Support/cloud-code/installer/google-cloud-sdk/bin/"
       - "/Library/Frameworks/Python.framework/Versions/3.12/bin/"
       - "/usr/local/bin/"
       - "/System/Cryptexes/App/usr/bin/"
@@ -481,16 +459,15 @@ events:
       - "/var/run/com.apple.security.cryptexd/codex.system/bootstrap/usr/local/bin/"
       - "/var/run/com.apple.security.cryptexd/codex.system/bootstrap/usr/bin/"
       - "/var/run/com.apple.security.cryptexd/codex.system/bootstrap/usr/appleinternal/bin/"
+      - "/opt/pmk/env/global/bin/"
       - "/Library/Apple/usr/bin/"
       - "/usr/local/go/bin/"
       - "/opt/homebrew/bin/"
       - "/opt/anaconda3/bin/"
       - "/opt/anaconda3/condabin/"
-      - "/Users/sarootareerattanawetch/.cursor/extensions/ms-python.debugpy-2025.14.1-darwin-arm64/bundled/scripts/noConfigScripts/"
     found: "/usr/bin/strip"
     search_context:
       ENV{PATH}:
-        - "/Users/sarootareerattanawetch/Library/Application Support/cloud-code/installer/google-cloud-sdk/bin"
         - "/Library/Frameworks/Python.framework/Versions/3.12/bin"
         - "/usr/local/bin"
         - "/System/Cryptexes/App/usr/bin"
@@ -501,14 +478,13 @@ events:
         - "/var/run/com.apple.security.cryptexd/codex.system/bootstrap/usr/local/bin"
         - "/var/run/com.apple.security.cryptexd/codex.system/bootstrap/usr/bin"
         - "/var/run/com.apple.security.cryptexd/codex.system/bootstrap/usr/appleinternal/bin"
+        - "/opt/pmk/env/global/bin"
         - "/Library/Apple/usr/bin"
         - "/usr/local/go/bin"
         - "/opt/homebrew/bin"
-        - "/Users/sarootareerattanawetch/Library/Application Support/cloud-code/installer/google-cloud-sdk/bin"
         - "/opt/anaconda3/bin"
         - "/opt/anaconda3/condabin"
         - "/Library/Frameworks/Python.framework/Versions/3.12/bin"
-        - "/Users/sarootareerattanawetch/.cursor/extensions/ms-python.debugpy-2025.14.1-darwin-arm64/bundled/scripts/noConfigScripts"
   -
     kind: "find-v1"
     backtrace:
@@ -530,7 +506,6 @@ events:
       - "ld"
     candidate_directories:
       - "/usr/bin/"
-      - "/Users/sarootareerattanawetch/Library/Application Support/cloud-code/installer/google-cloud-sdk/bin/"
       - "/Library/Frameworks/Python.framework/Versions/3.12/bin/"
       - "/usr/local/bin/"
       - "/System/Cryptexes/App/usr/bin/"
@@ -540,16 +515,15 @@ events:
       - "/var/run/com.apple.security.cryptexd/codex.system/bootstrap/usr/local/bin/"
       - "/var/run/com.apple.security.cryptexd/codex.system/bootstrap/usr/bin/"
       - "/var/run/com.apple.security.cryptexd/codex.system/bootstrap/usr/appleinternal/bin/"
+      - "/opt/pmk/env/global/bin/"
       - "/Library/Apple/usr/bin/"
       - "/usr/local/go/bin/"
       - "/opt/homebrew/bin/"
       - "/opt/anaconda3/bin/"
       - "/opt/anaconda3/condabin/"
-      - "/Users/sarootareerattanawetch/.cursor/extensions/ms-python.debugpy-2025.14.1-darwin-arm64/bundled/scripts/noConfigScripts/"
     found: "/usr/bin/ld"
     search_context:
       ENV{PATH}:
-        - "/Users/sarootareerattanawetch/Library/Application Support/cloud-code/installer/google-cloud-sdk/bin"
         - "/Library/Frameworks/Python.framework/Versions/3.12/bin"
         - "/usr/local/bin"
         - "/System/Cryptexes/App/usr/bin"
@@ -560,14 +534,13 @@ events:
         - "/var/run/com.apple.security.cryptexd/codex.system/bootstrap/usr/local/bin"
         - "/var/run/com.apple.security.cryptexd/codex.system/bootstrap/usr/bin"
         - "/var/run/com.apple.security.cryptexd/codex.system/bootstrap/usr/appleinternal/bin"
+        - "/opt/pmk/env/global/bin"
         - "/Library/Apple/usr/bin"
         - "/usr/local/go/bin"
         - "/opt/homebrew/bin"
-        - "/Users/sarootareerattanawetch/Library/Application Support/cloud-code/installer/google-cloud-sdk/bin"
         - "/opt/anaconda3/bin"
         - "/opt/anaconda3/condabin"
         - "/Library/Frameworks/Python.framework/Versions/3.12/bin"
-        - "/Users/sarootareerattanawetch/.cursor/extensions/ms-python.debugpy-2025.14.1-darwin-arm64/bundled/scripts/noConfigScripts"
   -
     kind: "find-v1"
     backtrace:
@@ -589,7 +562,6 @@ events:
       - "nm"
     candidate_directories:
       - "/usr/bin/"
-      - "/Users/sarootareerattanawetch/Library/Application Support/cloud-code/installer/google-cloud-sdk/bin/"
       - "/Library/Frameworks/Python.framework/Versions/3.12/bin/"
       - "/usr/local/bin/"
       - "/System/Cryptexes/App/usr/bin/"
@@ -599,16 +571,15 @@ events:
       - "/var/run/com.apple.security.cryptexd/codex.system/bootstrap/usr/local/bin/"
       - "/var/run/com.apple.security.cryptexd/codex.system/bootstrap/usr/bin/"
       - "/var/run/com.apple.security.cryptexd/codex.system/bootstrap/usr/appleinternal/bin/"
+      - "/opt/pmk/env/global/bin/"
       - "/Library/Apple/usr/bin/"
       - "/usr/local/go/bin/"
       - "/opt/homebrew/bin/"
       - "/opt/anaconda3/bin/"
       - "/opt/anaconda3/condabin/"
-      - "/Users/sarootareerattanawetch/.cursor/extensions/ms-python.debugpy-2025.14.1-darwin-arm64/bundled/scripts/noConfigScripts/"
     found: "/usr/bin/nm"
     search_context:
       ENV{PATH}:
-        - "/Users/sarootareerattanawetch/Library/Application Support/cloud-code/installer/google-cloud-sdk/bin"
         - "/Library/Frameworks/Python.framework/Versions/3.12/bin"
         - "/usr/local/bin"
         - "/System/Cryptexes/App/usr/bin"
@@ -619,14 +590,13 @@ events:
         - "/var/run/com.apple.security.cryptexd/codex.system/bootstrap/usr/local/bin"
         - "/var/run/com.apple.security.cryptexd/codex.system/bootstrap/usr/bin"
         - "/var/run/com.apple.security.cryptexd/codex.system/bootstrap/usr/appleinternal/bin"
+        - "/opt/pmk/env/global/bin"
         - "/Library/Apple/usr/bin"
         - "/usr/local/go/bin"
         - "/opt/homebrew/bin"
-        - "/Users/sarootareerattanawetch/Library/Application Support/cloud-code/installer/google-cloud-sdk/bin"
         - "/opt/anaconda3/bin"
         - "/opt/anaconda3/condabin"
         - "/Library/Frameworks/Python.framework/Versions/3.12/bin"
-        - "/Users/sarootareerattanawetch/.cursor/extensions/ms-python.debugpy-2025.14.1-darwin-arm64/bundled/scripts/noConfigScripts"
   -
     kind: "find-v1"
     backtrace:
@@ -648,7 +618,6 @@ events:
       - "objdump"
     candidate_directories:
       - "/usr/bin/"
-      - "/Users/sarootareerattanawetch/Library/Application Support/cloud-code/installer/google-cloud-sdk/bin/"
       - "/Library/Frameworks/Python.framework/Versions/3.12/bin/"
       - "/usr/local/bin/"
       - "/System/Cryptexes/App/usr/bin/"
@@ -658,16 +627,15 @@ events:
       - "/var/run/com.apple.security.cryptexd/codex.system/bootstrap/usr/local/bin/"
       - "/var/run/com.apple.security.cryptexd/codex.system/bootstrap/usr/bin/"
       - "/var/run/com.apple.security.cryptexd/codex.system/bootstrap/usr/appleinternal/bin/"
+      - "/opt/pmk/env/global/bin/"
       - "/Library/Apple/usr/bin/"
       - "/usr/local/go/bin/"
       - "/opt/homebrew/bin/"
       - "/opt/anaconda3/bin/"
       - "/opt/anaconda3/condabin/"
-      - "/Users/sarootareerattanawetch/.cursor/extensions/ms-python.debugpy-2025.14.1-darwin-arm64/bundled/scripts/noConfigScripts/"
     found: "/usr/bin/objdump"
     search_context:
       ENV{PATH}:
-        - "/Users/sarootareerattanawetch/Library/Application Support/cloud-code/installer/google-cloud-sdk/bin"
         - "/Library/Frameworks/Python.framework/Versions/3.12/bin"
         - "/usr/local/bin"
         - "/System/Cryptexes/App/usr/bin"
@@ -678,14 +646,13 @@ events:
         - "/var/run/com.apple.security.cryptexd/codex.system/bootstrap/usr/local/bin"
         - "/var/run/com.apple.security.cryptexd/codex.system/bootstrap/usr/bin"
         - "/var/run/com.apple.security.cryptexd/codex.system/bootstrap/usr/appleinternal/bin"
+        - "/opt/pmk/env/global/bin"
         - "/Library/Apple/usr/bin"
         - "/usr/local/go/bin"
         - "/opt/homebrew/bin"
-        - "/Users/sarootareerattanawetch/Library/Application Support/cloud-code/installer/google-cloud-sdk/bin"
         - "/opt/anaconda3/bin"
         - "/opt/anaconda3/condabin"
         - "/Library/Frameworks/Python.framework/Versions/3.12/bin"
-        - "/Users/sarootareerattanawetch/.cursor/extensions/ms-python.debugpy-2025.14.1-darwin-arm64/bundled/scripts/noConfigScripts"
   -
     kind: "find-v1"
     backtrace:
@@ -707,7 +674,6 @@ events:
       - "objcopy"
     candidate_directories:
       - "/usr/bin/"
-      - "/Users/sarootareerattanawetch/Library/Application Support/cloud-code/installer/google-cloud-sdk/bin/"
       - "/Library/Frameworks/Python.framework/Versions/3.12/bin/"
       - "/usr/local/bin/"
       - "/System/Cryptexes/App/usr/bin/"
@@ -717,15 +683,14 @@ events:
       - "/var/run/com.apple.security.cryptexd/codex.system/bootstrap/usr/local/bin/"
       - "/var/run/com.apple.security.cryptexd/codex.system/bootstrap/usr/bin/"
       - "/var/run/com.apple.security.cryptexd/codex.system/bootstrap/usr/appleinternal/bin/"
+      - "/opt/pmk/env/global/bin/"
       - "/Library/Apple/usr/bin/"
       - "/usr/local/go/bin/"
       - "/opt/homebrew/bin/"
       - "/opt/anaconda3/bin/"
       - "/opt/anaconda3/condabin/"
-      - "/Users/sarootareerattanawetch/.cursor/extensions/ms-python.debugpy-2025.14.1-darwin-arm64/bundled/scripts/noConfigScripts/"
     searched_directories:
       - "/usr/bin/objcopy"
-      - "/Users/sarootareerattanawetch/Library/Application Support/cloud-code/installer/google-cloud-sdk/bin/objcopy"
       - "/Library/Frameworks/Python.framework/Versions/3.12/bin/objcopy"
       - "/usr/local/bin/objcopy"
       - "/System/Cryptexes/App/usr/bin/objcopy"
@@ -735,16 +700,15 @@ events:
       - "/var/run/com.apple.security.cryptexd/codex.system/bootstrap/usr/local/bin/objcopy"
       - "/var/run/com.apple.security.cryptexd/codex.system/bootstrap/usr/bin/objcopy"
       - "/var/run/com.apple.security.cryptexd/codex.system/bootstrap/usr/appleinternal/bin/objcopy"
+      - "/opt/pmk/env/global/bin/objcopy"
       - "/Library/Apple/usr/bin/objcopy"
       - "/usr/local/go/bin/objcopy"
       - "/opt/homebrew/bin/objcopy"
       - "/opt/anaconda3/bin/objcopy"
       - "/opt/anaconda3/condabin/objcopy"
-      - "/Users/sarootareerattanawetch/.cursor/extensions/ms-python.debugpy-2025.14.1-darwin-arm64/bundled/scripts/noConfigScripts/objcopy"
     found: false
     search_context:
       ENV{PATH}:
-        - "/Users/sarootareerattanawetch/Library/Application Support/cloud-code/installer/google-cloud-sdk/bin"
         - "/Library/Frameworks/Python.framework/Versions/3.12/bin"
         - "/usr/local/bin"
         - "/System/Cryptexes/App/usr/bin"
@@ -755,14 +719,13 @@ events:
         - "/var/run/com.apple.security.cryptexd/codex.system/bootstrap/usr/local/bin"
         - "/var/run/com.apple.security.cryptexd/codex.system/bootstrap/usr/bin"
         - "/var/run/com.apple.security.cryptexd/codex.system/bootstrap/usr/appleinternal/bin"
+        - "/opt/pmk/env/global/bin"
         - "/Library/Apple/usr/bin"
         - "/usr/local/go/bin"
         - "/opt/homebrew/bin"
-        - "/Users/sarootareerattanawetch/Library/Application Support/cloud-code/installer/google-cloud-sdk/bin"
         - "/opt/anaconda3/bin"
         - "/opt/anaconda3/condabin"
         - "/Library/Frameworks/Python.framework/Versions/3.12/bin"
-        - "/Users/sarootareerattanawetch/.cursor/extensions/ms-python.debugpy-2025.14.1-darwin-arm64/bundled/scripts/noConfigScripts"
   -
     kind: "find-v1"
     backtrace:
@@ -784,7 +747,6 @@ events:
       - "readelf"
     candidate_directories:
       - "/usr/bin/"
-      - "/Users/sarootareerattanawetch/Library/Application Support/cloud-code/installer/google-cloud-sdk/bin/"
       - "/Library/Frameworks/Python.framework/Versions/3.12/bin/"
       - "/usr/local/bin/"
       - "/System/Cryptexes/App/usr/bin/"
@@ -794,15 +756,14 @@ events:
       - "/var/run/com.apple.security.cryptexd/codex.system/bootstrap/usr/local/bin/"
       - "/var/run/com.apple.security.cryptexd/codex.system/bootstrap/usr/bin/"
       - "/var/run/com.apple.security.cryptexd/codex.system/bootstrap/usr/appleinternal/bin/"
+      - "/opt/pmk/env/global/bin/"
       - "/Library/Apple/usr/bin/"
       - "/usr/local/go/bin/"
       - "/opt/homebrew/bin/"
       - "/opt/anaconda3/bin/"
       - "/opt/anaconda3/condabin/"
-      - "/Users/sarootareerattanawetch/.cursor/extensions/ms-python.debugpy-2025.14.1-darwin-arm64/bundled/scripts/noConfigScripts/"
     searched_directories:
       - "/usr/bin/readelf"
-      - "/Users/sarootareerattanawetch/Library/Application Support/cloud-code/installer/google-cloud-sdk/bin/readelf"
       - "/Library/Frameworks/Python.framework/Versions/3.12/bin/readelf"
       - "/usr/local/bin/readelf"
       - "/System/Cryptexes/App/usr/bin/readelf"
@@ -812,16 +773,15 @@ events:
       - "/var/run/com.apple.security.cryptexd/codex.system/bootstrap/usr/local/bin/readelf"
       - "/var/run/com.apple.security.cryptexd/codex.system/bootstrap/usr/bin/readelf"
       - "/var/run/com.apple.security.cryptexd/codex.system/bootstrap/usr/appleinternal/bin/readelf"
+      - "/opt/pmk/env/global/bin/readelf"
       - "/Library/Apple/usr/bin/readelf"
       - "/usr/local/go/bin/readelf"
       - "/opt/homebrew/bin/readelf"
       - "/opt/anaconda3/bin/readelf"
       - "/opt/anaconda3/condabin/readelf"
-      - "/Users/sarootareerattanawetch/.cursor/extensions/ms-python.debugpy-2025.14.1-darwin-arm64/bundled/scripts/noConfigScripts/readelf"
     found: false
     search_context:
       ENV{PATH}:
-        - "/Users/sarootareerattanawetch/Library/Application Support/cloud-code/installer/google-cloud-sdk/bin"
         - "/Library/Frameworks/Python.framework/Versions/3.12/bin"
         - "/usr/local/bin"
         - "/System/Cryptexes/App/usr/bin"
@@ -832,14 +792,13 @@ events:
         - "/var/run/com.apple.security.cryptexd/codex.system/bootstrap/usr/local/bin"
         - "/var/run/com.apple.security.cryptexd/codex.system/bootstrap/usr/bin"
         - "/var/run/com.apple.security.cryptexd/codex.system/bootstrap/usr/appleinternal/bin"
+        - "/opt/pmk/env/global/bin"
         - "/Library/Apple/usr/bin"
         - "/usr/local/go/bin"
         - "/opt/homebrew/bin"
-        - "/Users/sarootareerattanawetch/Library/Application Support/cloud-code/installer/google-cloud-sdk/bin"
         - "/opt/anaconda3/bin"
         - "/opt/anaconda3/condabin"
         - "/Library/Frameworks/Python.framework/Versions/3.12/bin"
-        - "/Users/sarootareerattanawetch/.cursor/extensions/ms-python.debugpy-2025.14.1-darwin-arm64/bundled/scripts/noConfigScripts"
   -
     kind: "find-v1"
     backtrace:
@@ -861,7 +820,6 @@ events:
       - "dlltool"
     candidate_directories:
       - "/usr/bin/"
-      - "/Users/sarootareerattanawetch/Library/Application Support/cloud-code/installer/google-cloud-sdk/bin/"
       - "/Library/Frameworks/Python.framework/Versions/3.12/bin/"
       - "/usr/local/bin/"
       - "/System/Cryptexes/App/usr/bin/"
@@ -871,15 +829,14 @@ events:
       - "/var/run/com.apple.security.cryptexd/codex.system/bootstrap/usr/local/bin/"
       - "/var/run/com.apple.security.cryptexd/codex.system/bootstrap/usr/bin/"
       - "/var/run/com.apple.security.cryptexd/codex.system/bootstrap/usr/appleinternal/bin/"
+      - "/opt/pmk/env/global/bin/"
       - "/Library/Apple/usr/bin/"
       - "/usr/local/go/bin/"
       - "/opt/homebrew/bin/"
       - "/opt/anaconda3/bin/"
       - "/opt/anaconda3/condabin/"
-      - "/Users/sarootareerattanawetch/.cursor/extensions/ms-python.debugpy-2025.14.1-darwin-arm64/bundled/scripts/noConfigScripts/"
     searched_directories:
       - "/usr/bin/dlltool"
-      - "/Users/sarootareerattanawetch/Library/Application Support/cloud-code/installer/google-cloud-sdk/bin/dlltool"
       - "/Library/Frameworks/Python.framework/Versions/3.12/bin/dlltool"
       - "/usr/local/bin/dlltool"
       - "/System/Cryptexes/App/usr/bin/dlltool"
@@ -889,16 +846,15 @@ events:
       - "/var/run/com.apple.security.cryptexd/codex.system/bootstrap/usr/local/bin/dlltool"
       - "/var/run/com.apple.security.cryptexd/codex.system/bootstrap/usr/bin/dlltool"
       - "/var/run/com.apple.security.cryptexd/codex.system/bootstrap/usr/appleinternal/bin/dlltool"
+      - "/opt/pmk/env/global/bin/dlltool"
       - "/Library/Apple/usr/bin/dlltool"
       - "/usr/local/go/bin/dlltool"
       - "/opt/homebrew/bin/dlltool"
       - "/opt/anaconda3/bin/dlltool"
       - "/opt/anaconda3/condabin/dlltool"
-      - "/Users/sarootareerattanawetch/.cursor/extensions/ms-python.debugpy-2025.14.1-darwin-arm64/bundled/scripts/noConfigScripts/dlltool"
     found: false
     search_context:
       ENV{PATH}:
-        - "/Users/sarootareerattanawetch/Library/Application Support/cloud-code/installer/google-cloud-sdk/bin"
         - "/Library/Frameworks/Python.framework/Versions/3.12/bin"
         - "/usr/local/bin"
         - "/System/Cryptexes/App/usr/bin"
@@ -909,14 +865,13 @@ events:
         - "/var/run/com.apple.security.cryptexd/codex.system/bootstrap/usr/local/bin"
         - "/var/run/com.apple.security.cryptexd/codex.system/bootstrap/usr/bin"
         - "/var/run/com.apple.security.cryptexd/codex.system/bootstrap/usr/appleinternal/bin"
+        - "/opt/pmk/env/global/bin"
         - "/Library/Apple/usr/bin"
         - "/usr/local/go/bin"
         - "/opt/homebrew/bin"
-        - "/Users/sarootareerattanawetch/Library/Application Support/cloud-code/installer/google-cloud-sdk/bin"
         - "/opt/anaconda3/bin"
         - "/opt/anaconda3/condabin"
         - "/Library/Frameworks/Python.framework/Versions/3.12/bin"
-        - "/Users/sarootareerattanawetch/.cursor/extensions/ms-python.debugpy-2025.14.1-darwin-arm64/bundled/scripts/noConfigScripts"
   -
     kind: "find-v1"
     backtrace:
@@ -938,7 +893,6 @@ events:
       - "addr2line"
     candidate_directories:
       - "/usr/bin/"
-      - "/Users/sarootareerattanawetch/Library/Application Support/cloud-code/installer/google-cloud-sdk/bin/"
       - "/Library/Frameworks/Python.framework/Versions/3.12/bin/"
       - "/usr/local/bin/"
       - "/System/Cryptexes/App/usr/bin/"
@@ -948,15 +902,14 @@ events:
       - "/var/run/com.apple.security.cryptexd/codex.system/bootstrap/usr/local/bin/"
       - "/var/run/com.apple.security.cryptexd/codex.system/bootstrap/usr/bin/"
       - "/var/run/com.apple.security.cryptexd/codex.system/bootstrap/usr/appleinternal/bin/"
+      - "/opt/pmk/env/global/bin/"
       - "/Library/Apple/usr/bin/"
       - "/usr/local/go/bin/"
       - "/opt/homebrew/bin/"
       - "/opt/anaconda3/bin/"
       - "/opt/anaconda3/condabin/"
-      - "/Users/sarootareerattanawetch/.cursor/extensions/ms-python.debugpy-2025.14.1-darwin-arm64/bundled/scripts/noConfigScripts/"
     searched_directories:
       - "/usr/bin/addr2line"
-      - "/Users/sarootareerattanawetch/Library/Application Support/cloud-code/installer/google-cloud-sdk/bin/addr2line"
       - "/Library/Frameworks/Python.framework/Versions/3.12/bin/addr2line"
       - "/usr/local/bin/addr2line"
       - "/System/Cryptexes/App/usr/bin/addr2line"
@@ -966,16 +919,15 @@ events:
       - "/var/run/com.apple.security.cryptexd/codex.system/bootstrap/usr/local/bin/addr2line"
       - "/var/run/com.apple.security.cryptexd/codex.system/bootstrap/usr/bin/addr2line"
       - "/var/run/com.apple.security.cryptexd/codex.system/bootstrap/usr/appleinternal/bin/addr2line"
+      - "/opt/pmk/env/global/bin/addr2line"
       - "/Library/Apple/usr/bin/addr2line"
       - "/usr/local/go/bin/addr2line"
       - "/opt/homebrew/bin/addr2line"
       - "/opt/anaconda3/bin/addr2line"
       - "/opt/anaconda3/condabin/addr2line"
-      - "/Users/sarootareerattanawetch/.cursor/extensions/ms-python.debugpy-2025.14.1-darwin-arm64/bundled/scripts/noConfigScripts/addr2line"
     found: false
     search_context:
       ENV{PATH}:
-        - "/Users/sarootareerattanawetch/Library/Application Support/cloud-code/installer/google-cloud-sdk/bin"
         - "/Library/Frameworks/Python.framework/Versions/3.12/bin"
         - "/usr/local/bin"
         - "/System/Cryptexes/App/usr/bin"
@@ -986,14 +938,13 @@ events:
         - "/var/run/com.apple.security.cryptexd/codex.system/bootstrap/usr/local/bin"
         - "/var/run/com.apple.security.cryptexd/codex.system/bootstrap/usr/bin"
         - "/var/run/com.apple.security.cryptexd/codex.system/bootstrap/usr/appleinternal/bin"
+        - "/opt/pmk/env/global/bin"
         - "/Library/Apple/usr/bin"
         - "/usr/local/go/bin"
         - "/opt/homebrew/bin"
-        - "/Users/sarootareerattanawetch/Library/Application Support/cloud-code/installer/google-cloud-sdk/bin"
         - "/opt/anaconda3/bin"
         - "/opt/anaconda3/condabin"
         - "/Library/Frameworks/Python.framework/Versions/3.12/bin"
-        - "/Users/sarootareerattanawetch/.cursor/extensions/ms-python.debugpy-2025.14.1-darwin-arm64/bundled/scripts/noConfigScripts"
   -
     kind: "find-v1"
     backtrace:
@@ -1015,7 +966,6 @@ events:
       - "tapi"
     candidate_directories:
       - "/usr/bin/"
-      - "/Users/sarootareerattanawetch/Library/Application Support/cloud-code/installer/google-cloud-sdk/bin/"
       - "/Library/Frameworks/Python.framework/Versions/3.12/bin/"
       - "/usr/local/bin/"
       - "/System/Cryptexes/App/usr/bin/"
@@ -1025,15 +975,14 @@ events:
       - "/var/run/com.apple.security.cryptexd/codex.system/bootstrap/usr/local/bin/"
       - "/var/run/com.apple.security.cryptexd/codex.system/bootstrap/usr/bin/"
       - "/var/run/com.apple.security.cryptexd/codex.system/bootstrap/usr/appleinternal/bin/"
+      - "/opt/pmk/env/global/bin/"
       - "/Library/Apple/usr/bin/"
       - "/usr/local/go/bin/"
       - "/opt/homebrew/bin/"
       - "/opt/anaconda3/bin/"
       - "/opt/anaconda3/condabin/"
-      - "/Users/sarootareerattanawetch/.cursor/extensions/ms-python.debugpy-2025.14.1-darwin-arm64/bundled/scripts/noConfigScripts/"
     searched_directories:
       - "/usr/bin/tapi"
-      - "/Users/sarootareerattanawetch/Library/Application Support/cloud-code/installer/google-cloud-sdk/bin/tapi"
       - "/Library/Frameworks/Python.framework/Versions/3.12/bin/tapi"
       - "/usr/local/bin/tapi"
       - "/System/Cryptexes/App/usr/bin/tapi"
@@ -1043,16 +992,15 @@ events:
       - "/var/run/com.apple.security.cryptexd/codex.system/bootstrap/usr/local/bin/tapi"
       - "/var/run/com.apple.security.cryptexd/codex.system/bootstrap/usr/bin/tapi"
       - "/var/run/com.apple.security.cryptexd/codex.system/bootstrap/usr/appleinternal/bin/tapi"
+      - "/opt/pmk/env/global/bin/tapi"
       - "/Library/Apple/usr/bin/tapi"
       - "/usr/local/go/bin/tapi"
       - "/opt/homebrew/bin/tapi"
       - "/opt/anaconda3/bin/tapi"
       - "/opt/anaconda3/condabin/tapi"
-      - "/Users/sarootareerattanawetch/.cursor/extensions/ms-python.debugpy-2025.14.1-darwin-arm64/bundled/scripts/noConfigScripts/tapi"
     found: false
     search_context:
       ENV{PATH}:
-        - "/Users/sarootareerattanawetch/Library/Application Support/cloud-code/installer/google-cloud-sdk/bin"
         - "/Library/Frameworks/Python.framework/Versions/3.12/bin"
         - "/usr/local/bin"
         - "/System/Cryptexes/App/usr/bin"
@@ -1063,14 +1011,13 @@ events:
         - "/var/run/com.apple.security.cryptexd/codex.system/bootstrap/usr/local/bin"
         - "/var/run/com.apple.security.cryptexd/codex.system/bootstrap/usr/bin"
         - "/var/run/com.apple.security.cryptexd/codex.system/bootstrap/usr/appleinternal/bin"
+        - "/opt/pmk/env/global/bin"
         - "/Library/Apple/usr/bin"
         - "/usr/local/go/bin"
         - "/opt/homebrew/bin"
-        - "/Users/sarootareerattanawetch/Library/Application Support/cloud-code/installer/google-cloud-sdk/bin"
         - "/opt/anaconda3/bin"
         - "/opt/anaconda3/condabin"
         - "/Library/Frameworks/Python.framework/Versions/3.12/bin"
-        - "/Users/sarootareerattanawetch/.cursor/extensions/ms-python.debugpy-2025.14.1-darwin-arm64/bundled/scripts/noConfigScripts"
   -
     kind: "find-v1"
     backtrace:
@@ -1101,7 +1048,6 @@ events:
     found: "/usr/bin/c++"
     search_context:
       ENV{PATH}:
-        - "/Users/sarootareerattanawetch/Library/Application Support/cloud-code/installer/google-cloud-sdk/bin"
         - "/Library/Frameworks/Python.framework/Versions/3.12/bin"
         - "/usr/local/bin"
         - "/System/Cryptexes/App/usr/bin"
@@ -1112,14 +1058,13 @@ events:
         - "/var/run/com.apple.security.cryptexd/codex.system/bootstrap/usr/local/bin"
         - "/var/run/com.apple.security.cryptexd/codex.system/bootstrap/usr/bin"
         - "/var/run/com.apple.security.cryptexd/codex.system/bootstrap/usr/appleinternal/bin"
+        - "/opt/pmk/env/global/bin"
         - "/Library/Apple/usr/bin"
         - "/usr/local/go/bin"
         - "/opt/homebrew/bin"
-        - "/Users/sarootareerattanawetch/Library/Application Support/cloud-code/installer/google-cloud-sdk/bin"
         - "/opt/anaconda3/bin"
         - "/opt/anaconda3/condabin"
         - "/Library/Frameworks/Python.framework/Versions/3.12/bin"
-        - "/Users/sarootareerattanawetch/.cursor/extensions/ms-python.debugpy-2025.14.1-darwin-arm64/bundled/scripts/noConfigScripts"
   -
     kind: "find-v1"
     backtrace:
@@ -1147,7 +1092,6 @@ events:
     found: "/usr/local/share/cmake/Modules/CMakeCXXCompilerId.cpp.in"
     search_context:
       ENV{PATH}:
-        - "/Users/sarootareerattanawetch/Library/Application Support/cloud-code/installer/google-cloud-sdk/bin"
         - "/Library/Frameworks/Python.framework/Versions/3.12/bin"
         - "/usr/local/bin"
         - "/System/Cryptexes/App/usr/bin"
@@ -1158,14 +1102,13 @@ events:
         - "/var/run/com.apple.security.cryptexd/codex.system/bootstrap/usr/local/bin"
         - "/var/run/com.apple.security.cryptexd/codex.system/bootstrap/usr/bin"
         - "/var/run/com.apple.security.cryptexd/codex.system/bootstrap/usr/appleinternal/bin"
+        - "/opt/pmk/env/global/bin"
         - "/Library/Apple/usr/bin"
         - "/usr/local/go/bin"
         - "/opt/homebrew/bin"
-        - "/Users/sarootareerattanawetch/Library/Application Support/cloud-code/installer/google-cloud-sdk/bin"
         - "/opt/anaconda3/bin"
         - "/opt/anaconda3/condabin"
         - "/Library/Frameworks/Python.framework/Versions/3.12/bin"
-        - "/Users/sarootareerattanawetch/.cursor/extensions/ms-python.debugpy-2025.14.1-darwin-arm64/bundled/scripts/noConfigScripts"
   -
     kind: "message-v1"
     backtrace:
@@ -1249,7 +1192,6 @@ events:
     names:
       - "install_name_tool"
     candidate_directories:
-      - "/Users/sarootareerattanawetch/Library/Application Support/cloud-code/installer/google-cloud-sdk/bin/"
       - "/Library/Frameworks/Python.framework/Versions/3.12/bin/"
       - "/usr/local/bin/"
       - "/System/Cryptexes/App/usr/bin/"
@@ -1260,21 +1202,19 @@ events:
       - "/var/run/com.apple.security.cryptexd/codex.system/bootstrap/usr/local/bin/"
       - "/var/run/com.apple.security.cryptexd/codex.system/bootstrap/usr/bin/"
       - "/var/run/com.apple.security.cryptexd/codex.system/bootstrap/usr/appleinternal/bin/"
+      - "/opt/pmk/env/global/bin/"
       - "/Library/Apple/usr/bin/"
       - "/usr/local/go/bin/"
       - "/opt/homebrew/bin/"
       - "/opt/anaconda3/bin/"
       - "/opt/anaconda3/condabin/"
-      - "/Users/sarootareerattanawetch/.cursor/extensions/ms-python.debugpy-2025.14.1-darwin-arm64/bundled/scripts/noConfigScripts/"
     searched_directories:
-      - "/Users/sarootareerattanawetch/Library/Application Support/cloud-code/installer/google-cloud-sdk/bin/install_name_tool"
       - "/Library/Frameworks/Python.framework/Versions/3.12/bin/install_name_tool"
       - "/usr/local/bin/install_name_tool"
       - "/System/Cryptexes/App/usr/bin/install_name_tool"
     found: "/usr/bin/install_name_tool"
     search_context:
       ENV{PATH}:
-        - "/Users/sarootareerattanawetch/Library/Application Support/cloud-code/installer/google-cloud-sdk/bin"
         - "/Library/Frameworks/Python.framework/Versions/3.12/bin"
         - "/usr/local/bin"
         - "/System/Cryptexes/App/usr/bin"
@@ -1285,14 +1225,13 @@ events:
         - "/var/run/com.apple.security.cryptexd/codex.system/bootstrap/usr/local/bin"
         - "/var/run/com.apple.security.cryptexd/codex.system/bootstrap/usr/bin"
         - "/var/run/com.apple.security.cryptexd/codex.system/bootstrap/usr/appleinternal/bin"
+        - "/opt/pmk/env/global/bin"
         - "/Library/Apple/usr/bin"
         - "/usr/local/go/bin"
         - "/opt/homebrew/bin"
-        - "/Users/sarootareerattanawetch/Library/Application Support/cloud-code/installer/google-cloud-sdk/bin"
         - "/opt/anaconda3/bin"
         - "/opt/anaconda3/condabin"
         - "/Library/Frameworks/Python.framework/Versions/3.12/bin"
-        - "/Users/sarootareerattanawetch/.cursor/extensions/ms-python.debugpy-2025.14.1-darwin-arm64/bundled/scripts/noConfigScripts"
       CMAKE_INSTALL_PREFIX: "/usr/local"
   -
     kind: "try_compile-v1"
@@ -1303,8 +1242,8 @@ events:
     checks:
       - "Detecting C compiler ABI info"
     directories:
-      source: "/Users/sarootareerattanawetch/OpenGL/GameEngProject-Palbomb-2.0-/build/CMakeFiles/CMakeScratch/TryCompile-qhuD5W"
-      binary: "/Users/sarootareerattanawetch/OpenGL/GameEngProject-Palbomb-2.0-/build/CMakeFiles/CMakeScratch/TryCompile-qhuD5W"
+      source: "/Users/sarootareerattanawetch/OpenGL/GameEngProject-Palbomb-2.0-/build/CMakeFiles/CMakeScratch/TryCompile-C88mWO"
+      binary: "/Users/sarootareerattanawetch/OpenGL/GameEngProject-Palbomb-2.0-/build/CMakeFiles/CMakeScratch/TryCompile-C88mWO"
     cmakeVariables:
       CMAKE_C_FLAGS: ""
       CMAKE_C_FLAGS_DEBUG: "-g"
@@ -1316,19 +1255,19 @@ events:
       variable: "CMAKE_C_ABI_COMPILED"
       cached: true
       stdout: |
-        Change Dir: '/Users/sarootareerattanawetch/OpenGL/GameEngProject-Palbomb-2.0-/build/CMakeFiles/CMakeScratch/TryCompile-qhuD5W'
+        Change Dir: '/Users/sarootareerattanawetch/OpenGL/GameEngProject-Palbomb-2.0-/build/CMakeFiles/CMakeScratch/TryCompile-C88mWO'
         
-        Run Build Command(s): /usr/local/bin/cmake -E env VERBOSE=1 /usr/bin/make -f Makefile cmTC_d9b88/fast
-        /Applications/Xcode.app/Contents/Developer/usr/bin/make  -f CMakeFiles/cmTC_d9b88.dir/build.make CMakeFiles/cmTC_d9b88.dir/build
-        Building C object CMakeFiles/cmTC_d9b88.dir/CMakeCCompilerABI.c.o
-        /usr/bin/cc   -arch x86_64   -v -Wl,-v -MD -MT CMakeFiles/cmTC_d9b88.dir/CMakeCCompilerABI.c.o -MF CMakeFiles/cmTC_d9b88.dir/CMakeCCompilerABI.c.o.d -o CMakeFiles/cmTC_d9b88.dir/CMakeCCompilerABI.c.o -c /usr/local/share/cmake/Modules/CMakeCCompilerABI.c
+        Run Build Command(s): /usr/local/bin/cmake -E env VERBOSE=1 /usr/bin/make -f Makefile cmTC_53b20/fast
+        /Applications/Xcode.app/Contents/Developer/usr/bin/make  -f CMakeFiles/cmTC_53b20.dir/build.make CMakeFiles/cmTC_53b20.dir/build
+        Building C object CMakeFiles/cmTC_53b20.dir/CMakeCCompilerABI.c.o
+        /usr/bin/cc   -arch x86_64   -v -Wl,-v -MD -MT CMakeFiles/cmTC_53b20.dir/CMakeCCompilerABI.c.o -MF CMakeFiles/cmTC_53b20.dir/CMakeCCompilerABI.c.o.d -o CMakeFiles/cmTC_53b20.dir/CMakeCCompilerABI.c.o -c /usr/local/share/cmake/Modules/CMakeCCompilerABI.c
         Apple clang version 17.0.0 (clang-1700.4.4.1)
-        Target: x86_64-apple-darwin25.0.0
+        Target: x86_64-apple-darwin25.1.0
         Thread model: posix
         InstalledDir: /Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin
         clang: warning: -Wl,-v: 'linker' input unused [-Wunused-command-line-argument]
-         "/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/clang" -cc1 -triple x86_64-apple-macosx26.0.0 -Wundef-prefix=TARGET_OS_ -Wdeprecated-objc-isa-usage -Werror=deprecated-objc-isa-usage -Werror=implicit-function-declaration -emit-obj -disable-free -clear-ast-before-backend -disable-llvm-verifier -discard-value-names -main-file-name CMakeCCompilerABI.c -mrelocation-model pic -pic-level 2 -mframe-pointer=all -fno-strict-return -ffp-contract=on -fno-rounding-math -funwind-tables=2 -target-sdk-version=26.1 -fvisibility-inlines-hidden-static-local-var -fdefine-target-os-macros -fno-assume-unique-vtables -fno-modulemap-allow-subdirectory-search -target-cpu penryn -tune-cpu generic -debugger-tuning=lldb -fdebug-compilation-dir=/Users/sarootareerattanawetch/OpenGL/GameEngProject-Palbomb-2.0-/build/CMakeFiles/CMakeScratch/TryCompile-qhuD5W -target-linker-version 1230.1 -v -fcoverage-compilation-dir=/Users/sarootareerattanawetch/OpenGL/GameEngProject-Palbomb-2.0-/build/CMakeFiles/CMakeScratch/TryCompile-qhuD5W -resource-dir /Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/lib/clang/17 -dependency-file CMakeFiles/cmTC_d9b88.dir/CMakeCCompilerABI.c.o.d -skip-unused-modulemap-deps -MT CMakeFiles/cmTC_d9b88.dir/CMakeCCompilerABI.c.o -sys-header-deps -isysroot /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk -I/usr/local/include -internal-isystem /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk/usr/local/include -internal-isystem /Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/lib/clang/17/include -internal-externc-isystem /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk/usr/include -internal-externc-isystem /Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/include -internal-iframework /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk/System/Library/Frameworks -internal-iframework /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk/System/Library/SubFrameworks -internal-iframework /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk/Library/Frameworks -Wno-reorder-init-list -Wno-implicit-int-float-conversion -Wno-c99-designator -Wno-final-dtor-non-final-class -Wno-extra-semi-stmt -Wno-misleading-indentation -Wno-quoted-include-in-framework-header -Wno-implicit-fallthrough -Wno-enum-enum-conversion -Wno-enum-float-conversion -Wno-elaborated-enum-base -ferror-limit 19 -stack-protector 1 -fstack-check -mdarwin-stkchk-strong-link -fblocks -fencode-extended-block-signature -fregister-global-dtors-with-atexit -fgnuc-version=4.2.1 -fskip-odr-check-in-gmf -fmax-type-align=16 -fcommon -clang-vendor-feature=+disableNonDependentMemberExprInCurrentInstantiation -fno-odr-hash-protocols -clang-vendor-feature=+enableAggressiveVLAFolding -clang-vendor-feature=+revert09abecef7bbf -clang-vendor-feature=+thisNoAlignAttr -clang-vendor-feature=+thisNoNullAttr -clang-vendor-feature=+disableAtImportPrivateFrameworkInImplementationError -D__GCC_HAVE_DWARF2_CFI_ASM=1 -o CMakeFiles/cmTC_d9b88.dir/CMakeCCompilerABI.c.o -x c /usr/local/share/cmake/Modules/CMakeCCompilerABI.c
-        clang -cc1 version 17.0.0 (clang-1700.4.4.1) default target x86_64-apple-darwin25.0.0
+         "/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/clang" -cc1 -triple x86_64-apple-macosx26.0.0 -Wundef-prefix=TARGET_OS_ -Wdeprecated-objc-isa-usage -Werror=deprecated-objc-isa-usage -Werror=implicit-function-declaration -emit-obj -disable-free -clear-ast-before-backend -disable-llvm-verifier -discard-value-names -main-file-name CMakeCCompilerABI.c -mrelocation-model pic -pic-level 2 -mframe-pointer=all -fno-strict-return -ffp-contract=on -fno-rounding-math -funwind-tables=2 -target-sdk-version=26.1 -fvisibility-inlines-hidden-static-local-var -fdefine-target-os-macros -fno-assume-unique-vtables -fno-modulemap-allow-subdirectory-search -target-cpu penryn -tune-cpu generic -debugger-tuning=lldb -fdebug-compilation-dir=/Users/sarootareerattanawetch/OpenGL/GameEngProject-Palbomb-2.0-/build/CMakeFiles/CMakeScratch/TryCompile-C88mWO -target-linker-version 1230.1 -v -fcoverage-compilation-dir=/Users/sarootareerattanawetch/OpenGL/GameEngProject-Palbomb-2.0-/build/CMakeFiles/CMakeScratch/TryCompile-C88mWO -resource-dir /Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/lib/clang/17 -dependency-file CMakeFiles/cmTC_53b20.dir/CMakeCCompilerABI.c.o.d -skip-unused-modulemap-deps -MT CMakeFiles/cmTC_53b20.dir/CMakeCCompilerABI.c.o -sys-header-deps -isysroot /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk -I/usr/local/include -internal-isystem /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk/usr/local/include -internal-isystem /Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/lib/clang/17/include -internal-externc-isystem /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk/usr/include -internal-externc-isystem /Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/include -internal-iframework /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk/System/Library/Frameworks -internal-iframework /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk/System/Library/SubFrameworks -internal-iframework /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk/Library/Frameworks -Wno-reorder-init-list -Wno-implicit-int-float-conversion -Wno-c99-designator -Wno-final-dtor-non-final-class -Wno-extra-semi-stmt -Wno-misleading-indentation -Wno-quoted-include-in-framework-header -Wno-implicit-fallthrough -Wno-enum-enum-conversion -Wno-enum-float-conversion -Wno-elaborated-enum-base -ferror-limit 19 -stack-protector 1 -fstack-check -mdarwin-stkchk-strong-link -fblocks -fencode-extended-block-signature -fregister-global-dtors-with-atexit -fgnuc-version=4.2.1 -fskip-odr-check-in-gmf -fmax-type-align=16 -fcommon -clang-vendor-feature=+disableNonDependentMemberExprInCurrentInstantiation -fno-odr-hash-protocols -clang-vendor-feature=+enableAggressiveVLAFolding -clang-vendor-feature=+revert09abecef7bbf -clang-vendor-feature=+thisNoAlignAttr -clang-vendor-feature=+thisNoNullAttr -clang-vendor-feature=+disableAtImportPrivateFrameworkInImplementationError -D__GCC_HAVE_DWARF2_CFI_ASM=1 -o CMakeFiles/cmTC_53b20.dir/CMakeCCompilerABI.c.o -x c /usr/local/share/cmake/Modules/CMakeCCompilerABI.c
+        clang -cc1 version 17.0.0 (clang-1700.4.4.1) default target x86_64-apple-darwin25.1.0
         ignoring nonexistent directory "/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk/usr/local/include"
         ignoring nonexistent directory "/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk/Library/Frameworks"
         #include "..." search starts here:
@@ -1340,13 +1279,13 @@ events:
          /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk/System/Library/Frameworks (framework directory)
          /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk/System/Library/SubFrameworks (framework directory)
         End of search list.
-        Linking C executable cmTC_d9b88
-        /usr/local/bin/cmake -E cmake_link_script CMakeFiles/cmTC_d9b88.dir/link.txt --verbose=1
+        Linking C executable cmTC_53b20
+        /usr/local/bin/cmake -E cmake_link_script CMakeFiles/cmTC_53b20.dir/link.txt --verbose=1
         Apple clang version 17.0.0 (clang-1700.4.4.1)
-        Target: x86_64-apple-darwin25.0.0
+        Target: x86_64-apple-darwin25.1.0
         Thread model: posix
         InstalledDir: /Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin
-         "/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/ld" -demangle -lto_library /Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/lib/libLTO.dylib -dynamic -arch x86_64 -platform_version macos 26.0.0 26.1 -syslibroot /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk -mllvm -enable-linkonceodr-outlining -o cmTC_d9b88 -L/usr/local/lib -search_paths_first -headerpad_max_install_names -v CMakeFiles/cmTC_d9b88.dir/CMakeCCompilerABI.c.o -lSystem /Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/lib/clang/17/lib/darwin/libclang_rt.osx.a
+         "/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/ld" -demangle -lto_library /Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/lib/libLTO.dylib -dynamic -arch x86_64 -platform_version macos 26.0.0 26.1 -syslibroot /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk -mllvm -enable-linkonceodr-outlining -o cmTC_53b20 -L/usr/local/lib -search_paths_first -headerpad_max_install_names -v CMakeFiles/cmTC_53b20.dir/CMakeCCompilerABI.c.o -lSystem /Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/lib/clang/17/lib/darwin/libclang_rt.osx.a
         @(#)PROGRAM:ld PROJECT:ld-1230.1
         BUILD 16:17:14 Oct 17 2025
         configured to support archs: armv6 armv7 armv7s arm64 arm64e arm64_32 i386 x86_64 x86_64h armv6m armv7k armv7m armv7em armv8m.main armv8.1m.main
@@ -1359,7 +1298,7 @@ events:
         	/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk/usr/lib/swift
         Framework search paths:
         	/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk/System/Library/Frameworks
-        /usr/bin/cc  -arch x86_64 -Wl,-search_paths_first -Wl,-headerpad_max_install_names  -v -Wl,-v CMakeFiles/cmTC_d9b88.dir/CMakeCCompilerABI.c.o -o cmTC_d9b88
+        /usr/bin/cc  -arch x86_64 -Wl,-search_paths_first -Wl,-headerpad_max_install_names  -v -Wl,-v CMakeFiles/cmTC_53b20.dir/CMakeCCompilerABI.c.o -o cmTC_53b20
         
       exitCode: 0
   -
@@ -1403,19 +1342,19 @@ events:
       Parsed C implicit link information:
         link line regex: [^( *|.*[/\\])(ld[0-9]*(|\\.[a-rt-z][a-z]*|\\.s[a-np-z][a-z]*|\\.so[a-z]+)|CMAKE_LINK_STARTFILE-NOTFOUND|([^/\\]+-)?ld|collect2)[^/\\]*( |$)]
         linker tool regex: [^[ 	]*(->|")?[ 	]*(([^"]*[/\\])?(ld[0-9]*(|\\.[a-rt-z][a-z]*|\\.s[a-np-z][a-z]*|\\.so[a-z]+)))("|,| |$)]
-        ignore line: [Change Dir: '/Users/sarootareerattanawetch/OpenGL/GameEngProject-Palbomb-2.0-/build/CMakeFiles/CMakeScratch/TryCompile-qhuD5W']
+        ignore line: [Change Dir: '/Users/sarootareerattanawetch/OpenGL/GameEngProject-Palbomb-2.0-/build/CMakeFiles/CMakeScratch/TryCompile-C88mWO']
         ignore line: []
-        ignore line: [Run Build Command(s): /usr/local/bin/cmake -E env VERBOSE=1 /usr/bin/make -f Makefile cmTC_d9b88/fast]
-        ignore line: [/Applications/Xcode.app/Contents/Developer/usr/bin/make  -f CMakeFiles/cmTC_d9b88.dir/build.make CMakeFiles/cmTC_d9b88.dir/build]
-        ignore line: [Building C object CMakeFiles/cmTC_d9b88.dir/CMakeCCompilerABI.c.o]
-        ignore line: [/usr/bin/cc   -arch x86_64   -v -Wl -v -MD -MT CMakeFiles/cmTC_d9b88.dir/CMakeCCompilerABI.c.o -MF CMakeFiles/cmTC_d9b88.dir/CMakeCCompilerABI.c.o.d -o CMakeFiles/cmTC_d9b88.dir/CMakeCCompilerABI.c.o -c /usr/local/share/cmake/Modules/CMakeCCompilerABI.c]
+        ignore line: [Run Build Command(s): /usr/local/bin/cmake -E env VERBOSE=1 /usr/bin/make -f Makefile cmTC_53b20/fast]
+        ignore line: [/Applications/Xcode.app/Contents/Developer/usr/bin/make  -f CMakeFiles/cmTC_53b20.dir/build.make CMakeFiles/cmTC_53b20.dir/build]
+        ignore line: [Building C object CMakeFiles/cmTC_53b20.dir/CMakeCCompilerABI.c.o]
+        ignore line: [/usr/bin/cc   -arch x86_64   -v -Wl -v -MD -MT CMakeFiles/cmTC_53b20.dir/CMakeCCompilerABI.c.o -MF CMakeFiles/cmTC_53b20.dir/CMakeCCompilerABI.c.o.d -o CMakeFiles/cmTC_53b20.dir/CMakeCCompilerABI.c.o -c /usr/local/share/cmake/Modules/CMakeCCompilerABI.c]
         ignore line: [Apple clang version 17.0.0 (clang-1700.4.4.1)]
-        ignore line: [Target: x86_64-apple-darwin25.0.0]
+        ignore line: [Target: x86_64-apple-darwin25.1.0]
         ignore line: [Thread model: posix]
         ignore line: [InstalledDir: /Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin]
         ignore line: [clang: warning: -Wl -v: 'linker' input unused [-Wunused-command-line-argument]]
-        ignore line: [ "/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/clang" -cc1 -triple x86_64-apple-macosx26.0.0 -Wundef-prefix=TARGET_OS_ -Wdeprecated-objc-isa-usage -Werror=deprecated-objc-isa-usage -Werror=implicit-function-declaration -emit-obj -disable-free -clear-ast-before-backend -disable-llvm-verifier -discard-value-names -main-file-name CMakeCCompilerABI.c -mrelocation-model pic -pic-level 2 -mframe-pointer=all -fno-strict-return -ffp-contract=on -fno-rounding-math -funwind-tables=2 -target-sdk-version=26.1 -fvisibility-inlines-hidden-static-local-var -fdefine-target-os-macros -fno-assume-unique-vtables -fno-modulemap-allow-subdirectory-search -target-cpu penryn -tune-cpu generic -debugger-tuning=lldb -fdebug-compilation-dir=/Users/sarootareerattanawetch/OpenGL/GameEngProject-Palbomb-2.0-/build/CMakeFiles/CMakeScratch/TryCompile-qhuD5W -target-linker-version 1230.1 -v -fcoverage-compilation-dir=/Users/sarootareerattanawetch/OpenGL/GameEngProject-Palbomb-2.0-/build/CMakeFiles/CMakeScratch/TryCompile-qhuD5W -resource-dir /Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/lib/clang/17 -dependency-file CMakeFiles/cmTC_d9b88.dir/CMakeCCompilerABI.c.o.d -skip-unused-modulemap-deps -MT CMakeFiles/cmTC_d9b88.dir/CMakeCCompilerABI.c.o -sys-header-deps -isysroot /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk -I/usr/local/include -internal-isystem /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk/usr/local/include -internal-isystem /Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/lib/clang/17/include -internal-externc-isystem /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk/usr/include -internal-externc-isystem /Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/include -internal-iframework /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk/System/Library/Frameworks -internal-iframework /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk/System/Library/SubFrameworks -internal-iframework /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk/Library/Frameworks -Wno-reorder-init-list -Wno-implicit-int-float-conversion -Wno-c99-designator -Wno-final-dtor-non-final-class -Wno-extra-semi-stmt -Wno-misleading-indentation -Wno-quoted-include-in-framework-header -Wno-implicit-fallthrough -Wno-enum-enum-conversion -Wno-enum-float-conversion -Wno-elaborated-enum-base -ferror-limit 19 -stack-protector 1 -fstack-check -mdarwin-stkchk-strong-link -fblocks -fencode-extended-block-signature -fregister-global-dtors-with-atexit -fgnuc-version=4.2.1 -fskip-odr-check-in-gmf -fmax-type-align=16 -fcommon -clang-vendor-feature=+disableNonDependentMemberExprInCurrentInstantiation -fno-odr-hash-protocols -clang-vendor-feature=+enableAggressiveVLAFolding -clang-vendor-feature=+revert09abecef7bbf -clang-vendor-feature=+thisNoAlignAttr -clang-vendor-feature=+thisNoNullAttr -clang-vendor-feature=+disableAtImportPrivateFrameworkInImplementationError -D__GCC_HAVE_DWARF2_CFI_ASM=1 -o CMakeFiles/cmTC_d9b88.dir/CMakeCCompilerABI.c.o -x c /usr/local/share/cmake/Modules/CMakeCCompilerABI.c]
-        ignore line: [clang -cc1 version 17.0.0 (clang-1700.4.4.1) default target x86_64-apple-darwin25.0.0]
+        ignore line: [ "/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/clang" -cc1 -triple x86_64-apple-macosx26.0.0 -Wundef-prefix=TARGET_OS_ -Wdeprecated-objc-isa-usage -Werror=deprecated-objc-isa-usage -Werror=implicit-function-declaration -emit-obj -disable-free -clear-ast-before-backend -disable-llvm-verifier -discard-value-names -main-file-name CMakeCCompilerABI.c -mrelocation-model pic -pic-level 2 -mframe-pointer=all -fno-strict-return -ffp-contract=on -fno-rounding-math -funwind-tables=2 -target-sdk-version=26.1 -fvisibility-inlines-hidden-static-local-var -fdefine-target-os-macros -fno-assume-unique-vtables -fno-modulemap-allow-subdirectory-search -target-cpu penryn -tune-cpu generic -debugger-tuning=lldb -fdebug-compilation-dir=/Users/sarootareerattanawetch/OpenGL/GameEngProject-Palbomb-2.0-/build/CMakeFiles/CMakeScratch/TryCompile-C88mWO -target-linker-version 1230.1 -v -fcoverage-compilation-dir=/Users/sarootareerattanawetch/OpenGL/GameEngProject-Palbomb-2.0-/build/CMakeFiles/CMakeScratch/TryCompile-C88mWO -resource-dir /Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/lib/clang/17 -dependency-file CMakeFiles/cmTC_53b20.dir/CMakeCCompilerABI.c.o.d -skip-unused-modulemap-deps -MT CMakeFiles/cmTC_53b20.dir/CMakeCCompilerABI.c.o -sys-header-deps -isysroot /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk -I/usr/local/include -internal-isystem /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk/usr/local/include -internal-isystem /Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/lib/clang/17/include -internal-externc-isystem /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk/usr/include -internal-externc-isystem /Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/include -internal-iframework /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk/System/Library/Frameworks -internal-iframework /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk/System/Library/SubFrameworks -internal-iframework /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk/Library/Frameworks -Wno-reorder-init-list -Wno-implicit-int-float-conversion -Wno-c99-designator -Wno-final-dtor-non-final-class -Wno-extra-semi-stmt -Wno-misleading-indentation -Wno-quoted-include-in-framework-header -Wno-implicit-fallthrough -Wno-enum-enum-conversion -Wno-enum-float-conversion -Wno-elaborated-enum-base -ferror-limit 19 -stack-protector 1 -fstack-check -mdarwin-stkchk-strong-link -fblocks -fencode-extended-block-signature -fregister-global-dtors-with-atexit -fgnuc-version=4.2.1 -fskip-odr-check-in-gmf -fmax-type-align=16 -fcommon -clang-vendor-feature=+disableNonDependentMemberExprInCurrentInstantiation -fno-odr-hash-protocols -clang-vendor-feature=+enableAggressiveVLAFolding -clang-vendor-feature=+revert09abecef7bbf -clang-vendor-feature=+thisNoAlignAttr -clang-vendor-feature=+thisNoNullAttr -clang-vendor-feature=+disableAtImportPrivateFrameworkInImplementationError -D__GCC_HAVE_DWARF2_CFI_ASM=1 -o CMakeFiles/cmTC_53b20.dir/CMakeCCompilerABI.c.o -x c /usr/local/share/cmake/Modules/CMakeCCompilerABI.c]
+        ignore line: [clang -cc1 version 17.0.0 (clang-1700.4.4.1) default target x86_64-apple-darwin25.1.0]
         ignore line: [ignoring nonexistent directory "/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk/usr/local/include"]
         ignore line: [ignoring nonexistent directory "/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk/Library/Frameworks"]
         ignore line: [#include "..." search starts here:]
@@ -1427,13 +1366,13 @@ events:
         ignore line: [ /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk/System/Library/Frameworks (framework directory)]
         ignore line: [ /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk/System/Library/SubFrameworks (framework directory)]
         ignore line: [End of search list.]
-        ignore line: [Linking C executable cmTC_d9b88]
-        ignore line: [/usr/local/bin/cmake -E cmake_link_script CMakeFiles/cmTC_d9b88.dir/link.txt --verbose=1]
+        ignore line: [Linking C executable cmTC_53b20]
+        ignore line: [/usr/local/bin/cmake -E cmake_link_script CMakeFiles/cmTC_53b20.dir/link.txt --verbose=1]
         ignore line: [Apple clang version 17.0.0 (clang-1700.4.4.1)]
-        ignore line: [Target: x86_64-apple-darwin25.0.0]
+        ignore line: [Target: x86_64-apple-darwin25.1.0]
         ignore line: [Thread model: posix]
         ignore line: [InstalledDir: /Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin]
-        link line: [ "/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/ld" -demangle -lto_library /Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/lib/libLTO.dylib -dynamic -arch x86_64 -platform_version macos 26.0.0 26.1 -syslibroot /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk -mllvm -enable-linkonceodr-outlining -o cmTC_d9b88 -L/usr/local/lib -search_paths_first -headerpad_max_install_names -v CMakeFiles/cmTC_d9b88.dir/CMakeCCompilerABI.c.o -lSystem /Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/lib/clang/17/lib/darwin/libclang_rt.osx.a]
+        link line: [ "/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/ld" -demangle -lto_library /Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/lib/libLTO.dylib -dynamic -arch x86_64 -platform_version macos 26.0.0 26.1 -syslibroot /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk -mllvm -enable-linkonceodr-outlining -o cmTC_53b20 -L/usr/local/lib -search_paths_first -headerpad_max_install_names -v CMakeFiles/cmTC_53b20.dir/CMakeCCompilerABI.c.o -lSystem /Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/lib/clang/17/lib/darwin/libclang_rt.osx.a]
           arg [/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/ld] ==> ignore
           arg [-demangle] ==> ignore
           arg [-lto_library] ==> ignore, skip following value
@@ -1450,12 +1389,12 @@ events:
           arg [-mllvm] ==> ignore
           arg [-enable-linkonceodr-outlining] ==> ignore
           arg [-o] ==> ignore
-          arg [cmTC_d9b88] ==> ignore
+          arg [cmTC_53b20] ==> ignore
           arg [-L/usr/local/lib] ==> dir [/usr/local/lib]
           arg [-search_paths_first] ==> ignore
           arg [-headerpad_max_install_names] ==> ignore
           arg [-v] ==> ignore
-          arg [CMakeFiles/cmTC_d9b88.dir/CMakeCCompilerABI.c.o] ==> ignore
+          arg [CMakeFiles/cmTC_53b20.dir/CMakeCCompilerABI.c.o] ==> ignore
           arg [-lSystem] ==> lib [System]
           arg [/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/lib/clang/17/lib/darwin/libclang_rt.osx.a] ==> lib [/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/lib/clang/17/lib/darwin/libclang_rt.osx.a]
         linker tool for 'C': /Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/ld
@@ -1498,8 +1437,8 @@ events:
     checks:
       - "Detecting CXX compiler ABI info"
     directories:
-      source: "/Users/sarootareerattanawetch/OpenGL/GameEngProject-Palbomb-2.0-/build/CMakeFiles/CMakeScratch/TryCompile-mbccnr"
-      binary: "/Users/sarootareerattanawetch/OpenGL/GameEngProject-Palbomb-2.0-/build/CMakeFiles/CMakeScratch/TryCompile-mbccnr"
+      source: "/Users/sarootareerattanawetch/OpenGL/GameEngProject-Palbomb-2.0-/build/CMakeFiles/CMakeScratch/TryCompile-1mO1Qe"
+      binary: "/Users/sarootareerattanawetch/OpenGL/GameEngProject-Palbomb-2.0-/build/CMakeFiles/CMakeScratch/TryCompile-1mO1Qe"
     cmakeVariables:
       CMAKE_CXX_FLAGS: ""
       CMAKE_CXX_FLAGS_DEBUG: "-g"
@@ -1512,20 +1451,20 @@ events:
       variable: "CMAKE_CXX_ABI_COMPILED"
       cached: true
       stdout: |
-        Change Dir: '/Users/sarootareerattanawetch/OpenGL/GameEngProject-Palbomb-2.0-/build/CMakeFiles/CMakeScratch/TryCompile-mbccnr'
+        Change Dir: '/Users/sarootareerattanawetch/OpenGL/GameEngProject-Palbomb-2.0-/build/CMakeFiles/CMakeScratch/TryCompile-1mO1Qe'
         
-        Run Build Command(s): /usr/local/bin/cmake -E env VERBOSE=1 /usr/bin/make -f Makefile cmTC_efcaf/fast
-        /Applications/Xcode.app/Contents/Developer/usr/bin/make  -f CMakeFiles/cmTC_efcaf.dir/build.make CMakeFiles/cmTC_efcaf.dir/build
-        Building CXX object CMakeFiles/cmTC_efcaf.dir/CMakeCXXCompilerABI.cpp.o
-        /usr/bin/c++   -arch x86_64   -v -Wl,-v -MD -MT CMakeFiles/cmTC_efcaf.dir/CMakeCXXCompilerABI.cpp.o -MF CMakeFiles/cmTC_efcaf.dir/CMakeCXXCompilerABI.cpp.o.d -o CMakeFiles/cmTC_efcaf.dir/CMakeCXXCompilerABI.cpp.o -c /usr/local/share/cmake/Modules/CMakeCXXCompilerABI.cpp
+        Run Build Command(s): /usr/local/bin/cmake -E env VERBOSE=1 /usr/bin/make -f Makefile cmTC_26c90/fast
+        /Applications/Xcode.app/Contents/Developer/usr/bin/make  -f CMakeFiles/cmTC_26c90.dir/build.make CMakeFiles/cmTC_26c90.dir/build
+        Building CXX object CMakeFiles/cmTC_26c90.dir/CMakeCXXCompilerABI.cpp.o
+        /usr/bin/c++   -arch x86_64   -v -Wl,-v -MD -MT CMakeFiles/cmTC_26c90.dir/CMakeCXXCompilerABI.cpp.o -MF CMakeFiles/cmTC_26c90.dir/CMakeCXXCompilerABI.cpp.o.d -o CMakeFiles/cmTC_26c90.dir/CMakeCXXCompilerABI.cpp.o -c /usr/local/share/cmake/Modules/CMakeCXXCompilerABI.cpp
         Apple clang version 17.0.0 (clang-1700.4.4.1)
-        Target: x86_64-apple-darwin25.0.0
+        Target: x86_64-apple-darwin25.1.0
         Thread model: posix
         InstalledDir: /Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin
         clang++: warning: -Wl,-v: 'linker' input unused [-Wunused-command-line-argument]
         ignoring nonexistent directory "/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/../include/c++/v1"
-         "/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/clang" -cc1 -triple x86_64-apple-macosx26.0.0 -Wundef-prefix=TARGET_OS_ -Wdeprecated-objc-isa-usage -Werror=deprecated-objc-isa-usage -Werror=implicit-function-declaration -emit-obj -disable-free -clear-ast-before-backend -disable-llvm-verifier -discard-value-names -main-file-name CMakeCXXCompilerABI.cpp -mrelocation-model pic -pic-level 2 -mframe-pointer=all -fno-strict-return -ffp-contract=on -fno-rounding-math -funwind-tables=2 -target-sdk-version=26.1 -fvisibility-inlines-hidden-static-local-var -fdefine-target-os-macros -fno-assume-unique-vtables -fno-modulemap-allow-subdirectory-search -target-cpu penryn -tune-cpu generic -debugger-tuning=lldb -fdebug-compilation-dir=/Users/sarootareerattanawetch/OpenGL/GameEngProject-Palbomb-2.0-/build/CMakeFiles/CMakeScratch/TryCompile-mbccnr -target-linker-version 1230.1 -v -fcoverage-compilation-dir=/Users/sarootareerattanawetch/OpenGL/GameEngProject-Palbomb-2.0-/build/CMakeFiles/CMakeScratch/TryCompile-mbccnr -resource-dir /Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/lib/clang/17 -dependency-file CMakeFiles/cmTC_efcaf.dir/CMakeCXXCompilerABI.cpp.o.d -skip-unused-modulemap-deps -MT CMakeFiles/cmTC_efcaf.dir/CMakeCXXCompilerABI.cpp.o -sys-header-deps -isysroot /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk -I/usr/local/include -internal-isystem /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk/usr/include/c++/v1 -internal-isystem /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk/usr/local/include -internal-isystem /Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/lib/clang/17/include -internal-externc-isystem /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk/usr/include -internal-externc-isystem /Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/include -internal-iframework /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk/System/Library/Frameworks -internal-iframework /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk/System/Library/SubFrameworks -internal-iframework /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk/Library/Frameworks -Wno-reorder-init-list -Wno-implicit-int-float-conversion -Wno-c99-designator -Wno-final-dtor-non-final-class -Wno-extra-semi-stmt -Wno-misleading-indentation -Wno-quoted-include-in-framework-header -Wno-implicit-fallthrough -Wno-enum-enum-conversion -Wno-enum-float-conversion -Wno-elaborated-enum-base -fdeprecated-macro -ferror-limit 19 -stack-protector 1 -fstack-check -mdarwin-stkchk-strong-link -fblocks -fencode-extended-block-signature -fregister-global-dtors-with-atexit -fgnuc-version=4.2.1 -fno-cxx-modules -fskip-odr-check-in-gmf -fcxx-exceptions -fexceptions -fmax-type-align=16 -fcommon -clang-vendor-feature=+disableNonDependentMemberExprInCurrentInstantiation -fno-odr-hash-protocols -clang-vendor-feature=+enableAggressiveVLAFolding -clang-vendor-feature=+revert09abecef7bbf -clang-vendor-feature=+thisNoAlignAttr -clang-vendor-feature=+thisNoNullAttr -clang-vendor-feature=+disableAtImportPrivateFrameworkInImplementationError -D__GCC_HAVE_DWARF2_CFI_ASM=1 -o CMakeFiles/cmTC_efcaf.dir/CMakeCXXCompilerABI.cpp.o -x c++ /usr/local/share/cmake/Modules/CMakeCXXCompilerABI.cpp
-        clang -cc1 version 17.0.0 (clang-1700.4.4.1) default target x86_64-apple-darwin25.0.0
+         "/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/clang" -cc1 -triple x86_64-apple-macosx26.0.0 -Wundef-prefix=TARGET_OS_ -Wdeprecated-objc-isa-usage -Werror=deprecated-objc-isa-usage -Werror=implicit-function-declaration -emit-obj -disable-free -clear-ast-before-backend -disable-llvm-verifier -discard-value-names -main-file-name CMakeCXXCompilerABI.cpp -mrelocation-model pic -pic-level 2 -mframe-pointer=all -fno-strict-return -ffp-contract=on -fno-rounding-math -funwind-tables=2 -target-sdk-version=26.1 -fvisibility-inlines-hidden-static-local-var -fdefine-target-os-macros -fno-assume-unique-vtables -fno-modulemap-allow-subdirectory-search -target-cpu penryn -tune-cpu generic -debugger-tuning=lldb -fdebug-compilation-dir=/Users/sarootareerattanawetch/OpenGL/GameEngProject-Palbomb-2.0-/build/CMakeFiles/CMakeScratch/TryCompile-1mO1Qe -target-linker-version 1230.1 -v -fcoverage-compilation-dir=/Users/sarootareerattanawetch/OpenGL/GameEngProject-Palbomb-2.0-/build/CMakeFiles/CMakeScratch/TryCompile-1mO1Qe -resource-dir /Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/lib/clang/17 -dependency-file CMakeFiles/cmTC_26c90.dir/CMakeCXXCompilerABI.cpp.o.d -skip-unused-modulemap-deps -MT CMakeFiles/cmTC_26c90.dir/CMakeCXXCompilerABI.cpp.o -sys-header-deps -isysroot /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk -I/usr/local/include -internal-isystem /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk/usr/include/c++/v1 -internal-isystem /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk/usr/local/include -internal-isystem /Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/lib/clang/17/include -internal-externc-isystem /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk/usr/include -internal-externc-isystem /Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/include -internal-iframework /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk/System/Library/Frameworks -internal-iframework /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk/System/Library/SubFrameworks -internal-iframework /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk/Library/Frameworks -Wno-reorder-init-list -Wno-implicit-int-float-conversion -Wno-c99-designator -Wno-final-dtor-non-final-class -Wno-extra-semi-stmt -Wno-misleading-indentation -Wno-quoted-include-in-framework-header -Wno-implicit-fallthrough -Wno-enum-enum-conversion -Wno-enum-float-conversion -Wno-elaborated-enum-base -fdeprecated-macro -ferror-limit 19 -stack-protector 1 -fstack-check -mdarwin-stkchk-strong-link -fblocks -fencode-extended-block-signature -fregister-global-dtors-with-atexit -fgnuc-version=4.2.1 -fno-cxx-modules -fskip-odr-check-in-gmf -fcxx-exceptions -fexceptions -fmax-type-align=16 -fcommon -clang-vendor-feature=+disableNonDependentMemberExprInCurrentInstantiation -fno-odr-hash-protocols -clang-vendor-feature=+enableAggressiveVLAFolding -clang-vendor-feature=+revert09abecef7bbf -clang-vendor-feature=+thisNoAlignAttr -clang-vendor-feature=+thisNoNullAttr -clang-vendor-feature=+disableAtImportPrivateFrameworkInImplementationError -D__GCC_HAVE_DWARF2_CFI_ASM=1 -o CMakeFiles/cmTC_26c90.dir/CMakeCXXCompilerABI.cpp.o -x c++ /usr/local/share/cmake/Modules/CMakeCXXCompilerABI.cpp
+        clang -cc1 version 17.0.0 (clang-1700.4.4.1) default target x86_64-apple-darwin25.1.0
         ignoring nonexistent directory "/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk/usr/local/include"
         ignoring nonexistent directory "/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk/Library/Frameworks"
         #include "..." search starts here:
@@ -1538,13 +1477,13 @@ events:
          /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk/System/Library/Frameworks (framework directory)
          /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk/System/Library/SubFrameworks (framework directory)
         End of search list.
-        Linking CXX executable cmTC_efcaf
-        /usr/local/bin/cmake -E cmake_link_script CMakeFiles/cmTC_efcaf.dir/link.txt --verbose=1
+        Linking CXX executable cmTC_26c90
+        /usr/local/bin/cmake -E cmake_link_script CMakeFiles/cmTC_26c90.dir/link.txt --verbose=1
         Apple clang version 17.0.0 (clang-1700.4.4.1)
-        Target: x86_64-apple-darwin25.0.0
+        Target: x86_64-apple-darwin25.1.0
         Thread model: posix
         InstalledDir: /Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin
-         "/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/ld" -demangle -lto_library /Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/lib/libLTO.dylib -dynamic -arch x86_64 -platform_version macos 26.0.0 26.1 -syslibroot /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk -mllvm -enable-linkonceodr-outlining -o cmTC_efcaf -L/usr/local/lib -search_paths_first -headerpad_max_install_names -v CMakeFiles/cmTC_efcaf.dir/CMakeCXXCompilerABI.cpp.o -lc++ -lSystem /Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/lib/clang/17/lib/darwin/libclang_rt.osx.a
+         "/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/ld" -demangle -lto_library /Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/lib/libLTO.dylib -dynamic -arch x86_64 -platform_version macos 26.0.0 26.1 -syslibroot /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk -mllvm -enable-linkonceodr-outlining -o cmTC_26c90 -L/usr/local/lib -search_paths_first -headerpad_max_install_names -v CMakeFiles/cmTC_26c90.dir/CMakeCXXCompilerABI.cpp.o -lc++ -lSystem /Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/lib/clang/17/lib/darwin/libclang_rt.osx.a
         @(#)PROGRAM:ld PROJECT:ld-1230.1
         BUILD 16:17:14 Oct 17 2025
         configured to support archs: armv6 armv7 armv7s arm64 arm64e arm64_32 i386 x86_64 x86_64h armv6m armv7k armv7m armv7em armv8m.main armv8.1m.main
@@ -1557,7 +1496,7 @@ events:
         	/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk/usr/lib/swift
         Framework search paths:
         	/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk/System/Library/Frameworks
-        /usr/bin/c++  -arch x86_64 -Wl,-search_paths_first -Wl,-headerpad_max_install_names  -v -Wl,-v CMakeFiles/cmTC_efcaf.dir/CMakeCXXCompilerABI.cpp.o -o cmTC_efcaf
+        /usr/bin/c++  -arch x86_64 -Wl,-search_paths_first -Wl,-headerpad_max_install_names  -v -Wl,-v CMakeFiles/cmTC_26c90.dir/CMakeCXXCompilerABI.cpp.o -o cmTC_26c90
         
       exitCode: 0
   -
@@ -1603,20 +1542,20 @@ events:
       Parsed CXX implicit link information:
         link line regex: [^( *|.*[/\\])(ld[0-9]*(|\\.[a-rt-z][a-z]*|\\.s[a-np-z][a-z]*|\\.so[a-z]+)|CMAKE_LINK_STARTFILE-NOTFOUND|([^/\\]+-)?ld|collect2)[^/\\]*( |$)]
         linker tool regex: [^[ 	]*(->|")?[ 	]*(([^"]*[/\\])?(ld[0-9]*(|\\.[a-rt-z][a-z]*|\\.s[a-np-z][a-z]*|\\.so[a-z]+)))("|,| |$)]
-        ignore line: [Change Dir: '/Users/sarootareerattanawetch/OpenGL/GameEngProject-Palbomb-2.0-/build/CMakeFiles/CMakeScratch/TryCompile-mbccnr']
+        ignore line: [Change Dir: '/Users/sarootareerattanawetch/OpenGL/GameEngProject-Palbomb-2.0-/build/CMakeFiles/CMakeScratch/TryCompile-1mO1Qe']
         ignore line: []
-        ignore line: [Run Build Command(s): /usr/local/bin/cmake -E env VERBOSE=1 /usr/bin/make -f Makefile cmTC_efcaf/fast]
-        ignore line: [/Applications/Xcode.app/Contents/Developer/usr/bin/make  -f CMakeFiles/cmTC_efcaf.dir/build.make CMakeFiles/cmTC_efcaf.dir/build]
-        ignore line: [Building CXX object CMakeFiles/cmTC_efcaf.dir/CMakeCXXCompilerABI.cpp.o]
-        ignore line: [/usr/bin/c++   -arch x86_64   -v -Wl -v -MD -MT CMakeFiles/cmTC_efcaf.dir/CMakeCXXCompilerABI.cpp.o -MF CMakeFiles/cmTC_efcaf.dir/CMakeCXXCompilerABI.cpp.o.d -o CMakeFiles/cmTC_efcaf.dir/CMakeCXXCompilerABI.cpp.o -c /usr/local/share/cmake/Modules/CMakeCXXCompilerABI.cpp]
+        ignore line: [Run Build Command(s): /usr/local/bin/cmake -E env VERBOSE=1 /usr/bin/make -f Makefile cmTC_26c90/fast]
+        ignore line: [/Applications/Xcode.app/Contents/Developer/usr/bin/make  -f CMakeFiles/cmTC_26c90.dir/build.make CMakeFiles/cmTC_26c90.dir/build]
+        ignore line: [Building CXX object CMakeFiles/cmTC_26c90.dir/CMakeCXXCompilerABI.cpp.o]
+        ignore line: [/usr/bin/c++   -arch x86_64   -v -Wl -v -MD -MT CMakeFiles/cmTC_26c90.dir/CMakeCXXCompilerABI.cpp.o -MF CMakeFiles/cmTC_26c90.dir/CMakeCXXCompilerABI.cpp.o.d -o CMakeFiles/cmTC_26c90.dir/CMakeCXXCompilerABI.cpp.o -c /usr/local/share/cmake/Modules/CMakeCXXCompilerABI.cpp]
         ignore line: [Apple clang version 17.0.0 (clang-1700.4.4.1)]
-        ignore line: [Target: x86_64-apple-darwin25.0.0]
+        ignore line: [Target: x86_64-apple-darwin25.1.0]
         ignore line: [Thread model: posix]
         ignore line: [InstalledDir: /Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin]
         ignore line: [clang++: warning: -Wl -v: 'linker' input unused [-Wunused-command-line-argument]]
         ignore line: [ignoring nonexistent directory "/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/../include/c++/v1"]
-        ignore line: [ "/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/clang" -cc1 -triple x86_64-apple-macosx26.0.0 -Wundef-prefix=TARGET_OS_ -Wdeprecated-objc-isa-usage -Werror=deprecated-objc-isa-usage -Werror=implicit-function-declaration -emit-obj -disable-free -clear-ast-before-backend -disable-llvm-verifier -discard-value-names -main-file-name CMakeCXXCompilerABI.cpp -mrelocation-model pic -pic-level 2 -mframe-pointer=all -fno-strict-return -ffp-contract=on -fno-rounding-math -funwind-tables=2 -target-sdk-version=26.1 -fvisibility-inlines-hidden-static-local-var -fdefine-target-os-macros -fno-assume-unique-vtables -fno-modulemap-allow-subdirectory-search -target-cpu penryn -tune-cpu generic -debugger-tuning=lldb -fdebug-compilation-dir=/Users/sarootareerattanawetch/OpenGL/GameEngProject-Palbomb-2.0-/build/CMakeFiles/CMakeScratch/TryCompile-mbccnr -target-linker-version 1230.1 -v -fcoverage-compilation-dir=/Users/sarootareerattanawetch/OpenGL/GameEngProject-Palbomb-2.0-/build/CMakeFiles/CMakeScratch/TryCompile-mbccnr -resource-dir /Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/lib/clang/17 -dependency-file CMakeFiles/cmTC_efcaf.dir/CMakeCXXCompilerABI.cpp.o.d -skip-unused-modulemap-deps -MT CMakeFiles/cmTC_efcaf.dir/CMakeCXXCompilerABI.cpp.o -sys-header-deps -isysroot /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk -I/usr/local/include -internal-isystem /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk/usr/include/c++/v1 -internal-isystem /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk/usr/local/include -internal-isystem /Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/lib/clang/17/include -internal-externc-isystem /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk/usr/include -internal-externc-isystem /Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/include -internal-iframework /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk/System/Library/Frameworks -internal-iframework /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk/System/Library/SubFrameworks -internal-iframework /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk/Library/Frameworks -Wno-reorder-init-list -Wno-implicit-int-float-conversion -Wno-c99-designator -Wno-final-dtor-non-final-class -Wno-extra-semi-stmt -Wno-misleading-indentation -Wno-quoted-include-in-framework-header -Wno-implicit-fallthrough -Wno-enum-enum-conversion -Wno-enum-float-conversion -Wno-elaborated-enum-base -fdeprecated-macro -ferror-limit 19 -stack-protector 1 -fstack-check -mdarwin-stkchk-strong-link -fblocks -fencode-extended-block-signature -fregister-global-dtors-with-atexit -fgnuc-version=4.2.1 -fno-cxx-modules -fskip-odr-check-in-gmf -fcxx-exceptions -fexceptions -fmax-type-align=16 -fcommon -clang-vendor-feature=+disableNonDependentMemberExprInCurrentInstantiation -fno-odr-hash-protocols -clang-vendor-feature=+enableAggressiveVLAFolding -clang-vendor-feature=+revert09abecef7bbf -clang-vendor-feature=+thisNoAlignAttr -clang-vendor-feature=+thisNoNullAttr -clang-vendor-feature=+disableAtImportPrivateFrameworkInImplementationError -D__GCC_HAVE_DWARF2_CFI_ASM=1 -o CMakeFiles/cmTC_efcaf.dir/CMakeCXXCompilerABI.cpp.o -x c++ /usr/local/share/cmake/Modules/CMakeCXXCompilerABI.cpp]
-        ignore line: [clang -cc1 version 17.0.0 (clang-1700.4.4.1) default target x86_64-apple-darwin25.0.0]
+        ignore line: [ "/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/clang" -cc1 -triple x86_64-apple-macosx26.0.0 -Wundef-prefix=TARGET_OS_ -Wdeprecated-objc-isa-usage -Werror=deprecated-objc-isa-usage -Werror=implicit-function-declaration -emit-obj -disable-free -clear-ast-before-backend -disable-llvm-verifier -discard-value-names -main-file-name CMakeCXXCompilerABI.cpp -mrelocation-model pic -pic-level 2 -mframe-pointer=all -fno-strict-return -ffp-contract=on -fno-rounding-math -funwind-tables=2 -target-sdk-version=26.1 -fvisibility-inlines-hidden-static-local-var -fdefine-target-os-macros -fno-assume-unique-vtables -fno-modulemap-allow-subdirectory-search -target-cpu penryn -tune-cpu generic -debugger-tuning=lldb -fdebug-compilation-dir=/Users/sarootareerattanawetch/OpenGL/GameEngProject-Palbomb-2.0-/build/CMakeFiles/CMakeScratch/TryCompile-1mO1Qe -target-linker-version 1230.1 -v -fcoverage-compilation-dir=/Users/sarootareerattanawetch/OpenGL/GameEngProject-Palbomb-2.0-/build/CMakeFiles/CMakeScratch/TryCompile-1mO1Qe -resource-dir /Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/lib/clang/17 -dependency-file CMakeFiles/cmTC_26c90.dir/CMakeCXXCompilerABI.cpp.o.d -skip-unused-modulemap-deps -MT CMakeFiles/cmTC_26c90.dir/CMakeCXXCompilerABI.cpp.o -sys-header-deps -isysroot /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk -I/usr/local/include -internal-isystem /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk/usr/include/c++/v1 -internal-isystem /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk/usr/local/include -internal-isystem /Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/lib/clang/17/include -internal-externc-isystem /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk/usr/include -internal-externc-isystem /Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/include -internal-iframework /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk/System/Library/Frameworks -internal-iframework /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk/System/Library/SubFrameworks -internal-iframework /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk/Library/Frameworks -Wno-reorder-init-list -Wno-implicit-int-float-conversion -Wno-c99-designator -Wno-final-dtor-non-final-class -Wno-extra-semi-stmt -Wno-misleading-indentation -Wno-quoted-include-in-framework-header -Wno-implicit-fallthrough -Wno-enum-enum-conversion -Wno-enum-float-conversion -Wno-elaborated-enum-base -fdeprecated-macro -ferror-limit 19 -stack-protector 1 -fstack-check -mdarwin-stkchk-strong-link -fblocks -fencode-extended-block-signature -fregister-global-dtors-with-atexit -fgnuc-version=4.2.1 -fno-cxx-modules -fskip-odr-check-in-gmf -fcxx-exceptions -fexceptions -fmax-type-align=16 -fcommon -clang-vendor-feature=+disableNonDependentMemberExprInCurrentInstantiation -fno-odr-hash-protocols -clang-vendor-feature=+enableAggressiveVLAFolding -clang-vendor-feature=+revert09abecef7bbf -clang-vendor-feature=+thisNoAlignAttr -clang-vendor-feature=+thisNoNullAttr -clang-vendor-feature=+disableAtImportPrivateFrameworkInImplementationError -D__GCC_HAVE_DWARF2_CFI_ASM=1 -o CMakeFiles/cmTC_26c90.dir/CMakeCXXCompilerABI.cpp.o -x c++ /usr/local/share/cmake/Modules/CMakeCXXCompilerABI.cpp]
+        ignore line: [clang -cc1 version 17.0.0 (clang-1700.4.4.1) default target x86_64-apple-darwin25.1.0]
         ignore line: [ignoring nonexistent directory "/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk/usr/local/include"]
         ignore line: [ignoring nonexistent directory "/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk/Library/Frameworks"]
         ignore line: [#include "..." search starts here:]
@@ -1629,13 +1568,13 @@ events:
         ignore line: [ /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk/System/Library/Frameworks (framework directory)]
         ignore line: [ /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk/System/Library/SubFrameworks (framework directory)]
         ignore line: [End of search list.]
-        ignore line: [Linking CXX executable cmTC_efcaf]
-        ignore line: [/usr/local/bin/cmake -E cmake_link_script CMakeFiles/cmTC_efcaf.dir/link.txt --verbose=1]
+        ignore line: [Linking CXX executable cmTC_26c90]
+        ignore line: [/usr/local/bin/cmake -E cmake_link_script CMakeFiles/cmTC_26c90.dir/link.txt --verbose=1]
         ignore line: [Apple clang version 17.0.0 (clang-1700.4.4.1)]
-        ignore line: [Target: x86_64-apple-darwin25.0.0]
+        ignore line: [Target: x86_64-apple-darwin25.1.0]
         ignore line: [Thread model: posix]
         ignore line: [InstalledDir: /Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin]
-        link line: [ "/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/ld" -demangle -lto_library /Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/lib/libLTO.dylib -dynamic -arch x86_64 -platform_version macos 26.0.0 26.1 -syslibroot /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk -mllvm -enable-linkonceodr-outlining -o cmTC_efcaf -L/usr/local/lib -search_paths_first -headerpad_max_install_names -v CMakeFiles/cmTC_efcaf.dir/CMakeCXXCompilerABI.cpp.o -lc++ -lSystem /Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/lib/clang/17/lib/darwin/libclang_rt.osx.a]
+        link line: [ "/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/ld" -demangle -lto_library /Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/lib/libLTO.dylib -dynamic -arch x86_64 -platform_version macos 26.0.0 26.1 -syslibroot /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk -mllvm -enable-linkonceodr-outlining -o cmTC_26c90 -L/usr/local/lib -search_paths_first -headerpad_max_install_names -v CMakeFiles/cmTC_26c90.dir/CMakeCXXCompilerABI.cpp.o -lc++ -lSystem /Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/lib/clang/17/lib/darwin/libclang_rt.osx.a]
           arg [/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/ld] ==> ignore
           arg [-demangle] ==> ignore
           arg [-lto_library] ==> ignore, skip following value
@@ -1652,12 +1591,12 @@ events:
           arg [-mllvm] ==> ignore
           arg [-enable-linkonceodr-outlining] ==> ignore
           arg [-o] ==> ignore
-          arg [cmTC_efcaf] ==> ignore
+          arg [cmTC_26c90] ==> ignore
           arg [-L/usr/local/lib] ==> dir [/usr/local/lib]
           arg [-search_paths_first] ==> ignore
           arg [-headerpad_max_install_names] ==> ignore
           arg [-v] ==> ignore
-          arg [CMakeFiles/cmTC_efcaf.dir/CMakeCXXCompilerABI.cpp.o] ==> ignore
+          arg [CMakeFiles/cmTC_26c90.dir/CMakeCXXCompilerABI.cpp.o] ==> ignore
           arg [-lc++] ==> lib [c++]
           arg [-lSystem] ==> lib [System]
           arg [/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/lib/clang/17/lib/darwin/libclang_rt.osx.a] ==> lib [/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/lib/clang/17/lib/darwin/libclang_rt.osx.a]
@@ -1716,7 +1655,6 @@ events:
     names:
       - "git"
     candidate_directories:
-      - "/Users/sarootareerattanawetch/Library/Application Support/cloud-code/installer/google-cloud-sdk/bin/"
       - "/Library/Frameworks/Python.framework/Versions/3.12/bin/"
       - "/usr/local/bin/"
       - "/System/Cryptexes/App/usr/bin/"
@@ -1727,12 +1665,12 @@ events:
       - "/var/run/com.apple.security.cryptexd/codex.system/bootstrap/usr/local/bin/"
       - "/var/run/com.apple.security.cryptexd/codex.system/bootstrap/usr/bin/"
       - "/var/run/com.apple.security.cryptexd/codex.system/bootstrap/usr/appleinternal/bin/"
+      - "/opt/pmk/env/global/bin/"
       - "/Library/Apple/usr/bin/"
       - "/usr/local/go/bin/"
       - "/opt/homebrew/bin/"
       - "/opt/anaconda3/bin/"
       - "/opt/anaconda3/condabin/"
-      - "/Users/sarootareerattanawetch/.cursor/extensions/ms-python.debugpy-2025.14.1-darwin-arm64/bundled/scripts/noConfigScripts/"
       - "/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk/usr/bin/"
       - "/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk/usr/sbin/"
       - "/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk/usr/"
@@ -1764,12 +1702,10 @@ events:
       - "/Applications/Xcode.app/Contents/Applications/"
       - "/Applications/Xcode.app/Contents/Developer/Applications/"
     searched_directories:
-      - "/Users/sarootareerattanawetch/Library/Application Support/cloud-code/installer/google-cloud-sdk/bin/git"
       - "/Library/Frameworks/Python.framework/Versions/3.12/bin/git"
     found: "/usr/local/bin/git"
     search_context:
       ENV{PATH}:
-        - "/Users/sarootareerattanawetch/Library/Application Support/cloud-code/installer/google-cloud-sdk/bin"
         - "/Library/Frameworks/Python.framework/Versions/3.12/bin"
         - "/usr/local/bin"
         - "/System/Cryptexes/App/usr/bin"
@@ -1780,14 +1716,13 @@ events:
         - "/var/run/com.apple.security.cryptexd/codex.system/bootstrap/usr/local/bin"
         - "/var/run/com.apple.security.cryptexd/codex.system/bootstrap/usr/bin"
         - "/var/run/com.apple.security.cryptexd/codex.system/bootstrap/usr/appleinternal/bin"
+        - "/opt/pmk/env/global/bin"
         - "/Library/Apple/usr/bin"
         - "/usr/local/go/bin"
         - "/opt/homebrew/bin"
-        - "/Users/sarootareerattanawetch/Library/Application Support/cloud-code/installer/google-cloud-sdk/bin"
         - "/opt/anaconda3/bin"
         - "/opt/anaconda3/condabin"
         - "/Library/Frameworks/Python.framework/Versions/3.12/bin"
-        - "/Users/sarootareerattanawetch/.cursor/extensions/ms-python.debugpy-2025.14.1-darwin-arm64/bundled/scripts/noConfigScripts"
       CMAKE_INSTALL_PREFIX: "/usr/local"
       CMAKE_SYSTEM_PREFIX_PATH:
         - "/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk/usr"
@@ -1818,8 +1753,8 @@ events:
     checks:
       - "Performing Test CMAKE_HAVE_LIBC_PTHREAD"
     directories:
-      source: "/Users/sarootareerattanawetch/OpenGL/GameEngProject-Palbomb-2.0-/build/CMakeFiles/CMakeScratch/TryCompile-22Lk3O"
-      binary: "/Users/sarootareerattanawetch/OpenGL/GameEngProject-Palbomb-2.0-/build/CMakeFiles/CMakeScratch/TryCompile-22Lk3O"
+      source: "/Users/sarootareerattanawetch/OpenGL/GameEngProject-Palbomb-2.0-/build/CMakeFiles/CMakeScratch/TryCompile-iCtUs9"
+      binary: "/Users/sarootareerattanawetch/OpenGL/GameEngProject-Palbomb-2.0-/build/CMakeFiles/CMakeScratch/TryCompile-iCtUs9"
     cmakeVariables:
       CMAKE_C_FLAGS: ""
       CMAKE_C_FLAGS_DEBUG: "-g"
@@ -1832,15 +1767,15 @@ events:
       variable: "CMAKE_HAVE_LIBC_PTHREAD"
       cached: true
       stdout: |
-        Change Dir: '/Users/sarootareerattanawetch/OpenGL/GameEngProject-Palbomb-2.0-/build/CMakeFiles/CMakeScratch/TryCompile-22Lk3O'
+        Change Dir: '/Users/sarootareerattanawetch/OpenGL/GameEngProject-Palbomb-2.0-/build/CMakeFiles/CMakeScratch/TryCompile-iCtUs9'
         
-        Run Build Command(s): /usr/local/bin/cmake -E env VERBOSE=1 /usr/bin/make -f Makefile cmTC_2f088/fast
-        /Applications/Xcode.app/Contents/Developer/usr/bin/make  -f CMakeFiles/cmTC_2f088.dir/build.make CMakeFiles/cmTC_2f088.dir/build
-        Building C object CMakeFiles/cmTC_2f088.dir/src.c.o
-        /usr/bin/cc -DCMAKE_HAVE_LIBC_PTHREAD  -arch x86_64 -MD -MT CMakeFiles/cmTC_2f088.dir/src.c.o -MF CMakeFiles/cmTC_2f088.dir/src.c.o.d -o CMakeFiles/cmTC_2f088.dir/src.c.o -c /Users/sarootareerattanawetch/OpenGL/GameEngProject-Palbomb-2.0-/build/CMakeFiles/CMakeScratch/TryCompile-22Lk3O/src.c
-        Linking C executable cmTC_2f088
-        /usr/local/bin/cmake -E cmake_link_script CMakeFiles/cmTC_2f088.dir/link.txt --verbose=1
-        /usr/bin/cc  -arch x86_64 -Wl,-search_paths_first -Wl,-headerpad_max_install_names CMakeFiles/cmTC_2f088.dir/src.c.o -o cmTC_2f088
+        Run Build Command(s): /usr/local/bin/cmake -E env VERBOSE=1 /usr/bin/make -f Makefile cmTC_11742/fast
+        /Applications/Xcode.app/Contents/Developer/usr/bin/make  -f CMakeFiles/cmTC_11742.dir/build.make CMakeFiles/cmTC_11742.dir/build
+        Building C object CMakeFiles/cmTC_11742.dir/src.c.o
+        /usr/bin/cc -DCMAKE_HAVE_LIBC_PTHREAD  -arch x86_64 -MD -MT CMakeFiles/cmTC_11742.dir/src.c.o -MF CMakeFiles/cmTC_11742.dir/src.c.o.d -o CMakeFiles/cmTC_11742.dir/src.c.o -c /Users/sarootareerattanawetch/OpenGL/GameEngProject-Palbomb-2.0-/build/CMakeFiles/CMakeScratch/TryCompile-iCtUs9/src.c
+        Linking C executable cmTC_11742
+        /usr/local/bin/cmake -E cmake_link_script CMakeFiles/cmTC_11742.dir/link.txt --verbose=1
+        /usr/bin/cc  -arch x86_64 -Wl,-search_paths_first -Wl,-headerpad_max_install_names CMakeFiles/cmTC_11742.dir/src.c.o -o cmTC_11742
         
       exitCode: 0
   -
@@ -1863,7 +1798,6 @@ events:
     names:
       - "doxygen"
     candidate_directories:
-      - "/Users/sarootareerattanawetch/Library/Application Support/cloud-code/installer/google-cloud-sdk/bin/"
       - "/Library/Frameworks/Python.framework/Versions/3.12/bin/"
       - "/usr/local/bin/"
       - "/System/Cryptexes/App/usr/bin/"
@@ -1874,12 +1808,12 @@ events:
       - "/var/run/com.apple.security.cryptexd/codex.system/bootstrap/usr/local/bin/"
       - "/var/run/com.apple.security.cryptexd/codex.system/bootstrap/usr/bin/"
       - "/var/run/com.apple.security.cryptexd/codex.system/bootstrap/usr/appleinternal/bin/"
+      - "/opt/pmk/env/global/bin/"
       - "/Library/Apple/usr/bin/"
       - "/usr/local/go/bin/"
       - "/opt/homebrew/bin/"
       - "/opt/anaconda3/bin/"
       - "/opt/anaconda3/condabin/"
-      - "/Users/sarootareerattanawetch/.cursor/extensions/ms-python.debugpy-2025.14.1-darwin-arm64/bundled/scripts/noConfigScripts/"
       - "/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk/usr/bin/"
       - "/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk/usr/sbin/"
       - "/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk/usr/"
@@ -1915,7 +1849,6 @@ events:
       - "/Applications/Utilities/Doxygen.app/Contents/Resources/"
       - "/Applications/Utilities/Doxygen.app/Contents/MacOS/"
     searched_directories:
-      - "/Users/sarootareerattanawetch/Library/Application Support/cloud-code/installer/google-cloud-sdk/bin/doxygen"
       - "/Library/Frameworks/Python.framework/Versions/3.12/bin/doxygen"
       - "/usr/local/bin/doxygen"
       - "/System/Cryptexes/App/usr/bin/doxygen"
@@ -1926,12 +1859,12 @@ events:
       - "/var/run/com.apple.security.cryptexd/codex.system/bootstrap/usr/local/bin/doxygen"
       - "/var/run/com.apple.security.cryptexd/codex.system/bootstrap/usr/bin/doxygen"
       - "/var/run/com.apple.security.cryptexd/codex.system/bootstrap/usr/appleinternal/bin/doxygen"
+      - "/opt/pmk/env/global/bin/doxygen"
       - "/Library/Apple/usr/bin/doxygen"
       - "/usr/local/go/bin/doxygen"
       - "/opt/homebrew/bin/doxygen"
       - "/opt/anaconda3/bin/doxygen"
       - "/opt/anaconda3/condabin/doxygen"
-      - "/Users/sarootareerattanawetch/.cursor/extensions/ms-python.debugpy-2025.14.1-darwin-arm64/bundled/scripts/noConfigScripts/doxygen"
       - "/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk/usr/bin/doxygen"
       - "/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk/usr/sbin/doxygen"
       - "/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk/usr/doxygen"
@@ -1969,7 +1902,6 @@ events:
     found: false
     search_context:
       ENV{PATH}:
-        - "/Users/sarootareerattanawetch/Library/Application Support/cloud-code/installer/google-cloud-sdk/bin"
         - "/Library/Frameworks/Python.framework/Versions/3.12/bin"
         - "/usr/local/bin"
         - "/System/Cryptexes/App/usr/bin"
@@ -1980,14 +1912,13 @@ events:
         - "/var/run/com.apple.security.cryptexd/codex.system/bootstrap/usr/local/bin"
         - "/var/run/com.apple.security.cryptexd/codex.system/bootstrap/usr/bin"
         - "/var/run/com.apple.security.cryptexd/codex.system/bootstrap/usr/appleinternal/bin"
+        - "/opt/pmk/env/global/bin"
         - "/Library/Apple/usr/bin"
         - "/usr/local/go/bin"
         - "/opt/homebrew/bin"
-        - "/Users/sarootareerattanawetch/Library/Application Support/cloud-code/installer/google-cloud-sdk/bin"
         - "/opt/anaconda3/bin"
         - "/opt/anaconda3/condabin"
         - "/Library/Frameworks/Python.framework/Versions/3.12/bin"
-        - "/Users/sarootareerattanawetch/.cursor/extensions/ms-python.debugpy-2025.14.1-darwin-arm64/bundled/scripts/noConfigScripts"
       CMAKE_INSTALL_PREFIX: "/usr/local"
       CMAKE_SYSTEM_PREFIX_PATH:
         - "/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk/usr"
@@ -2007,10 +1938,6 @@ events:
         - "/Applications"
         - "/Applications/Xcode.app/Contents/Applications"
         - "/Applications/Xcode.app/Contents/Developer/Applications"
-...
-
----
-events:
   -
     kind: "find-v1"
     backtrace:
@@ -2033,7 +1960,6 @@ events:
       - "pkg-config"
       - "pkgconf"
     candidate_directories:
-      - "/Users/sarootareerattanawetch/Library/Application Support/cloud-code/installer/google-cloud-sdk/bin/"
       - "/Library/Frameworks/Python.framework/Versions/3.12/bin/"
       - "/usr/local/bin/"
       - "/System/Cryptexes/App/usr/bin/"
@@ -2044,12 +1970,12 @@ events:
       - "/var/run/com.apple.security.cryptexd/codex.system/bootstrap/usr/local/bin/"
       - "/var/run/com.apple.security.cryptexd/codex.system/bootstrap/usr/bin/"
       - "/var/run/com.apple.security.cryptexd/codex.system/bootstrap/usr/appleinternal/bin/"
+      - "/opt/pmk/env/global/bin/"
       - "/Library/Apple/usr/bin/"
       - "/usr/local/go/bin/"
       - "/opt/homebrew/bin/"
       - "/opt/anaconda3/bin/"
       - "/opt/anaconda3/condabin/"
-      - "/Users/sarootareerattanawetch/.cursor/extensions/ms-python.debugpy-2025.14.1-darwin-arm64/bundled/scripts/noConfigScripts/"
       - "/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk/usr/bin/"
       - "/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk/usr/sbin/"
       - "/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk/usr/"
@@ -2081,14 +2007,11 @@ events:
       - "/Applications/Xcode.app/Contents/Applications/"
       - "/Applications/Xcode.app/Contents/Developer/Applications/"
     searched_directories:
-      - "/Users/sarootareerattanawetch/Library/Application Support/cloud-code/installer/google-cloud-sdk/bin/pkg-config"
-      - "/Users/sarootareerattanawetch/Library/Application Support/cloud-code/installer/google-cloud-sdk/bin/pkgconf"
       - "/Library/Frameworks/Python.framework/Versions/3.12/bin/pkg-config"
       - "/Library/Frameworks/Python.framework/Versions/3.12/bin/pkgconf"
     found: "/usr/local/bin/pkg-config"
     search_context:
       ENV{PATH}:
-        - "/Users/sarootareerattanawetch/Library/Application Support/cloud-code/installer/google-cloud-sdk/bin"
         - "/Library/Frameworks/Python.framework/Versions/3.12/bin"
         - "/usr/local/bin"
         - "/System/Cryptexes/App/usr/bin"
@@ -2099,14 +2022,13 @@ events:
         - "/var/run/com.apple.security.cryptexd/codex.system/bootstrap/usr/local/bin"
         - "/var/run/com.apple.security.cryptexd/codex.system/bootstrap/usr/bin"
         - "/var/run/com.apple.security.cryptexd/codex.system/bootstrap/usr/appleinternal/bin"
+        - "/opt/pmk/env/global/bin"
         - "/Library/Apple/usr/bin"
         - "/usr/local/go/bin"
         - "/opt/homebrew/bin"
-        - "/Users/sarootareerattanawetch/Library/Application Support/cloud-code/installer/google-cloud-sdk/bin"
         - "/opt/anaconda3/bin"
         - "/opt/anaconda3/condabin"
         - "/Library/Frameworks/Python.framework/Versions/3.12/bin"
-        - "/Users/sarootareerattanawetch/.cursor/extensions/ms-python.debugpy-2025.14.1-darwin-arm64/bundled/scripts/noConfigScripts"
       CMAKE_INSTALL_PREFIX: "/usr/local"
       CMAKE_SYSTEM_PREFIX_PATH:
         - "/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk/usr"
@@ -2145,7 +2067,6 @@ events:
     names:
       - "zlib.h"
     candidate_directories:
-      - "/Users/sarootareerattanawetch/Library/Application Support/cloud-code/installer/google-cloud-sdk/bin/"
       - "/Library/Frameworks/Python.framework/Versions/3.12/bin/"
       - "/usr/local/bin/"
       - "/System/Cryptexes/App/usr/bin/"
@@ -2156,12 +2077,12 @@ events:
       - "/var/run/com.apple.security.cryptexd/codex.system/bootstrap/usr/local/bin/"
       - "/var/run/com.apple.security.cryptexd/codex.system/bootstrap/usr/bin/"
       - "/var/run/com.apple.security.cryptexd/codex.system/bootstrap/usr/appleinternal/bin/"
+      - "/opt/pmk/env/global/bin/"
       - "/Library/Apple/usr/bin/"
       - "/usr/local/go/bin/"
       - "/opt/homebrew/bin/"
       - "/opt/anaconda3/bin/"
       - "/opt/anaconda3/condabin/"
-      - "/Users/sarootareerattanawetch/.cursor/extensions/ms-python.debugpy-2025.14.1-darwin-arm64/bundled/scripts/noConfigScripts/"
       - "/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk/usr/include/"
       - "/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk/usr/"
       - "/usr/local/include/"
@@ -2190,7 +2111,6 @@ events:
       - "/Network/Library/Frameworks/"
       - "/System/Library/Frameworks/"
     searched_directories:
-      - "/Users/sarootareerattanawetch/Library/Application Support/cloud-code/installer/google-cloud-sdk/bin/zlib.h"
       - "/Library/Frameworks/Python.framework/Versions/3.12/bin/zlib.h"
       - "/usr/local/bin/zlib.h"
       - "/System/Cryptexes/App/usr/bin/zlib.h"
@@ -2201,16 +2121,15 @@ events:
       - "/var/run/com.apple.security.cryptexd/codex.system/bootstrap/usr/local/bin/zlib.h"
       - "/var/run/com.apple.security.cryptexd/codex.system/bootstrap/usr/bin/zlib.h"
       - "/var/run/com.apple.security.cryptexd/codex.system/bootstrap/usr/appleinternal/bin/zlib.h"
+      - "/opt/pmk/env/global/bin/zlib.h"
       - "/Library/Apple/usr/bin/zlib.h"
       - "/usr/local/go/bin/zlib.h"
       - "/opt/homebrew/bin/zlib.h"
       - "/opt/anaconda3/bin/zlib.h"
       - "/opt/anaconda3/condabin/zlib.h"
-      - "/Users/sarootareerattanawetch/.cursor/extensions/ms-python.debugpy-2025.14.1-darwin-arm64/bundled/scripts/noConfigScripts/zlib.h"
     found: "/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk/usr/include/"
     search_context:
       ENV{PATH}:
-        - "/Users/sarootareerattanawetch/Library/Application Support/cloud-code/installer/google-cloud-sdk/bin"
         - "/Library/Frameworks/Python.framework/Versions/3.12/bin"
         - "/usr/local/bin"
         - "/System/Cryptexes/App/usr/bin"
@@ -2221,14 +2140,13 @@ events:
         - "/var/run/com.apple.security.cryptexd/codex.system/bootstrap/usr/local/bin"
         - "/var/run/com.apple.security.cryptexd/codex.system/bootstrap/usr/bin"
         - "/var/run/com.apple.security.cryptexd/codex.system/bootstrap/usr/appleinternal/bin"
+        - "/opt/pmk/env/global/bin"
         - "/Library/Apple/usr/bin"
         - "/usr/local/go/bin"
         - "/opt/homebrew/bin"
-        - "/Users/sarootareerattanawetch/Library/Application Support/cloud-code/installer/google-cloud-sdk/bin"
         - "/opt/anaconda3/bin"
         - "/opt/anaconda3/condabin"
         - "/Library/Frameworks/Python.framework/Versions/3.12/bin"
-        - "/Users/sarootareerattanawetch/.cursor/extensions/ms-python.debugpy-2025.14.1-darwin-arm64/bundled/scripts/noConfigScripts"
       CMAKE_INSTALL_PREFIX: "/usr/local"
       CMAKE_SYSTEM_PREFIX_PATH:
         - "/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk/usr"
@@ -2276,7 +2194,6 @@ events:
       - "zlib"
       - "zdll"
     candidate_directories:
-      - "/Users/sarootareerattanawetch/Library/Application Support/cloud-code/installer/google-cloud-sdk/bin/"
       - "/Library/Frameworks/Python.framework/Versions/3.12/bin/"
       - "/usr/local/bin/"
       - "/System/Cryptexes/App/usr/bin/"
@@ -2289,7 +2206,6 @@ events:
       - "/opt/homebrew/bin/"
       - "/opt/anaconda3/bin/"
       - "/opt/anaconda3/condabin/"
-      - "/Users/sarootareerattanawetch/.cursor/extensions/ms-python.debugpy-2025.14.1-darwin-arm64/bundled/scripts/noConfigScripts/"
       - "/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk/usr/lib/"
       - "/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk/usr/"
       - "/usr/local/lib/"
@@ -2303,7 +2219,6 @@ events:
       - "/Library/Frameworks/"
       - "/System/Library/Frameworks/"
     searched_directories:
-      - "/Users/sarootareerattanawetch/Library/Application Support/cloud-code/installer/google-cloud-sdk/bin/"
       - "/Library/Frameworks/Python.framework/Versions/3.12/bin/"
       - "/usr/local/bin/"
       - "/System/Cryptexes/App/usr/bin/"
@@ -2316,11 +2231,9 @@ events:
       - "/opt/homebrew/bin/"
       - "/opt/anaconda3/bin/"
       - "/opt/anaconda3/condabin/"
-      - "/Users/sarootareerattanawetch/.cursor/extensions/ms-python.debugpy-2025.14.1-darwin-arm64/bundled/scripts/noConfigScripts/"
     found: "/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk/usr/lib/libz.tbd"
     search_context:
       ENV{PATH}:
-        - "/Users/sarootareerattanawetch/Library/Application Support/cloud-code/installer/google-cloud-sdk/bin"
         - "/Library/Frameworks/Python.framework/Versions/3.12/bin"
         - "/usr/local/bin"
         - "/System/Cryptexes/App/usr/bin"
@@ -2331,14 +2244,13 @@ events:
         - "/var/run/com.apple.security.cryptexd/codex.system/bootstrap/usr/local/bin"
         - "/var/run/com.apple.security.cryptexd/codex.system/bootstrap/usr/bin"
         - "/var/run/com.apple.security.cryptexd/codex.system/bootstrap/usr/appleinternal/bin"
+        - "/opt/pmk/env/global/bin"
         - "/Library/Apple/usr/bin"
         - "/usr/local/go/bin"
         - "/opt/homebrew/bin"
-        - "/Users/sarootareerattanawetch/Library/Application Support/cloud-code/installer/google-cloud-sdk/bin"
         - "/opt/anaconda3/bin"
         - "/opt/anaconda3/condabin"
         - "/Library/Frameworks/Python.framework/Versions/3.12/bin"
-        - "/Users/sarootareerattanawetch/.cursor/extensions/ms-python.debugpy-2025.14.1-darwin-arm64/bundled/scripts/noConfigScripts"
       CMAKE_INSTALL_PREFIX: "/usr/local"
       CMAKE_SYSTEM_PREFIX_PATH:
         - "/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk/usr"
@@ -2401,7 +2313,6 @@ events:
       - "zdll_debug"
       - "zdll"
     candidate_directories:
-      - "/Users/sarootareerattanawetch/Library/Application Support/cloud-code/installer/google-cloud-sdk/bin/"
       - "/Library/Frameworks/Python.framework/Versions/3.12/bin/"
       - "/usr/local/bin/"
       - "/System/Cryptexes/App/usr/bin/"
@@ -2414,7 +2325,6 @@ events:
       - "/opt/homebrew/bin/"
       - "/opt/anaconda3/bin/"
       - "/opt/anaconda3/condabin/"
-      - "/Users/sarootareerattanawetch/.cursor/extensions/ms-python.debugpy-2025.14.1-darwin-arm64/bundled/scripts/noConfigScripts/"
       - "/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk/usr/lib/"
       - "/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk/usr/"
       - "/usr/local/lib/"
@@ -2428,7 +2338,6 @@ events:
       - "/Library/Frameworks/"
       - "/System/Library/Frameworks/"
     searched_directories:
-      - "/Users/sarootareerattanawetch/Library/Application Support/cloud-code/installer/google-cloud-sdk/bin/"
       - "/Library/Frameworks/Python.framework/Versions/3.12/bin/"
       - "/usr/local/bin/"
       - "/System/Cryptexes/App/usr/bin/"
@@ -2441,7 +2350,6 @@ events:
       - "/opt/homebrew/bin/"
       - "/opt/anaconda3/bin/"
       - "/opt/anaconda3/condabin/"
-      - "/Users/sarootareerattanawetch/.cursor/extensions/ms-python.debugpy-2025.14.1-darwin-arm64/bundled/scripts/noConfigScripts/"
       - "/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk/usr/lib/"
       - "/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk/usr/"
       - "/usr/local/lib/"
@@ -2454,7 +2362,6 @@ events:
       - "/Applications/Xcode.app/Contents/Developer/Library/Frameworks/"
       - "/Library/Frameworks/"
       - "/System/Library/Frameworks/"
-      - "/Users/sarootareerattanawetch/Library/Application Support/cloud-code/installer/google-cloud-sdk/bin/"
       - "/Library/Frameworks/Python.framework/Versions/3.12/bin/"
       - "/usr/local/bin/"
       - "/System/Cryptexes/App/usr/bin/"
@@ -2467,7 +2374,6 @@ events:
       - "/opt/homebrew/bin/"
       - "/opt/anaconda3/bin/"
       - "/opt/anaconda3/condabin/"
-      - "/Users/sarootareerattanawetch/.cursor/extensions/ms-python.debugpy-2025.14.1-darwin-arm64/bundled/scripts/noConfigScripts/"
       - "/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk/usr/lib/"
       - "/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk/usr/"
       - "/usr/local/lib/"
@@ -2480,7 +2386,6 @@ events:
       - "/Applications/Xcode.app/Contents/Developer/Library/Frameworks/"
       - "/Library/Frameworks/"
       - "/System/Library/Frameworks/"
-      - "/Users/sarootareerattanawetch/Library/Application Support/cloud-code/installer/google-cloud-sdk/bin/"
       - "/Library/Frameworks/Python.framework/Versions/3.12/bin/"
       - "/usr/local/bin/"
       - "/System/Cryptexes/App/usr/bin/"
@@ -2493,7 +2398,6 @@ events:
       - "/opt/homebrew/bin/"
       - "/opt/anaconda3/bin/"
       - "/opt/anaconda3/condabin/"
-      - "/Users/sarootareerattanawetch/.cursor/extensions/ms-python.debugpy-2025.14.1-darwin-arm64/bundled/scripts/noConfigScripts/"
       - "/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk/usr/lib/"
       - "/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk/usr/"
       - "/usr/local/lib/"
@@ -2506,7 +2410,6 @@ events:
       - "/Applications/Xcode.app/Contents/Developer/Library/Frameworks/"
       - "/Library/Frameworks/"
       - "/System/Library/Frameworks/"
-      - "/Users/sarootareerattanawetch/Library/Application Support/cloud-code/installer/google-cloud-sdk/bin/"
       - "/Library/Frameworks/Python.framework/Versions/3.12/bin/"
       - "/usr/local/bin/"
       - "/System/Cryptexes/App/usr/bin/"
@@ -2519,7 +2422,6 @@ events:
       - "/opt/homebrew/bin/"
       - "/opt/anaconda3/bin/"
       - "/opt/anaconda3/condabin/"
-      - "/Users/sarootareerattanawetch/.cursor/extensions/ms-python.debugpy-2025.14.1-darwin-arm64/bundled/scripts/noConfigScripts/"
       - "/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk/usr/lib/"
       - "/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk/usr/"
       - "/usr/local/lib/"
@@ -2532,7 +2434,6 @@ events:
       - "/Applications/Xcode.app/Contents/Developer/Library/Frameworks/"
       - "/Library/Frameworks/"
       - "/System/Library/Frameworks/"
-      - "/Users/sarootareerattanawetch/Library/Application Support/cloud-code/installer/google-cloud-sdk/bin/"
       - "/Library/Frameworks/Python.framework/Versions/3.12/bin/"
       - "/usr/local/bin/"
       - "/System/Cryptexes/App/usr/bin/"
@@ -2545,7 +2446,6 @@ events:
       - "/opt/homebrew/bin/"
       - "/opt/anaconda3/bin/"
       - "/opt/anaconda3/condabin/"
-      - "/Users/sarootareerattanawetch/.cursor/extensions/ms-python.debugpy-2025.14.1-darwin-arm64/bundled/scripts/noConfigScripts/"
       - "/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk/usr/lib/"
       - "/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk/usr/"
       - "/usr/local/lib/"
@@ -2558,7 +2458,6 @@ events:
       - "/Applications/Xcode.app/Contents/Developer/Library/Frameworks/"
       - "/Library/Frameworks/"
       - "/System/Library/Frameworks/"
-      - "/Users/sarootareerattanawetch/Library/Application Support/cloud-code/installer/google-cloud-sdk/bin/"
       - "/Library/Frameworks/Python.framework/Versions/3.12/bin/"
       - "/usr/local/bin/"
       - "/System/Cryptexes/App/usr/bin/"
@@ -2571,11 +2470,9 @@ events:
       - "/opt/homebrew/bin/"
       - "/opt/anaconda3/bin/"
       - "/opt/anaconda3/condabin/"
-      - "/Users/sarootareerattanawetch/.cursor/extensions/ms-python.debugpy-2025.14.1-darwin-arm64/bundled/scripts/noConfigScripts/"
     found: "/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk/usr/lib/libz.tbd"
     search_context:
       ENV{PATH}:
-        - "/Users/sarootareerattanawetch/Library/Application Support/cloud-code/installer/google-cloud-sdk/bin"
         - "/Library/Frameworks/Python.framework/Versions/3.12/bin"
         - "/usr/local/bin"
         - "/System/Cryptexes/App/usr/bin"
@@ -2586,14 +2483,13 @@ events:
         - "/var/run/com.apple.security.cryptexd/codex.system/bootstrap/usr/local/bin"
         - "/var/run/com.apple.security.cryptexd/codex.system/bootstrap/usr/bin"
         - "/var/run/com.apple.security.cryptexd/codex.system/bootstrap/usr/appleinternal/bin"
+        - "/opt/pmk/env/global/bin"
         - "/Library/Apple/usr/bin"
         - "/usr/local/go/bin"
         - "/opt/homebrew/bin"
-        - "/Users/sarootareerattanawetch/Library/Application Support/cloud-code/installer/google-cloud-sdk/bin"
         - "/opt/anaconda3/bin"
         - "/opt/anaconda3/condabin"
         - "/Library/Frameworks/Python.framework/Versions/3.12/bin"
-        - "/Users/sarootareerattanawetch/.cursor/extensions/ms-python.debugpy-2025.14.1-darwin-arm64/bundled/scripts/noConfigScripts"
       CMAKE_INSTALL_PREFIX: "/usr/local"
       CMAKE_SYSTEM_PREFIX_PATH:
         - "/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk/usr"
@@ -2639,7 +2535,6 @@ events:
     names:
       - "rt"
     candidate_directories:
-      - "/Users/sarootareerattanawetch/Library/Application Support/cloud-code/installer/google-cloud-sdk/bin/"
       - "/Library/Frameworks/Python.framework/Versions/3.12/bin/"
       - "/usr/local/bin/"
       - "/System/Cryptexes/App/usr/bin/"
@@ -2652,7 +2547,6 @@ events:
       - "/opt/homebrew/bin/"
       - "/opt/anaconda3/bin/"
       - "/opt/anaconda3/condabin/"
-      - "/Users/sarootareerattanawetch/.cursor/extensions/ms-python.debugpy-2025.14.1-darwin-arm64/bundled/scripts/noConfigScripts/"
       - "/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk/usr/lib/"
       - "/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk/usr/"
       - "/usr/local/lib/"
@@ -2666,7 +2560,6 @@ events:
       - "/Library/Frameworks/"
       - "/System/Library/Frameworks/"
     searched_directories:
-      - "/Users/sarootareerattanawetch/Library/Application Support/cloud-code/installer/google-cloud-sdk/bin/"
       - "/Library/Frameworks/Python.framework/Versions/3.12/bin/"
       - "/usr/local/bin/"
       - "/System/Cryptexes/App/usr/bin/"
@@ -2679,7 +2572,6 @@ events:
       - "/opt/homebrew/bin/"
       - "/opt/anaconda3/bin/"
       - "/opt/anaconda3/condabin/"
-      - "/Users/sarootareerattanawetch/.cursor/extensions/ms-python.debugpy-2025.14.1-darwin-arm64/bundled/scripts/noConfigScripts/"
       - "/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk/usr/lib/"
       - "/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk/usr/"
       - "/usr/local/lib/"
@@ -2695,7 +2587,6 @@ events:
     found: false
     search_context:
       ENV{PATH}:
-        - "/Users/sarootareerattanawetch/Library/Application Support/cloud-code/installer/google-cloud-sdk/bin"
         - "/Library/Frameworks/Python.framework/Versions/3.12/bin"
         - "/usr/local/bin"
         - "/System/Cryptexes/App/usr/bin"
@@ -2706,14 +2597,13 @@ events:
         - "/var/run/com.apple.security.cryptexd/codex.system/bootstrap/usr/local/bin"
         - "/var/run/com.apple.security.cryptexd/codex.system/bootstrap/usr/bin"
         - "/var/run/com.apple.security.cryptexd/codex.system/bootstrap/usr/appleinternal/bin"
+        - "/opt/pmk/env/global/bin"
         - "/Library/Apple/usr/bin"
         - "/usr/local/go/bin"
         - "/opt/homebrew/bin"
-        - "/Users/sarootareerattanawetch/Library/Application Support/cloud-code/installer/google-cloud-sdk/bin"
         - "/opt/anaconda3/bin"
         - "/opt/anaconda3/condabin"
         - "/Library/Frameworks/Python.framework/Versions/3.12/bin"
-        - "/Users/sarootareerattanawetch/.cursor/extensions/ms-python.debugpy-2025.14.1-darwin-arm64/bundled/scripts/noConfigScripts"
       CMAKE_INSTALL_PREFIX: "/usr/local"
       CMAKE_SYSTEM_PREFIX_PATH:
         - "/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk/usr"
@@ -2744,7 +2634,7 @@ events:
     kind: "find-v1"
     backtrace:
       - "/usr/local/share/cmake/Modules/FindOpenGL.cmake:237 (find_library)"
-      - "CMakeLists.txt:146 (find_package)"
+      - "CMakeLists.txt:153 (find_package)"
     mode: "library"
     variable: "OPENGL_gl_LIBRARY"
     description: "OpenGL GL library"
@@ -2760,7 +2650,6 @@ events:
       - "OpenGL"
       - "GL"
     candidate_directories:
-      - "/Users/sarootareerattanawetch/Library/Application Support/cloud-code/installer/google-cloud-sdk/bin/"
       - "/Library/Frameworks/Python.framework/Versions/3.12/bin/"
       - "/usr/local/bin/"
       - "/System/Cryptexes/App/usr/bin/"
@@ -2773,7 +2662,6 @@ events:
       - "/opt/homebrew/bin/"
       - "/opt/anaconda3/bin/"
       - "/opt/anaconda3/condabin/"
-      - "/Users/sarootareerattanawetch/.cursor/extensions/ms-python.debugpy-2025.14.1-darwin-arm64/bundled/scripts/noConfigScripts/"
       - "/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk/usr/lib/"
       - "/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk/usr/"
       - "/usr/local/lib/"
@@ -2789,7 +2677,6 @@ events:
     found: "/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk/System/Library/Frameworks/OpenGL.framework"
     search_context:
       ENV{PATH}:
-        - "/Users/sarootareerattanawetch/Library/Application Support/cloud-code/installer/google-cloud-sdk/bin"
         - "/Library/Frameworks/Python.framework/Versions/3.12/bin"
         - "/usr/local/bin"
         - "/System/Cryptexes/App/usr/bin"
@@ -2800,14 +2687,13 @@ events:
         - "/var/run/com.apple.security.cryptexd/codex.system/bootstrap/usr/local/bin"
         - "/var/run/com.apple.security.cryptexd/codex.system/bootstrap/usr/bin"
         - "/var/run/com.apple.security.cryptexd/codex.system/bootstrap/usr/appleinternal/bin"
+        - "/opt/pmk/env/global/bin"
         - "/Library/Apple/usr/bin"
         - "/usr/local/go/bin"
         - "/opt/homebrew/bin"
-        - "/Users/sarootareerattanawetch/Library/Application Support/cloud-code/installer/google-cloud-sdk/bin"
         - "/opt/anaconda3/bin"
         - "/opt/anaconda3/condabin"
         - "/Library/Frameworks/Python.framework/Versions/3.12/bin"
-        - "/Users/sarootareerattanawetch/.cursor/extensions/ms-python.debugpy-2025.14.1-darwin-arm64/bundled/scripts/noConfigScripts"
       CMAKE_INSTALL_PREFIX: "/usr/local"
       CMAKE_SYSTEM_PREFIX_PATH:
         - "/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk/usr"
@@ -2838,7 +2724,7 @@ events:
     kind: "find-v1"
     backtrace:
       - "/usr/local/share/cmake/Modules/FindOpenGL.cmake:239 (find_library)"
-      - "CMakeLists.txt:146 (find_package)"
+      - "CMakeLists.txt:153 (find_package)"
     mode: "library"
     variable: "OPENGL_glu_LIBRARY"
     description: "OpenGL GLU library"
@@ -2854,7 +2740,6 @@ events:
       - "OpenGL"
       - "GLU"
     candidate_directories:
-      - "/Users/sarootareerattanawetch/Library/Application Support/cloud-code/installer/google-cloud-sdk/bin/"
       - "/Library/Frameworks/Python.framework/Versions/3.12/bin/"
       - "/usr/local/bin/"
       - "/System/Cryptexes/App/usr/bin/"
@@ -2867,7 +2752,6 @@ events:
       - "/opt/homebrew/bin/"
       - "/opt/anaconda3/bin/"
       - "/opt/anaconda3/condabin/"
-      - "/Users/sarootareerattanawetch/.cursor/extensions/ms-python.debugpy-2025.14.1-darwin-arm64/bundled/scripts/noConfigScripts/"
       - "/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk/usr/lib/"
       - "/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk/usr/"
       - "/usr/local/lib/"
@@ -2883,7 +2767,6 @@ events:
     found: "/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk/System/Library/Frameworks/OpenGL.framework"
     search_context:
       ENV{PATH}:
-        - "/Users/sarootareerattanawetch/Library/Application Support/cloud-code/installer/google-cloud-sdk/bin"
         - "/Library/Frameworks/Python.framework/Versions/3.12/bin"
         - "/usr/local/bin"
         - "/System/Cryptexes/App/usr/bin"
@@ -2894,14 +2777,13 @@ events:
         - "/var/run/com.apple.security.cryptexd/codex.system/bootstrap/usr/local/bin"
         - "/var/run/com.apple.security.cryptexd/codex.system/bootstrap/usr/bin"
         - "/var/run/com.apple.security.cryptexd/codex.system/bootstrap/usr/appleinternal/bin"
+        - "/opt/pmk/env/global/bin"
         - "/Library/Apple/usr/bin"
         - "/usr/local/go/bin"
         - "/opt/homebrew/bin"
-        - "/Users/sarootareerattanawetch/Library/Application Support/cloud-code/installer/google-cloud-sdk/bin"
         - "/opt/anaconda3/bin"
         - "/opt/anaconda3/condabin"
         - "/Library/Frameworks/Python.framework/Versions/3.12/bin"
-        - "/Users/sarootareerattanawetch/.cursor/extensions/ms-python.debugpy-2025.14.1-darwin-arm64/bundled/scripts/noConfigScripts"
       CMAKE_INSTALL_PREFIX: "/usr/local"
       CMAKE_SYSTEM_PREFIX_PATH:
         - "/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk/usr"
@@ -2932,7 +2814,7 @@ events:
     kind: "find-v1"
     backtrace:
       - "/usr/local/share/cmake/Modules/FindOpenGL.cmake:241 (find_path)"
-      - "CMakeLists.txt:146 (find_package)"
+      - "CMakeLists.txt:153 (find_package)"
     mode: "path"
     variable: "OPENGL_INCLUDE_DIR"
     description: "Include for OpenGL"
@@ -2948,7 +2830,6 @@ events:
       - "OpenGL/gl.h"
       - "GL/gl.h"
     candidate_directories:
-      - "/Users/sarootareerattanawetch/Library/Application Support/cloud-code/installer/google-cloud-sdk/bin/"
       - "/Library/Frameworks/Python.framework/Versions/3.12/bin/"
       - "/usr/local/bin/"
       - "/System/Cryptexes/App/usr/bin/"
@@ -2959,12 +2840,12 @@ events:
       - "/var/run/com.apple.security.cryptexd/codex.system/bootstrap/usr/local/bin/"
       - "/var/run/com.apple.security.cryptexd/codex.system/bootstrap/usr/bin/"
       - "/var/run/com.apple.security.cryptexd/codex.system/bootstrap/usr/appleinternal/bin/"
+      - "/opt/pmk/env/global/bin/"
       - "/Library/Apple/usr/bin/"
       - "/usr/local/go/bin/"
       - "/opt/homebrew/bin/"
       - "/opt/anaconda3/bin/"
       - "/opt/anaconda3/condabin/"
-      - "/Users/sarootareerattanawetch/.cursor/extensions/ms-python.debugpy-2025.14.1-darwin-arm64/bundled/scripts/noConfigScripts/"
       - "/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk/usr/include/"
       - "/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk/usr/"
       - "/usr/local/include/"
@@ -2993,7 +2874,6 @@ events:
       - "/Network/Library/Frameworks/"
       - "/System/Library/Frameworks/"
     searched_directories:
-      - "/Users/sarootareerattanawetch/Library/Application Support/cloud-code/installer/google-cloud-sdk/bin/OpenGL.framework/Headers/gl.h"
       - "/Library/Frameworks/Python.framework/Versions/3.12/bin/OpenGL.framework/Headers/gl.h"
       - "/usr/local/bin/OpenGL.framework/Headers/gl.h"
       - "/System/Cryptexes/App/usr/bin/OpenGL.framework/Headers/gl.h"
@@ -3004,12 +2884,12 @@ events:
       - "/var/run/com.apple.security.cryptexd/codex.system/bootstrap/usr/local/bin/OpenGL.framework/Headers/gl.h"
       - "/var/run/com.apple.security.cryptexd/codex.system/bootstrap/usr/bin/OpenGL.framework/Headers/gl.h"
       - "/var/run/com.apple.security.cryptexd/codex.system/bootstrap/usr/appleinternal/bin/OpenGL.framework/Headers/gl.h"
+      - "/opt/pmk/env/global/bin/OpenGL.framework/Headers/gl.h"
       - "/Library/Apple/usr/bin/OpenGL.framework/Headers/gl.h"
       - "/usr/local/go/bin/OpenGL.framework/Headers/gl.h"
       - "/opt/homebrew/bin/OpenGL.framework/Headers/gl.h"
       - "/opt/anaconda3/bin/OpenGL.framework/Headers/gl.h"
       - "/opt/anaconda3/condabin/OpenGL.framework/Headers/gl.h"
-      - "/Users/sarootareerattanawetch/.cursor/extensions/ms-python.debugpy-2025.14.1-darwin-arm64/bundled/scripts/noConfigScripts/OpenGL.framework/Headers/gl.h"
       - "/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk/usr/include/OpenGL.framework/Headers/gl.h"
       - "/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk/usr/OpenGL.framework/Headers/gl.h"
       - "/usr/local/include/OpenGL.framework/Headers/gl.h"
@@ -3034,7 +2914,6 @@ events:
     found: "/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk/System/Library/Frameworks/OpenGL.framework"
     search_context:
       ENV{PATH}:
-        - "/Users/sarootareerattanawetch/Library/Application Support/cloud-code/installer/google-cloud-sdk/bin"
         - "/Library/Frameworks/Python.framework/Versions/3.12/bin"
         - "/usr/local/bin"
         - "/System/Cryptexes/App/usr/bin"
@@ -3045,14 +2924,13 @@ events:
         - "/var/run/com.apple.security.cryptexd/codex.system/bootstrap/usr/local/bin"
         - "/var/run/com.apple.security.cryptexd/codex.system/bootstrap/usr/bin"
         - "/var/run/com.apple.security.cryptexd/codex.system/bootstrap/usr/appleinternal/bin"
+        - "/opt/pmk/env/global/bin"
         - "/Library/Apple/usr/bin"
         - "/usr/local/go/bin"
         - "/opt/homebrew/bin"
-        - "/Users/sarootareerattanawetch/Library/Application Support/cloud-code/installer/google-cloud-sdk/bin"
         - "/opt/anaconda3/bin"
         - "/opt/anaconda3/condabin"
         - "/Library/Frameworks/Python.framework/Versions/3.12/bin"
-        - "/Users/sarootareerattanawetch/.cursor/extensions/ms-python.debugpy-2025.14.1-darwin-arm64/bundled/scripts/noConfigScripts"
       CMAKE_INSTALL_PREFIX: "/usr/local"
       CMAKE_SYSTEM_PREFIX_PATH:
         - "/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk/usr"
@@ -3083,7 +2961,7 @@ events:
     kind: "find-v1"
     backtrace:
       - "/usr/local/share/cmake/Modules/FindOpenGL.cmake:243 (find_path)"
-      - "CMakeLists.txt:146 (find_package)"
+      - "CMakeLists.txt:153 (find_package)"
     mode: "path"
     variable: "OPENGL_GLU_INCLUDE_DIR"
     description: "Include for the OpenGL GLU library"
@@ -3099,7 +2977,6 @@ events:
       - "OpenGL/glu.h"
       - "GL/glu.h"
     candidate_directories:
-      - "/Users/sarootareerattanawetch/Library/Application Support/cloud-code/installer/google-cloud-sdk/bin/"
       - "/Library/Frameworks/Python.framework/Versions/3.12/bin/"
       - "/usr/local/bin/"
       - "/System/Cryptexes/App/usr/bin/"
@@ -3110,12 +2987,12 @@ events:
       - "/var/run/com.apple.security.cryptexd/codex.system/bootstrap/usr/local/bin/"
       - "/var/run/com.apple.security.cryptexd/codex.system/bootstrap/usr/bin/"
       - "/var/run/com.apple.security.cryptexd/codex.system/bootstrap/usr/appleinternal/bin/"
+      - "/opt/pmk/env/global/bin/"
       - "/Library/Apple/usr/bin/"
       - "/usr/local/go/bin/"
       - "/opt/homebrew/bin/"
       - "/opt/anaconda3/bin/"
       - "/opt/anaconda3/condabin/"
-      - "/Users/sarootareerattanawetch/.cursor/extensions/ms-python.debugpy-2025.14.1-darwin-arm64/bundled/scripts/noConfigScripts/"
       - "/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk/usr/include/"
       - "/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk/usr/"
       - "/usr/local/include/"
@@ -3144,7 +3021,6 @@ events:
       - "/Network/Library/Frameworks/"
       - "/System/Library/Frameworks/"
     searched_directories:
-      - "/Users/sarootareerattanawetch/Library/Application Support/cloud-code/installer/google-cloud-sdk/bin/OpenGL.framework/Headers/glu.h"
       - "/Library/Frameworks/Python.framework/Versions/3.12/bin/OpenGL.framework/Headers/glu.h"
       - "/usr/local/bin/OpenGL.framework/Headers/glu.h"
       - "/System/Cryptexes/App/usr/bin/OpenGL.framework/Headers/glu.h"
@@ -3155,12 +3031,12 @@ events:
       - "/var/run/com.apple.security.cryptexd/codex.system/bootstrap/usr/local/bin/OpenGL.framework/Headers/glu.h"
       - "/var/run/com.apple.security.cryptexd/codex.system/bootstrap/usr/bin/OpenGL.framework/Headers/glu.h"
       - "/var/run/com.apple.security.cryptexd/codex.system/bootstrap/usr/appleinternal/bin/OpenGL.framework/Headers/glu.h"
+      - "/opt/pmk/env/global/bin/OpenGL.framework/Headers/glu.h"
       - "/Library/Apple/usr/bin/OpenGL.framework/Headers/glu.h"
       - "/usr/local/go/bin/OpenGL.framework/Headers/glu.h"
       - "/opt/homebrew/bin/OpenGL.framework/Headers/glu.h"
       - "/opt/anaconda3/bin/OpenGL.framework/Headers/glu.h"
       - "/opt/anaconda3/condabin/OpenGL.framework/Headers/glu.h"
-      - "/Users/sarootareerattanawetch/.cursor/extensions/ms-python.debugpy-2025.14.1-darwin-arm64/bundled/scripts/noConfigScripts/OpenGL.framework/Headers/glu.h"
       - "/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk/usr/include/OpenGL.framework/Headers/glu.h"
       - "/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk/usr/OpenGL.framework/Headers/glu.h"
       - "/usr/local/include/OpenGL.framework/Headers/glu.h"
@@ -3185,7 +3061,6 @@ events:
     found: "/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk/System/Library/Frameworks/OpenGL.framework"
     search_context:
       ENV{PATH}:
-        - "/Users/sarootareerattanawetch/Library/Application Support/cloud-code/installer/google-cloud-sdk/bin"
         - "/Library/Frameworks/Python.framework/Versions/3.12/bin"
         - "/usr/local/bin"
         - "/System/Cryptexes/App/usr/bin"
@@ -3196,14 +3071,13 @@ events:
         - "/var/run/com.apple.security.cryptexd/codex.system/bootstrap/usr/local/bin"
         - "/var/run/com.apple.security.cryptexd/codex.system/bootstrap/usr/bin"
         - "/var/run/com.apple.security.cryptexd/codex.system/bootstrap/usr/appleinternal/bin"
+        - "/opt/pmk/env/global/bin"
         - "/Library/Apple/usr/bin"
         - "/usr/local/go/bin"
         - "/opt/homebrew/bin"
-        - "/Users/sarootareerattanawetch/Library/Application Support/cloud-code/installer/google-cloud-sdk/bin"
         - "/opt/anaconda3/bin"
         - "/opt/anaconda3/condabin"
         - "/Library/Frameworks/Python.framework/Versions/3.12/bin"
-        - "/Users/sarootareerattanawetch/.cursor/extensions/ms-python.debugpy-2025.14.1-darwin-arm64/bundled/scripts/noConfigScripts"
       CMAKE_INSTALL_PREFIX: "/usr/local"
       CMAKE_SYSTEM_PREFIX_PATH:
         - "/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk/usr"

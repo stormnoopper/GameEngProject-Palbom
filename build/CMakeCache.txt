@@ -409,10 +409,6 @@ FETCHCONTENT_QUIET:BOOL=ON
 FETCHCONTENT_SOURCE_DIR_ASSIMP:PATH=
 
 //When not empty, overrides where to find pre-populated content
-// for glad
-FETCHCONTENT_SOURCE_DIR_GLAD:PATH=
-
-//When not empty, overrides where to find pre-populated content
 // for glfw
 FETCHCONTENT_SOURCE_DIR_GLFW:PATH=
 
@@ -429,9 +425,6 @@ FETCHCONTENT_UPDATES_DISCONNECTED:BOOL=OFF
 
 //Enables UPDATE_DISCONNECTED behavior just for population of assimp
 FETCHCONTENT_UPDATES_DISCONNECTED_ASSIMP:BOOL=OFF
-
-//Enables UPDATE_DISCONNECTED behavior just for population of glad
-FETCHCONTENT_UPDATES_DISCONNECTED_GLAD:BOOL=OFF
 
 //Enables UPDATE_DISCONNECTED behavior just for population of glfw
 FETCHCONTENT_UPDATES_DISCONNECTED_GLFW:BOOL=OFF

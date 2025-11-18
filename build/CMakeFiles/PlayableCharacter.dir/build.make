@@ -86,30 +86,14 @@ CMakeFiles/PlayableCharacter.dir/src/main.cpp.s: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green "Compiling CXX source to assembly CMakeFiles/PlayableCharacter.dir/src/main.cpp.s"
 	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /Users/sarootareerattanawetch/OpenGL/GameEngProject-Palbomb-2.0-/src/main.cpp -o CMakeFiles/PlayableCharacter.dir/src/main.cpp.s
 
-CMakeFiles/PlayableCharacter.dir/src/animator.cpp.o: CMakeFiles/PlayableCharacter.dir/flags.make
-CMakeFiles/PlayableCharacter.dir/src/animator.cpp.o: /Users/sarootareerattanawetch/OpenGL/GameEngProject-Palbomb-2.0-/src/animator.cpp
-CMakeFiles/PlayableCharacter.dir/src/animator.cpp.o: CMakeFiles/PlayableCharacter.dir/compiler_depend.ts
-	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --progress-dir=/Users/sarootareerattanawetch/OpenGL/GameEngProject-Palbomb-2.0-/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_2) "Building CXX object CMakeFiles/PlayableCharacter.dir/src/animator.cpp.o"
-	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -MD -MT CMakeFiles/PlayableCharacter.dir/src/animator.cpp.o -MF CMakeFiles/PlayableCharacter.dir/src/animator.cpp.o.d -o CMakeFiles/PlayableCharacter.dir/src/animator.cpp.o -c /Users/sarootareerattanawetch/OpenGL/GameEngProject-Palbomb-2.0-/src/animator.cpp
-
-CMakeFiles/PlayableCharacter.dir/src/animator.cpp.i: cmake_force
-	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green "Preprocessing CXX source to CMakeFiles/PlayableCharacter.dir/src/animator.cpp.i"
-	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /Users/sarootareerattanawetch/OpenGL/GameEngProject-Palbomb-2.0-/src/animator.cpp > CMakeFiles/PlayableCharacter.dir/src/animator.cpp.i
-
-CMakeFiles/PlayableCharacter.dir/src/animator.cpp.s: cmake_force
-	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green "Compiling CXX source to assembly CMakeFiles/PlayableCharacter.dir/src/animator.cpp.s"
-	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /Users/sarootareerattanawetch/OpenGL/GameEngProject-Palbomb-2.0-/src/animator.cpp -o CMakeFiles/PlayableCharacter.dir/src/animator.cpp.s
-
 # Object files for target PlayableCharacter
 PlayableCharacter_OBJECTS = \
-"CMakeFiles/PlayableCharacter.dir/src/main.cpp.o" \
-"CMakeFiles/PlayableCharacter.dir/src/animator.cpp.o"
+"CMakeFiles/PlayableCharacter.dir/src/main.cpp.o"
 
 # External object files for target PlayableCharacter
 PlayableCharacter_EXTERNAL_OBJECTS =
 
 PlayableCharacter: CMakeFiles/PlayableCharacter.dir/src/main.cpp.o
-PlayableCharacter: CMakeFiles/PlayableCharacter.dir/src/animator.cpp.o
 PlayableCharacter: CMakeFiles/PlayableCharacter.dir/build.make
 PlayableCharacter: _deps/glfw-build/src/libglfw3.a
 PlayableCharacter: libglad.a
@@ -117,7 +101,7 @@ PlayableCharacter: _deps/assimp-build/lib/libassimp.a
 PlayableCharacter: /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk/System/Library/Frameworks/OpenGL.framework
 PlayableCharacter: /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk/usr/lib/libz.tbd
 PlayableCharacter: CMakeFiles/PlayableCharacter.dir/link.txt
-	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --bold --progress-dir=/Users/sarootareerattanawetch/OpenGL/GameEngProject-Palbomb-2.0-/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_3) "Linking CXX executable PlayableCharacter"
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --bold --progress-dir=/Users/sarootareerattanawetch/OpenGL/GameEngProject-Palbomb-2.0-/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_2) "Linking CXX executable PlayableCharacter"
 	$(CMAKE_COMMAND) -E cmake_link_script CMakeFiles/PlayableCharacter.dir/link.txt --verbose=$(VERBOSE)
 	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --blue --bold "Copying assets to the target binary directory"
 	/usr/local/bin/cmake -E copy_directory /Users/sarootareerattanawetch/OpenGL/GameEngProject-Palbomb-2.0-/assets /Users/sarootareerattanawetch/OpenGL/GameEngProject-Palbomb-2.0-/build/assets

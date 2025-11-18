@@ -110,9 +110,19 @@ if(TARGET assimp)
   endif()
 endif()
 
+# GLAD setup - use GLAD files from LearnOpenGL
+set(LEARNOPENGL_PATH "${CMAKE_SOURCE_DIR}/../LearnOpenGL")
+if(EXISTS "${LEARNOPENGL_PATH}/src/glad.c")
+    message(STATUS "Using GLAD from LearnOpenGL")
+    set(GLAD_INCLUDE_DIR "${LEARNOPENGL_PATH}/includes")
+    set(GLAD_SOURCE_FILE "${LEARNOPENGL_PATH}/src/glad.c")
+else()
+    message(FATAL_ERROR "GLAD files not found. Please ensure LearnOpenGL is available at ${LEARNOPENGL_PATH}")
+endif()
+
 # include directories
 include_directories(
-  ${CMAKE_SOURCE_DIR}/external/glad/include
+  ${GLAD_INCLUDE_DIR}
   ${glfw_SOURCE_DIR}/include
   ${glm_SOURCE_DIR}
   ${stb_SOURCE_DIR}
@@ -122,7 +132,7 @@ include_directories(
 
 
 # Only main.cpp is kept locally, other utility files will be downloaded automatically
-set(SRC src/main.cpp src/animator.cpp)
+set(SRC src/main.cpp)
 add_executable(PlayableCharacter ${SRC})
 
 # Ensure target can find downloaded headers in the build directory
@@ -131,8 +141,9 @@ target_include_directories(PlayableCharacter PRIVATE
   ${CMAKE_BINARY_DIR}/learnopengl
 )
 
-add_library(glad STATIC external/glad/src/glad.c)
-target_include_directories(glad PUBLIC external/glad/include)
+# Create GLAD library
+add_library(glad STATIC ${GLAD_SOURCE_FILE})
+target_include_directories(glad PUBLIC ${GLAD_INCLUDE_DIR})
 
 target_link_libraries(PlayableCharacter PRIVATE glfw glad assimp glm)
 

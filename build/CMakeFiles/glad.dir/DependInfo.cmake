@@ -8,7 +8,7 @@ set(CMAKE_DEPENDS_LANGUAGES
 
 # The set of dependency files which are needed:
 set(CMAKE_DEPENDS_DEPENDENCY_FILES
-  "/Users/sarootareerattanawetch/OpenGL/GameEngProject-Palbomb-2.0-/external/glad/src/glad.c" "CMakeFiles/glad.dir/external/glad/src/glad.c.o" "gcc" "CMakeFiles/glad.dir/external/glad/src/glad.c.o.d"
+  "/Users/sarootareerattanawetch/OpenGL/LearnOpenGL/src/glad.c" "CMakeFiles/glad.dir/Users/sarootareerattanawetch/OpenGL/LearnOpenGL/src/glad.c.o" "gcc" "CMakeFiles/glad.dir/Users/sarootareerattanawetch/OpenGL/LearnOpenGL/src/glad.c.o.d"
   )
 
 # Targets to which this target links which contain Fortran sources.

@@ -20,7 +20,6 @@ events:
     names:
       - "uname"
     candidate_directories:
-      - "/Users/sarootareerattanawetch/Library/Application Support/cloud-code/installer/google-cloud-sdk/bin/"
       - "/Library/Frameworks/Python.framework/Versions/3.12/bin/"
       - "/usr/local/bin/"
       - "/System/Cryptexes/App/usr/bin/"
@@ -31,21 +30,19 @@ events:
       - "/var/run/com.apple.security.cryptexd/codex.system/bootstrap/usr/local/bin/"
       - "/var/run/com.apple.security.cryptexd/codex.system/bootstrap/usr/bin/"
       - "/var/run/com.apple.security.cryptexd/codex.system/bootstrap/usr/appleinternal/bin/"
+      - "/opt/pmk/env/global/bin/"
       - "/Library/Apple/usr/bin/"
       - "/usr/local/go/bin/"
       - "/opt/homebrew/bin/"
       - "/opt/anaconda3/bin/"
       - "/opt/anaconda3/condabin/"
-      - "/Users/sarootareerattanawetch/.cursor/extensions/ms-python.debugpy-2025.14.1-darwin-arm64/bundled/scripts/noConfigScripts/"
     searched_directories:
-      - "/Users/sarootareerattanawetch/Library/Application Support/cloud-code/installer/google-cloud-sdk/bin/uname"
       - "/Library/Frameworks/Python.framework/Versions/3.12/bin/uname"
       - "/usr/local/bin/uname"
       - "/System/Cryptexes/App/usr/bin/uname"
     found: "/usr/bin/uname"
     search_context:
       ENV{PATH}:
-        - "/Users/sarootareerattanawetch/Library/Application Support/cloud-code/installer/google-cloud-sdk/bin"
         - "/Library/Frameworks/Python.framework/Versions/3.12/bin"
         - "/usr/local/bin"
         - "/System/Cryptexes/App/usr/bin"
@@ -56,21 +53,20 @@ events:
         - "/var/run/com.apple.security.cryptexd/codex.system/bootstrap/usr/local/bin"
         - "/var/run/com.apple.security.cryptexd/codex.system/bootstrap/usr/bin"
         - "/var/run/com.apple.security.cryptexd/codex.system/bootstrap/usr/appleinternal/bin"
+        - "/opt/pmk/env/global/bin"
         - "/Library/Apple/usr/bin"
         - "/usr/local/go/bin"
         - "/opt/homebrew/bin"
-        - "/Users/sarootareerattanawetch/Library/Application Support/cloud-code/installer/google-cloud-sdk/bin"
         - "/opt/anaconda3/bin"
         - "/opt/anaconda3/condabin"
         - "/Library/Frameworks/Python.framework/Versions/3.12/bin"
-        - "/Users/sarootareerattanawetch/.cursor/extensions/ms-python.debugpy-2025.14.1-darwin-arm64/bundled/scripts/noConfigScripts"
   -
     kind: "message-v1"
     backtrace:
       - "/usr/local/share/cmake/Modules/CMakeDetermineSystem.cmake:212 (message)"
       - "CMakeLists.txt:16 (project)"
     message: |
-      The system is: Darwin - 25.0.0 - x86_64
+      The system is: Darwin - 25.1.0 - x86_64
   -
     kind: "find-v1"
     backtrace:
@@ -91,7 +87,6 @@ events:
     names:
       - "install_name_tool"
     candidate_directories:
-      - "/Users/sarootareerattanawetch/Library/Application Support/cloud-code/installer/google-cloud-sdk/bin/"
       - "/Library/Frameworks/Python.framework/Versions/3.12/bin/"
       - "/usr/local/bin/"
       - "/System/Cryptexes/App/usr/bin/"
@@ -102,21 +97,19 @@ events:
       - "/var/run/com.apple.security.cryptexd/codex.system/bootstrap/usr/local/bin/"
       - "/var/run/com.apple.security.cryptexd/codex.system/bootstrap/usr/bin/"
       - "/var/run/com.apple.security.cryptexd/codex.system/bootstrap/usr/appleinternal/bin/"
+      - "/opt/pmk/env/global/bin/"
       - "/Library/Apple/usr/bin/"
       - "/usr/local/go/bin/"
       - "/opt/homebrew/bin/"
       - "/opt/anaconda3/bin/"
       - "/opt/anaconda3/condabin/"
-      - "/Users/sarootareerattanawetch/.cursor/extensions/ms-python.debugpy-2025.14.1-darwin-arm64/bundled/scripts/noConfigScripts/"
     searched_directories:
-      - "/Users/sarootareerattanawetch/Library/Application Support/cloud-code/installer/google-cloud-sdk/bin/install_name_tool"
       - "/Library/Frameworks/Python.framework/Versions/3.12/bin/install_name_tool"
       - "/usr/local/bin/install_name_tool"
       - "/System/Cryptexes/App/usr/bin/install_name_tool"
     found: "/usr/bin/install_name_tool"
     search_context:
       ENV{PATH}:
-        - "/Users/sarootareerattanawetch/Library/Application Support/cloud-code/installer/google-cloud-sdk/bin"
         - "/Library/Frameworks/Python.framework/Versions/3.12/bin"
         - "/usr/local/bin"
         - "/System/Cryptexes/App/usr/bin"
@@ -127,13 +120,12 @@ events:
         - "/var/run/com.apple.security.cryptexd/codex.system/bootstrap/usr/local/bin"
         - "/var/run/com.apple.security.cryptexd/codex.system/bootstrap/usr/bin"
         - "/var/run/com.apple.security.cryptexd/codex.system/bootstrap/usr/appleinternal/bin"
+        - "/opt/pmk/env/global/bin"
         - "/Library/Apple/usr/bin"
         - "/usr/local/go/bin"
         - "/opt/homebrew/bin"
-        - "/Users/sarootareerattanawetch/Library/Application Support/cloud-code/installer/google-cloud-sdk/bin"
         - "/opt/anaconda3/bin"
         - "/opt/anaconda3/condabin"
         - "/Library/Frameworks/Python.framework/Versions/3.12/bin"
-        - "/Users/sarootareerattanawetch/.cursor/extensions/ms-python.debugpy-2025.14.1-darwin-arm64/bundled/scripts/noConfigScripts"
       CMAKE_INSTALL_PREFIX: "/usr/local"
 ...

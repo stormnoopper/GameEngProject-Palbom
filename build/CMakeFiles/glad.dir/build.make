@@ -72,28 +72,28 @@ include CMakeFiles/glad.dir/flags.make
 CMakeFiles/glad.dir/codegen:
 .PHONY : CMakeFiles/glad.dir/codegen
 
-CMakeFiles/glad.dir/external/glad/src/glad.c.o: CMakeFiles/glad.dir/flags.make
-CMakeFiles/glad.dir/external/glad/src/glad.c.o: /Users/sarootareerattanawetch/OpenGL/GameEngProject-Palbomb-2.0-/external/glad/src/glad.c
-CMakeFiles/glad.dir/external/glad/src/glad.c.o: CMakeFiles/glad.dir/compiler_depend.ts
-	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --progress-dir=/Users/sarootareerattanawetch/OpenGL/GameEngProject-Palbomb-2.0-/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_1) "Building C object CMakeFiles/glad.dir/external/glad/src/glad.c.o"
-	/usr/bin/cc $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -MD -MT CMakeFiles/glad.dir/external/glad/src/glad.c.o -MF CMakeFiles/glad.dir/external/glad/src/glad.c.o.d -o CMakeFiles/glad.dir/external/glad/src/glad.c.o -c /Users/sarootareerattanawetch/OpenGL/GameEngProject-Palbomb-2.0-/external/glad/src/glad.c
+CMakeFiles/glad.dir/Users/sarootareerattanawetch/OpenGL/LearnOpenGL/src/glad.c.o: CMakeFiles/glad.dir/flags.make
+CMakeFiles/glad.dir/Users/sarootareerattanawetch/OpenGL/LearnOpenGL/src/glad.c.o: /Users/sarootareerattanawetch/OpenGL/LearnOpenGL/src/glad.c
+CMakeFiles/glad.dir/Users/sarootareerattanawetch/OpenGL/LearnOpenGL/src/glad.c.o: CMakeFiles/glad.dir/compiler_depend.ts
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --progress-dir=/Users/sarootareerattanawetch/OpenGL/GameEngProject-Palbomb-2.0-/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_1) "Building C object CMakeFiles/glad.dir/Users/sarootareerattanawetch/OpenGL/LearnOpenGL/src/glad.c.o"
+	/usr/bin/cc $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -MD -MT CMakeFiles/glad.dir/Users/sarootareerattanawetch/OpenGL/LearnOpenGL/src/glad.c.o -MF CMakeFiles/glad.dir/Users/sarootareerattanawetch/OpenGL/LearnOpenGL/src/glad.c.o.d -o CMakeFiles/glad.dir/Users/sarootareerattanawetch/OpenGL/LearnOpenGL/src/glad.c.o -c /Users/sarootareerattanawetch/OpenGL/LearnOpenGL/src/glad.c
 
-CMakeFiles/glad.dir/external/glad/src/glad.c.i: cmake_force
-	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green "Preprocessing C source to CMakeFiles/glad.dir/external/glad/src/glad.c.i"
-	/usr/bin/cc $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -E /Users/sarootareerattanawetch/OpenGL/GameEngProject-Palbomb-2.0-/external/glad/src/glad.c > CMakeFiles/glad.dir/external/glad/src/glad.c.i
+CMakeFiles/glad.dir/Users/sarootareerattanawetch/OpenGL/LearnOpenGL/src/glad.c.i: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green "Preprocessing C source to CMakeFiles/glad.dir/Users/sarootareerattanawetch/OpenGL/LearnOpenGL/src/glad.c.i"
+	/usr/bin/cc $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -E /Users/sarootareerattanawetch/OpenGL/LearnOpenGL/src/glad.c > CMakeFiles/glad.dir/Users/sarootareerattanawetch/OpenGL/LearnOpenGL/src/glad.c.i
 
-CMakeFiles/glad.dir/external/glad/src/glad.c.s: cmake_force
-	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green "Compiling C source to assembly CMakeFiles/glad.dir/external/glad/src/glad.c.s"
-	/usr/bin/cc $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -S /Users/sarootareerattanawetch/OpenGL/GameEngProject-Palbomb-2.0-/external/glad/src/glad.c -o CMakeFiles/glad.dir/external/glad/src/glad.c.s
+CMakeFiles/glad.dir/Users/sarootareerattanawetch/OpenGL/LearnOpenGL/src/glad.c.s: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green "Compiling C source to assembly CMakeFiles/glad.dir/Users/sarootareerattanawetch/OpenGL/LearnOpenGL/src/glad.c.s"
+	/usr/bin/cc $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -S /Users/sarootareerattanawetch/OpenGL/LearnOpenGL/src/glad.c -o CMakeFiles/glad.dir/Users/sarootareerattanawetch/OpenGL/LearnOpenGL/src/glad.c.s
 
 # Object files for target glad
 glad_OBJECTS = \
-"CMakeFiles/glad.dir/external/glad/src/glad.c.o"
+"CMakeFiles/glad.dir/Users/sarootareerattanawetch/OpenGL/LearnOpenGL/src/glad.c.o"
 
 # External object files for target glad
 glad_EXTERNAL_OBJECTS =
 
-libglad.a: CMakeFiles/glad.dir/external/glad/src/glad.c.o
+libglad.a: CMakeFiles/glad.dir/Users/sarootareerattanawetch/OpenGL/LearnOpenGL/src/glad.c.o
 libglad.a: CMakeFiles/glad.dir/build.make
 libglad.a: CMakeFiles/glad.dir/link.txt
 	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --bold --progress-dir=/Users/sarootareerattanawetch/OpenGL/GameEngProject-Palbomb-2.0-/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_2) "Linking C static library libglad.a"
