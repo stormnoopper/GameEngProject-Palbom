@@ -11,9 +11,13 @@
 
 #include <iostream>
 #include <vector>
+#include <random>
+#include <algorithm>
+#include <functional>
 
 void framebuffer_size_callback(GLFWwindow* window, int width, int height);
-void processInput(GLFWwindow *window);
+void processInput(GLFWwindow *window, std::vector<std::pair<int, int>>& breakableBlockPositions, 
+                 std::mt19937& gen, const std::function<void(std::vector<std::pair<int, int>>&, std::mt19937&)>& generateBlocks);
 unsigned int loadCubemap(const std::vector<std::string>& faces);
 
 // settings
@@ -188,6 +192,14 @@ int main()
         borderTexture = loadTexture("assets/Unbreakable_Block/tudor_wall_01_basecolor_1k.png");
     }
 
+    std::string breakableTexturePath = FileSystem::getPath("assets/Breakable_Block/wood_05_baseColor_1k.png");
+    unsigned int breakableTexture = loadTexture(breakableTexturePath.c_str());
+    if (breakableTexture == 0)
+    {
+        std::cout << "Failed to load breakable texture. Trying alternative path..." << std::endl;
+        breakableTexture = loadTexture("assets/Breakable_Block/wood_05_baseColor_1k.png");
+    }
+
     shader.use();
     shader.setInt("texture1", 0);
     skyboxShader.use();
@@ -264,11 +276,60 @@ int main()
     const float TILE_SIZE = 1.0f;
     const float MAP_OFFSET = -(MAP_SIZE - 1) * TILE_SIZE / 2.0f;
 
+    // Helper function to check if a position is a red block (unbreakable pattern)
+    auto isRedBlock = [](int x, int z) -> bool {
+        // Red blocks are placed at even x and even z (2,4,6,8,10,12)
+        // This matches the current rendering pattern
+        return (x >= 2 && x <= 12 && x % 2 == 0 && 
+                z >= 2 && z <= 12 && z % 2 == 0);
+    };
+
+    // Helper function to check if a position is a green cell (player spawn)
+    auto isGreenCell = [](int x, int z) -> bool {
+        // Green cells at (1,1) top-left and (13,13) bottom-right
+        return (x == 1 && z == 1) || (x == 13 && z == 13);
+    };
+
+    // Helper function to check if a position is a white cell (where breakable blocks can be placed)
+    auto isWhiteCell = [&](int x, int z) -> bool {
+        // Not border
+        if (x == 0 || x == MAP_SIZE - 1 || z == 0 || z == MAP_SIZE - 1) return false;
+        // Not red block
+        if (isRedBlock(x, z)) return false;
+        // Not green cell
+        if (isGreenCell(x, z)) return false;
+        return true;
+    };
+
+    // Function to generate random breakable block positions
+    auto generateBreakableBlocks = [&](std::vector<std::pair<int, int>>& positions, std::mt19937& generator) {
+        positions.clear();
+        std::uniform_real_distribution<float> dis(0.0f, 1.0f);
+        const float BREAKABLE_BLOCK_PROBABILITY = 0.6f; // 60% chance
+        
+        for (int x = 1; x < MAP_SIZE - 1; x++)
+        {
+            for (int z = 1; z < MAP_SIZE - 1; z++)
+            {
+                if (isWhiteCell(x, z) && dis(generator) < BREAKABLE_BLOCK_PROBABILITY)
+                {
+                    positions.push_back({x, z});
+                }
+            }
+        }
+    };
+
+    // Generate random breakable block positions in white cells
+    std::vector<std::pair<int, int>> breakableBlockPositions;
+    std::random_device rd;
+    std::mt19937 gen(rd());
+    generateBreakableBlocks(breakableBlockPositions, gen);
+
     // render loop
     while (!glfwWindowShouldClose(window))
     {
         // input
-        processInput(window);
+        processInput(window, breakableBlockPositions, gen, generateBreakableBlocks);
 
         // render
         glClearColor(0.1f, 0.1f, 0.15f, 1.0f);
@@ -369,6 +430,27 @@ int main()
             }
         }
 
+        // render breakable blocks (randomly placed in white sections)
+        // Breakable blocks are 75% of unbreakable block height (same as red blocks)
+        const float breakableBlockHeight = fullBlockHeight * 0.75f; // 75% of border height
+        const float breakableBlockScaleY = breakableBlockHeight / blockHeight;
+        glBindTexture(GL_TEXTURE_2D, breakableTexture);
+        for (const auto& pos : breakableBlockPositions)
+        {
+            int x = pos.first;
+            int z = pos.second;
+            
+            float tileX = MAP_OFFSET + x * TILE_SIZE;
+            float tileZ = MAP_OFFSET + z * TILE_SIZE;
+
+            glm::mat4 model = glm::mat4(1.0f);
+            model = glm::translate(model, glm::vec3(tileX, blockHeight, tileZ));
+            model = glm::scale(model, glm::vec3(1.0f, breakableBlockScaleY, 1.0f));
+            shader.setMat4("model", model);
+
+            glDrawElements(GL_TRIANGLES, 36, GL_UNSIGNED_INT, 0);
+        }
+
         // glfw: swap buffers and poll IO events
 
         // draw skybox last
@@ -401,10 +483,24 @@ int main()
 }
 
 // process all input: query GLFW whether relevant keys are pressed/released this frame and react accordingly
-void processInput(GLFWwindow *window)
+void processInput(GLFWwindow *window, std::vector<std::pair<int, int>>& breakableBlockPositions, 
+                 std::mt19937& gen, const std::function<void(std::vector<std::pair<int, int>>&, std::mt19937&)>& generateBlocks)
 {
     if (glfwGetKey(window, GLFW_KEY_ESCAPE) == GLFW_PRESS)
         glfwSetWindowShouldClose(window, true);
+    
+    // R key to regenerate breakable blocks
+    static bool rKeyPressed = false;
+    if (glfwGetKey(window, GLFW_KEY_R) == GLFW_PRESS && !rKeyPressed)
+    {
+        rKeyPressed = true;
+        generateBlocks(breakableBlockPositions, gen);
+        std::cout << "Breakable blocks regenerated! (" << breakableBlockPositions.size() << " blocks)" << std::endl;
+    }
+    else if (glfwGetKey(window, GLFW_KEY_R) == GLFW_RELEASE)
+    {
+        rKeyPressed = false;
+    }
 }
 
 // glfw: whenever the window size changed (by OS or user resize) this callback function executes
