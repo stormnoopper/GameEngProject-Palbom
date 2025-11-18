@@ -6,22 +6,22 @@ cmake_minimum_required(VERSION ${CMAKE_VERSION}) # this file comes with cmake
 # If CMAKE_DISABLE_SOURCE_CHANGES is set to true and the source directory is an
 # existing directory in our source tree, calling file(MAKE_DIRECTORY) on it
 # would cause a fatal error, even though it would be a no-op.
-if(NOT EXISTS "/Users/sarootareerattanawetch/OpenGL/GameEngProject-Palbomb-2.0-/build/_deps/assimp-src")
-  file(MAKE_DIRECTORY "/Users/sarootareerattanawetch/OpenGL/GameEngProject-Palbomb-2.0-/build/_deps/assimp-src")
+if(NOT EXISTS "/Users/sarootareerattanawetch/OpenGL/GameEngProject-Palbom/build/_deps/assimp-src")
+  file(MAKE_DIRECTORY "/Users/sarootareerattanawetch/OpenGL/GameEngProject-Palbom/build/_deps/assimp-src")
 endif()
 file(MAKE_DIRECTORY
-  "/Users/sarootareerattanawetch/OpenGL/GameEngProject-Palbomb-2.0-/build/_deps/assimp-build"
-  "/Users/sarootareerattanawetch/OpenGL/GameEngProject-Palbomb-2.0-/build/_deps/assimp-subbuild/assimp-populate-prefix"
-  "/Users/sarootareerattanawetch/OpenGL/GameEngProject-Palbomb-2.0-/build/_deps/assimp-subbuild/assimp-populate-prefix/tmp"
-  "/Users/sarootareerattanawetch/OpenGL/GameEngProject-Palbomb-2.0-/build/_deps/assimp-subbuild/assimp-populate-prefix/src/assimp-populate-stamp"
-  "/Users/sarootareerattanawetch/OpenGL/GameEngProject-Palbomb-2.0-/build/_deps/assimp-subbuild/assimp-populate-prefix/src"
-  "/Users/sarootareerattanawetch/OpenGL/GameEngProject-Palbomb-2.0-/build/_deps/assimp-subbuild/assimp-populate-prefix/src/assimp-populate-stamp"
+  "/Users/sarootareerattanawetch/OpenGL/GameEngProject-Palbom/build/_deps/assimp-build"
+  "/Users/sarootareerattanawetch/OpenGL/GameEngProject-Palbom/build/_deps/assimp-subbuild/assimp-populate-prefix"
+  "/Users/sarootareerattanawetch/OpenGL/GameEngProject-Palbom/build/_deps/assimp-subbuild/assimp-populate-prefix/tmp"
+  "/Users/sarootareerattanawetch/OpenGL/GameEngProject-Palbom/build/_deps/assimp-subbuild/assimp-populate-prefix/src/assimp-populate-stamp"
+  "/Users/sarootareerattanawetch/OpenGL/GameEngProject-Palbom/build/_deps/assimp-subbuild/assimp-populate-prefix/src"
+  "/Users/sarootareerattanawetch/OpenGL/GameEngProject-Palbom/build/_deps/assimp-subbuild/assimp-populate-prefix/src/assimp-populate-stamp"
 )
 
 set(configSubDirs )
 foreach(subDir IN LISTS configSubDirs)
-    file(MAKE_DIRECTORY "/Users/sarootareerattanawetch/OpenGL/GameEngProject-Palbomb-2.0-/build/_deps/assimp-subbuild/assimp-populate-prefix/src/assimp-populate-stamp/${subDir}")
+    file(MAKE_DIRECTORY "/Users/sarootareerattanawetch/OpenGL/GameEngProject-Palbom/build/_deps/assimp-subbuild/assimp-populate-prefix/src/assimp-populate-stamp/${subDir}")
 endforeach()
 if(cfgdir)
-  file(MAKE_DIRECTORY "/Users/sarootareerattanawetch/OpenGL/GameEngProject-Palbomb-2.0-/build/_deps/assimp-subbuild/assimp-populate-prefix/src/assimp-populate-stamp${cfgdir}") # cfgdir has leading slash
+  file(MAKE_DIRECTORY "/Users/sarootareerattanawetch/OpenGL/GameEngProject-Palbom/build/_deps/assimp-subbuild/assimp-populate-prefix/src/assimp-populate-stamp${cfgdir}") # cfgdir has leading slash
 endif()

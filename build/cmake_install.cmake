@@ -1,4 +1,4 @@
-# Install script for directory: /Users/sarootareerattanawetch/OpenGL/GameEngProject-Palbomb-2.0-
+# Install script for directory: /Users/sarootareerattanawetch/OpenGL/GameEngProject-Palbom
 
 # Set the install prefix
 if(NOT DEFINED CMAKE_INSTALL_PREFIX)
@@ -39,22 +39,22 @@ endif()
 
 if(NOT CMAKE_INSTALL_LOCAL_ONLY)
   # Include the install script for the subdirectory.
-  include("/Users/sarootareerattanawetch/OpenGL/GameEngProject-Palbomb-2.0-/build/_deps/glfw-build/cmake_install.cmake")
+  include("/Users/sarootareerattanawetch/OpenGL/GameEngProject-Palbom/build/_deps/glfw-build/cmake_install.cmake")
 endif()
 
 if(NOT CMAKE_INSTALL_LOCAL_ONLY)
   # Include the install script for the subdirectory.
-  include("/Users/sarootareerattanawetch/OpenGL/GameEngProject-Palbomb-2.0-/build/_deps/assimp-build/cmake_install.cmake")
+  include("/Users/sarootareerattanawetch/OpenGL/GameEngProject-Palbom/build/_deps/assimp-build/cmake_install.cmake")
 endif()
 
 if(CMAKE_INSTALL_COMPONENT STREQUAL "Unspecified" OR NOT CMAKE_INSTALL_COMPONENT)
-  file(INSTALL DESTINATION "${CMAKE_INSTALL_PREFIX}/." TYPE DIRECTORY FILES "/Users/sarootareerattanawetch/OpenGL/GameEngProject-Palbomb-2.0-/assets" USE_SOURCE_PERMISSIONS)
+  file(INSTALL DESTINATION "${CMAKE_INSTALL_PREFIX}/." TYPE DIRECTORY FILES "/Users/sarootareerattanawetch/OpenGL/GameEngProject-Palbom/assets" USE_SOURCE_PERMISSIONS)
 endif()
 
 string(REPLACE ";" "\n" CMAKE_INSTALL_MANIFEST_CONTENT
        "${CMAKE_INSTALL_MANIFEST_FILES}")
 if(CMAKE_INSTALL_LOCAL_ONLY)
-  file(WRITE "/Users/sarootareerattanawetch/OpenGL/GameEngProject-Palbomb-2.0-/build/install_local_manifest.txt"
+  file(WRITE "/Users/sarootareerattanawetch/OpenGL/GameEngProject-Palbom/build/install_local_manifest.txt"
      "${CMAKE_INSTALL_MANIFEST_CONTENT}")
 endif()
 if(CMAKE_INSTALL_COMPONENT)
@@ -70,6 +70,6 @@ else()
 endif()
 
 if(NOT CMAKE_INSTALL_LOCAL_ONLY)
-  file(WRITE "/Users/sarootareerattanawetch/OpenGL/GameEngProject-Palbomb-2.0-/build/${CMAKE_INSTALL_MANIFEST}"
+  file(WRITE "/Users/sarootareerattanawetch/OpenGL/GameEngProject-Palbom/build/${CMAKE_INSTALL_MANIFEST}"
      "${CMAKE_INSTALL_MANIFEST_CONTENT}")
 endif()

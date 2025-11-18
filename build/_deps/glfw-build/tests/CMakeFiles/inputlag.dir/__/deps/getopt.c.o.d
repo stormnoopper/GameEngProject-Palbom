@@ -1,6 +1,6 @@
 _deps/glfw-build/tests/CMakeFiles/inputlag.dir/__/deps/getopt.c.o: \
-  /Users/sarootareerattanawetch/OpenGL/GameEngProject-Palbomb-2.0-/build/_deps/glfw-src/deps/getopt.c \
-  /Users/sarootareerattanawetch/OpenGL/GameEngProject-Palbomb-2.0-/build/_deps/glfw-src/deps/getopt.h \
+  /Users/sarootareerattanawetch/OpenGL/GameEngProject-Palbom/build/_deps/glfw-src/deps/getopt.c \
+  /Users/sarootareerattanawetch/OpenGL/GameEngProject-Palbom/build/_deps/glfw-src/deps/getopt.h \
   /Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/lib/clang/17/include/stddef.h \
   /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk/usr/include/stddef.h \
   /Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/lib/clang/17/include/__stddef_header_macro.h \

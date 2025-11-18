@@ -4,7 +4,7 @@
 # compile C with /usr/bin/cc
 C_DEFINES = 
 
-C_INCLUDES = -I/Users/sarootareerattanawetch/OpenGL/GameEngProject-Palbomb-2.0-/build -I/Users/sarootareerattanawetch/OpenGL/GameEngProject-Palbomb-2.0-/build/learnopengl -I/Users/sarootareerattanawetch/OpenGL/GameEngProject-Palbomb-2.0-/build/_deps/glfw-src/deps -I/Users/sarootareerattanawetch/OpenGL/GameEngProject-Palbomb-2.0-/build/_deps/glfw-src/include
+C_INCLUDES = -I/Users/sarootareerattanawetch/OpenGL/GameEngProject-Palbom/build -I/Users/sarootareerattanawetch/OpenGL/GameEngProject-Palbom/build/learnopengl -I/Users/sarootareerattanawetch/OpenGL/GameEngProject-Palbom/build/_deps/glfw-src/deps -I/Users/sarootareerattanawetch/OpenGL/GameEngProject-Palbom/build/_deps/glfw-src/include
 
 C_FLAGSx86_64 = -std=gnu99 -arch x86_64
 

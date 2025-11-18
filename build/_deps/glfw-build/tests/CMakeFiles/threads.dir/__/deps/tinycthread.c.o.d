@@ -1,6 +1,6 @@
 _deps/glfw-build/tests/CMakeFiles/threads.dir/__/deps/tinycthread.c.o: \
-  /Users/sarootareerattanawetch/OpenGL/GameEngProject-Palbomb-2.0-/build/_deps/glfw-src/deps/tinycthread.c \
-  /Users/sarootareerattanawetch/OpenGL/GameEngProject-Palbomb-2.0-/build/_deps/glfw-src/deps/tinycthread.h \
+  /Users/sarootareerattanawetch/OpenGL/GameEngProject-Palbom/build/_deps/glfw-src/deps/tinycthread.c \
+  /Users/sarootareerattanawetch/OpenGL/GameEngProject-Palbom/build/_deps/glfw-src/deps/tinycthread.h \
   /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk/usr/include/time.h \
   /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk/usr/include/_time.h \
   /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk/usr/include/_types.h \

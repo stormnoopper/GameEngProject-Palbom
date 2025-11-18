@@ -53,10 +53,10 @@ RM = /usr/local/bin/cmake -E rm -f
 EQUALS = =
 
 # The top-level source directory on which CMake was run.
-CMAKE_SOURCE_DIR = /Users/sarootareerattanawetch/OpenGL/GameEngProject-Palbomb-2.0-
+CMAKE_SOURCE_DIR = /Users/sarootareerattanawetch/OpenGL/GameEngProject-Palbom
 
 # The top-level build directory on which CMake was run.
-CMAKE_BINARY_DIR = /Users/sarootareerattanawetch/OpenGL/GameEngProject-Palbomb-2.0-/build
+CMAKE_BINARY_DIR = /Users/sarootareerattanawetch/OpenGL/GameEngProject-Palbom/build
 
 # Include any dependencies generated for this target.
 include _deps/glfw-build/tests/CMakeFiles/glfwinfo.dir/depend.make
@@ -75,58 +75,58 @@ _deps/glfw-build/tests/CMakeFiles/glfwinfo.dir/codegen:
 _deps/glfw-build/tests/CMakeFiles/glfwinfo.dir/glfwinfo.c.o: _deps/glfw-build/tests/CMakeFiles/glfwinfo.dir/flags.make
 _deps/glfw-build/tests/CMakeFiles/glfwinfo.dir/glfwinfo.c.o: _deps/glfw-src/tests/glfwinfo.c
 _deps/glfw-build/tests/CMakeFiles/glfwinfo.dir/glfwinfo.c.o: _deps/glfw-build/tests/CMakeFiles/glfwinfo.dir/compiler_depend.ts
-	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --progress-dir=/Users/sarootareerattanawetch/OpenGL/GameEngProject-Palbomb-2.0-/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_1) "Building C object _deps/glfw-build/tests/CMakeFiles/glfwinfo.dir/glfwinfo.c.o"
-	cd /Users/sarootareerattanawetch/OpenGL/GameEngProject-Palbomb-2.0-/build/_deps/glfw-build/tests && /usr/bin/cc $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -MD -MT _deps/glfw-build/tests/CMakeFiles/glfwinfo.dir/glfwinfo.c.o -MF CMakeFiles/glfwinfo.dir/glfwinfo.c.o.d -o CMakeFiles/glfwinfo.dir/glfwinfo.c.o -c /Users/sarootareerattanawetch/OpenGL/GameEngProject-Palbomb-2.0-/build/_deps/glfw-src/tests/glfwinfo.c
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --progress-dir=/Users/sarootareerattanawetch/OpenGL/GameEngProject-Palbom/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_1) "Building C object _deps/glfw-build/tests/CMakeFiles/glfwinfo.dir/glfwinfo.c.o"
+	cd /Users/sarootareerattanawetch/OpenGL/GameEngProject-Palbom/build/_deps/glfw-build/tests && /usr/bin/cc $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -MD -MT _deps/glfw-build/tests/CMakeFiles/glfwinfo.dir/glfwinfo.c.o -MF CMakeFiles/glfwinfo.dir/glfwinfo.c.o.d -o CMakeFiles/glfwinfo.dir/glfwinfo.c.o -c /Users/sarootareerattanawetch/OpenGL/GameEngProject-Palbom/build/_deps/glfw-src/tests/glfwinfo.c
 
 _deps/glfw-build/tests/CMakeFiles/glfwinfo.dir/glfwinfo.c.i: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green "Preprocessing C source to CMakeFiles/glfwinfo.dir/glfwinfo.c.i"
-	cd /Users/sarootareerattanawetch/OpenGL/GameEngProject-Palbomb-2.0-/build/_deps/glfw-build/tests && /usr/bin/cc $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -E /Users/sarootareerattanawetch/OpenGL/GameEngProject-Palbomb-2.0-/build/_deps/glfw-src/tests/glfwinfo.c > CMakeFiles/glfwinfo.dir/glfwinfo.c.i
+	cd /Users/sarootareerattanawetch/OpenGL/GameEngProject-Palbom/build/_deps/glfw-build/tests && /usr/bin/cc $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -E /Users/sarootareerattanawetch/OpenGL/GameEngProject-Palbom/build/_deps/glfw-src/tests/glfwinfo.c > CMakeFiles/glfwinfo.dir/glfwinfo.c.i
 
 _deps/glfw-build/tests/CMakeFiles/glfwinfo.dir/glfwinfo.c.s: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green "Compiling C source to assembly CMakeFiles/glfwinfo.dir/glfwinfo.c.s"
-	cd /Users/sarootareerattanawetch/OpenGL/GameEngProject-Palbomb-2.0-/build/_deps/glfw-build/tests && /usr/bin/cc $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -S /Users/sarootareerattanawetch/OpenGL/GameEngProject-Palbomb-2.0-/build/_deps/glfw-src/tests/glfwinfo.c -o CMakeFiles/glfwinfo.dir/glfwinfo.c.s
+	cd /Users/sarootareerattanawetch/OpenGL/GameEngProject-Palbom/build/_deps/glfw-build/tests && /usr/bin/cc $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -S /Users/sarootareerattanawetch/OpenGL/GameEngProject-Palbom/build/_deps/glfw-src/tests/glfwinfo.c -o CMakeFiles/glfwinfo.dir/glfwinfo.c.s
 
 _deps/glfw-build/tests/CMakeFiles/glfwinfo.dir/__/deps/getopt.c.o: _deps/glfw-build/tests/CMakeFiles/glfwinfo.dir/flags.make
 _deps/glfw-build/tests/CMakeFiles/glfwinfo.dir/__/deps/getopt.c.o: _deps/glfw-src/deps/getopt.c
 _deps/glfw-build/tests/CMakeFiles/glfwinfo.dir/__/deps/getopt.c.o: _deps/glfw-build/tests/CMakeFiles/glfwinfo.dir/compiler_depend.ts
-	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --progress-dir=/Users/sarootareerattanawetch/OpenGL/GameEngProject-Palbomb-2.0-/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_2) "Building C object _deps/glfw-build/tests/CMakeFiles/glfwinfo.dir/__/deps/getopt.c.o"
-	cd /Users/sarootareerattanawetch/OpenGL/GameEngProject-Palbomb-2.0-/build/_deps/glfw-build/tests && /usr/bin/cc $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -MD -MT _deps/glfw-build/tests/CMakeFiles/glfwinfo.dir/__/deps/getopt.c.o -MF CMakeFiles/glfwinfo.dir/__/deps/getopt.c.o.d -o CMakeFiles/glfwinfo.dir/__/deps/getopt.c.o -c /Users/sarootareerattanawetch/OpenGL/GameEngProject-Palbomb-2.0-/build/_deps/glfw-src/deps/getopt.c
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --progress-dir=/Users/sarootareerattanawetch/OpenGL/GameEngProject-Palbom/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_2) "Building C object _deps/glfw-build/tests/CMakeFiles/glfwinfo.dir/__/deps/getopt.c.o"
+	cd /Users/sarootareerattanawetch/OpenGL/GameEngProject-Palbom/build/_deps/glfw-build/tests && /usr/bin/cc $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -MD -MT _deps/glfw-build/tests/CMakeFiles/glfwinfo.dir/__/deps/getopt.c.o -MF CMakeFiles/glfwinfo.dir/__/deps/getopt.c.o.d -o CMakeFiles/glfwinfo.dir/__/deps/getopt.c.o -c /Users/sarootareerattanawetch/OpenGL/GameEngProject-Palbom/build/_deps/glfw-src/deps/getopt.c
 
 _deps/glfw-build/tests/CMakeFiles/glfwinfo.dir/__/deps/getopt.c.i: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green "Preprocessing C source to CMakeFiles/glfwinfo.dir/__/deps/getopt.c.i"
-	cd /Users/sarootareerattanawetch/OpenGL/GameEngProject-Palbomb-2.0-/build/_deps/glfw-build/tests && /usr/bin/cc $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -E /Users/sarootareerattanawetch/OpenGL/GameEngProject-Palbomb-2.0-/build/_deps/glfw-src/deps/getopt.c > CMakeFiles/glfwinfo.dir/__/deps/getopt.c.i
+	cd /Users/sarootareerattanawetch/OpenGL/GameEngProject-Palbom/build/_deps/glfw-build/tests && /usr/bin/cc $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -E /Users/sarootareerattanawetch/OpenGL/GameEngProject-Palbom/build/_deps/glfw-src/deps/getopt.c > CMakeFiles/glfwinfo.dir/__/deps/getopt.c.i
 
 _deps/glfw-build/tests/CMakeFiles/glfwinfo.dir/__/deps/getopt.c.s: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green "Compiling C source to assembly CMakeFiles/glfwinfo.dir/__/deps/getopt.c.s"
-	cd /Users/sarootareerattanawetch/OpenGL/GameEngProject-Palbomb-2.0-/build/_deps/glfw-build/tests && /usr/bin/cc $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -S /Users/sarootareerattanawetch/OpenGL/GameEngProject-Palbomb-2.0-/build/_deps/glfw-src/deps/getopt.c -o CMakeFiles/glfwinfo.dir/__/deps/getopt.c.s
+	cd /Users/sarootareerattanawetch/OpenGL/GameEngProject-Palbom/build/_deps/glfw-build/tests && /usr/bin/cc $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -S /Users/sarootareerattanawetch/OpenGL/GameEngProject-Palbom/build/_deps/glfw-src/deps/getopt.c -o CMakeFiles/glfwinfo.dir/__/deps/getopt.c.s
 
 _deps/glfw-build/tests/CMakeFiles/glfwinfo.dir/__/deps/glad_gl.c.o: _deps/glfw-build/tests/CMakeFiles/glfwinfo.dir/flags.make
 _deps/glfw-build/tests/CMakeFiles/glfwinfo.dir/__/deps/glad_gl.c.o: _deps/glfw-src/deps/glad_gl.c
 _deps/glfw-build/tests/CMakeFiles/glfwinfo.dir/__/deps/glad_gl.c.o: _deps/glfw-build/tests/CMakeFiles/glfwinfo.dir/compiler_depend.ts
-	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --progress-dir=/Users/sarootareerattanawetch/OpenGL/GameEngProject-Palbomb-2.0-/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_3) "Building C object _deps/glfw-build/tests/CMakeFiles/glfwinfo.dir/__/deps/glad_gl.c.o"
-	cd /Users/sarootareerattanawetch/OpenGL/GameEngProject-Palbomb-2.0-/build/_deps/glfw-build/tests && /usr/bin/cc $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -MD -MT _deps/glfw-build/tests/CMakeFiles/glfwinfo.dir/__/deps/glad_gl.c.o -MF CMakeFiles/glfwinfo.dir/__/deps/glad_gl.c.o.d -o CMakeFiles/glfwinfo.dir/__/deps/glad_gl.c.o -c /Users/sarootareerattanawetch/OpenGL/GameEngProject-Palbomb-2.0-/build/_deps/glfw-src/deps/glad_gl.c
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --progress-dir=/Users/sarootareerattanawetch/OpenGL/GameEngProject-Palbom/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_3) "Building C object _deps/glfw-build/tests/CMakeFiles/glfwinfo.dir/__/deps/glad_gl.c.o"
+	cd /Users/sarootareerattanawetch/OpenGL/GameEngProject-Palbom/build/_deps/glfw-build/tests && /usr/bin/cc $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -MD -MT _deps/glfw-build/tests/CMakeFiles/glfwinfo.dir/__/deps/glad_gl.c.o -MF CMakeFiles/glfwinfo.dir/__/deps/glad_gl.c.o.d -o CMakeFiles/glfwinfo.dir/__/deps/glad_gl.c.o -c /Users/sarootareerattanawetch/OpenGL/GameEngProject-Palbom/build/_deps/glfw-src/deps/glad_gl.c
 
 _deps/glfw-build/tests/CMakeFiles/glfwinfo.dir/__/deps/glad_gl.c.i: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green "Preprocessing C source to CMakeFiles/glfwinfo.dir/__/deps/glad_gl.c.i"
-	cd /Users/sarootareerattanawetch/OpenGL/GameEngProject-Palbomb-2.0-/build/_deps/glfw-build/tests && /usr/bin/cc $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -E /Users/sarootareerattanawetch/OpenGL/GameEngProject-Palbomb-2.0-/build/_deps/glfw-src/deps/glad_gl.c > CMakeFiles/glfwinfo.dir/__/deps/glad_gl.c.i
+	cd /Users/sarootareerattanawetch/OpenGL/GameEngProject-Palbom/build/_deps/glfw-build/tests && /usr/bin/cc $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -E /Users/sarootareerattanawetch/OpenGL/GameEngProject-Palbom/build/_deps/glfw-src/deps/glad_gl.c > CMakeFiles/glfwinfo.dir/__/deps/glad_gl.c.i
 
 _deps/glfw-build/tests/CMakeFiles/glfwinfo.dir/__/deps/glad_gl.c.s: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green "Compiling C source to assembly CMakeFiles/glfwinfo.dir/__/deps/glad_gl.c.s"
-	cd /Users/sarootareerattanawetch/OpenGL/GameEngProject-Palbomb-2.0-/build/_deps/glfw-build/tests && /usr/bin/cc $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -S /Users/sarootareerattanawetch/OpenGL/GameEngProject-Palbomb-2.0-/build/_deps/glfw-src/deps/glad_gl.c -o CMakeFiles/glfwinfo.dir/__/deps/glad_gl.c.s
+	cd /Users/sarootareerattanawetch/OpenGL/GameEngProject-Palbom/build/_deps/glfw-build/tests && /usr/bin/cc $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -S /Users/sarootareerattanawetch/OpenGL/GameEngProject-Palbom/build/_deps/glfw-src/deps/glad_gl.c -o CMakeFiles/glfwinfo.dir/__/deps/glad_gl.c.s
 
 _deps/glfw-build/tests/CMakeFiles/glfwinfo.dir/__/deps/glad_vulkan.c.o: _deps/glfw-build/tests/CMakeFiles/glfwinfo.dir/flags.make
 _deps/glfw-build/tests/CMakeFiles/glfwinfo.dir/__/deps/glad_vulkan.c.o: _deps/glfw-src/deps/glad_vulkan.c
 _deps/glfw-build/tests/CMakeFiles/glfwinfo.dir/__/deps/glad_vulkan.c.o: _deps/glfw-build/tests/CMakeFiles/glfwinfo.dir/compiler_depend.ts
-	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --progress-dir=/Users/sarootareerattanawetch/OpenGL/GameEngProject-Palbomb-2.0-/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_4) "Building C object _deps/glfw-build/tests/CMakeFiles/glfwinfo.dir/__/deps/glad_vulkan.c.o"
-	cd /Users/sarootareerattanawetch/OpenGL/GameEngProject-Palbomb-2.0-/build/_deps/glfw-build/tests && /usr/bin/cc $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -MD -MT _deps/glfw-build/tests/CMakeFiles/glfwinfo.dir/__/deps/glad_vulkan.c.o -MF CMakeFiles/glfwinfo.dir/__/deps/glad_vulkan.c.o.d -o CMakeFiles/glfwinfo.dir/__/deps/glad_vulkan.c.o -c /Users/sarootareerattanawetch/OpenGL/GameEngProject-Palbomb-2.0-/build/_deps/glfw-src/deps/glad_vulkan.c
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --progress-dir=/Users/sarootareerattanawetch/OpenGL/GameEngProject-Palbom/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_4) "Building C object _deps/glfw-build/tests/CMakeFiles/glfwinfo.dir/__/deps/glad_vulkan.c.o"
+	cd /Users/sarootareerattanawetch/OpenGL/GameEngProject-Palbom/build/_deps/glfw-build/tests && /usr/bin/cc $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -MD -MT _deps/glfw-build/tests/CMakeFiles/glfwinfo.dir/__/deps/glad_vulkan.c.o -MF CMakeFiles/glfwinfo.dir/__/deps/glad_vulkan.c.o.d -o CMakeFiles/glfwinfo.dir/__/deps/glad_vulkan.c.o -c /Users/sarootareerattanawetch/OpenGL/GameEngProject-Palbom/build/_deps/glfw-src/deps/glad_vulkan.c
 
 _deps/glfw-build/tests/CMakeFiles/glfwinfo.dir/__/deps/glad_vulkan.c.i: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green "Preprocessing C source to CMakeFiles/glfwinfo.dir/__/deps/glad_vulkan.c.i"
-	cd /Users/sarootareerattanawetch/OpenGL/GameEngProject-Palbomb-2.0-/build/_deps/glfw-build/tests && /usr/bin/cc $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -E /Users/sarootareerattanawetch/OpenGL/GameEngProject-Palbomb-2.0-/build/_deps/glfw-src/deps/glad_vulkan.c > CMakeFiles/glfwinfo.dir/__/deps/glad_vulkan.c.i
+	cd /Users/sarootareerattanawetch/OpenGL/GameEngProject-Palbom/build/_deps/glfw-build/tests && /usr/bin/cc $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -E /Users/sarootareerattanawetch/OpenGL/GameEngProject-Palbom/build/_deps/glfw-src/deps/glad_vulkan.c > CMakeFiles/glfwinfo.dir/__/deps/glad_vulkan.c.i
 
 _deps/glfw-build/tests/CMakeFiles/glfwinfo.dir/__/deps/glad_vulkan.c.s: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green "Compiling C source to assembly CMakeFiles/glfwinfo.dir/__/deps/glad_vulkan.c.s"
-	cd /Users/sarootareerattanawetch/OpenGL/GameEngProject-Palbomb-2.0-/build/_deps/glfw-build/tests && /usr/bin/cc $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -S /Users/sarootareerattanawetch/OpenGL/GameEngProject-Palbomb-2.0-/build/_deps/glfw-src/deps/glad_vulkan.c -o CMakeFiles/glfwinfo.dir/__/deps/glad_vulkan.c.s
+	cd /Users/sarootareerattanawetch/OpenGL/GameEngProject-Palbom/build/_deps/glfw-build/tests && /usr/bin/cc $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -S /Users/sarootareerattanawetch/OpenGL/GameEngProject-Palbom/build/_deps/glfw-src/deps/glad_vulkan.c -o CMakeFiles/glfwinfo.dir/__/deps/glad_vulkan.c.s
 
 # Object files for target glfwinfo
 glfwinfo_OBJECTS = \
@@ -145,18 +145,18 @@ _deps/glfw-build/tests/glfwinfo: _deps/glfw-build/tests/CMakeFiles/glfwinfo.dir/
 _deps/glfw-build/tests/glfwinfo: _deps/glfw-build/tests/CMakeFiles/glfwinfo.dir/build.make
 _deps/glfw-build/tests/glfwinfo: _deps/glfw-build/src/libglfw3.a
 _deps/glfw-build/tests/glfwinfo: _deps/glfw-build/tests/CMakeFiles/glfwinfo.dir/link.txt
-	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --bold --progress-dir=/Users/sarootareerattanawetch/OpenGL/GameEngProject-Palbomb-2.0-/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_5) "Linking C executable glfwinfo"
-	cd /Users/sarootareerattanawetch/OpenGL/GameEngProject-Palbomb-2.0-/build/_deps/glfw-build/tests && $(CMAKE_COMMAND) -E cmake_link_script CMakeFiles/glfwinfo.dir/link.txt --verbose=$(VERBOSE)
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --bold --progress-dir=/Users/sarootareerattanawetch/OpenGL/GameEngProject-Palbom/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_5) "Linking C executable glfwinfo"
+	cd /Users/sarootareerattanawetch/OpenGL/GameEngProject-Palbom/build/_deps/glfw-build/tests && $(CMAKE_COMMAND) -E cmake_link_script CMakeFiles/glfwinfo.dir/link.txt --verbose=$(VERBOSE)
 
 # Rule to build all files generated by this target.
 _deps/glfw-build/tests/CMakeFiles/glfwinfo.dir/build: _deps/glfw-build/tests/glfwinfo
 .PHONY : _deps/glfw-build/tests/CMakeFiles/glfwinfo.dir/build
 
 _deps/glfw-build/tests/CMakeFiles/glfwinfo.dir/clean:
-	cd /Users/sarootareerattanawetch/OpenGL/GameEngProject-Palbomb-2.0-/build/_deps/glfw-build/tests && $(CMAKE_COMMAND) -P CMakeFiles/glfwinfo.dir/cmake_clean.cmake
+	cd /Users/sarootareerattanawetch/OpenGL/GameEngProject-Palbom/build/_deps/glfw-build/tests && $(CMAKE_COMMAND) -P CMakeFiles/glfwinfo.dir/cmake_clean.cmake
 .PHONY : _deps/glfw-build/tests/CMakeFiles/glfwinfo.dir/clean
 
 _deps/glfw-build/tests/CMakeFiles/glfwinfo.dir/depend:
-	cd /Users/sarootareerattanawetch/OpenGL/GameEngProject-Palbomb-2.0-/build && $(CMAKE_COMMAND) -E cmake_depends "Unix Makefiles" /Users/sarootareerattanawetch/OpenGL/GameEngProject-Palbomb-2.0- /Users/sarootareerattanawetch/OpenGL/GameEngProject-Palbomb-2.0-/build/_deps/glfw-src/tests /Users/sarootareerattanawetch/OpenGL/GameEngProject-Palbomb-2.0-/build /Users/sarootareerattanawetch/OpenGL/GameEngProject-Palbomb-2.0-/build/_deps/glfw-build/tests /Users/sarootareerattanawetch/OpenGL/GameEngProject-Palbomb-2.0-/build/_deps/glfw-build/tests/CMakeFiles/glfwinfo.dir/DependInfo.cmake "--color=$(COLOR)"
+	cd /Users/sarootareerattanawetch/OpenGL/GameEngProject-Palbom/build && $(CMAKE_COMMAND) -E cmake_depends "Unix Makefiles" /Users/sarootareerattanawetch/OpenGL/GameEngProject-Palbom /Users/sarootareerattanawetch/OpenGL/GameEngProject-Palbom/build/_deps/glfw-src/tests /Users/sarootareerattanawetch/OpenGL/GameEngProject-Palbom/build /Users/sarootareerattanawetch/OpenGL/GameEngProject-Palbom/build/_deps/glfw-build/tests /Users/sarootareerattanawetch/OpenGL/GameEngProject-Palbom/build/_deps/glfw-build/tests/CMakeFiles/glfwinfo.dir/DependInfo.cmake "--color=$(COLOR)"
 .PHONY : _deps/glfw-build/tests/CMakeFiles/glfwinfo.dir/depend
 

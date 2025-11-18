@@ -28,8 +28,8 @@ set_property(GLOBAL PROPERTY _CMAKE_FindGit_GIT_EXECUTABLE_VERSION
 include(ExternalProject)
 ExternalProject_Add(stb-populate
                      "UPDATE_DISCONNECTED" "False" "GIT_REPOSITORY" "https://github.com/nothings/stb.git" "EXTERNALPROJECT_INTERNAL_ARGUMENT_SEPARATOR" "GIT_TAG" "master"
-                    SOURCE_DIR          "/Users/sarootareerattanawetch/OpenGL/GameEngProject-Palbomb-2.0-/build/_deps/stb-src"
-                    BINARY_DIR          "/Users/sarootareerattanawetch/OpenGL/GameEngProject-Palbomb-2.0-/build/_deps/stb-build"
+                    SOURCE_DIR          "/Users/sarootareerattanawetch/OpenGL/GameEngProject-Palbom/build/_deps/stb-src"
+                    BINARY_DIR          "/Users/sarootareerattanawetch/OpenGL/GameEngProject-Palbom/build/_deps/stb-build"
                     CONFIGURE_COMMAND   ""
                     BUILD_COMMAND       ""
                     INSTALL_COMMAND     ""

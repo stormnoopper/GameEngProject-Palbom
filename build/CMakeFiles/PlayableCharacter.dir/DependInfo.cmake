@@ -8,7 +8,7 @@ set(CMAKE_DEPENDS_LANGUAGES
 
 # The set of dependency files which are needed:
 set(CMAKE_DEPENDS_DEPENDENCY_FILES
-  "/Users/sarootareerattanawetch/OpenGL/GameEngProject-Palbomb-2.0-/src/main.cpp" "CMakeFiles/PlayableCharacter.dir/src/main.cpp.o" "gcc" "CMakeFiles/PlayableCharacter.dir/src/main.cpp.o.d"
+  "/Users/sarootareerattanawetch/OpenGL/GameEngProject-Palbom/src/main.cpp" "CMakeFiles/PlayableCharacter.dir/src/main.cpp.o" "gcc" "CMakeFiles/PlayableCharacter.dir/src/main.cpp.o.d"
   )
 
 # Targets to which this target links which contain Fortran sources.

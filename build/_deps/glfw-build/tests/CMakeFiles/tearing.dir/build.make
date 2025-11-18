@@ -53,10 +53,10 @@ RM = /usr/local/bin/cmake -E rm -f
 EQUALS = =
 
 # The top-level source directory on which CMake was run.
-CMAKE_SOURCE_DIR = /Users/sarootareerattanawetch/OpenGL/GameEngProject-Palbomb-2.0-
+CMAKE_SOURCE_DIR = /Users/sarootareerattanawetch/OpenGL/GameEngProject-Palbom
 
 # The top-level build directory on which CMake was run.
-CMAKE_BINARY_DIR = /Users/sarootareerattanawetch/OpenGL/GameEngProject-Palbomb-2.0-/build
+CMAKE_BINARY_DIR = /Users/sarootareerattanawetch/OpenGL/GameEngProject-Palbom/build
 
 # Include any dependencies generated for this target.
 include _deps/glfw-build/tests/CMakeFiles/tearing.dir/depend.make
@@ -75,30 +75,30 @@ _deps/glfw-build/tests/CMakeFiles/tearing.dir/codegen:
 _deps/glfw-build/tests/CMakeFiles/tearing.dir/tearing.c.o: _deps/glfw-build/tests/CMakeFiles/tearing.dir/flags.make
 _deps/glfw-build/tests/CMakeFiles/tearing.dir/tearing.c.o: _deps/glfw-src/tests/tearing.c
 _deps/glfw-build/tests/CMakeFiles/tearing.dir/tearing.c.o: _deps/glfw-build/tests/CMakeFiles/tearing.dir/compiler_depend.ts
-	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --progress-dir=/Users/sarootareerattanawetch/OpenGL/GameEngProject-Palbomb-2.0-/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_1) "Building C object _deps/glfw-build/tests/CMakeFiles/tearing.dir/tearing.c.o"
-	cd /Users/sarootareerattanawetch/OpenGL/GameEngProject-Palbomb-2.0-/build/_deps/glfw-build/tests && /usr/bin/cc $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -MD -MT _deps/glfw-build/tests/CMakeFiles/tearing.dir/tearing.c.o -MF CMakeFiles/tearing.dir/tearing.c.o.d -o CMakeFiles/tearing.dir/tearing.c.o -c /Users/sarootareerattanawetch/OpenGL/GameEngProject-Palbomb-2.0-/build/_deps/glfw-src/tests/tearing.c
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --progress-dir=/Users/sarootareerattanawetch/OpenGL/GameEngProject-Palbom/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_1) "Building C object _deps/glfw-build/tests/CMakeFiles/tearing.dir/tearing.c.o"
+	cd /Users/sarootareerattanawetch/OpenGL/GameEngProject-Palbom/build/_deps/glfw-build/tests && /usr/bin/cc $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -MD -MT _deps/glfw-build/tests/CMakeFiles/tearing.dir/tearing.c.o -MF CMakeFiles/tearing.dir/tearing.c.o.d -o CMakeFiles/tearing.dir/tearing.c.o -c /Users/sarootareerattanawetch/OpenGL/GameEngProject-Palbom/build/_deps/glfw-src/tests/tearing.c
 
 _deps/glfw-build/tests/CMakeFiles/tearing.dir/tearing.c.i: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green "Preprocessing C source to CMakeFiles/tearing.dir/tearing.c.i"
-	cd /Users/sarootareerattanawetch/OpenGL/GameEngProject-Palbomb-2.0-/build/_deps/glfw-build/tests && /usr/bin/cc $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -E /Users/sarootareerattanawetch/OpenGL/GameEngProject-Palbomb-2.0-/build/_deps/glfw-src/tests/tearing.c > CMakeFiles/tearing.dir/tearing.c.i
+	cd /Users/sarootareerattanawetch/OpenGL/GameEngProject-Palbom/build/_deps/glfw-build/tests && /usr/bin/cc $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -E /Users/sarootareerattanawetch/OpenGL/GameEngProject-Palbom/build/_deps/glfw-src/tests/tearing.c > CMakeFiles/tearing.dir/tearing.c.i
 
 _deps/glfw-build/tests/CMakeFiles/tearing.dir/tearing.c.s: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green "Compiling C source to assembly CMakeFiles/tearing.dir/tearing.c.s"
-	cd /Users/sarootareerattanawetch/OpenGL/GameEngProject-Palbomb-2.0-/build/_deps/glfw-build/tests && /usr/bin/cc $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -S /Users/sarootareerattanawetch/OpenGL/GameEngProject-Palbomb-2.0-/build/_deps/glfw-src/tests/tearing.c -o CMakeFiles/tearing.dir/tearing.c.s
+	cd /Users/sarootareerattanawetch/OpenGL/GameEngProject-Palbom/build/_deps/glfw-build/tests && /usr/bin/cc $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -S /Users/sarootareerattanawetch/OpenGL/GameEngProject-Palbom/build/_deps/glfw-src/tests/tearing.c -o CMakeFiles/tearing.dir/tearing.c.s
 
 _deps/glfw-build/tests/CMakeFiles/tearing.dir/__/deps/glad_gl.c.o: _deps/glfw-build/tests/CMakeFiles/tearing.dir/flags.make
 _deps/glfw-build/tests/CMakeFiles/tearing.dir/__/deps/glad_gl.c.o: _deps/glfw-src/deps/glad_gl.c
 _deps/glfw-build/tests/CMakeFiles/tearing.dir/__/deps/glad_gl.c.o: _deps/glfw-build/tests/CMakeFiles/tearing.dir/compiler_depend.ts
-	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --progress-dir=/Users/sarootareerattanawetch/OpenGL/GameEngProject-Palbomb-2.0-/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_2) "Building C object _deps/glfw-build/tests/CMakeFiles/tearing.dir/__/deps/glad_gl.c.o"
-	cd /Users/sarootareerattanawetch/OpenGL/GameEngProject-Palbomb-2.0-/build/_deps/glfw-build/tests && /usr/bin/cc $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -MD -MT _deps/glfw-build/tests/CMakeFiles/tearing.dir/__/deps/glad_gl.c.o -MF CMakeFiles/tearing.dir/__/deps/glad_gl.c.o.d -o CMakeFiles/tearing.dir/__/deps/glad_gl.c.o -c /Users/sarootareerattanawetch/OpenGL/GameEngProject-Palbomb-2.0-/build/_deps/glfw-src/deps/glad_gl.c
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --progress-dir=/Users/sarootareerattanawetch/OpenGL/GameEngProject-Palbom/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_2) "Building C object _deps/glfw-build/tests/CMakeFiles/tearing.dir/__/deps/glad_gl.c.o"
+	cd /Users/sarootareerattanawetch/OpenGL/GameEngProject-Palbom/build/_deps/glfw-build/tests && /usr/bin/cc $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -MD -MT _deps/glfw-build/tests/CMakeFiles/tearing.dir/__/deps/glad_gl.c.o -MF CMakeFiles/tearing.dir/__/deps/glad_gl.c.o.d -o CMakeFiles/tearing.dir/__/deps/glad_gl.c.o -c /Users/sarootareerattanawetch/OpenGL/GameEngProject-Palbom/build/_deps/glfw-src/deps/glad_gl.c
 
 _deps/glfw-build/tests/CMakeFiles/tearing.dir/__/deps/glad_gl.c.i: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green "Preprocessing C source to CMakeFiles/tearing.dir/__/deps/glad_gl.c.i"
-	cd /Users/sarootareerattanawetch/OpenGL/GameEngProject-Palbomb-2.0-/build/_deps/glfw-build/tests && /usr/bin/cc $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -E /Users/sarootareerattanawetch/OpenGL/GameEngProject-Palbomb-2.0-/build/_deps/glfw-src/deps/glad_gl.c > CMakeFiles/tearing.dir/__/deps/glad_gl.c.i
+	cd /Users/sarootareerattanawetch/OpenGL/GameEngProject-Palbom/build/_deps/glfw-build/tests && /usr/bin/cc $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -E /Users/sarootareerattanawetch/OpenGL/GameEngProject-Palbom/build/_deps/glfw-src/deps/glad_gl.c > CMakeFiles/tearing.dir/__/deps/glad_gl.c.i
 
 _deps/glfw-build/tests/CMakeFiles/tearing.dir/__/deps/glad_gl.c.s: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green "Compiling C source to assembly CMakeFiles/tearing.dir/__/deps/glad_gl.c.s"
-	cd /Users/sarootareerattanawetch/OpenGL/GameEngProject-Palbomb-2.0-/build/_deps/glfw-build/tests && /usr/bin/cc $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -S /Users/sarootareerattanawetch/OpenGL/GameEngProject-Palbomb-2.0-/build/_deps/glfw-src/deps/glad_gl.c -o CMakeFiles/tearing.dir/__/deps/glad_gl.c.s
+	cd /Users/sarootareerattanawetch/OpenGL/GameEngProject-Palbom/build/_deps/glfw-build/tests && /usr/bin/cc $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -S /Users/sarootareerattanawetch/OpenGL/GameEngProject-Palbom/build/_deps/glfw-src/deps/glad_gl.c -o CMakeFiles/tearing.dir/__/deps/glad_gl.c.s
 
 # Object files for target tearing
 tearing_OBJECTS = \
@@ -113,18 +113,18 @@ _deps/glfw-build/tests/tearing.app/Contents/MacOS/tearing: _deps/glfw-build/test
 _deps/glfw-build/tests/tearing.app/Contents/MacOS/tearing: _deps/glfw-build/tests/CMakeFiles/tearing.dir/build.make
 _deps/glfw-build/tests/tearing.app/Contents/MacOS/tearing: _deps/glfw-build/src/libglfw3.a
 _deps/glfw-build/tests/tearing.app/Contents/MacOS/tearing: _deps/glfw-build/tests/CMakeFiles/tearing.dir/link.txt
-	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --bold --progress-dir=/Users/sarootareerattanawetch/OpenGL/GameEngProject-Palbomb-2.0-/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_3) "Linking C executable tearing.app/Contents/MacOS/tearing"
-	cd /Users/sarootareerattanawetch/OpenGL/GameEngProject-Palbomb-2.0-/build/_deps/glfw-build/tests && $(CMAKE_COMMAND) -E cmake_link_script CMakeFiles/tearing.dir/link.txt --verbose=$(VERBOSE)
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --bold --progress-dir=/Users/sarootareerattanawetch/OpenGL/GameEngProject-Palbom/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_3) "Linking C executable tearing.app/Contents/MacOS/tearing"
+	cd /Users/sarootareerattanawetch/OpenGL/GameEngProject-Palbom/build/_deps/glfw-build/tests && $(CMAKE_COMMAND) -E cmake_link_script CMakeFiles/tearing.dir/link.txt --verbose=$(VERBOSE)
 
 # Rule to build all files generated by this target.
 _deps/glfw-build/tests/CMakeFiles/tearing.dir/build: _deps/glfw-build/tests/tearing.app/Contents/MacOS/tearing
 .PHONY : _deps/glfw-build/tests/CMakeFiles/tearing.dir/build
 
 _deps/glfw-build/tests/CMakeFiles/tearing.dir/clean:
-	cd /Users/sarootareerattanawetch/OpenGL/GameEngProject-Palbomb-2.0-/build/_deps/glfw-build/tests && $(CMAKE_COMMAND) -P CMakeFiles/tearing.dir/cmake_clean.cmake
+	cd /Users/sarootareerattanawetch/OpenGL/GameEngProject-Palbom/build/_deps/glfw-build/tests && $(CMAKE_COMMAND) -P CMakeFiles/tearing.dir/cmake_clean.cmake
 .PHONY : _deps/glfw-build/tests/CMakeFiles/tearing.dir/clean
 
 _deps/glfw-build/tests/CMakeFiles/tearing.dir/depend:
-	cd /Users/sarootareerattanawetch/OpenGL/GameEngProject-Palbomb-2.0-/build && $(CMAKE_COMMAND) -E cmake_depends "Unix Makefiles" /Users/sarootareerattanawetch/OpenGL/GameEngProject-Palbomb-2.0- /Users/sarootareerattanawetch/OpenGL/GameEngProject-Palbomb-2.0-/build/_deps/glfw-src/tests /Users/sarootareerattanawetch/OpenGL/GameEngProject-Palbomb-2.0-/build /Users/sarootareerattanawetch/OpenGL/GameEngProject-Palbomb-2.0-/build/_deps/glfw-build/tests /Users/sarootareerattanawetch/OpenGL/GameEngProject-Palbomb-2.0-/build/_deps/glfw-build/tests/CMakeFiles/tearing.dir/DependInfo.cmake "--color=$(COLOR)"
+	cd /Users/sarootareerattanawetch/OpenGL/GameEngProject-Palbom/build && $(CMAKE_COMMAND) -E cmake_depends "Unix Makefiles" /Users/sarootareerattanawetch/OpenGL/GameEngProject-Palbom /Users/sarootareerattanawetch/OpenGL/GameEngProject-Palbom/build/_deps/glfw-src/tests /Users/sarootareerattanawetch/OpenGL/GameEngProject-Palbom/build /Users/sarootareerattanawetch/OpenGL/GameEngProject-Palbom/build/_deps/glfw-build/tests /Users/sarootareerattanawetch/OpenGL/GameEngProject-Palbom/build/_deps/glfw-build/tests/CMakeFiles/tearing.dir/DependInfo.cmake "--color=$(COLOR)"
 .PHONY : _deps/glfw-build/tests/CMakeFiles/tearing.dir/depend
 

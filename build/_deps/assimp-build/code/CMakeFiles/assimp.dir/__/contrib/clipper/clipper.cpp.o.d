@@ -1,6 +1,6 @@
 _deps/assimp-build/code/CMakeFiles/assimp.dir/__/contrib/clipper/clipper.cpp.o: \
-  /Users/sarootareerattanawetch/OpenGL/GameEngProject-Palbomb-2.0-/build/_deps/assimp-src/contrib/clipper/clipper.cpp \
-  /Users/sarootareerattanawetch/OpenGL/GameEngProject-Palbomb-2.0-/build/_deps/assimp-src/contrib/clipper/clipper.hpp \
+  /Users/sarootareerattanawetch/OpenGL/GameEngProject-Palbom/build/_deps/assimp-src/contrib/clipper/clipper.cpp \
+  /Users/sarootareerattanawetch/OpenGL/GameEngProject-Palbom/build/_deps/assimp-src/contrib/clipper/clipper.hpp \
   /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk/usr/include/c++/v1/vector \
   /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk/usr/include/c++/v1/__config \
   /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk/usr/include/c++/v1/__config_site \

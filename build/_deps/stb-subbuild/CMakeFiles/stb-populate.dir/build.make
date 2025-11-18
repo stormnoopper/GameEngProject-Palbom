@@ -53,10 +53,10 @@ RM = /usr/local/bin/cmake -E rm -f
 EQUALS = =
 
 # The top-level source directory on which CMake was run.
-CMAKE_SOURCE_DIR = /Users/sarootareerattanawetch/OpenGL/GameEngProject-Palbomb-2.0-/build/_deps/stb-subbuild
+CMAKE_SOURCE_DIR = /Users/sarootareerattanawetch/OpenGL/GameEngProject-Palbom/build/_deps/stb-subbuild
 
 # The top-level build directory on which CMake was run.
-CMAKE_BINARY_DIR = /Users/sarootareerattanawetch/OpenGL/GameEngProject-Palbomb-2.0-/build/_deps/stb-subbuild
+CMAKE_BINARY_DIR = /Users/sarootareerattanawetch/OpenGL/GameEngProject-Palbom/build/_deps/stb-subbuild
 
 # Utility rule file for stb-populate.
 
@@ -77,60 +77,60 @@ CMakeFiles/stb-populate-complete: stb-populate-prefix/src/stb-populate-stamp/stb
 CMakeFiles/stb-populate-complete: stb-populate-prefix/src/stb-populate-stamp/stb-populate-build
 CMakeFiles/stb-populate-complete: stb-populate-prefix/src/stb-populate-stamp/stb-populate-install
 CMakeFiles/stb-populate-complete: stb-populate-prefix/src/stb-populate-stamp/stb-populate-test
-	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --blue --bold --progress-dir=/Users/sarootareerattanawetch/OpenGL/GameEngProject-Palbomb-2.0-/build/_deps/stb-subbuild/CMakeFiles --progress-num=$(CMAKE_PROGRESS_1) "Completed 'stb-populate'"
-	/usr/local/bin/cmake -E make_directory /Users/sarootareerattanawetch/OpenGL/GameEngProject-Palbomb-2.0-/build/_deps/stb-subbuild/CMakeFiles
-	/usr/local/bin/cmake -E touch /Users/sarootareerattanawetch/OpenGL/GameEngProject-Palbomb-2.0-/build/_deps/stb-subbuild/CMakeFiles/stb-populate-complete
-	/usr/local/bin/cmake -E touch /Users/sarootareerattanawetch/OpenGL/GameEngProject-Palbomb-2.0-/build/_deps/stb-subbuild/stb-populate-prefix/src/stb-populate-stamp/stb-populate-done
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --blue --bold --progress-dir=/Users/sarootareerattanawetch/OpenGL/GameEngProject-Palbom/build/_deps/stb-subbuild/CMakeFiles --progress-num=$(CMAKE_PROGRESS_1) "Completed 'stb-populate'"
+	/usr/local/bin/cmake -E make_directory /Users/sarootareerattanawetch/OpenGL/GameEngProject-Palbom/build/_deps/stb-subbuild/CMakeFiles
+	/usr/local/bin/cmake -E touch /Users/sarootareerattanawetch/OpenGL/GameEngProject-Palbom/build/_deps/stb-subbuild/CMakeFiles/stb-populate-complete
+	/usr/local/bin/cmake -E touch /Users/sarootareerattanawetch/OpenGL/GameEngProject-Palbom/build/_deps/stb-subbuild/stb-populate-prefix/src/stb-populate-stamp/stb-populate-done
 
 stb-populate-prefix/src/stb-populate-stamp/stb-populate-update:
 .PHONY : stb-populate-prefix/src/stb-populate-stamp/stb-populate-update
 
 stb-populate-prefix/src/stb-populate-stamp/stb-populate-build: stb-populate-prefix/src/stb-populate-stamp/stb-populate-configure
-	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --blue --bold --progress-dir=/Users/sarootareerattanawetch/OpenGL/GameEngProject-Palbomb-2.0-/build/_deps/stb-subbuild/CMakeFiles --progress-num=$(CMAKE_PROGRESS_2) "No build step for 'stb-populate'"
-	cd /Users/sarootareerattanawetch/OpenGL/GameEngProject-Palbomb-2.0-/build/_deps/stb-build && /usr/local/bin/cmake -E echo_append
-	cd /Users/sarootareerattanawetch/OpenGL/GameEngProject-Palbomb-2.0-/build/_deps/stb-build && /usr/local/bin/cmake -E touch /Users/sarootareerattanawetch/OpenGL/GameEngProject-Palbomb-2.0-/build/_deps/stb-subbuild/stb-populate-prefix/src/stb-populate-stamp/stb-populate-build
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --blue --bold --progress-dir=/Users/sarootareerattanawetch/OpenGL/GameEngProject-Palbom/build/_deps/stb-subbuild/CMakeFiles --progress-num=$(CMAKE_PROGRESS_2) "No build step for 'stb-populate'"
+	cd /Users/sarootareerattanawetch/OpenGL/GameEngProject-Palbom/build/_deps/stb-build && /usr/local/bin/cmake -E echo_append
+	cd /Users/sarootareerattanawetch/OpenGL/GameEngProject-Palbom/build/_deps/stb-build && /usr/local/bin/cmake -E touch /Users/sarootareerattanawetch/OpenGL/GameEngProject-Palbom/build/_deps/stb-subbuild/stb-populate-prefix/src/stb-populate-stamp/stb-populate-build
 
 stb-populate-prefix/src/stb-populate-stamp/stb-populate-configure: stb-populate-prefix/tmp/stb-populate-cfgcmd.txt
 stb-populate-prefix/src/stb-populate-stamp/stb-populate-configure: stb-populate-prefix/src/stb-populate-stamp/stb-populate-patch
-	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --blue --bold --progress-dir=/Users/sarootareerattanawetch/OpenGL/GameEngProject-Palbomb-2.0-/build/_deps/stb-subbuild/CMakeFiles --progress-num=$(CMAKE_PROGRESS_3) "No configure step for 'stb-populate'"
-	cd /Users/sarootareerattanawetch/OpenGL/GameEngProject-Palbomb-2.0-/build/_deps/stb-build && /usr/local/bin/cmake -E echo_append
-	cd /Users/sarootareerattanawetch/OpenGL/GameEngProject-Palbomb-2.0-/build/_deps/stb-build && /usr/local/bin/cmake -E touch /Users/sarootareerattanawetch/OpenGL/GameEngProject-Palbomb-2.0-/build/_deps/stb-subbuild/stb-populate-prefix/src/stb-populate-stamp/stb-populate-configure
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --blue --bold --progress-dir=/Users/sarootareerattanawetch/OpenGL/GameEngProject-Palbom/build/_deps/stb-subbuild/CMakeFiles --progress-num=$(CMAKE_PROGRESS_3) "No configure step for 'stb-populate'"
+	cd /Users/sarootareerattanawetch/OpenGL/GameEngProject-Palbom/build/_deps/stb-build && /usr/local/bin/cmake -E echo_append
+	cd /Users/sarootareerattanawetch/OpenGL/GameEngProject-Palbom/build/_deps/stb-build && /usr/local/bin/cmake -E touch /Users/sarootareerattanawetch/OpenGL/GameEngProject-Palbom/build/_deps/stb-subbuild/stb-populate-prefix/src/stb-populate-stamp/stb-populate-configure
 
 stb-populate-prefix/src/stb-populate-stamp/stb-populate-download: stb-populate-prefix/src/stb-populate-stamp/stb-populate-gitinfo.txt
 stb-populate-prefix/src/stb-populate-stamp/stb-populate-download: stb-populate-prefix/src/stb-populate-stamp/stb-populate-mkdir
-	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --blue --bold --progress-dir=/Users/sarootareerattanawetch/OpenGL/GameEngProject-Palbomb-2.0-/build/_deps/stb-subbuild/CMakeFiles --progress-num=$(CMAKE_PROGRESS_4) "Performing download step (git clone) for 'stb-populate'"
-	cd /Users/sarootareerattanawetch/OpenGL/GameEngProject-Palbomb-2.0-/build/_deps && /usr/local/bin/cmake -DCMAKE_MESSAGE_LOG_LEVEL=VERBOSE -P /Users/sarootareerattanawetch/OpenGL/GameEngProject-Palbomb-2.0-/build/_deps/stb-subbuild/stb-populate-prefix/tmp/stb-populate-gitclone.cmake
-	cd /Users/sarootareerattanawetch/OpenGL/GameEngProject-Palbomb-2.0-/build/_deps && /usr/local/bin/cmake -E touch /Users/sarootareerattanawetch/OpenGL/GameEngProject-Palbomb-2.0-/build/_deps/stb-subbuild/stb-populate-prefix/src/stb-populate-stamp/stb-populate-download
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --blue --bold --progress-dir=/Users/sarootareerattanawetch/OpenGL/GameEngProject-Palbom/build/_deps/stb-subbuild/CMakeFiles --progress-num=$(CMAKE_PROGRESS_4) "Performing download step (git clone) for 'stb-populate'"
+	cd /Users/sarootareerattanawetch/OpenGL/GameEngProject-Palbom/build/_deps && /usr/local/bin/cmake -DCMAKE_MESSAGE_LOG_LEVEL=VERBOSE -P /Users/sarootareerattanawetch/OpenGL/GameEngProject-Palbom/build/_deps/stb-subbuild/stb-populate-prefix/tmp/stb-populate-gitclone.cmake
+	cd /Users/sarootareerattanawetch/OpenGL/GameEngProject-Palbom/build/_deps && /usr/local/bin/cmake -E touch /Users/sarootareerattanawetch/OpenGL/GameEngProject-Palbom/build/_deps/stb-subbuild/stb-populate-prefix/src/stb-populate-stamp/stb-populate-download
 
 stb-populate-prefix/src/stb-populate-stamp/stb-populate-install: stb-populate-prefix/src/stb-populate-stamp/stb-populate-build
-	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --blue --bold --progress-dir=/Users/sarootareerattanawetch/OpenGL/GameEngProject-Palbomb-2.0-/build/_deps/stb-subbuild/CMakeFiles --progress-num=$(CMAKE_PROGRESS_5) "No install step for 'stb-populate'"
-	cd /Users/sarootareerattanawetch/OpenGL/GameEngProject-Palbomb-2.0-/build/_deps/stb-build && /usr/local/bin/cmake -E echo_append
-	cd /Users/sarootareerattanawetch/OpenGL/GameEngProject-Palbomb-2.0-/build/_deps/stb-build && /usr/local/bin/cmake -E touch /Users/sarootareerattanawetch/OpenGL/GameEngProject-Palbomb-2.0-/build/_deps/stb-subbuild/stb-populate-prefix/src/stb-populate-stamp/stb-populate-install
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --blue --bold --progress-dir=/Users/sarootareerattanawetch/OpenGL/GameEngProject-Palbom/build/_deps/stb-subbuild/CMakeFiles --progress-num=$(CMAKE_PROGRESS_5) "No install step for 'stb-populate'"
+	cd /Users/sarootareerattanawetch/OpenGL/GameEngProject-Palbom/build/_deps/stb-build && /usr/local/bin/cmake -E echo_append
+	cd /Users/sarootareerattanawetch/OpenGL/GameEngProject-Palbom/build/_deps/stb-build && /usr/local/bin/cmake -E touch /Users/sarootareerattanawetch/OpenGL/GameEngProject-Palbom/build/_deps/stb-subbuild/stb-populate-prefix/src/stb-populate-stamp/stb-populate-install
 
 stb-populate-prefix/src/stb-populate-stamp/stb-populate-mkdir:
-	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --blue --bold --progress-dir=/Users/sarootareerattanawetch/OpenGL/GameEngProject-Palbomb-2.0-/build/_deps/stb-subbuild/CMakeFiles --progress-num=$(CMAKE_PROGRESS_6) "Creating directories for 'stb-populate'"
-	/usr/local/bin/cmake -Dcfgdir= -P /Users/sarootareerattanawetch/OpenGL/GameEngProject-Palbomb-2.0-/build/_deps/stb-subbuild/stb-populate-prefix/tmp/stb-populate-mkdirs.cmake
-	/usr/local/bin/cmake -E touch /Users/sarootareerattanawetch/OpenGL/GameEngProject-Palbomb-2.0-/build/_deps/stb-subbuild/stb-populate-prefix/src/stb-populate-stamp/stb-populate-mkdir
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --blue --bold --progress-dir=/Users/sarootareerattanawetch/OpenGL/GameEngProject-Palbom/build/_deps/stb-subbuild/CMakeFiles --progress-num=$(CMAKE_PROGRESS_6) "Creating directories for 'stb-populate'"
+	/usr/local/bin/cmake -Dcfgdir= -P /Users/sarootareerattanawetch/OpenGL/GameEngProject-Palbom/build/_deps/stb-subbuild/stb-populate-prefix/tmp/stb-populate-mkdirs.cmake
+	/usr/local/bin/cmake -E touch /Users/sarootareerattanawetch/OpenGL/GameEngProject-Palbom/build/_deps/stb-subbuild/stb-populate-prefix/src/stb-populate-stamp/stb-populate-mkdir
 
 stb-populate-prefix/src/stb-populate-stamp/stb-populate-patch: stb-populate-prefix/src/stb-populate-stamp/stb-populate-patch-info.txt
 stb-populate-prefix/src/stb-populate-stamp/stb-populate-patch: stb-populate-prefix/src/stb-populate-stamp/stb-populate-update
-	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --blue --bold --progress-dir=/Users/sarootareerattanawetch/OpenGL/GameEngProject-Palbomb-2.0-/build/_deps/stb-subbuild/CMakeFiles --progress-num=$(CMAKE_PROGRESS_7) "No patch step for 'stb-populate'"
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --blue --bold --progress-dir=/Users/sarootareerattanawetch/OpenGL/GameEngProject-Palbom/build/_deps/stb-subbuild/CMakeFiles --progress-num=$(CMAKE_PROGRESS_7) "No patch step for 'stb-populate'"
 	/usr/local/bin/cmake -E echo_append
-	/usr/local/bin/cmake -E touch /Users/sarootareerattanawetch/OpenGL/GameEngProject-Palbomb-2.0-/build/_deps/stb-subbuild/stb-populate-prefix/src/stb-populate-stamp/stb-populate-patch
+	/usr/local/bin/cmake -E touch /Users/sarootareerattanawetch/OpenGL/GameEngProject-Palbom/build/_deps/stb-subbuild/stb-populate-prefix/src/stb-populate-stamp/stb-populate-patch
 
 stb-populate-prefix/src/stb-populate-stamp/stb-populate-update:
 .PHONY : stb-populate-prefix/src/stb-populate-stamp/stb-populate-update
 
 stb-populate-prefix/src/stb-populate-stamp/stb-populate-test: stb-populate-prefix/src/stb-populate-stamp/stb-populate-install
-	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --blue --bold --progress-dir=/Users/sarootareerattanawetch/OpenGL/GameEngProject-Palbomb-2.0-/build/_deps/stb-subbuild/CMakeFiles --progress-num=$(CMAKE_PROGRESS_8) "No test step for 'stb-populate'"
-	cd /Users/sarootareerattanawetch/OpenGL/GameEngProject-Palbomb-2.0-/build/_deps/stb-build && /usr/local/bin/cmake -E echo_append
-	cd /Users/sarootareerattanawetch/OpenGL/GameEngProject-Palbomb-2.0-/build/_deps/stb-build && /usr/local/bin/cmake -E touch /Users/sarootareerattanawetch/OpenGL/GameEngProject-Palbomb-2.0-/build/_deps/stb-subbuild/stb-populate-prefix/src/stb-populate-stamp/stb-populate-test
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --blue --bold --progress-dir=/Users/sarootareerattanawetch/OpenGL/GameEngProject-Palbom/build/_deps/stb-subbuild/CMakeFiles --progress-num=$(CMAKE_PROGRESS_8) "No test step for 'stb-populate'"
+	cd /Users/sarootareerattanawetch/OpenGL/GameEngProject-Palbom/build/_deps/stb-build && /usr/local/bin/cmake -E echo_append
+	cd /Users/sarootareerattanawetch/OpenGL/GameEngProject-Palbom/build/_deps/stb-build && /usr/local/bin/cmake -E touch /Users/sarootareerattanawetch/OpenGL/GameEngProject-Palbom/build/_deps/stb-subbuild/stb-populate-prefix/src/stb-populate-stamp/stb-populate-test
 
 stb-populate-prefix/src/stb-populate-stamp/stb-populate-update: stb-populate-prefix/tmp/stb-populate-gitupdate.cmake
 stb-populate-prefix/src/stb-populate-stamp/stb-populate-update: stb-populate-prefix/src/stb-populate-stamp/stb-populate-update-info.txt
 stb-populate-prefix/src/stb-populate-stamp/stb-populate-update: stb-populate-prefix/src/stb-populate-stamp/stb-populate-download
-	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --blue --bold --progress-dir=/Users/sarootareerattanawetch/OpenGL/GameEngProject-Palbomb-2.0-/build/_deps/stb-subbuild/CMakeFiles --progress-num=$(CMAKE_PROGRESS_9) "Performing update step for 'stb-populate'"
-	cd /Users/sarootareerattanawetch/OpenGL/GameEngProject-Palbomb-2.0-/build/_deps/stb-src && /usr/local/bin/cmake -Dcan_fetch=YES -DCMAKE_MESSAGE_LOG_LEVEL=VERBOSE -P /Users/sarootareerattanawetch/OpenGL/GameEngProject-Palbomb-2.0-/build/_deps/stb-subbuild/stb-populate-prefix/tmp/stb-populate-gitupdate.cmake
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --blue --bold --progress-dir=/Users/sarootareerattanawetch/OpenGL/GameEngProject-Palbom/build/_deps/stb-subbuild/CMakeFiles --progress-num=$(CMAKE_PROGRESS_9) "Performing update step for 'stb-populate'"
+	cd /Users/sarootareerattanawetch/OpenGL/GameEngProject-Palbom/build/_deps/stb-src && /usr/local/bin/cmake -Dcan_fetch=YES -DCMAKE_MESSAGE_LOG_LEVEL=VERBOSE -P /Users/sarootareerattanawetch/OpenGL/GameEngProject-Palbom/build/_deps/stb-subbuild/stb-populate-prefix/tmp/stb-populate-gitupdate.cmake
 
 CMakeFiles/stb-populate.dir/codegen:
 .PHONY : CMakeFiles/stb-populate.dir/codegen
@@ -157,6 +157,6 @@ CMakeFiles/stb-populate.dir/clean:
 .PHONY : CMakeFiles/stb-populate.dir/clean
 
 CMakeFiles/stb-populate.dir/depend:
-	cd /Users/sarootareerattanawetch/OpenGL/GameEngProject-Palbomb-2.0-/build/_deps/stb-subbuild && $(CMAKE_COMMAND) -E cmake_depends "Unix Makefiles" /Users/sarootareerattanawetch/OpenGL/GameEngProject-Palbomb-2.0-/build/_deps/stb-subbuild /Users/sarootareerattanawetch/OpenGL/GameEngProject-Palbomb-2.0-/build/_deps/stb-subbuild /Users/sarootareerattanawetch/OpenGL/GameEngProject-Palbomb-2.0-/build/_deps/stb-subbuild /Users/sarootareerattanawetch/OpenGL/GameEngProject-Palbomb-2.0-/build/_deps/stb-subbuild /Users/sarootareerattanawetch/OpenGL/GameEngProject-Palbomb-2.0-/build/_deps/stb-subbuild/CMakeFiles/stb-populate.dir/DependInfo.cmake "--color=$(COLOR)"
+	cd /Users/sarootareerattanawetch/OpenGL/GameEngProject-Palbom/build/_deps/stb-subbuild && $(CMAKE_COMMAND) -E cmake_depends "Unix Makefiles" /Users/sarootareerattanawetch/OpenGL/GameEngProject-Palbom/build/_deps/stb-subbuild /Users/sarootareerattanawetch/OpenGL/GameEngProject-Palbom/build/_deps/stb-subbuild /Users/sarootareerattanawetch/OpenGL/GameEngProject-Palbom/build/_deps/stb-subbuild /Users/sarootareerattanawetch/OpenGL/GameEngProject-Palbom/build/_deps/stb-subbuild /Users/sarootareerattanawetch/OpenGL/GameEngProject-Palbom/build/_deps/stb-subbuild/CMakeFiles/stb-populate.dir/DependInfo.cmake "--color=$(COLOR)"
 .PHONY : CMakeFiles/stb-populate.dir/depend
 

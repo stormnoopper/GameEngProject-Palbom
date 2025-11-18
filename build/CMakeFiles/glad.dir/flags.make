@@ -4,7 +4,7 @@
 # compile C with /usr/bin/cc
 C_DEFINES = 
 
-C_INCLUDES = -I/Users/sarootareerattanawetch/OpenGL/GameEngProject-Palbomb-2.0-/build -I/Users/sarootareerattanawetch/OpenGL/GameEngProject-Palbomb-2.0-/build/learnopengl -I/Users/sarootareerattanawetch/OpenGL/GameEngProject-Palbomb-2.0-/../LearnOpenGL/includes -I/Users/sarootareerattanawetch/OpenGL/GameEngProject-Palbomb-2.0-/build/_deps/glfw-src/include -I/Users/sarootareerattanawetch/OpenGL/GameEngProject-Palbomb-2.0-/build/_deps/glm-src -I/Users/sarootareerattanawetch/OpenGL/GameEngProject-Palbomb-2.0-/build/_deps/stb-src -I/Users/sarootareerattanawetch/OpenGL/GameEngProject-Palbomb-2.0-/build/_deps/assimp-src/include -I/Users/sarootareerattanawetch/OpenGL/GameEngProject-Palbomb-2.0-/src
+C_INCLUDES = -I/Users/sarootareerattanawetch/OpenGL/GameEngProject-Palbom/build -I/Users/sarootareerattanawetch/OpenGL/GameEngProject-Palbom/build/learnopengl -I/Users/sarootareerattanawetch/OpenGL/GameEngProject-Palbom/../LearnOpenGL/includes -I/Users/sarootareerattanawetch/OpenGL/GameEngProject-Palbom/build/_deps/glfw-src/include -I/Users/sarootareerattanawetch/OpenGL/GameEngProject-Palbom/build/_deps/glm-src -I/Users/sarootareerattanawetch/OpenGL/GameEngProject-Palbom/build/_deps/stb-src -I/Users/sarootareerattanawetch/OpenGL/GameEngProject-Palbom/build/_deps/assimp-src/include -I/Users/sarootareerattanawetch/OpenGL/GameEngProject-Palbom/src
 
 C_FLAGSx86_64 =  -arch x86_64
 

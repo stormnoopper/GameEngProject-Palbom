@@ -53,10 +53,10 @@ RM = /usr/local/bin/cmake -E rm -f
 EQUALS = =
 
 # The top-level source directory on which CMake was run.
-CMAKE_SOURCE_DIR = /Users/sarootareerattanawetch/OpenGL/GameEngProject-Palbomb-2.0-
+CMAKE_SOURCE_DIR = /Users/sarootareerattanawetch/OpenGL/GameEngProject-Palbom
 
 # The top-level build directory on which CMake was run.
-CMAKE_BINARY_DIR = /Users/sarootareerattanawetch/OpenGL/GameEngProject-Palbomb-2.0-/build
+CMAKE_BINARY_DIR = /Users/sarootareerattanawetch/OpenGL/GameEngProject-Palbom/build
 
 # Include any dependencies generated for this target.
 include CMakeFiles/PlayableCharacter.dir/depend.make
@@ -73,18 +73,18 @@ CMakeFiles/PlayableCharacter.dir/codegen:
 .PHONY : CMakeFiles/PlayableCharacter.dir/codegen
 
 CMakeFiles/PlayableCharacter.dir/src/main.cpp.o: CMakeFiles/PlayableCharacter.dir/flags.make
-CMakeFiles/PlayableCharacter.dir/src/main.cpp.o: /Users/sarootareerattanawetch/OpenGL/GameEngProject-Palbomb-2.0-/src/main.cpp
+CMakeFiles/PlayableCharacter.dir/src/main.cpp.o: /Users/sarootareerattanawetch/OpenGL/GameEngProject-Palbom/src/main.cpp
 CMakeFiles/PlayableCharacter.dir/src/main.cpp.o: CMakeFiles/PlayableCharacter.dir/compiler_depend.ts
-	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --progress-dir=/Users/sarootareerattanawetch/OpenGL/GameEngProject-Palbomb-2.0-/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_1) "Building CXX object CMakeFiles/PlayableCharacter.dir/src/main.cpp.o"
-	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -MD -MT CMakeFiles/PlayableCharacter.dir/src/main.cpp.o -MF CMakeFiles/PlayableCharacter.dir/src/main.cpp.o.d -o CMakeFiles/PlayableCharacter.dir/src/main.cpp.o -c /Users/sarootareerattanawetch/OpenGL/GameEngProject-Palbomb-2.0-/src/main.cpp
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --progress-dir=/Users/sarootareerattanawetch/OpenGL/GameEngProject-Palbom/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_1) "Building CXX object CMakeFiles/PlayableCharacter.dir/src/main.cpp.o"
+	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -MD -MT CMakeFiles/PlayableCharacter.dir/src/main.cpp.o -MF CMakeFiles/PlayableCharacter.dir/src/main.cpp.o.d -o CMakeFiles/PlayableCharacter.dir/src/main.cpp.o -c /Users/sarootareerattanawetch/OpenGL/GameEngProject-Palbom/src/main.cpp
 
 CMakeFiles/PlayableCharacter.dir/src/main.cpp.i: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green "Preprocessing CXX source to CMakeFiles/PlayableCharacter.dir/src/main.cpp.i"
-	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /Users/sarootareerattanawetch/OpenGL/GameEngProject-Palbomb-2.0-/src/main.cpp > CMakeFiles/PlayableCharacter.dir/src/main.cpp.i
+	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /Users/sarootareerattanawetch/OpenGL/GameEngProject-Palbom/src/main.cpp > CMakeFiles/PlayableCharacter.dir/src/main.cpp.i
 
 CMakeFiles/PlayableCharacter.dir/src/main.cpp.s: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green "Compiling CXX source to assembly CMakeFiles/PlayableCharacter.dir/src/main.cpp.s"
-	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /Users/sarootareerattanawetch/OpenGL/GameEngProject-Palbomb-2.0-/src/main.cpp -o CMakeFiles/PlayableCharacter.dir/src/main.cpp.s
+	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /Users/sarootareerattanawetch/OpenGL/GameEngProject-Palbom/src/main.cpp -o CMakeFiles/PlayableCharacter.dir/src/main.cpp.s
 
 # Object files for target PlayableCharacter
 PlayableCharacter_OBJECTS = \
@@ -101,12 +101,12 @@ PlayableCharacter: _deps/assimp-build/lib/libassimp.a
 PlayableCharacter: /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk/System/Library/Frameworks/OpenGL.framework
 PlayableCharacter: /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk/usr/lib/libz.tbd
 PlayableCharacter: CMakeFiles/PlayableCharacter.dir/link.txt
-	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --bold --progress-dir=/Users/sarootareerattanawetch/OpenGL/GameEngProject-Palbomb-2.0-/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_2) "Linking CXX executable PlayableCharacter"
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --bold --progress-dir=/Users/sarootareerattanawetch/OpenGL/GameEngProject-Palbom/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_2) "Linking CXX executable PlayableCharacter"
 	$(CMAKE_COMMAND) -E cmake_link_script CMakeFiles/PlayableCharacter.dir/link.txt --verbose=$(VERBOSE)
 	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --blue --bold "Copying assets to the target binary directory"
-	/usr/local/bin/cmake -E copy_directory /Users/sarootareerattanawetch/OpenGL/GameEngProject-Palbomb-2.0-/assets /Users/sarootareerattanawetch/OpenGL/GameEngProject-Palbomb-2.0-/build/assets
+	/usr/local/bin/cmake -E copy_directory /Users/sarootareerattanawetch/OpenGL/GameEngProject-Palbom/assets /Users/sarootareerattanawetch/OpenGL/GameEngProject-Palbom/build/assets
 	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --blue --bold "Copying shaders to the target binary directory"
-	/usr/local/bin/cmake -E copy_directory /Users/sarootareerattanawetch/OpenGL/GameEngProject-Palbomb-2.0-/shaders /Users/sarootareerattanawetch/OpenGL/GameEngProject-Palbomb-2.0-/build/shaders
+	/usr/local/bin/cmake -E copy_directory /Users/sarootareerattanawetch/OpenGL/GameEngProject-Palbom/shaders /Users/sarootareerattanawetch/OpenGL/GameEngProject-Palbom/build/shaders
 
 # Rule to build all files generated by this target.
 CMakeFiles/PlayableCharacter.dir/build: PlayableCharacter
@@ -117,6 +117,6 @@ CMakeFiles/PlayableCharacter.dir/clean:
 .PHONY : CMakeFiles/PlayableCharacter.dir/clean
 
 CMakeFiles/PlayableCharacter.dir/depend:
-	cd /Users/sarootareerattanawetch/OpenGL/GameEngProject-Palbomb-2.0-/build && $(CMAKE_COMMAND) -E cmake_depends "Unix Makefiles" /Users/sarootareerattanawetch/OpenGL/GameEngProject-Palbomb-2.0- /Users/sarootareerattanawetch/OpenGL/GameEngProject-Palbomb-2.0- /Users/sarootareerattanawetch/OpenGL/GameEngProject-Palbomb-2.0-/build /Users/sarootareerattanawetch/OpenGL/GameEngProject-Palbomb-2.0-/build /Users/sarootareerattanawetch/OpenGL/GameEngProject-Palbomb-2.0-/build/CMakeFiles/PlayableCharacter.dir/DependInfo.cmake "--color=$(COLOR)"
+	cd /Users/sarootareerattanawetch/OpenGL/GameEngProject-Palbom/build && $(CMAKE_COMMAND) -E cmake_depends "Unix Makefiles" /Users/sarootareerattanawetch/OpenGL/GameEngProject-Palbom /Users/sarootareerattanawetch/OpenGL/GameEngProject-Palbom /Users/sarootareerattanawetch/OpenGL/GameEngProject-Palbom/build /Users/sarootareerattanawetch/OpenGL/GameEngProject-Palbom/build /Users/sarootareerattanawetch/OpenGL/GameEngProject-Palbom/build/CMakeFiles/PlayableCharacter.dir/DependInfo.cmake "--color=$(COLOR)"
 .PHONY : CMakeFiles/PlayableCharacter.dir/depend
 

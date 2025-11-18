@@ -57,10 +57,10 @@ RM = /usr/local/bin/cmake -E rm -f
 EQUALS = =
 
 # The top-level source directory on which CMake was run.
-CMAKE_SOURCE_DIR = /Users/sarootareerattanawetch/OpenGL/GameEngProject-Palbomb-2.0-
+CMAKE_SOURCE_DIR = /Users/sarootareerattanawetch/OpenGL/GameEngProject-Palbom
 
 # The top-level build directory on which CMake was run.
-CMAKE_BINARY_DIR = /Users/sarootareerattanawetch/OpenGL/GameEngProject-Palbomb-2.0-/build
+CMAKE_BINARY_DIR = /Users/sarootareerattanawetch/OpenGL/GameEngProject-Palbom/build
 
 #=============================================================================
 # Targets provided globally by CMake.
@@ -132,14 +132,14 @@ install/strip/fast: preinstall/fast
 
 # The main all target
 all: cmake_check_build_system
-	cd /Users/sarootareerattanawetch/OpenGL/GameEngProject-Palbomb-2.0-/build && $(CMAKE_COMMAND) -E cmake_progress_start /Users/sarootareerattanawetch/OpenGL/GameEngProject-Palbomb-2.0-/build/CMakeFiles /Users/sarootareerattanawetch/OpenGL/GameEngProject-Palbomb-2.0-/build/_deps/glfw-build//CMakeFiles/progress.marks
-	cd /Users/sarootareerattanawetch/OpenGL/GameEngProject-Palbomb-2.0-/build && $(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 _deps/glfw-build/all
-	$(CMAKE_COMMAND) -E cmake_progress_start /Users/sarootareerattanawetch/OpenGL/GameEngProject-Palbomb-2.0-/build/CMakeFiles 0
+	cd /Users/sarootareerattanawetch/OpenGL/GameEngProject-Palbom/build && $(CMAKE_COMMAND) -E cmake_progress_start /Users/sarootareerattanawetch/OpenGL/GameEngProject-Palbom/build/CMakeFiles /Users/sarootareerattanawetch/OpenGL/GameEngProject-Palbom/build/_deps/glfw-build//CMakeFiles/progress.marks
+	cd /Users/sarootareerattanawetch/OpenGL/GameEngProject-Palbom/build && $(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 _deps/glfw-build/all
+	$(CMAKE_COMMAND) -E cmake_progress_start /Users/sarootareerattanawetch/OpenGL/GameEngProject-Palbom/build/CMakeFiles 0
 .PHONY : all
 
 # The main clean target
 clean:
-	cd /Users/sarootareerattanawetch/OpenGL/GameEngProject-Palbomb-2.0-/build && $(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 _deps/glfw-build/clean
+	cd /Users/sarootareerattanawetch/OpenGL/GameEngProject-Palbom/build && $(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 _deps/glfw-build/clean
 .PHONY : clean
 
 # The main clean target
@@ -148,22 +148,22 @@ clean/fast: clean
 
 # Prepare targets for installation.
 preinstall: all
-	cd /Users/sarootareerattanawetch/OpenGL/GameEngProject-Palbomb-2.0-/build && $(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 _deps/glfw-build/preinstall
+	cd /Users/sarootareerattanawetch/OpenGL/GameEngProject-Palbom/build && $(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 _deps/glfw-build/preinstall
 .PHONY : preinstall
 
 # Prepare targets for installation.
 preinstall/fast:
-	cd /Users/sarootareerattanawetch/OpenGL/GameEngProject-Palbomb-2.0-/build && $(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 _deps/glfw-build/preinstall
+	cd /Users/sarootareerattanawetch/OpenGL/GameEngProject-Palbom/build && $(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 _deps/glfw-build/preinstall
 .PHONY : preinstall/fast
 
 # clear depends
 depend:
-	cd /Users/sarootareerattanawetch/OpenGL/GameEngProject-Palbomb-2.0-/build && $(CMAKE_COMMAND) -S$(CMAKE_SOURCE_DIR) -B$(CMAKE_BINARY_DIR) --check-build-system CMakeFiles/Makefile.cmake 1
+	cd /Users/sarootareerattanawetch/OpenGL/GameEngProject-Palbom/build && $(CMAKE_COMMAND) -S$(CMAKE_SOURCE_DIR) -B$(CMAKE_BINARY_DIR) --check-build-system CMakeFiles/Makefile.cmake 1
 .PHONY : depend
 
 # Convenience name for target.
 _deps/glfw-build/CMakeFiles/uninstall.dir/rule:
-	cd /Users/sarootareerattanawetch/OpenGL/GameEngProject-Palbomb-2.0-/build && $(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 _deps/glfw-build/CMakeFiles/uninstall.dir/rule
+	cd /Users/sarootareerattanawetch/OpenGL/GameEngProject-Palbom/build && $(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 _deps/glfw-build/CMakeFiles/uninstall.dir/rule
 .PHONY : _deps/glfw-build/CMakeFiles/uninstall.dir/rule
 
 # Convenience name for target.
@@ -172,7 +172,7 @@ uninstall: _deps/glfw-build/CMakeFiles/uninstall.dir/rule
 
 # fast build rule for target.
 uninstall/fast:
-	cd /Users/sarootareerattanawetch/OpenGL/GameEngProject-Palbomb-2.0-/build && $(MAKE) $(MAKESILENT) -f _deps/glfw-build/CMakeFiles/uninstall.dir/build.make _deps/glfw-build/CMakeFiles/uninstall.dir/build
+	cd /Users/sarootareerattanawetch/OpenGL/GameEngProject-Palbom/build && $(MAKE) $(MAKESILENT) -f _deps/glfw-build/CMakeFiles/uninstall.dir/build.make _deps/glfw-build/CMakeFiles/uninstall.dir/build
 .PHONY : uninstall/fast
 
 # Help Target
@@ -199,6 +199,6 @@ help:
 # No rule that depends on this can have commands that come from listfiles
 # because they might be regenerated.
 cmake_check_build_system:
-	cd /Users/sarootareerattanawetch/OpenGL/GameEngProject-Palbomb-2.0-/build && $(CMAKE_COMMAND) -S$(CMAKE_SOURCE_DIR) -B$(CMAKE_BINARY_DIR) --check-build-system CMakeFiles/Makefile.cmake 0
+	cd /Users/sarootareerattanawetch/OpenGL/GameEngProject-Palbom/build && $(CMAKE_COMMAND) -S$(CMAKE_SOURCE_DIR) -B$(CMAKE_BINARY_DIR) --check-build-system CMakeFiles/Makefile.cmake 0
 .PHONY : cmake_check_build_system
 

@@ -175,6 +175,14 @@ int main()
         floorTexture = loadTexture("assets/floor/ground_tiles_06_color_1k.png");
     }
 
+    std::string borderTexturePath = FileSystem::getPath("assets/Unbreakable_Block/tudor_wall_01_basecolor_1k.png");
+    unsigned int borderTexture = loadTexture(borderTexturePath.c_str());
+    if (borderTexture == 0)
+    {
+        std::cout << "Failed to load border texture. Trying alternative path..." << std::endl;
+        borderTexture = loadTexture("assets/Unbreakable_Block/tudor_wall_01_basecolor_1k.png");
+    }
+
     shader.use();
     shader.setInt("texture1", 0);
 
@@ -231,6 +239,30 @@ int main()
                 shader.setMat4("model", model);
 
                 // draw the block (36 indices for a cube: 6 faces * 2 triangles * 3 vertices)
+                glDrawElements(GL_TRIANGLES, 36, GL_UNSIGNED_INT, 0);
+            }
+        }
+
+        // render raised border layer with unbreakable blocks
+        glBindTexture(GL_TEXTURE_2D, borderTexture);
+        const float fullBlockHeight = 1.0f;
+        const float borderScaleY = fullBlockHeight / blockHeight;
+        for (int x = 0; x < MAP_SIZE; x++)
+        {
+            for (int z = 0; z < MAP_SIZE; z++)
+            {
+                bool isBorder = (x == 0 || x == MAP_SIZE - 1 || z == 0 || z == MAP_SIZE - 1);
+                if (!isBorder)
+                    continue;
+
+                float tileX = MAP_OFFSET + x * TILE_SIZE;
+                float tileZ = MAP_OFFSET + z * TILE_SIZE;
+
+                glm::mat4 model = glm::mat4(1.0f);
+                model = glm::translate(model, glm::vec3(tileX, blockHeight, tileZ));
+                model = glm::scale(model, glm::vec3(1.0f, borderScaleY, 1.0f));
+                shader.setMat4("model", model);
+
                 glDrawElements(GL_TRIANGLES, 36, GL_UNSIGNED_INT, 0);
             }
         }
