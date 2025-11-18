@@ -96,38 +96,38 @@ int main()
     // set up vertex data for a 3D block (cube)
     float blockHeight = 0.2f; // Height of each block
     float blockSize = 1.0f;
+    // positions          // normals           // texture coords
     float vertices[] = {
-        // positions          // texture coords
-        // Top face
-         0.5f,  blockHeight,  0.5f,   1.0f, 1.0f,
-         0.5f,  blockHeight, -0.5f,   1.0f, 0.0f,
-        -0.5f,  blockHeight, -0.5f,   0.0f, 0.0f,
-        -0.5f,  blockHeight,  0.5f,   0.0f, 1.0f,
-        // Bottom face
-         0.5f,  0.0f, -0.5f,   1.0f, 1.0f,
-         0.5f,  0.0f,  0.5f,   1.0f, 0.0f,
-        -0.5f,  0.0f,  0.5f,   0.0f, 0.0f,
-        -0.5f,  0.0f, -0.5f,   0.0f, 1.0f,
-        // Front face
-         0.5f,  0.0f,  0.5f,   1.0f, 0.0f,
-         0.5f,  blockHeight,  0.5f,   1.0f, 1.0f,
-        -0.5f,  blockHeight,  0.5f,   0.0f, 1.0f,
-        -0.5f,  0.0f,  0.5f,   0.0f, 0.0f,
-        // Back face
-         0.5f,  blockHeight, -0.5f,   1.0f, 1.0f,
-         0.5f,  0.0f, -0.5f,   1.0f, 0.0f,
-        -0.5f,  0.0f, -0.5f,   0.0f, 0.0f,
-        -0.5f,  blockHeight, -0.5f,   0.0f, 1.0f,
-        // Right face
-         0.5f,  0.0f, -0.5f,   0.0f, 0.0f,
-         0.5f,  blockHeight, -0.5f,   0.0f, 1.0f,
-         0.5f,  blockHeight,  0.5f,   1.0f, 1.0f,
-         0.5f,  0.0f,  0.5f,   1.0f, 0.0f,
-        // Left face
-        -0.5f,  blockHeight, -0.5f,   0.0f, 1.0f,
-        -0.5f,  0.0f, -0.5f,   0.0f, 0.0f,
-        -0.5f,  0.0f,  0.5f,   1.0f, 0.0f,
-        -0.5f,  blockHeight,  0.5f,   1.0f, 1.0f
+        // Top face (normal: 0, 1, 0)
+         0.5f,  blockHeight,  0.5f,   0.0f, 1.0f, 0.0f,   1.0f, 1.0f,
+         0.5f,  blockHeight, -0.5f,   0.0f, 1.0f, 0.0f,   1.0f, 0.0f,
+        -0.5f,  blockHeight, -0.5f,   0.0f, 1.0f, 0.0f,   0.0f, 0.0f,
+        -0.5f,  blockHeight,  0.5f,   0.0f, 1.0f, 0.0f,   0.0f, 1.0f,
+        // Bottom face (normal: 0, -1, 0)
+         0.5f,  0.0f, -0.5f,   0.0f, -1.0f, 0.0f,   1.0f, 1.0f,
+         0.5f,  0.0f,  0.5f,   0.0f, -1.0f, 0.0f,   1.0f, 0.0f,
+        -0.5f,  0.0f,  0.5f,   0.0f, -1.0f, 0.0f,   0.0f, 0.0f,
+        -0.5f,  0.0f, -0.5f,   0.0f, -1.0f, 0.0f,   0.0f, 1.0f,
+        // Front face (normal: 0, 0, 1)
+         0.5f,  0.0f,  0.5f,   0.0f, 0.0f, 1.0f,   1.0f, 0.0f,
+         0.5f,  blockHeight,  0.5f,   0.0f, 0.0f, 1.0f,   1.0f, 1.0f,
+        -0.5f,  blockHeight,  0.5f,   0.0f, 0.0f, 1.0f,   0.0f, 1.0f,
+        -0.5f,  0.0f,  0.5f,   0.0f, 0.0f, 1.0f,   0.0f, 0.0f,
+        // Back face (normal: 0, 0, -1)
+         0.5f,  blockHeight, -0.5f,   0.0f, 0.0f, -1.0f,   1.0f, 1.0f,
+         0.5f,  0.0f, -0.5f,   0.0f, 0.0f, -1.0f,   1.0f, 0.0f,
+        -0.5f,  0.0f, -0.5f,   0.0f, 0.0f, -1.0f,   0.0f, 0.0f,
+        -0.5f,  blockHeight, -0.5f,   0.0f, 0.0f, -1.0f,   0.0f, 1.0f,
+        // Right face (normal: 1, 0, 0)
+         0.5f,  0.0f, -0.5f,   1.0f, 0.0f, 0.0f,   0.0f, 0.0f,
+         0.5f,  blockHeight, -0.5f,   1.0f, 0.0f, 0.0f,   0.0f, 1.0f,
+         0.5f,  blockHeight,  0.5f,   1.0f, 0.0f, 0.0f,   1.0f, 1.0f,
+         0.5f,  0.0f,  0.5f,   1.0f, 0.0f, 0.0f,   1.0f, 0.0f,
+        // Left face (normal: -1, 0, 0)
+        -0.5f,  blockHeight, -0.5f,   -1.0f, 0.0f, 0.0f,   0.0f, 1.0f,
+        -0.5f,  0.0f, -0.5f,   -1.0f, 0.0f, 0.0f,   0.0f, 0.0f,
+        -0.5f,  0.0f,  0.5f,   -1.0f, 0.0f, 0.0f,   1.0f, 0.0f,
+        -0.5f,  blockHeight,  0.5f,   -1.0f, 0.0f, 0.0f,   1.0f, 1.0f
     };
     unsigned int indices[] = {
         // Top face
@@ -158,21 +158,24 @@ int main()
     glBufferData(GL_ELEMENT_ARRAY_BUFFER, sizeof(indices), indices, GL_STATIC_DRAW);
 
     // position attribute
-    glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, 5 * sizeof(float), (void*)0);
+    glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, 8 * sizeof(float), (void*)0);
     glEnableVertexAttribArray(0);
-    // texture coord attribute
-    glVertexAttribPointer(1, 2, GL_FLOAT, GL_FALSE, 5 * sizeof(float), (void*)(3 * sizeof(float)));
+    // normal attribute
+    glVertexAttribPointer(1, 3, GL_FLOAT, GL_FALSE, 8 * sizeof(float), (void*)(3 * sizeof(float)));
     glEnableVertexAttribArray(1);
+    // texture coord attribute
+    glVertexAttribPointer(2, 2, GL_FLOAT, GL_FALSE, 8 * sizeof(float), (void*)(6 * sizeof(float)));
+    glEnableVertexAttribArray(2);
 
     // load and create texture
     stbi_set_flip_vertically_on_load(true);
-    std::string texturePath = FileSystem::getPath("assets/floor/ground_tiles_06_color_1k.png");
+    std::string texturePath = FileSystem::getPath("assets/Floor/concrete_wall_07_basecolor_1k.png");
     unsigned int floorTexture = loadTexture(texturePath.c_str());
     if (floorTexture == 0)
     {
         std::cout << "Failed to load floor texture. Trying alternative path..." << std::endl;
         // Try direct path as fallback
-        floorTexture = loadTexture("assets/floor/ground_tiles_06_color_1k.png");
+        floorTexture = loadTexture("assets/Floor/concrete_wall_07_basecolor_1k.png");
     }
 
     std::string borderTexturePath = FileSystem::getPath("assets/Unbreakable_Block/tudor_wall_01_basecolor_1k.png");
@@ -210,14 +213,21 @@ int main()
         glm::mat4 projection = glm::perspective(glm::radians(45.0f), aspect, 0.1f, 200.0f);
 
         // position camera above board looking toward origin (tilted ~60°)
-        glm::vec3 cameraPos(0.0f, MAP_SIZE * 0.9f, MAP_SIZE * 1.1f);
+        glm::vec3 cameraPos(0.0f, MAP_SIZE * 1.2f, MAP_SIZE * 1.1f);
         glm::vec3 cameraTarget(0.0f, 0.0f, 0.0f);
         glm::vec3 cameraUp(0.0f, 1.0f, 0.0f);
         glm::mat4 view = glm::lookAt(cameraPos, cameraTarget, cameraUp);
 
+        // Lighting setup
+        glm::vec3 lightPos(MAP_SIZE * 0.5f, MAP_SIZE * 1.5f, MAP_SIZE * 0.5f); // Light above the map
+        glm::vec3 lightColor(1.0f, 1.0f, 0.95f); // Slightly warm white light
+
         // set uniforms
         shader.setMat4("projection", projection);
         shader.setMat4("view", view);
+        shader.setVec3("lightPos", lightPos);
+        shader.setVec3("lightColor", lightColor);
+        shader.setVec3("viewPos", cameraPos);
 
         // bind texture
         glActiveTexture(GL_TEXTURE0);
@@ -261,6 +271,28 @@ int main()
                 glm::mat4 model = glm::mat4(1.0f);
                 model = glm::translate(model, glm::vec3(tileX, blockHeight, tileZ));
                 model = glm::scale(model, glm::vec3(1.0f, borderScaleY, 1.0f));
+                shader.setMat4("model", model);
+
+                glDrawElements(GL_TRIANGLES, 36, GL_UNSIGNED_INT, 0);
+            }
+        }
+
+        // render red blocks (shorter blocks with same texture as border)
+        // Red blocks are 25% shorter than border blocks
+        const float redBlockHeight = fullBlockHeight * 0.75f; // 75% of border height
+        const float redBlockScaleY = redBlockHeight / blockHeight;
+        // Pattern: red blocks at columns C, E, G, I, K, M (indices 2, 4, 6, 8, 10, 12)
+        // and rows 3, 5, 7, 9, 11, 13 (indices 2, 4, 6, 8, 10, 12)
+        for (int x = 2; x <= 12; x += 2)
+        {
+            for (int z = 2; z <= 12; z += 2)
+            {
+                float tileX = MAP_OFFSET + x * TILE_SIZE;
+                float tileZ = MAP_OFFSET + z * TILE_SIZE;
+
+                glm::mat4 model = glm::mat4(1.0f);
+                model = glm::translate(model, glm::vec3(tileX, blockHeight, tileZ));
+                model = glm::scale(model, glm::vec3(1.0f, redBlockScaleY, 1.0f));
                 shader.setMat4("model", model);
 
                 glDrawElements(GL_TRIANGLES, 36, GL_UNSIGNED_INT, 0);
