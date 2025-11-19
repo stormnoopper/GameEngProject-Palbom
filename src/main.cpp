@@ -285,19 +285,30 @@ int main()
     };
 
     // Helper function to check if a position is a green cell (player spawn)
+    // Green cells are 2x2 clusters at top-left and bottom-right
+    // Top-left cluster: (1,1), (1,2), (2,1), (2,2)
+    // Bottom-right cluster: (12,12), (12,13), (13,12), (13,13)
     auto isGreenCell = [](int x, int z) -> bool {
-        // Green cells at (1,1) top-left and (13,13) bottom-right
-        return (x == 1 && z == 1) || (x == 13 && z == 13);
+        // Top-left 2x2 cluster
+        if ((x == 1 || x == 2) && (z == 1 || z == 2))
+            return true;
+        // Bottom-right 2x2 cluster
+        if ((x == 12 || x == 13) && (z == 12 || z == 13))
+            return true;
+        return false;
     };
 
     // Helper function to check if a position is a white cell (where breakable blocks can be placed)
     auto isWhiteCell = [&](int x, int z) -> bool {
-        // Not border
-        if (x == 0 || x == MAP_SIZE - 1 || z == 0 || z == MAP_SIZE - 1) return false;
-        // Not red block
-        if (isRedBlock(x, z)) return false;
-        // Not green cell
-        if (isGreenCell(x, z)) return false;
+        // Not border (x=0, x=14, z=0, z=14)
+        if (x == 0 || x == MAP_SIZE - 1 || z == 0 || z == MAP_SIZE - 1) 
+            return false;
+        // Not red block (pattern blocks)
+        if (isRedBlock(x, z)) 
+            return false;
+        // Not green cell (player spawn areas) - IMPORTANT: No breakable blocks here!
+        if (isGreenCell(x, z)) 
+            return false;
         return true;
     };
 
@@ -311,6 +322,7 @@ int main()
         {
             for (int z = 1; z < MAP_SIZE - 1; z++)
             {
+                // Only generate breakable blocks in white cells (not green, not red, not border)
                 if (isWhiteCell(x, z) && dis(generator) < BREAKABLE_BLOCK_PROBABILITY)
                 {
                     positions.push_back({x, z});
@@ -440,14 +452,18 @@ int main()
             int x = pos.first;
             int z = pos.second;
             
+            // Double-check: Skip green cells (should not happen, but safety check)
+            if (isGreenCell(x, z))
+                continue;
+            
             float tileX = MAP_OFFSET + x * TILE_SIZE;
             float tileZ = MAP_OFFSET + z * TILE_SIZE;
-
+            
             glm::mat4 model = glm::mat4(1.0f);
             model = glm::translate(model, glm::vec3(tileX, blockHeight, tileZ));
             model = glm::scale(model, glm::vec3(1.0f, breakableBlockScaleY, 1.0f));
             shader.setMat4("model", model);
-
+            
             glDrawElements(GL_TRIANGLES, 36, GL_UNSIGNED_INT, 0);
         }
 
