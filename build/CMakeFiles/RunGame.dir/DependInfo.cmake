@@ -8,6 +8,7 @@ set(CMAKE_DEPENDS_LANGUAGES
 
 # The set of dependency files which are needed:
 set(CMAKE_DEPENDS_DEPENDENCY_FILES
+  "/Users/sarootareerattanawetch/OpenGL/GameEngProject-Palbom/src/audio_player.mm" "CMakeFiles/RunGame.dir/src/audio_player.mm.o" "gcc" "CMakeFiles/RunGame.dir/src/audio_player.mm.o.d"
   "/Users/sarootareerattanawetch/OpenGL/GameEngProject-Palbom/src/main.cpp" "CMakeFiles/RunGame.dir/src/main.cpp.o" "gcc" "CMakeFiles/RunGame.dir/src/main.cpp.o.d"
   )
 

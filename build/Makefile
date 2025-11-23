@@ -640,6 +640,30 @@ Users/sarootareerattanawetch/OpenGL/LearnOpenGL/src/glad.c.s:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/glad.dir/build.make CMakeFiles/glad.dir/Users/sarootareerattanawetch/OpenGL/LearnOpenGL/src/glad.c.s
 .PHONY : Users/sarootareerattanawetch/OpenGL/LearnOpenGL/src/glad.c.s
 
+src/audio_player.o: src/audio_player.mm.o
+.PHONY : src/audio_player.o
+
+# target to build an object file
+src/audio_player.mm.o:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/RunGame.dir/build.make CMakeFiles/RunGame.dir/src/audio_player.mm.o
+.PHONY : src/audio_player.mm.o
+
+src/audio_player.i: src/audio_player.mm.i
+.PHONY : src/audio_player.i
+
+# target to preprocess a source file
+src/audio_player.mm.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/RunGame.dir/build.make CMakeFiles/RunGame.dir/src/audio_player.mm.i
+.PHONY : src/audio_player.mm.i
+
+src/audio_player.s: src/audio_player.mm.s
+.PHONY : src/audio_player.s
+
+# target to generate assembly for a file
+src/audio_player.mm.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/RunGame.dir/build.make CMakeFiles/RunGame.dir/src/audio_player.mm.s
+.PHONY : src/audio_player.mm.s
+
 src/main.o: src/main.cpp.o
 .PHONY : src/main.o
 
@@ -714,6 +738,9 @@ help:
 	@echo "... Users/sarootareerattanawetch/OpenGL/LearnOpenGL/src/glad.o"
 	@echo "... Users/sarootareerattanawetch/OpenGL/LearnOpenGL/src/glad.i"
 	@echo "... Users/sarootareerattanawetch/OpenGL/LearnOpenGL/src/glad.s"
+	@echo "... src/audio_player.o"
+	@echo "... src/audio_player.i"
+	@echo "... src/audio_player.s"
 	@echo "... src/main.o"
 	@echo "... src/main.i"
 	@echo "... src/main.s"

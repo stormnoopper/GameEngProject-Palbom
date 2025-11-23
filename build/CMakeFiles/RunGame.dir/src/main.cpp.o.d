@@ -1236,4 +1236,5 @@ CMakeFiles/RunGame.dir/src/main.cpp.o: \
   /Users/sarootareerattanawetch/OpenGL/GameEngProject-Palbom/build/_deps/assimp-src/include/assimp/postprocess.h \
   /Users/sarootareerattanawetch/OpenGL/GameEngProject-Palbom/build/learnopengl/mesh.h \
   /Users/sarootareerattanawetch/OpenGL/GameEngProject-Palbom/build/learnopengl/shader.h \
-  /Users/sarootareerattanawetch/OpenGL/GameEngProject-Palbom/build/learnopengl/model.h
+  /Users/sarootareerattanawetch/OpenGL/GameEngProject-Palbom/build/learnopengl/model.h \
+  /Users/sarootareerattanawetch/OpenGL/GameEngProject-Palbom/src/audio_player.h

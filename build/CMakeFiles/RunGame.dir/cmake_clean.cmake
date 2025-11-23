@@ -1,4 +1,6 @@
 file(REMOVE_RECURSE
+  "CMakeFiles/RunGame.dir/src/audio_player.mm.o"
+  "CMakeFiles/RunGame.dir/src/audio_player.mm.o.d"
   "CMakeFiles/RunGame.dir/src/main.cpp.o"
   "CMakeFiles/RunGame.dir/src/main.cpp.o.d"
   "RunGame"

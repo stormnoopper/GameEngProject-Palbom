@@ -138,7 +138,11 @@ include_directories(
 
 
 # Only main.cpp is kept locally, other utility files will be downloaded automatically
-set(SRC src/main.cpp)
+if(APPLE)
+    set(SRC src/main.cpp src/audio_player.mm)
+else()
+    set(SRC src/main.cpp)
+endif()
 add_executable(RunGame ${SRC})
 
 # Ensure target can find downloaded headers in the build directory
@@ -158,6 +162,13 @@ if (WIN32)
 else()
     find_package(OpenGL REQUIRED)
     target_link_libraries(RunGame PRIVATE OpenGL::GL)
+endif()
+
+# Link AVFoundation framework on macOS for audio playback
+if(APPLE)
+    find_library(AVFOUNDATION_LIBRARY AVFoundation)
+    find_library(FOUNDATION_LIBRARY Foundation)
+    target_link_libraries(RunGame PRIVATE ${AVFOUNDATION_LIBRARY} ${FOUNDATION_LIBRARY})
 endif()
 
 set_target_properties(RunGame PROPERTIES

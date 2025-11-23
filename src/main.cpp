@@ -19,6 +19,8 @@
 #include <learnopengl/model_animation.h>
 #include <learnopengl/model.h>
 
+#include "audio_player.h"
+
 // Character System Structs
 struct CharacterPose
 {
@@ -389,6 +391,26 @@ int main()
     glEnable(GL_DEPTH_TEST);
     glEnable(GL_MULTISAMPLE);  // Enable MSAA
 
+    // Initialize background music
+    AudioPlayer backgroundMusic;
+    std::string musicPath = FileSystem::getPath("assets/sound/background.mp3");
+    if (backgroundMusic.loadFile(musicPath)) {
+        backgroundMusic.setLooping(true);
+        backgroundMusic.setVolume(0.5f); // 50% volume
+        backgroundMusic.play();
+        std::cout << "Background music started playing (looping)" << std::endl;
+    } else {
+        std::cout << "Warning: Could not load background music from: " << musicPath << std::endl;
+        std::cout << "Trying alternative path..." << std::endl;
+        // Try direct path as fallback
+        if (backgroundMusic.loadFile("assets/sound/background.mp3")) {
+            backgroundMusic.setLooping(true);
+            backgroundMusic.setVolume(0.5f);
+            backgroundMusic.play();
+            std::cout << "Background music started playing (looping) from alternative path" << std::endl;
+        }
+    }
+
     // build and compile shaders
     Shader shader("shaders/tile.vs", "shaders/tile.fs");
     Shader skyboxShader("shaders/skybox.vs", "shaders/skybox.fs");
@@ -691,6 +713,7 @@ int main()
 
     float deltaTime = 0.0f;
     float lastFrame = glfwGetTime(); // Initialize with current time to avoid large delta on first frame
+    float skyboxRotation = 0.0f; // Skybox rotation angle in radians
 
     // render loop
     while (!glfwWindowShouldClose(window))
@@ -701,6 +724,12 @@ int main()
 
         // Cap deltaTime to avoid huge jumps (e.g. during debugging or lag)
         if (deltaTime > 0.1f) deltaTime = 0.1f;
+
+        // Update skybox rotation (slow rotation: 3 degrees per second)
+        skyboxRotation += glm::radians(3.0f) * deltaTime;
+        if (skyboxRotation > glm::two_pi<float>()) {
+            skyboxRotation -= glm::two_pi<float>();
+        }
 
         // input
         processInput(window, breakableBlockPositions, gen, generateBreakableBlocks, leftPose, rightPose);
@@ -882,6 +911,8 @@ int main()
         glDepthFunc(GL_LEQUAL);
         skyboxShader.use();
         glm::mat4 viewNoTranslation = glm::mat4(glm::mat3(view));
+        // Rotate skybox around Y axis (vertical axis)
+        viewNoTranslation = glm::rotate(viewNoTranslation, skyboxRotation, glm::vec3(0.0f, 1.0f, 0.0f));
         skyboxShader.setMat4("view", viewNoTranslation);
         skyboxShader.setMat4("projection", projection);
         glBindVertexArray(skyboxVAO);

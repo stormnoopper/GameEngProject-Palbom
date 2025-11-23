@@ -107,6 +107,9 @@ ASSIMP_UBSAN:BOOL=OFF
 //Treat all warnings as errors.
 ASSIMP_WARNINGS_AS_ERRORS:BOOL=OFF
 
+//Path to a library.
+AVFOUNDATION_LIBRARY:FILEPATH=/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk/System/Library/Frameworks/AVFoundation.framework
+
 //Value Computed by CMake
 Assimp_BINARY_DIR:STATIC=/Users/sarootareerattanawetch/OpenGL/GameEngProject-Palbom/build/_deps/assimp-build
 
@@ -430,6 +433,9 @@ FETCHCONTENT_UPDATES_DISCONNECTED_GLM:BOOL=OFF
 
 //Enables UPDATE_DISCONNECTED behavior just for population of stb
 FETCHCONTENT_UPDATES_DISCONNECTED_STB:BOOL=OFF
+
+//Path to a library.
+FOUNDATION_LIBRARY:FILEPATH=/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk/System/Library/Frameworks/Foundation.framework
 
 //Git command line client
 GIT_EXECUTABLE:FILEPATH=/usr/local/bin/git

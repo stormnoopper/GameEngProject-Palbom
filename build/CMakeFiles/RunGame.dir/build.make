@@ -86,14 +86,30 @@ CMakeFiles/RunGame.dir/src/main.cpp.s: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green "Compiling CXX source to assembly CMakeFiles/RunGame.dir/src/main.cpp.s"
 	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /Users/sarootareerattanawetch/OpenGL/GameEngProject-Palbom/src/main.cpp -o CMakeFiles/RunGame.dir/src/main.cpp.s
 
+CMakeFiles/RunGame.dir/src/audio_player.mm.o: CMakeFiles/RunGame.dir/flags.make
+CMakeFiles/RunGame.dir/src/audio_player.mm.o: /Users/sarootareerattanawetch/OpenGL/GameEngProject-Palbom/src/audio_player.mm
+CMakeFiles/RunGame.dir/src/audio_player.mm.o: CMakeFiles/RunGame.dir/compiler_depend.ts
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --progress-dir=/Users/sarootareerattanawetch/OpenGL/GameEngProject-Palbom/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_2) "Building CXX object CMakeFiles/RunGame.dir/src/audio_player.mm.o"
+	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -MD -MT CMakeFiles/RunGame.dir/src/audio_player.mm.o -MF CMakeFiles/RunGame.dir/src/audio_player.mm.o.d -o CMakeFiles/RunGame.dir/src/audio_player.mm.o -c /Users/sarootareerattanawetch/OpenGL/GameEngProject-Palbom/src/audio_player.mm
+
+CMakeFiles/RunGame.dir/src/audio_player.mm.i: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green "Preprocessing CXX source to CMakeFiles/RunGame.dir/src/audio_player.mm.i"
+	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /Users/sarootareerattanawetch/OpenGL/GameEngProject-Palbom/src/audio_player.mm > CMakeFiles/RunGame.dir/src/audio_player.mm.i
+
+CMakeFiles/RunGame.dir/src/audio_player.mm.s: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green "Compiling CXX source to assembly CMakeFiles/RunGame.dir/src/audio_player.mm.s"
+	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /Users/sarootareerattanawetch/OpenGL/GameEngProject-Palbom/src/audio_player.mm -o CMakeFiles/RunGame.dir/src/audio_player.mm.s
+
 # Object files for target RunGame
 RunGame_OBJECTS = \
-"CMakeFiles/RunGame.dir/src/main.cpp.o"
+"CMakeFiles/RunGame.dir/src/main.cpp.o" \
+"CMakeFiles/RunGame.dir/src/audio_player.mm.o"
 
 # External object files for target RunGame
 RunGame_EXTERNAL_OBJECTS =
 
 RunGame: CMakeFiles/RunGame.dir/src/main.cpp.o
+RunGame: CMakeFiles/RunGame.dir/src/audio_player.mm.o
 RunGame: CMakeFiles/RunGame.dir/build.make
 RunGame: _deps/glfw-build/src/libglfw3.a
 RunGame: libglad.a
@@ -101,7 +117,7 @@ RunGame: _deps/assimp-build/lib/libassimp.a
 RunGame: /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk/System/Library/Frameworks/OpenGL.framework
 RunGame: /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk/usr/lib/libz.tbd
 RunGame: CMakeFiles/RunGame.dir/link.txt
-	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --bold --progress-dir=/Users/sarootareerattanawetch/OpenGL/GameEngProject-Palbom/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_2) "Linking CXX executable RunGame"
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --bold --progress-dir=/Users/sarootareerattanawetch/OpenGL/GameEngProject-Palbom/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_3) "Linking CXX executable RunGame"
 	$(CMAKE_COMMAND) -E cmake_link_script CMakeFiles/RunGame.dir/link.txt --verbose=$(VERBOSE)
 	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --blue --bold "Copying assets to the target binary directory"
 	/usr/local/bin/cmake -E copy_directory /Users/sarootareerattanawetch/OpenGL/GameEngProject-Palbom/assets /Users/sarootareerattanawetch/OpenGL/GameEngProject-Palbom/build/assets
