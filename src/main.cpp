@@ -15,14 +15,306 @@
 #include <algorithm>
 #include <functional>
 
+#include <learnopengl/animator.h>
+#include <learnopengl/model_animation.h>
+#include <learnopengl/model.h>
+
+// Character System Structs
+struct CharacterPose
+{
+    int gridX = 1;  // Grid position (1-13 for playable area)
+    int gridY = 1;  // Grid position (1-13 for playable area)
+    glm::vec3 position;  // World position (calculated from grid)
+    float rotation;
+    enum class State { Idle, Walk } state = State::Idle;
+    bool isMoving = false;
+    float moveProgress = 0.0f;  // 0.0 to 1.0 for smooth movement
+    int targetGridX = 1;
+    int targetGridY = 1;
+};
+
+struct CharacterTextures
+{
+    unsigned int diffuse  = 0;
+    unsigned int specular = 0;
+    unsigned int normal   = 0;
+    unsigned int gloss    = 0;
+};
+
 void framebuffer_size_callback(GLFWwindow* window, int width, int height);
 void processInput(GLFWwindow *window, std::vector<std::pair<int, int>>& breakableBlockPositions, 
-                 std::mt19937& gen, const std::function<void(std::vector<std::pair<int, int>>&, std::mt19937&)>& generateBlocks);
+                 std::mt19937& gen, const std::function<void(std::vector<std::pair<int, int>>&, std::mt19937&)>& generateBlocks,
+                 CharacterPose& leftCharacter, CharacterPose& rightCharacter);
 unsigned int loadCubemap(const std::vector<std::string>& faces);
 
 // settings
-const unsigned int SCR_WIDTH = 800;
-const unsigned int SCR_HEIGHT = 600;
+const unsigned int SCR_WIDTH = 1280;
+const unsigned int SCR_HEIGHT = 720;
+const int MAP_SIZE = 15;
+const float TILE_SIZE = 1.0f;
+const float BLOCK_HEIGHT = 0.2f;
+
+// Helper function to check if a position is a red block (unbreakable pattern)
+bool isRedBlock(int x, int z) {
+    // Red blocks are placed at even x and even z (2,4,6,8,10,12)
+    return (x >= 2 && x <= 12 && x % 2 == 0 && 
+            z >= 2 && z <= 12 && z % 2 == 0);
+}
+
+// Helper function to check if a position is a green cell (player spawn)
+bool isGreenCell(int x, int z) {
+    // Top-left 2x2 cluster
+    if ((x == 1 || x == 2) && (z == 1 || z == 2))
+        return true;
+    // Bottom-right 2x2 cluster
+    if ((x == 12 || x == 13) && (z == 12 || z == 13))
+        return true;
+    return false;
+}
+
+// Helper function to check if a position is a white cell (where breakable blocks can be placed)
+bool isWhiteCell(int x, int z) {
+    if (x == 0 || x == MAP_SIZE - 1 || z == 0 || z == MAP_SIZE - 1) return false;
+    if (isRedBlock(x, z)) return false;
+    if (isGreenCell(x, z)) return false;
+    return true;
+}
+
+bool IsWalkable(int gridX, int gridY, const std::vector<std::pair<int, int>>& breakableBlocks, const CharacterPose& otherChar)
+{
+    if(gridX < 0 || gridX >= MAP_SIZE || gridY < 0 || gridY >= MAP_SIZE)
+        return false;
+    
+    // Check walls (border)
+    if (gridX == 0 || gridX == MAP_SIZE - 1 || gridY == 0 || gridY == MAP_SIZE - 1)
+        return false;
+
+    // Check red blocks
+    if (isRedBlock(gridX, gridY))
+        return false;
+
+    // Check breakable blocks
+    for (const auto& pos : breakableBlocks)
+    {
+        if (pos.first == gridX && pos.second == gridY)
+            return false;
+    }
+
+    // Check other character collision
+    // Note: This is a simple check. Ideally, we should check if the other character is moving into this tile too.
+    // But for turn-based-like movement, checking current and target position is safer.
+    if ((otherChar.gridX == gridX && otherChar.gridY == gridY) || 
+        (otherChar.isMoving && otherChar.targetGridX == gridX && otherChar.targetGridY == gridY))
+    {
+        return false;
+    }
+
+    return true;
+}
+
+glm::vec3 GridToWorld(int gridX, int gridY)
+{
+    const float MAP_OFFSET = -(MAP_SIZE - 1) * TILE_SIZE / 2.0f;
+    return glm::vec3(
+        MAP_OFFSET + gridX * TILE_SIZE,
+        0.0f,
+        MAP_OFFSET + gridY * TILE_SIZE
+    );
+}
+
+unsigned int TextureFromFile(const char* path, const std::string& directory, bool gamma = false)
+{
+    std::string filename = directory + "/" + path;
+
+    unsigned int textureID;
+    glGenTextures(1, &textureID);
+
+    int width, height, nrComponents;
+    unsigned char *data = stbi_load(filename.c_str(), &width, &height, &nrComponents, 0);
+    if (data)
+    {
+        GLenum format = GL_RGB;
+        if (nrComponents == 1)
+            format = GL_RED;
+        else if (nrComponents == 3)
+            format = GL_RGB;
+        else if (nrComponents == 4)
+            format = GL_RGBA;
+
+        glBindTexture(GL_TEXTURE_2D, textureID);
+        glTexImage2D(GL_TEXTURE_2D, 0, format, width, height, 0, format, GL_UNSIGNED_BYTE, data);
+        glGenerateMipmap(GL_TEXTURE_2D);
+
+        glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_REPEAT);
+        glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_REPEAT);
+        glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR_MIPMAP_LINEAR);
+        glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
+
+        stbi_image_free(data);
+    }
+    else
+    {
+        std::cout << "Texture failed to load at path: " << filename << std::endl;
+        stbi_image_free(data);
+    }
+
+    return textureID;
+}
+
+CharacterTextures LoadCharacterTextures(const std::string& directory)
+{
+    CharacterTextures textures;
+    textures.diffuse  = TextureFromFile("Ch32_1001_Diffuse.png", directory);
+    textures.specular = TextureFromFile("Ch32_1001_Specular.png", directory);
+    textures.normal   = TextureFromFile("Ch32_1001_Normal.png", directory);
+    textures.gloss    = TextureFromFile("Ch32_1001_Glossiness.png", directory);
+    return textures;
+}
+
+void ApplyTexturesToModel(Model& model, const CharacterTextures& textures, const std::string& label)
+{
+    auto overrideTexture = [&](Texture& textureSlot)
+    {
+        if(textureSlot.type == "texture_diffuse" && textures.diffuse != 0)
+        {
+            textureSlot.id = textures.diffuse;
+            textureSlot.path = label + "_diffuse";
+        }
+        else if(textureSlot.type == "texture_specular" && textures.specular != 0)
+        {
+            textureSlot.id = textures.specular;
+            textureSlot.path = label + "_specular";
+        }
+        else if(textureSlot.type == "texture_normal" && textures.normal != 0)
+        {
+            textureSlot.id = textures.normal;
+            textureSlot.path = label + "_normal";
+        }
+        else if(textureSlot.type == "texture_height" && textures.gloss != 0)
+        {
+            textureSlot.id = textures.gloss;
+            textureSlot.path = label + "_gloss";
+        }
+    };
+
+    for(auto& textureSlot : model.textures_loaded)
+    {
+        overrideTexture(textureSlot);
+    }
+    for(auto& mesh : model.meshes)
+    {
+        for(auto& textureSlot : mesh.textures)
+        {
+            overrideTexture(textureSlot);
+        }
+    }
+}
+
+void SetAnimation(CharacterPose& pose, Animator& animator, CharacterPose::State targetState,
+                  Animation* idleAnimation, Animation* walkAnimation)
+{
+    if(pose.state == targetState)
+    {
+        return;
+    }
+
+    pose.state = targetState;
+    switch(targetState)
+    {
+        case CharacterPose::State::Idle:
+            animator.PlayAnimation(idleAnimation);
+            break;
+        case CharacterPose::State::Walk:
+            animator.PlayAnimation(walkAnimation);
+            break;
+    }
+}
+
+bool TryMoveCharacter(CharacterPose& character, int dx, int dy, const std::vector<std::pair<int, int>>& breakableBlocks, const CharacterPose& otherChar)
+{
+    if(character.isMoving)
+        return false;  // Already moving, can't start new movement
+
+    int newX = character.gridX + dx;
+    int newY = character.gridY + dy;
+
+    if(IsWalkable(newX, newY, breakableBlocks, otherChar))
+    {
+        character.targetGridX = newX;
+        character.targetGridY = newY;
+        character.isMoving = true;
+        character.moveProgress = 0.0f;
+        
+        // Set rotation based on direction (in radians)
+        if(dx > 0) character.rotation = glm::radians(90.0f);  // Right - face right
+        else if(dx < 0) character.rotation = glm::radians(-90.0f);  // Left - face left
+        else if(dy > 0) character.rotation = 0.0f;  // Down - face down
+        else if(dy < 0) character.rotation = glm::radians(180.0f);  // Up - face up
+        
+        return true;
+    }
+    return false;
+}
+
+void UpdateCharacterMovement(CharacterPose& character, float deltaTime)
+{
+    if(character.isMoving)
+    {
+        const float moveSpeed = 3.0f;  // Blocks per second
+        character.moveProgress += moveSpeed * deltaTime;
+
+        if(character.moveProgress >= 1.0f)
+        {
+            // Movement complete
+            character.moveProgress = 1.0f;
+            character.gridX = character.targetGridX;
+            character.gridY = character.targetGridY;
+            character.isMoving = false;
+        }
+
+        // Interpolate position
+        glm::vec3 startPos = GridToWorld(character.gridX, character.gridY);
+        glm::vec3 endPos = GridToWorld(character.targetGridX, character.targetGridY);
+        character.position = glm::mix(startPos, endPos, character.moveProgress);
+        character.position.y = BLOCK_HEIGHT + 0.3f;  // Above block height + offset
+    }
+    else
+    {
+        // Snap to grid position
+        character.position = GridToWorld(character.gridX, character.gridY);
+        character.position.y = BLOCK_HEIGHT + 0.3f;  // Above block height + offset
+    }
+}
+
+bool ProcessCharacterInput(GLFWwindow* window, CharacterPose& character, 
+                           int forwardKey, int backwardKey, int leftKey, int rightKey,
+                           const std::vector<std::pair<int, int>>& breakableBlocks, const CharacterPose& otherChar)
+{
+    const bool forwardPressed  = glfwGetKey(window, forwardKey)  == GLFW_PRESS;
+    const bool backwardPressed = glfwGetKey(window, backwardKey) == GLFW_PRESS;
+    const bool leftPressed     = glfwGetKey(window, leftKey)     == GLFW_PRESS;
+    const bool rightPressed    = glfwGetKey(window, rightKey)    == GLFW_PRESS;
+
+    bool moved = false;
+    if(forwardPressed && !character.isMoving)
+    {
+        moved = TryMoveCharacter(character, 0, -1, breakableBlocks, otherChar);  // Up (decrease Y)
+    }
+    else if(backwardPressed && !character.isMoving)
+    {
+        moved = TryMoveCharacter(character, 0, 1, breakableBlocks, otherChar);  // Down (increase Y)
+    }
+    else if(leftPressed && !character.isMoving)
+    {
+        moved = TryMoveCharacter(character, -1, 0, breakableBlocks, otherChar);  // Left (decrease X)
+    }
+    else if(rightPressed && !character.isMoving)
+    {
+        moved = TryMoveCharacter(character, 1, 0, breakableBlocks, otherChar);  // Right (increase X)
+    }
+
+    return character.isMoving;
+}
 
 // Function to load texture
 unsigned int loadTexture(const char* path)
@@ -69,6 +361,7 @@ int main()
     glfwWindowHint(GLFW_CONTEXT_VERSION_MAJOR, 3);
     glfwWindowHint(GLFW_CONTEXT_VERSION_MINOR, 3);
     glfwWindowHint(GLFW_OPENGL_PROFILE, GLFW_OPENGL_CORE_PROFILE);
+    glfwWindowHint(GLFW_SAMPLES, 4);  // Enable 4x MSAA for anti-aliasing
 
 #ifdef __APPLE__
     glfwWindowHint(GLFW_OPENGL_FORWARD_COMPAT, GL_TRUE);
@@ -94,6 +387,7 @@ int main()
 
     // configure global opengl state
     glEnable(GL_DEPTH_TEST);
+    glEnable(GL_MULTISAMPLE);  // Enable MSAA
 
     // build and compile shaders
     Shader shader("shaders/tile.vs", "shaders/tile.fs");
@@ -337,11 +631,96 @@ int main()
     std::mt19937 gen(rd());
     generateBreakableBlocks(breakableBlockPositions, gen);
 
+    // ------------------------------------------------------------------
+    // Character Setup
+    // ------------------------------------------------------------------
+    const std::string shaderVSPath = FileSystem::getPath("shaders/anim_model.vs");
+    const std::string shaderFSPath = FileSystem::getPath("shaders/anim_model.fs");
+    Shader characterShader(shaderVSPath.c_str(), shaderFSPath.c_str());
+
+    const std::string idleAnimationPath = FileSystem::getPath("assets/Character/Movement/Idle.dae");
+    const std::string walkAnimationPath = FileSystem::getPath("assets/Character/Movement/walk.dae");
+
+    Model characterModelP1(idleAnimationPath);
+    Model characterModelP2(idleAnimationPath);
+
+    std::cout << "Model P1 Meshes: " << characterModelP1.meshes.size() << std::endl;
+
+    const std::string p1TextureDir = FileSystem::getPath("assets/Character/P1");
+    const std::string p2TextureDir = FileSystem::getPath("assets/Character/P2");
+
+    std::cout << "P1 Texture Dir: " << p1TextureDir << std::endl;
+    std::cout << "P2 Texture Dir: " << p2TextureDir << std::endl;
+
+    const CharacterTextures p1Textures = LoadCharacterTextures(p1TextureDir);
+    const CharacterTextures p2Textures = LoadCharacterTextures(p2TextureDir);
+    ApplyTexturesToModel(characterModelP1, p1Textures, "P1");
+    ApplyTexturesToModel(characterModelP2, p2Textures, "P2");
+
+    std::cout << "Loading Animations..." << std::endl;
+    std::cout << "Idle Path: " << idleAnimationPath << std::endl;
+    Animation idleAnimation(idleAnimationPath, &characterModelP1);
+    Animation walkAnimation(walkAnimationPath, &characterModelP1);
+    std::cout << "Animations Loaded." << std::endl;
+    std::cout << "Idle Duration: " << idleAnimation.GetDuration() << " Ticks: " << idleAnimation.GetTicksPerSecond() << std::endl;
+    std::cout << "Walk Duration: " << walkAnimation.GetDuration() << " Ticks: " << walkAnimation.GetTicksPerSecond() << std::endl;
+
+    Animator animatorP1(&idleAnimation);
+    Animator animatorP2(&idleAnimation);
+
+    // Initialize characters at spawn positions
+    // P1 at (1,1) - Top-Left
+    CharacterPose leftPose;
+    leftPose.gridX = 1;
+    leftPose.gridY = 1;
+    leftPose.position = GridToWorld(leftPose.gridX, leftPose.gridY);
+    leftPose.position.y = BLOCK_HEIGHT + 0.3f;
+    leftPose.rotation = 0.0f;
+    leftPose.targetGridX = 1;
+    leftPose.targetGridY = 1;
+
+    // P2 at (13,13) - Bottom-Right
+    CharacterPose rightPose;
+    rightPose.gridX = 13;
+    rightPose.gridY = 13;
+    rightPose.position = GridToWorld(rightPose.gridX, rightPose.gridY);
+    rightPose.position.y = BLOCK_HEIGHT + 0.3f;
+    rightPose.rotation = glm::radians(180.0f);
+    rightPose.targetGridX = 13;
+    rightPose.targetGridY = 13;
+
+    float deltaTime = 0.0f;
+    float lastFrame = glfwGetTime(); // Initialize with current time to avoid large delta on first frame
+
     // render loop
     while (!glfwWindowShouldClose(window))
     {
+        float currentFrame = glfwGetTime();
+        deltaTime = currentFrame - lastFrame;
+        lastFrame = currentFrame;
+
+        // Cap deltaTime to avoid huge jumps (e.g. during debugging or lag)
+        if (deltaTime > 0.1f) deltaTime = 0.1f;
+
         // input
-        processInput(window, breakableBlockPositions, gen, generateBreakableBlocks);
+        processInput(window, breakableBlockPositions, gen, generateBreakableBlocks, leftPose, rightPose);
+
+        // Update Character Animations
+        UpdateCharacterMovement(leftPose, deltaTime);
+        UpdateCharacterMovement(rightPose, deltaTime);
+
+        if(leftPose.isMoving)
+            SetAnimation(leftPose, animatorP1, CharacterPose::State::Walk, &idleAnimation, &walkAnimation);
+        else
+            SetAnimation(leftPose, animatorP1, CharacterPose::State::Idle, &idleAnimation, &walkAnimation);
+        
+        if(rightPose.isMoving)
+            SetAnimation(rightPose, animatorP2, CharacterPose::State::Walk, &idleAnimation, &walkAnimation);
+        else
+            SetAnimation(rightPose, animatorP2, CharacterPose::State::Idle, &idleAnimation, &walkAnimation);
+
+        animatorP1.UpdateAnimation(deltaTime);
+        animatorP2.UpdateAnimation(deltaTime);
 
         // render
         glClearColor(0.1f, 0.1f, 0.15f, 1.0f);
@@ -469,6 +848,36 @@ int main()
 
         // glfw: swap buffers and poll IO events
 
+        // Render characters
+        characterShader.use();
+        characterShader.setMat4("view", view);
+        characterShader.setMat4("projection", projection);
+
+        auto uploadBones = [&](Animator& animator)
+        {
+            const auto& transforms = animator.GetFinalBoneMatrices();
+            for(int i = 0; i < transforms.size(); ++i)
+            {
+                characterShader.setMat4("finalBonesMatrices[" + std::to_string(i) + "]", transforms[i]);
+            }
+        };
+
+        auto drawCharacter = [&](const CharacterPose& pose, Model& model)
+        {
+            glm::mat4 modelMatrix = glm::mat4(1.0f);
+            modelMatrix = glm::translate(modelMatrix, pose.position);
+            modelMatrix = glm::rotate(modelMatrix, pose.rotation, glm::vec3(0.0f, 1.0f, 0.0f));
+            modelMatrix = glm::scale(modelMatrix, glm::vec3(0.5f));
+            characterShader.setMat4("model", modelMatrix);
+            model.Draw(characterShader);
+        };
+
+        uploadBones(animatorP1);
+        drawCharacter(leftPose, characterModelP1);
+
+        uploadBones(animatorP2);
+        drawCharacter(rightPose, characterModelP2);
+
         // draw skybox last
         glDepthFunc(GL_LEQUAL);
         skyboxShader.use();
@@ -500,7 +909,8 @@ int main()
 
 // process all input: query GLFW whether relevant keys are pressed/released this frame and react accordingly
 void processInput(GLFWwindow *window, std::vector<std::pair<int, int>>& breakableBlockPositions, 
-                 std::mt19937& gen, const std::function<void(std::vector<std::pair<int, int>>&, std::mt19937&)>& generateBlocks)
+                 std::mt19937& gen, const std::function<void(std::vector<std::pair<int, int>>&, std::mt19937&)>& generateBlocks,
+                 CharacterPose& leftCharacter, CharacterPose& rightCharacter)
 {
     if (glfwGetKey(window, GLFW_KEY_ESCAPE) == GLFW_PRESS)
         glfwSetWindowShouldClose(window, true);
@@ -517,6 +927,17 @@ void processInput(GLFWwindow *window, std::vector<std::pair<int, int>>& breakabl
     {
         rKeyPressed = false;
     }
+
+    // Character Movement Input
+    // Left character (P1) uses WASD
+    bool leftMoving = ProcessCharacterInput(window, leftCharacter, 
+                                            GLFW_KEY_W, GLFW_KEY_S, GLFW_KEY_A, GLFW_KEY_D,
+                                            breakableBlockPositions, rightCharacter);
+    
+    // Right character (P2) uses Arrow keys
+    bool rightMoving = ProcessCharacterInput(window, rightCharacter,
+                                              GLFW_KEY_UP, GLFW_KEY_DOWN, GLFW_KEY_LEFT, GLFW_KEY_RIGHT,
+                                              breakableBlockPositions, leftCharacter);
 }
 
 // glfw: whenever the window size changed (by OS or user resize) this callback function executes

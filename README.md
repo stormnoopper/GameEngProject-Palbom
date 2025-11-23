@@ -123,8 +123,8 @@ void processInput(GLFWwindow *window, std::vector<std::pair<int, int>>& breakabl
                  std::mt19937& gen, const std::function<void(...)>& generateBlocks);
 unsigned int loadCubemap(const std::vector<std::string>& faces);
 
-const unsigned int SCR_WIDTH = 800;   // ความกว้างหน้าต่าง
-const unsigned int SCR_HEIGHT = 600;   // ความสูงหน้าต่าง
+const unsigned int SCR_WIDTH = 1280;   // ความกว้างหน้าต่าง (HD)
+const unsigned int SCR_HEIGHT = 720;   // ความสูงหน้าต่าง (HD)
 ```
 
 **คำอธิบาย:**
@@ -1381,12 +1381,3 @@ const unsigned int SCR_HEIGHT = 600;  // เปลี่ยนความสู
 - Assimp: BSD 3-Clause license
 - GLAD: Public domain
 - STB: Public domain
-
-## 👨‍💻 ผู้พัฒนา
-
-โปรเจคนี้เป็นส่วนหนึ่งของ Game Engine Project
-
-## 🙏 ขอบคุณ
-
-- LearnOpenGL สำหรับ tutorial และ code examples
-- Joey de Vries สำหรับ LearnOpenGL resources

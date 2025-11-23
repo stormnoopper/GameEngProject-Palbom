@@ -56,7 +56,7 @@ ASSIMP_BUILD_NONFREE_C4D_IMPORTER:BOOL=OFF
 ASSIMP_BUILD_SAMPLES:BOOL=OFF
 
 //If the test suite for Assimp is built in addition to the library.
-ASSIMP_BUILD_TESTS:BOOL=ON
+ASSIMP_BUILD_TESTS:BOOL=OFF
 
 //Build your own zlib
 ASSIMP_BUILD_ZLIB:BOOL=OFF
@@ -66,10 +66,6 @@ ASSIMP_COVERALLS:BOOL=OFF
 
 //Set to ON to enable double precision processing
 ASSIMP_DOUBLE_PRECISION:BOOL=OFF
-
-//adds the target headercheck which compiles every header file,
-// default disabled because it adds many targets
-ASSIMP_HEADERCHECK:BOOL=OFF
 
 //Enable Hunter package manager support
 ASSIMP_HUNTER_ENABLED:BOOL=OFF
@@ -109,7 +105,7 @@ ASSIMP_RUNTIME_OUTPUT_DIRECTORY:STRING=/Users/sarootareerattanawetch/OpenGL/Game
 ASSIMP_UBSAN:BOOL=OFF
 
 //Treat all warnings as errors.
-ASSIMP_WARNINGS_AS_ERRORS:BOOL=ON
+ASSIMP_WARNINGS_AS_ERRORS:BOOL=OFF
 
 //Value Computed by CMake
 Assimp_BINARY_DIR:STATIC=/Users/sarootareerattanawetch/OpenGL/GameEngProject-Palbom/build/_deps/assimp-build
@@ -646,7 +642,7 @@ CMAKE_MODULE_LINKER_FLAGS_RELWITHDEBINFO-ADVANCED:INTERNAL=1
 //ADVANCED property for variable: CMAKE_NM
 CMAKE_NM-ADVANCED:INTERNAL=1
 //number of local generators
-CMAKE_NUMBER_OF_MAKEFILES:INTERNAL=9
+CMAKE_NUMBER_OF_MAKEFILES:INTERNAL=7
 //ADVANCED property for variable: CMAKE_OBJCOPY
 CMAKE_OBJCOPY-ADVANCED:INTERNAL=1
 //ADVANCED property for variable: CMAKE_OBJDUMP

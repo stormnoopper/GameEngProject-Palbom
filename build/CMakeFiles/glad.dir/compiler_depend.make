@@ -109,13 +109,15 @@ CMakeFiles/glad.dir/Users/sarootareerattanawetch/OpenGL/LearnOpenGL/src/glad.c.o
   /Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/lib/clang/17/include/stdbool.h \
   /Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/lib/clang/17/include/stddef.h \
   /Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/lib/clang/17/include/stdint.h \
-  /Users/sarootareerattanawetch/OpenGL/LearnOpenGL/includes/KHR/khrplatform.h \
-  /Users/sarootareerattanawetch/OpenGL/LearnOpenGL/includes/glad/glad.h
+  thirdparty/glad/include/KHR/khrplatform.h \
+  thirdparty/glad/include/glad/glad.h
 
 
-/Users/sarootareerattanawetch/OpenGL/LearnOpenGL/includes/glad/glad.h:
+thirdparty/glad/include/KHR/khrplatform.h:
 
 /Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/lib/clang/17/include/stdbool.h:
+
+thirdparty/glad/include/glad/glad.h:
 
 /Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/lib/clang/17/include/ptrcheck.h:
 
@@ -136,8 +138,6 @@ CMakeFiles/glad.dir/Users/sarootareerattanawetch/OpenGL/LearnOpenGL/src/glad.c.o
 /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk/usr/include/sys/resource.h:
 
 /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk/usr/include/sys/_types/_va_list.h:
-
-/Users/sarootareerattanawetch/OpenGL/LearnOpenGL/includes/KHR/khrplatform.h:
 
 /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk/usr/include/sys/_types/_uintptr_t.h:
 

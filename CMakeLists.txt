@@ -102,6 +102,8 @@ FetchContent_Declare(
   GIT_REPOSITORY https://github.com/assimp/assimp.git
   GIT_TAG        v5.2.5
 )
+set(ASSIMP_WARNINGS_AS_ERRORS OFF CACHE BOOL "" FORCE)
+set(ASSIMP_BUILD_TESTS OFF CACHE BOOL "" FORCE)
 FetchContent_MakeAvailable(assimp)
 if(TARGET assimp)
   target_compile_definitions(assimp PRIVATE -D_CRT_SECURE_NO_WARNINGS)
@@ -114,7 +116,11 @@ endif()
 set(LEARNOPENGL_PATH "${CMAKE_SOURCE_DIR}/../LearnOpenGL")
 if(EXISTS "${LEARNOPENGL_PATH}/src/glad.c")
     message(STATUS "Using GLAD from LearnOpenGL")
-    set(GLAD_INCLUDE_DIR "${LEARNOPENGL_PATH}/includes")
+    # Copy GLAD headers to our build directory to avoid including old Assimp headers
+    file(MAKE_DIRECTORY ${CMAKE_BINARY_DIR}/thirdparty/glad/include)
+    file(COPY ${LEARNOPENGL_PATH}/includes/glad DESTINATION ${CMAKE_BINARY_DIR}/thirdparty/glad/include)
+    file(COPY ${LEARNOPENGL_PATH}/includes/KHR DESTINATION ${CMAKE_BINARY_DIR}/thirdparty/glad/include)
+    set(GLAD_INCLUDE_DIR "${CMAKE_BINARY_DIR}/thirdparty/glad/include")
     set(GLAD_SOURCE_FILE "${LEARNOPENGL_PATH}/src/glad.c")
 else()
     message(FATAL_ERROR "GLAD files not found. Please ensure LearnOpenGL is available at ${LEARNOPENGL_PATH}")

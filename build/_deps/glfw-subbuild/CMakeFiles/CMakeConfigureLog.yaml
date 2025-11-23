@@ -20,6 +20,7 @@ events:
     names:
       - "uname"
     candidate_directories:
+      - "/Users/sarootareerattanawetch/.antigravity/antigravity/bin/"
       - "/Library/Frameworks/Python.framework/Versions/3.12/bin/"
       - "/usr/local/bin/"
       - "/System/Cryptexes/App/usr/bin/"
@@ -37,12 +38,14 @@ events:
       - "/opt/anaconda3/bin/"
       - "/opt/anaconda3/condabin/"
     searched_directories:
+      - "/Users/sarootareerattanawetch/.antigravity/antigravity/bin/uname"
       - "/Library/Frameworks/Python.framework/Versions/3.12/bin/uname"
       - "/usr/local/bin/uname"
       - "/System/Cryptexes/App/usr/bin/uname"
     found: "/usr/bin/uname"
     search_context:
       ENV{PATH}:
+        - "/Users/sarootareerattanawetch/.antigravity/antigravity/bin"
         - "/Library/Frameworks/Python.framework/Versions/3.12/bin"
         - "/usr/local/bin"
         - "/System/Cryptexes/App/usr/bin"
@@ -87,6 +90,7 @@ events:
     names:
       - "install_name_tool"
     candidate_directories:
+      - "/Users/sarootareerattanawetch/.antigravity/antigravity/bin/"
       - "/Library/Frameworks/Python.framework/Versions/3.12/bin/"
       - "/usr/local/bin/"
       - "/System/Cryptexes/App/usr/bin/"
@@ -104,12 +108,14 @@ events:
       - "/opt/anaconda3/bin/"
       - "/opt/anaconda3/condabin/"
     searched_directories:
+      - "/Users/sarootareerattanawetch/.antigravity/antigravity/bin/install_name_tool"
       - "/Library/Frameworks/Python.framework/Versions/3.12/bin/install_name_tool"
       - "/usr/local/bin/install_name_tool"
       - "/System/Cryptexes/App/usr/bin/install_name_tool"
     found: "/usr/bin/install_name_tool"
     search_context:
       ENV{PATH}:
+        - "/Users/sarootareerattanawetch/.antigravity/antigravity/bin"
         - "/Library/Frameworks/Python.framework/Versions/3.12/bin"
         - "/usr/local/bin"
         - "/System/Cryptexes/App/usr/bin"

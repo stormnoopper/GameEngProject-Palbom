@@ -616,19 +616,6 @@ assimp/fast:
 	$(MAKE) $(MAKESILENT) -f _deps/assimp-build/code/CMakeFiles/assimp.dir/build.make _deps/assimp-build/code/CMakeFiles/assimp.dir/build
 .PHONY : assimp/fast
 
-#=============================================================================
-# Target rules for targets named unit
-
-# Build rule for target.
-unit: cmake_check_build_system
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 unit
-.PHONY : unit
-
-# fast build rule for target.
-unit/fast:
-	$(MAKE) $(MAKESILENT) -f _deps/assimp-build/test/CMakeFiles/unit.dir/build.make _deps/assimp-build/test/CMakeFiles/unit.dir/build
-.PHONY : unit/fast
-
 Users/sarootareerattanawetch/OpenGL/LearnOpenGL/src/glad.o: Users/sarootareerattanawetch/OpenGL/LearnOpenGL/src/glad.c.o
 .PHONY : Users/sarootareerattanawetch/OpenGL/LearnOpenGL/src/glad.o
 
@@ -722,7 +709,6 @@ help:
 	@echo "... timeout"
 	@echo "... title"
 	@echo "... triangle-vulkan"
-	@echo "... unit"
 	@echo "... wave"
 	@echo "... windows"
 	@echo "... Users/sarootareerattanawetch/OpenGL/LearnOpenGL/src/glad.o"
