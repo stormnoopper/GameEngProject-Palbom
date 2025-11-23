@@ -9,11 +9,13 @@
 - **ขอบแผนที่ (Border Blocks)**: บล็อกที่ทำลายไม่ได้รอบๆ แผนที่ สูง 1.0 unit
 - **บล็อกทำลายไม่ได้ (Red Blocks)**: บล็อกที่วางเป็นแพทเทิร์นในแผนที่ สูง 0.75 unit (75% ของขอบ)
 - **บล็อกทำลายได้ (Breakable Blocks)**: บล็อกที่สร้างแบบสุ่มในพื้นที่ว่าง สูง 0.75 unit
-- **Skybox**: พื้นหลัง 3D รอบๆ แผนที่
+- **Skybox**: พื้นหลัง 3D รอบๆ แผนที่พร้อมการหมุนอัตโนมัติ
 - **Lighting System**: ระบบแสงแบบ Phong (Ambient + Diffuse + Specular)
 - **Character System**: ระบบตัวละคร 2 ตัว (P1 และ P2) พร้อมแอนิเมชัน
 - **Animation System**: ระบบแอนิเมชันสำหรับตัวละคร (Idle และ Walk)
 - **Grid-Based Movement**: ระบบการเคลื่อนที่แบบ grid-based พร้อม collision detection
+- **Bomb System**: ระบบระเบิดที่สามารถวางและระเบิดทำลายบล็อกทำลายได้
+- **Audio System**: ระบบเสียงเพลงพื้นหลัง (Background Music)
 
 ใช้ระบบ Perspective Camera แบบ top-down view มุมมองจากด้านบน
 
@@ -36,6 +38,12 @@
 - **Character Collision**: ระบบ collision detection ระหว่างตัวละครและสิ่งกีดขวาง
 - **Multi-Player Controls**: รองรับการควบคุม 2 ผู้เล่นพร้อมกัน (WASD และ Arrow keys)
 - **MSAA Anti-Aliasing**: ระบบ anti-aliasing แบบ 4x MSAA สำหรับภาพที่เรียบขึ้น
+- **Bomb Placement**: วางระเบิดได้ (Q สำหรับ P1, M สำหรับ P2)
+- **Bomb Explosion**: ระเบิดทำลายบล็อกทำลายได้ในรูปแบบกากบาท (2 ช่องในแต่ละทิศทาง)
+- **Bomb Timer**: ระเบิดจะทำงานหลังจาก 3 วินาที
+- **Bomb Collision**: ตัวละครไม่สามารถเดินผ่านระเบิดได้
+- **Animated Skybox**: Skybox หมุนอัตโนมัติช้าๆ (3 องศาต่อวินาที)
+- **Background Music**: เพลงพื้นหลังที่เล่นวนซ้ำอัตโนมัติ (รองรับ macOS)
 
 ## 🎮 การควบคุม
 
@@ -49,14 +57,19 @@
   - **S**: เดินลง (Down)
   - **A**: เดินซ้าย (Left)
   - **D**: เดินขวา (Right)
+  - **Q**: วางระเบิด (Place Bomb)
 
 - **Player 2 (P2 - ขวาล่าง)**:
   - **↑ (Arrow Up)**: เดินขึ้น (Up)
   - **↓ (Arrow Down)**: เดินลง (Down)
   - **← (Arrow Left)**: เดินซ้าย (Left)
   - **→ (Arrow Right)**: เดินขวา (Right)
+  - **M**: วางระเบิด (Place Bomb)
 
-**หมายเหตุ**: ตัวละครจะเคลื่อนที่แบบ grid-based และไม่สามารถเคลื่อนที่ผ่านบล็อก, ขอบแผนที่, หรือตัวละครอื่นได้
+**หมายเหตุ**: 
+- ตัวละครจะเคลื่อนที่แบบ grid-based และไม่สามารถเคลื่อนที่ผ่านบล็อก, ขอบแผนที่, ตัวละครอื่น, หรือระเบิดได้
+- ระเบิดจะระเบิดหลังจาก 3 วินาที และทำลายบล็อกทำลายได้ในรูปแบบกากบาท (2 ช่องในแต่ละทิศทาง)
+- ไม่สามารถวางระเบิดซ้ำที่ตำแหน่งเดิมได้
 
 ## 🛠️ เทคโนโลยีที่ใช้
 
@@ -65,7 +78,8 @@
 - **GLAD**: สำหรับ OpenGL function loader
 - **GLM**: สำหรับการคำนวณทางคณิตศาสตร์ (vectors, matrices)
 - **STB Image**: สำหรับโหลดไฟล์ texture (PNG)
-- **Assimp**: สำหรับโหลดโมเดล 3D และแอนิเมชัน (.dae files)
+- **Assimp**: สำหรับโหลดโมเดล 3D และแอนิเมชัน (.dae, .glb files)
+- **AVFoundation** (macOS): สำหรับเล่นเสียงเพลงพื้นหลัง
 - **CMake**: สำหรับ build system
 
 ## 📁 โครงสร้างโปรเจค
@@ -77,6 +91,10 @@ GameEngProject-Palbom/
 │   ├── Unbreakable_Block/    # Texture สำหรับขอบและบล็อกทำลายไม่ได้
 │   ├── Breakable_Block/      # Texture สำหรับบล็อกทำลายได้ (wood)
 │   ├── Background/           # Skybox textures (6 faces: px, nx, py, ny, pz, nz)
+│   ├── item/                 # Item models
+│   │   └── bomb.glb          # Bomb model
+│   ├── sound/                # Audio files
+│   │   └── background.mp3    # Background music
 │   └── Character/           # Character models, animations และ textures
 │       ├── Movement/        # Animation files (.dae)
 │       │   ├── Idle.dae     # Idle animation
@@ -99,7 +117,9 @@ GameEngProject-Palbom/
 │   ├── anim_model.vs        # Vertex shader สำหรับตัวละคร (skeletal animation)
 │   └── anim_model.fs        # Fragment shader สำหรับตัวละคร
 ├── src/                      # Source code
-│   └── main.cpp             # Main game loop, rendering logic, และ character system
+│   ├── main.cpp             # Main game loop, rendering logic, character system, และ bomb system
+│   ├── audio_player.h       # Audio player header (macOS)
+│   └── audio_player.mm     # Audio player implementation (macOS)
 └── CMakeLists.txt           # CMake configuration
 ```
 
@@ -1785,6 +1805,60 @@ const float moveSpeed = 3.0f;  // Blocks per second (เปลี่ยนเป
 ```cpp
 modelMatrix = glm::scale(modelMatrix, glm::vec3(0.5f));  // เปลี่ยน 0.5f เป็นค่าที่ต้องการ
 ```
+
+### ปรับระบบระเบิด
+แก้ไขใน `src/main.cpp`:
+```cpp
+Bomb(int x, int y, int ownerId) : gridX(x), gridY(y), timer(3.0f), owner(ownerId) {}
+// เปลี่ยน 3.0f เป็นเวลาที่ต้องการ (วินาที)
+
+const int EXPLOSION_RANGE = 2;  // เปลี่ยนเป็นระยะการระเบิดที่ต้องการ (ช่อง)
+```
+
+### ปรับความเร็วการหมุนของ Skybox
+แก้ไขใน `src/main.cpp`:
+```cpp
+skyboxRotation += glm::radians(3.0f) * deltaTime;  // เปลี่ยน 3.0f เป็นองศาต่อวินาทีที่ต้องการ
+```
+
+### ปรับระดับเสียงเพลงพื้นหลัง
+แก้ไขใน `src/main.cpp`:
+```cpp
+backgroundMusic.setVolume(0.5f);  // เปลี่ยน 0.5f เป็นค่าที่ต้องการ (0.0-1.0)
+```
+
+## 🎯 ระบบระเบิด (Bomb System)
+
+### การทำงานของระเบิด
+- **การวางระเบิด**: ผู้เล่นสามารถวางระเบิดได้ที่ตำแหน่งปัจจุบัน (กด Q สำหรับ P1, M สำหรับ P2)
+- **Timer**: ระเบิดจะระเบิดหลังจาก 3 วินาที
+- **การระเบิด**: ระเบิดจะทำลายบล็อกทำลายได้ในรูปแบบกากบาท (2 ช่องในแต่ละทิศทาง: ขึ้น, ลง, ซ้าย, ขวา)
+- **การหยุดการระเบิด**: การระเบิดจะหยุดเมื่อเจอบล็อกทำลายไม่ได้หรือขอบแผนที่
+- **Collision**: ตัวละครไม่สามารถเดินผ่านระเบิดได้
+
+### โครงสร้างข้อมูลระเบิด
+```cpp
+struct Bomb
+{
+    int gridX;        // ตำแหน่ง X ใน grid
+    int gridY;        // ตำแหน่ง Y ใน grid
+    float timer;      // Timer นับถอยหลัง (วินาที)
+    int owner;        // เจ้าของระเบิด (1 = P1, 2 = P2)
+    bool exploded;    // สถานะการระเบิด
+};
+```
+
+## 🔊 ระบบเสียง (Audio System)
+
+### Background Music
+- รองรับการเล่นไฟล์ MP3 บน macOS ผ่าน AVFoundation
+- เล่นวนซ้ำอัตโนมัติ
+- สามารถปรับระดับเสียงได้ (0.0 - 1.0)
+- โหลดไฟล์จาก `assets/sound/background.mp3`
+
+### Platform Support
+- **macOS**: รองรับเต็มรูปแบบผ่าน AVFoundation
+- **Windows/Linux**: ยังไม่รองรับ (placeholder implementation)
 
 ## 📄 License
 
