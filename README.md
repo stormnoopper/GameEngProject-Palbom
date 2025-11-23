@@ -11,6 +11,9 @@
 - **บล็อกทำลายได้ (Breakable Blocks)**: บล็อกที่สร้างแบบสุ่มในพื้นที่ว่าง สูง 0.75 unit
 - **Skybox**: พื้นหลัง 3D รอบๆ แผนที่
 - **Lighting System**: ระบบแสงแบบ Phong (Ambient + Diffuse + Specular)
+- **Character System**: ระบบตัวละคร 2 ตัว (P1 และ P2) พร้อมแอนิเมชัน
+- **Animation System**: ระบบแอนิเมชันสำหรับตัวละคร (Idle และ Walk)
+- **Grid-Based Movement**: ระบบการเคลื่อนที่แบบ grid-based พร้อม collision detection
 
 ใช้ระบบ Perspective Camera แบบ top-down view มุมมองจากด้านบน
 
@@ -26,11 +29,34 @@
 - **Random Breakable Blocks**: สร้างบล็อกทำลายได้แบบสุ่ม (60% probability)
 - **Dynamic Regeneration**: กด R เพื่อสร้างบล็อกทำลายได้ใหม่
 - **Dynamic Rendering**: เรนเดอร์ทุก frame ด้วย render loop
+- **Character System**: ระบบตัวละคร 2 ตัว (P1 และ P2) พร้อม texture mapping
+- **Skeletal Animation**: ระบบแอนิเมชันแบบ skeletal animation ด้วย Assimp
+- **Character Animations**: แอนิเมชัน Idle และ Walk สำหรับตัวละคร
+- **Grid-Based Movement**: ระบบการเคลื่อนที่แบบ grid-based พร้อม smooth interpolation
+- **Character Collision**: ระบบ collision detection ระหว่างตัวละครและสิ่งกีดขวาง
+- **Multi-Player Controls**: รองรับการควบคุม 2 ผู้เล่นพร้อมกัน (WASD และ Arrow keys)
+- **MSAA Anti-Aliasing**: ระบบ anti-aliasing แบบ 4x MSAA สำหรับภาพที่เรียบขึ้น
 
 ## 🎮 การควบคุม
 
+### การควบคุมทั่วไป
 - **ESC**: ปิดเกม
 - **R**: สร้างบล็อกทำลายได้ใหม่แบบสุ่ม (Regenerate breakable blocks)
+
+### การควบคุมตัวละคร
+- **Player 1 (P1 - ซ้ายบน)**:
+  - **W**: เดินขึ้น (Up)
+  - **S**: เดินลง (Down)
+  - **A**: เดินซ้าย (Left)
+  - **D**: เดินขวา (Right)
+
+- **Player 2 (P2 - ขวาล่าง)**:
+  - **↑ (Arrow Up)**: เดินขึ้น (Up)
+  - **↓ (Arrow Down)**: เดินลง (Down)
+  - **← (Arrow Left)**: เดินซ้าย (Left)
+  - **→ (Arrow Right)**: เดินขวา (Right)
+
+**หมายเหตุ**: ตัวละครจะเคลื่อนที่แบบ grid-based และไม่สามารถเคลื่อนที่ผ่านบล็อก, ขอบแผนที่, หรือตัวละครอื่นได้
 
 ## 🛠️ เทคโนโลยีที่ใช้
 
@@ -39,6 +65,7 @@
 - **GLAD**: สำหรับ OpenGL function loader
 - **GLM**: สำหรับการคำนวณทางคณิตศาสตร์ (vectors, matrices)
 - **STB Image**: สำหรับโหลดไฟล์ texture (PNG)
+- **Assimp**: สำหรับโหลดโมเดล 3D และแอนิเมชัน (.dae files)
 - **CMake**: สำหรับ build system
 
 ## 📁 โครงสร้างโปรเจค
@@ -50,14 +77,29 @@ GameEngProject-Palbom/
 │   ├── Unbreakable_Block/    # Texture สำหรับขอบและบล็อกทำลายไม่ได้
 │   ├── Breakable_Block/      # Texture สำหรับบล็อกทำลายได้ (wood)
 │   ├── Background/           # Skybox textures (6 faces: px, nx, py, ny, pz, nz)
-│   └── Character/           # Character models และ textures (สำหรับอนาคต)
+│   └── Character/           # Character models, animations และ textures
+│       ├── Movement/        # Animation files (.dae)
+│       │   ├── Idle.dae     # Idle animation
+│       │   └── walk.dae     # Walk animation
+│       ├── P1/              # Textures สำหรับ Player 1
+│       │   ├── Ch32_1001_Diffuse.png
+│       │   ├── Ch32_1001_Specular.png
+│       │   ├── Ch32_1001_Normal.png
+│       │   └── Ch32_1001_Glossiness.png
+│       └── P2/              # Textures สำหรับ Player 2
+│           ├── Ch32_1001_Diffuse.png
+│           ├── Ch32_1001_Specular.png
+│           ├── Ch32_1001_Normal.png
+│           └── Ch32_1001_Glossiness.png
 ├── shaders/                  # Shader files
 │   ├── tile.vs              # Vertex shader สำหรับ tiles (พร้อม lighting)
 │   ├── tile.fs              # Fragment shader สำหรับ tiles (Phong lighting)
 │   ├── skybox.vs            # Vertex shader สำหรับ skybox
-│   └── skybox.fs            # Fragment shader สำหรับ skybox
+│   ├── skybox.fs            # Fragment shader สำหรับ skybox
+│   ├── anim_model.vs        # Vertex shader สำหรับตัวละคร (skeletal animation)
+│   └── anim_model.fs        # Fragment shader สำหรับตัวละคร
 ├── src/                      # Source code
-│   └── main.cpp             # Main game loop และ rendering logic
+│   └── main.cpp             # Main game loop, rendering logic, และ character system
 └── CMakeLists.txt           # CMake configuration
 ```
 
@@ -200,9 +242,11 @@ glfwInit();
 glfwWindowHint(GLFW_CONTEXT_VERSION_MAJOR, 3);
 glfwWindowHint(GLFW_CONTEXT_VERSION_MINOR, 3);
 glfwWindowHint(GLFW_OPENGL_PROFILE, GLFW_OPENGL_CORE_PROFILE);
+glfwWindowHint(GLFW_SAMPLES, 4);  // Enable 4x MSAA for anti-aliasing
 ```
 - **glfwInit()**: เริ่มต้น GLFW library
 - **glfwWindowHint()**: กำหนด OpenGL version เป็น 3.3 และใช้ Core Profile
+- **GLFW_SAMPLES**: เปิดใช้งาน 4x MSAA สำหรับ anti-aliasing
 
 **macOS Compatibility:**
 ```cpp
@@ -218,7 +262,7 @@ GLFWwindow* window = glfwCreateWindow(SCR_WIDTH, SCR_HEIGHT, "Bomber-Style Top-D
 glfwMakeContextCurrent(window);
 glfwSetFramebufferSizeCallback(window, framebuffer_size_callback);
 ```
-- สร้างหน้าต่างขนาด 800x600
+- สร้างหน้าต่างขนาด 1280x720 (HD)
 - กำหนดให้เป็น current context
 - ตั้งค่า callback สำหรับเมื่อเปลี่ยนขนาดหน้าต่าง
 
@@ -235,8 +279,10 @@ if (!gladLoadGLLoader((GLADloadproc)glfwGetProcAddress))
 **OpenGL State Configuration:**
 ```cpp
 glEnable(GL_DEPTH_TEST);
+glEnable(GL_MULTISAMPLE);  // Enable MSAA
 ```
-เปิดใช้งาน depth testing เพื่อให้เรนเดอร์ 3D objects ถูกต้อง (objects ที่อยู่ใกล้จะบัง objects ที่อยู่ไกล)
+- **GL_DEPTH_TEST**: เปิดใช้งาน depth testing เพื่อให้เรนเดอร์ 3D objects ถูกต้อง (objects ที่อยู่ใกล้จะบัง objects ที่อยู่ไกล)
+- **GL_MULTISAMPLE**: เปิดใช้งาน 4x MSAA (Multi-Sample Anti-Aliasing) เพื่อให้ขอบวัตถุเรียบขึ้น
 
 #### ส่วนที่ 5: Shader Setup
 
@@ -416,8 +462,14 @@ auto isRedBlock = [](int x, int z) -> bool {
 
 // Helper function: ตรวจสอบว่าเป็น Green Cell (จุด spawn ผู้เล่น)
 auto isGreenCell = [](int x, int z) -> bool {
-    // Green cells อยู่ที่ (1,1) และ (13,13)
-    return (x == 1 && z == 1) || (x == 13 && z == 13);
+    // Green cells เป็น 2x2 clusters:
+    // Top-left cluster: (1,1), (1,2), (2,1), (2,2)
+    // Bottom-right cluster: (12,12), (12,13), (13,12), (13,13)
+    if ((x == 1 || x == 2) && (z == 1 || z == 2))
+        return true;
+    if ((x == 12 || x == 13) && (z == 12 || z == 13))
+        return true;
+    return false;
 };
 
 // Helper function: ตรวจสอบว่าเป็น White Cell (ที่สามารถวางบล็อกทำลายได้)
@@ -435,7 +487,10 @@ auto isWhiteCell = [&](int x, int z) -> bool {
 **คำอธิบาย Block Types:**
 1. **Border Blocks**: ขอบแผนที่ (x=0, x=14, z=0, z=14) - ทำลายไม่ได้, สูง 1.0 unit
 2. **Red Blocks**: บล็อกทำลายไม่ได้แบบแพทเทิร์น (x และ z เป็นเลขคู่ 2-12) - สูง 0.75 unit
-3. **Green Cells**: จุด spawn ผู้เล่น (1,1) และ (13,13) - ไม่มีบล็อก
+3. **Green Cells**: จุด spawn ผู้เล่น - เป็น 2x2 clusters:
+   - Top-left cluster: (1,1), (1,2), (2,1), (2,2) - สำหรับ P1
+   - Bottom-right cluster: (12,12), (12,13), (13,12), (13,13) - สำหรับ P2
+   - ไม่มีบล็อกทำลายได้ในพื้นที่นี้
 4. **White Cells**: พื้นที่ว่างที่สามารถวางบล็อกทำลายได้ - สร้างแบบสุ่ม
 
 **Random Breakable Block Generation:**
@@ -468,18 +523,32 @@ auto generateBreakableBlocks = [&](std::vector<std::pair<int, int>>& positions, 
 #### ส่วนที่ 9: Render Loop
 
 ```cpp
+float deltaTime = 0.0f;
+float lastFrame = glfwGetTime();
+
 while (!glfwWindowShouldClose(window))
 {
+    float currentFrame = glfwGetTime();
+    deltaTime = currentFrame - lastFrame;
+    lastFrame = currentFrame;
+    
+    // Cap deltaTime to avoid huge jumps
+    if (deltaTime > 0.1f) deltaTime = 0.1f;
+    
     // ... rendering code ...
 }
 ```
 Loop หลักที่ทำงานจนกว่าผู้ใช้จะปิดหน้าต่าง
 
+**Delta Time Calculation:**
+- คำนวณ deltaTime เพื่อให้การเคลื่อนที่และแอนิเมชันสม่ำเสมอไม่ขึ้นกับ frame rate
+- Cap deltaTime ที่ 0.1 วินาทีเพื่อป้องกันการกระโดดใหญ่เมื่อเกิด lag
+
 **Input Processing:**
 ```cpp
-processInput(window);
+processInput(window, breakableBlockPositions, gen, generateBreakableBlocks, leftPose, rightPose);
 ```
-ตรวจสอบ keyboard input (เช่น ESC เพื่อปิดเกม)
+ตรวจสอบ keyboard input (ESC, R, WASD, Arrow keys) และอัปเดตการเคลื่อนที่ของตัวละคร
 
 **Clear Screen:**
 ```cpp
@@ -716,7 +785,212 @@ glfwPollEvents();         // ตรวจสอบ events (keyboard, mouse, wind
 - **Double Buffering**: วาดที่ back buffer แล้วสลับมาแสดงที่หน้าจอ เพื่อป้องกัน flickering
 - **Poll Events**: อัปเดต input และ window events
 
-#### ส่วนที่ 10: Skybox Setup
+#### ส่วนที่ 10: Character System Setup
+
+**Character Structures:**
+```cpp
+struct CharacterPose
+{
+    int gridX = 1;  // Grid position (1-13 for playable area)
+    int gridY = 1;  // Grid position (1-13 for playable area)
+    glm::vec3 position;  // World position (calculated from grid)
+    float rotation;
+    enum class State { Idle, Walk } state = State::Idle;
+    bool isMoving = false;
+    float moveProgress = 0.0f;  // 0.0 to 1.0 for smooth movement
+    int targetGridX = 1;
+    int targetGridY = 1;
+};
+
+struct CharacterTextures
+{
+    unsigned int diffuse  = 0;
+    unsigned int specular = 0;
+    unsigned int normal   = 0;
+    unsigned int gloss    = 0;
+};
+```
+
+**คำอธิบาย:**
+- **CharacterPose**: เก็บสถานะของตัวละคร (ตำแหน่ง grid, world position, rotation, animation state)
+- **CharacterTextures**: เก็บ texture IDs สำหรับตัวละคร (diffuse, specular, normal, gloss)
+- **Grid-Based Movement**: ตัวละครเคลื่อนที่แบบ grid-based (1 tile ต่อครั้ง)
+- **Smooth Interpolation**: ใช้ `moveProgress` เพื่อ interpolate การเคลื่อนที่ให้ลื่นไหล
+
+**Model และ Animation Loading:**
+```cpp
+const std::string idleAnimationPath = FileSystem::getPath("assets/Character/Movement/Idle.dae");
+const std::string walkAnimationPath = FileSystem::getPath("assets/Character/Movement/walk.dae");
+
+Model characterModelP1(idleAnimationPath);
+Model characterModelP2(idleAnimationPath);
+
+Animation idleAnimation(idleAnimationPath, &characterModelP1);
+Animation walkAnimation(walkAnimationPath, &characterModelP1);
+
+Animator animatorP1(&idleAnimation);
+Animator animatorP2(&idleAnimation);
+```
+
+**คำอธิบาย:**
+- โหลดโมเดลตัวละครจากไฟล์ `.dae` (Collada format) ด้วย Assimp
+- โหลดแอนิเมชัน Idle และ Walk
+- สร้าง Animator สำหรับแต่ละตัวละครเพื่อจัดการแอนิเมชัน
+
+**Character Texture Loading:**
+```cpp
+const CharacterTextures p1Textures = LoadCharacterTextures(p1TextureDir);
+const CharacterTextures p2Textures = LoadCharacterTextures(p2TextureDir);
+ApplyTexturesToModel(characterModelP1, p1Textures, "P1");
+ApplyTexturesToModel(characterModelP2, p2Textures, "P2");
+```
+
+**คำอธิบาย:**
+- โหลด texture สำหรับแต่ละตัวละคร (P1 และ P2 มี texture set แยกกัน)
+- Apply texture ไปยังโมเดลเพื่อให้แต่ละตัวละครมีสี/ลวดลายต่างกัน
+
+**Character Initialization:**
+```cpp
+// P1 at (1,1) - Top-Left
+CharacterPose leftPose;
+leftPose.gridX = 1;
+leftPose.gridY = 1;
+leftPose.position = GridToWorld(leftPose.gridX, leftPose.gridY);
+leftPose.position.y = BLOCK_HEIGHT + 0.3f;
+leftPose.rotation = 0.0f;
+
+// P2 at (13,13) - Bottom-Right
+CharacterPose rightPose;
+rightPose.gridX = 13;
+rightPose.gridY = 13;
+rightPose.position = GridToWorld(rightPose.gridX, rightPose.gridY);
+rightPose.position.y = BLOCK_HEIGHT + 0.3f;
+rightPose.rotation = glm::radians(180.0f);
+```
+
+**คำอธิบาย:**
+- P1 เริ่มต้นที่ (1,1) - มุมซ้ายบน, หันหน้าไปทางทิศใต้ (0°)
+- P2 เริ่มต้นที่ (13,13) - มุมขวาล่าง, หันหน้าไปทางทิศเหนือ (180°)
+- ตัวละครอยู่สูงกว่าพื้น 0.3 unit (BLOCK_HEIGHT + 0.3f)
+
+**Movement System:**
+```cpp
+bool TryMoveCharacter(CharacterPose& character, int dx, int dy, 
+                      const std::vector<std::pair<int, int>>& breakableBlocks, 
+                      const CharacterPose& otherChar)
+{
+    if(character.isMoving)
+        return false;  // Already moving, can't start new movement
+    
+    int newX = character.gridX + dx;
+    int newY = character.gridY + dy;
+    
+    if(IsWalkable(newX, newY, breakableBlocks, otherChar))
+    {
+        character.targetGridX = newX;
+        character.targetGridY = newY;
+        character.isMoving = true;
+        character.moveProgress = 0.0f;
+        
+        // Set rotation based on direction
+        if(dx > 0) character.rotation = glm::radians(90.0f);   // Right
+        else if(dx < 0) character.rotation = glm::radians(-90.0f);  // Left
+        else if(dy > 0) character.rotation = 0.0f;  // Down
+        else if(dy < 0) character.rotation = glm::radians(180.0f);  // Up
+        
+        return true;
+    }
+    return false;
+}
+```
+
+**คำอธิบาย:**
+- **IsWalkable()**: ตรวจสอบว่าตำแหน่งนั้นสามารถเดินได้หรือไม่
+  - ตรวจสอบขอบแผนที่
+  - ตรวจสอบ Red Blocks
+  - ตรวจสอบ Breakable Blocks
+  - ตรวจสอบ collision กับตัวละครอื่น
+- **Rotation**: หมุนตัวละครตามทิศทางการเคลื่อนที่
+- **Grid-Based**: เคลื่อนที่ทีละ 1 tile
+
+**Smooth Movement Update:**
+```cpp
+void UpdateCharacterMovement(CharacterPose& character, float deltaTime)
+{
+    if(character.isMoving)
+    {
+        const float moveSpeed = 3.0f;  // Blocks per second
+        character.moveProgress += moveSpeed * deltaTime;
+        
+        if(character.moveProgress >= 1.0f)
+        {
+            character.moveProgress = 1.0f;
+            character.gridX = character.targetGridX;
+            character.gridY = character.targetGridY;
+            character.isMoving = false;
+        }
+        
+        // Interpolate position
+        glm::vec3 startPos = GridToWorld(character.gridX, character.gridY);
+        glm::vec3 endPos = GridToWorld(character.targetGridX, character.targetGridY);
+        character.position = glm::mix(startPos, endPos, character.moveProgress);
+        character.position.y = BLOCK_HEIGHT + 0.3f;
+    }
+    else
+    {
+        character.position = GridToWorld(character.gridX, character.gridY);
+        character.position.y = BLOCK_HEIGHT + 0.3f;
+    }
+}
+```
+
+**คำอธิบาย:**
+- **moveSpeed**: ความเร็วการเคลื่อนที่ (3 tiles ต่อวินาที)
+- **Interpolation**: ใช้ `glm::mix()` เพื่อ interpolate ระหว่างตำแหน่งเริ่มต้นและปลายทาง
+- **Delta Time**: ใช้ deltaTime เพื่อให้การเคลื่อนที่สม่ำเสมอไม่ขึ้นกับ frame rate
+
+**Animation State Management:**
+```cpp
+if(leftPose.isMoving)
+    SetAnimation(leftPose, animatorP1, CharacterPose::State::Walk, &idleAnimation, &walkAnimation);
+else
+    SetAnimation(leftPose, animatorP1, CharacterPose::State::Idle, &idleAnimation, &walkAnimation);
+
+animatorP1.UpdateAnimation(deltaTime);
+```
+
+**คำอธิบาย:**
+- สลับแอนิเมชันระหว่าง Idle และ Walk ตามสถานะการเคลื่อนที่
+- อัปเดตแอนิเมชันทุก frame ด้วย deltaTime
+
+**Character Rendering:**
+```cpp
+characterShader.use();
+characterShader.setMat4("view", view);
+characterShader.setMat4("projection", projection);
+
+// Upload bone matrices for skeletal animation
+const auto& transforms = animatorP1.GetFinalBoneMatrices();
+for(int i = 0; i < transforms.size(); ++i)
+{
+    characterShader.setMat4("finalBonesMatrices[" + std::to_string(i) + "]", transforms[i]);
+}
+
+// Render character
+glm::mat4 modelMatrix = glm::mat4(1.0f);
+modelMatrix = glm::translate(modelMatrix, leftPose.position);
+modelMatrix = glm::rotate(modelMatrix, leftPose.rotation, glm::vec3(0.0f, 1.0f, 0.0f));
+modelMatrix = glm::scale(modelMatrix, glm::vec3(0.5f));
+characterShader.setMat4("model", modelMatrix);
+characterModelP1.Draw(characterShader);
+```
+
+**คำอธิบาย:**
+- **Bone Matrices**: ส่ง bone transformation matrices ไปยัง shader สำหรับ skeletal animation
+- **Model Matrix**: Transform ตัวละครตามตำแหน่ง, rotation, และ scale
+- **Scale**: ลดขนาดตัวละครเป็น 50% (0.5f) เพื่อให้พอดีกับแผนที่
+
+#### ส่วนที่ 11: Skybox Setup
 
 ```cpp
 // Skybox vertices (cube ที่ใหญ่ที่สุด)
@@ -795,7 +1069,7 @@ unsigned int loadCubemap(const std::vector<std::string>& faces)
 - **GL_CLAMP_TO_EDGE**: ใช้ edge clamping เพื่อป้องกัน seams ระหว่าง faces
 - **GL_LINEAR**: ใช้ linear filtering สำหรับ smooth texture
 
-#### ส่วนที่ 11: Cleanup
+#### ส่วนที่ 12: Cleanup
 
 ```cpp
 glDeleteVertexArrays(1, &VAO);
@@ -812,12 +1086,13 @@ return 0;
 - **glDeleteBuffers()**: ลบ VBO และ EBO ทั้งหมด
 - **glfwTerminate()**: ปิด GLFW และล้าง resources ทั้งหมด
 
-#### ส่วนที่ 12: Helper Functions
+#### ส่วนที่ 13: Helper Functions
 
 **processInput():**
 ```cpp
 void processInput(GLFWwindow *window, std::vector<std::pair<int, int>>& breakableBlockPositions, 
-                 std::mt19937& gen, const std::function<void(...)>& generateBlocks)
+                 std::mt19937& gen, const std::function<void(...)>& generateBlocks,
+                 CharacterPose& leftCharacter, CharacterPose& rightCharacter)
 {
     if (glfwGetKey(window, GLFW_KEY_ESCAPE) == GLFW_PRESS)
         glfwSetWindowShouldClose(window, true);
@@ -834,6 +1109,50 @@ void processInput(GLFWwindow *window, std::vector<std::pair<int, int>>& breakabl
     {
         rKeyPressed = false;
     }
+    
+    // Character Movement Input
+    // Left character (P1) uses WASD
+    ProcessCharacterInput(window, leftCharacter, 
+                          GLFW_KEY_W, GLFW_KEY_S, GLFW_KEY_A, GLFW_KEY_D,
+                          breakableBlockPositions, rightCharacter);
+    
+    // Right character (P2) uses Arrow keys
+    ProcessCharacterInput(window, rightCharacter,
+                          GLFW_KEY_UP, GLFW_KEY_DOWN, GLFW_KEY_LEFT, GLFW_KEY_RIGHT,
+                          breakableBlockPositions, leftCharacter);
+}
+```
+
+**ProcessCharacterInput():**
+```cpp
+bool ProcessCharacterInput(GLFWwindow* window, CharacterPose& character, 
+                           int forwardKey, int backwardKey, int leftKey, int rightKey,
+                           const std::vector<std::pair<int, int>>& breakableBlocks, 
+                           const CharacterPose& otherChar)
+{
+    const bool forwardPressed  = glfwGetKey(window, forwardKey)  == GLFW_PRESS;
+    const bool backwardPressed = glfwGetKey(window, backwardKey) == GLFW_PRESS;
+    const bool leftPressed     = glfwGetKey(window, leftKey)     == GLFW_PRESS;
+    const bool rightPressed    = glfwGetKey(window, rightKey)    == GLFW_PRESS;
+    
+    if(forwardPressed && !character.isMoving)
+    {
+        TryMoveCharacter(character, 0, -1, breakableBlocks, otherChar);  // Up
+    }
+    else if(backwardPressed && !character.isMoving)
+    {
+        TryMoveCharacter(character, 0, 1, breakableBlocks, otherChar);  // Down
+    }
+    else if(leftPressed && !character.isMoving)
+    {
+        TryMoveCharacter(character, -1, 0, breakableBlocks, otherChar);  // Left
+    }
+    else if(rightPressed && !character.isMoving)
+    {
+        TryMoveCharacter(character, 1, 0, breakableBlocks, otherChar);  // Right
+    }
+    
+    return character.isMoving;
 }
 ```
 
@@ -860,6 +1179,88 @@ void framebuffer_size_callback(GLFWwindow* window, int width, int height)
 - จำเป็นเพื่อให้ภาพไม่บิดเบี้ยวเมื่อเปลี่ยนขนาดหน้าต่าง
 
 ### 🎨 Shader Files
+
+#### anim_model.vs และ anim_model.fs (Character Shaders)
+
+ใช้สำหรับ render ตัวละครพร้อม skeletal animation
+
+#### anim_model.vs (Character Vertex Shader)
+
+```glsl
+#version 330 core
+
+layout(location = 0) in vec3 pos;
+layout(location = 1) in vec3 norm;
+layout(location = 2) in vec2 tex;
+layout(location = 3) in vec3 tangent;
+layout(location = 4) in vec3 bitangent;
+layout(location = 5) in ivec4 boneIds; 
+layout(location = 6) in vec4 weights;
+
+uniform mat4 projection;
+uniform mat4 view;
+uniform mat4 model;
+
+const int MAX_BONES = 100;
+const int MAX_BONE_INFLUENCE = 4;
+uniform mat4 finalBonesMatrices[MAX_BONES];
+
+out vec2 TexCoords;
+
+void main()
+{
+    vec4 totalPosition = vec4(0.0f);
+    for(int i = 0 ; i < MAX_BONE_INFLUENCE ; i++)
+    {
+        if(boneIds[i] == -1) 
+            continue;
+        if(boneIds[i] >= MAX_BONES) 
+        {
+            totalPosition = vec4(pos, 1.0f);
+            break;
+        }
+        vec4 localPosition = finalBonesMatrices[boneIds[i]] * vec4(pos, 1.0f);
+        totalPosition += localPosition * weights[i];
+    }
+
+    TexCoords = tex;
+    gl_Position = projection * view * model * totalPosition;
+}
+```
+
+**คำอธิบาย:**
+- **Skeletal Animation**: ใช้ bone matrices เพื่อ transform vertices ตามโครงกระดูก
+- **Bone Weights**: แต่ละ vertex สามารถได้รับผลกระทบจากหลาย bones (สูงสุด 4 bones)
+- **Bone IDs และ Weights**: มาจากโมเดลที่โหลดด้วย Assimp
+- **finalBonesMatrices**: bone transformation matrices ที่คำนวณจาก Animator
+
+#### anim_model.fs (Character Fragment Shader)
+
+```glsl
+#version 330 core
+out vec4 FragColor;
+
+in vec2 TexCoords;
+
+uniform sampler2D texture_diffuse1;
+
+void main()
+{    
+    vec4 texColor = texture(texture_diffuse1, TexCoords);
+    if (texColor.r < 0.01 && texColor.g < 0.01 && texColor.b < 0.01)
+    {
+        FragColor = vec4(0.4, 0.7, 0.9, 1.0);  // Default color for missing textures
+    }
+    else
+    {
+        FragColor = texColor;
+    }
+}
+```
+
+**คำอธิบาย:**
+- อ่านสีจาก diffuse texture
+- ถ้า texture สีดำ (missing texture) จะใช้สี default แทน
 
 #### tile.vs และ tile.fs (Tile Shaders)
 
@@ -1369,8 +1770,20 @@ glClearColor(0.1f, 0.1f, 0.15f, 1.0f);  // (R, G, B, Alpha)
 ### ปรับขนาดหน้าต่าง
 แก้ไขใน `src/main.cpp`:
 ```cpp
-const unsigned int SCR_WIDTH = 800;   // เปลี่ยนความกว้าง
-const unsigned int SCR_HEIGHT = 600;  // เปลี่ยนความสูง
+const unsigned int SCR_WIDTH = 1280;   // เปลี่ยนความกว้าง
+const unsigned int SCR_HEIGHT = 720;  // เปลี่ยนความสูง
+```
+
+### ปรับความเร็วการเคลื่อนที่ของตัวละคร
+แก้ไขใน `src/main.cpp`:
+```cpp
+const float moveSpeed = 3.0f;  // Blocks per second (เปลี่ยนเป็นค่าที่ต้องการ)
+```
+
+### ปรับขนาดตัวละคร
+แก้ไขใน `src/main.cpp`:
+```cpp
+modelMatrix = glm::scale(modelMatrix, glm::vec3(0.5f));  // เปลี่ยน 0.5f เป็นค่าที่ต้องการ
 ```
 
 ## 📄 License
