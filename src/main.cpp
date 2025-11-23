@@ -43,11 +43,28 @@ struct CharacterTextures
     unsigned int gloss    = 0;
 };
 
+// Bomb System Struct
+struct Bomb
+{
+    int gridX;
+    int gridY;
+    float timer;  // Countdown timer in seconds
+    int owner;    // 1 for P1, 2 for P2
+    bool exploded = false;
+    
+    Bomb(int x, int y, int ownerId) : gridX(x), gridY(y), timer(3.0f), owner(ownerId) {}
+};
+
 void framebuffer_size_callback(GLFWwindow* window, int width, int height);
 void processInput(GLFWwindow *window, std::vector<std::pair<int, int>>& breakableBlockPositions, 
                  std::mt19937& gen, const std::function<void(std::vector<std::pair<int, int>>&, std::mt19937&)>& generateBlocks,
-                 CharacterPose& leftCharacter, CharacterPose& rightCharacter);
+                 CharacterPose& leftCharacter, CharacterPose& rightCharacter,
+                 std::vector<Bomb>& bombs);
 unsigned int loadCubemap(const std::vector<std::string>& faces);
+bool HasBomb(int gridX, int gridY, const std::vector<Bomb>& bombs);
+bool CanPlaceBomb(int gridX, int gridY, const std::vector<std::pair<int, int>>& breakableBlocks);
+void ExplodeBomb(const Bomb& bomb, std::vector<std::pair<int, int>>& breakableBlocks);
+void UpdateBombs(std::vector<Bomb>& bombs, std::vector<std::pair<int, int>>& breakableBlocks, float deltaTime);
 
 // settings
 const unsigned int SCR_WIDTH = 1280;
@@ -82,7 +99,7 @@ bool isWhiteCell(int x, int z) {
     return true;
 }
 
-bool IsWalkable(int gridX, int gridY, const std::vector<std::pair<int, int>>& breakableBlocks, const CharacterPose& otherChar)
+bool IsWalkable(int gridX, int gridY, const std::vector<std::pair<int, int>>& breakableBlocks, const CharacterPose& otherChar, const std::vector<Bomb>& bombs)
 {
     if(gridX < 0 || gridX >= MAP_SIZE || gridY < 0 || gridY >= MAP_SIZE)
         return false;
@@ -99,6 +116,13 @@ bool IsWalkable(int gridX, int gridY, const std::vector<std::pair<int, int>>& br
     for (const auto& pos : breakableBlocks)
     {
         if (pos.first == gridX && pos.second == gridY)
+            return false;
+    }
+
+    // Check bombs
+    for (const auto& bomb : bombs)
+    {
+        if (!bomb.exploded && bomb.gridX == gridX && bomb.gridY == gridY)
             return false;
     }
 
@@ -232,7 +256,7 @@ void SetAnimation(CharacterPose& pose, Animator& animator, CharacterPose::State 
     }
 }
 
-bool TryMoveCharacter(CharacterPose& character, int dx, int dy, const std::vector<std::pair<int, int>>& breakableBlocks, const CharacterPose& otherChar)
+bool TryMoveCharacter(CharacterPose& character, int dx, int dy, const std::vector<std::pair<int, int>>& breakableBlocks, const CharacterPose& otherChar, const std::vector<Bomb>& bombs)
 {
     if(character.isMoving)
         return false;  // Already moving, can't start new movement
@@ -240,7 +264,7 @@ bool TryMoveCharacter(CharacterPose& character, int dx, int dy, const std::vecto
     int newX = character.gridX + dx;
     int newY = character.gridY + dy;
 
-    if(IsWalkable(newX, newY, breakableBlocks, otherChar))
+    if(IsWalkable(newX, newY, breakableBlocks, otherChar, bombs))
     {
         character.targetGridX = newX;
         character.targetGridY = newY;
@@ -290,7 +314,7 @@ void UpdateCharacterMovement(CharacterPose& character, float deltaTime)
 
 bool ProcessCharacterInput(GLFWwindow* window, CharacterPose& character, 
                            int forwardKey, int backwardKey, int leftKey, int rightKey,
-                           const std::vector<std::pair<int, int>>& breakableBlocks, const CharacterPose& otherChar)
+                           const std::vector<std::pair<int, int>>& breakableBlocks, const CharacterPose& otherChar, const std::vector<Bomb>& bombs)
 {
     const bool forwardPressed  = glfwGetKey(window, forwardKey)  == GLFW_PRESS;
     const bool backwardPressed = glfwGetKey(window, backwardKey) == GLFW_PRESS;
@@ -300,19 +324,19 @@ bool ProcessCharacterInput(GLFWwindow* window, CharacterPose& character,
     bool moved = false;
     if(forwardPressed && !character.isMoving)
     {
-        moved = TryMoveCharacter(character, 0, -1, breakableBlocks, otherChar);  // Up (decrease Y)
+        moved = TryMoveCharacter(character, 0, -1, breakableBlocks, otherChar, bombs);  // Up (decrease Y)
     }
     else if(backwardPressed && !character.isMoving)
     {
-        moved = TryMoveCharacter(character, 0, 1, breakableBlocks, otherChar);  // Down (increase Y)
+        moved = TryMoveCharacter(character, 0, 1, breakableBlocks, otherChar, bombs);  // Down (increase Y)
     }
     else if(leftPressed && !character.isMoving)
     {
-        moved = TryMoveCharacter(character, -1, 0, breakableBlocks, otherChar);  // Left (decrease X)
+        moved = TryMoveCharacter(character, -1, 0, breakableBlocks, otherChar, bombs);  // Left (decrease X)
     }
     else if(rightPressed && !character.isMoving)
     {
-        moved = TryMoveCharacter(character, 1, 0, breakableBlocks, otherChar);  // Right (increase X)
+        moved = TryMoveCharacter(character, 1, 0, breakableBlocks, otherChar, bombs);  // Right (increase X)
     }
 
     return character.isMoving;
@@ -654,6 +678,14 @@ int main()
     generateBreakableBlocks(breakableBlockPositions, gen);
 
     // ------------------------------------------------------------------
+    // Bomb Setup
+    // ------------------------------------------------------------------
+    std::vector<Bomb> bombs;
+    const std::string bombModelPath = FileSystem::getPath("assets/item/bomb.glb");
+    Model bombModel(bombModelPath);
+    std::cout << "Bomb model loaded from: " << bombModelPath << std::endl;
+
+    // ------------------------------------------------------------------
     // Character Setup
     // ------------------------------------------------------------------
     const std::string shaderVSPath = FileSystem::getPath("shaders/anim_model.vs");
@@ -732,7 +764,10 @@ int main()
         }
 
         // input
-        processInput(window, breakableBlockPositions, gen, generateBreakableBlocks, leftPose, rightPose);
+        processInput(window, breakableBlockPositions, gen, generateBreakableBlocks, leftPose, rightPose, bombs);
+
+        // Update bombs
+        UpdateBombs(bombs, breakableBlockPositions, deltaTime);
 
         // Update Character Animations
         UpdateCharacterMovement(leftPose, deltaTime);
@@ -898,6 +933,7 @@ int main()
             modelMatrix = glm::rotate(modelMatrix, pose.rotation, glm::vec3(0.0f, 1.0f, 0.0f));
             modelMatrix = glm::scale(modelMatrix, glm::vec3(0.5f));
             characterShader.setMat4("model", modelMatrix);
+            characterShader.setBool("isBomb", false);  // Not a bomb
             model.Draw(characterShader);
         };
 
@@ -906,6 +942,36 @@ int main()
 
         uploadBones(animatorP2);
         drawCharacter(rightPose, characterModelP2);
+
+        // Render bombs
+        // Upload identity bone matrices for static bomb model (no animation)
+        for(int i = 0; i < 100; ++i)
+        {
+            characterShader.setMat4("finalBonesMatrices[" + std::to_string(i) + "]", glm::mat4(1.0f));
+        }
+        
+        // Set lighting uniforms for bombs
+        characterShader.setVec3("lightPos", lightPos);
+        characterShader.setVec3("lightColor", lightColor);
+        characterShader.setVec3("viewPos", cameraPos);
+        characterShader.setBool("isBomb", true);  // This is a bomb
+        
+        for (const auto& bomb : bombs)
+        {
+            if (!bomb.exploded)
+            {
+                glm::vec3 bombPos = GridToWorld(bomb.gridX, bomb.gridY);
+                bombPos.y = BLOCK_HEIGHT + 0.15f;  // Slightly above ground
+                
+                glm::mat4 bombModelMatrix = glm::mat4(1.0f);
+                bombModelMatrix = glm::translate(bombModelMatrix, bombPos);
+                // Rotate 90 degrees around X axis to make bomb vertical (if it's lying down)
+                bombModelMatrix = glm::rotate(bombModelMatrix, glm::radians(-90.0f), glm::vec3(1.0f, 0.0f, 0.0f));
+                bombModelMatrix = glm::scale(bombModelMatrix, glm::vec3(0.3f));  // Scale bomb to appropriate size
+                characterShader.setMat4("model", bombModelMatrix);
+                bombModel.Draw(characterShader);
+            }
+        }
 
         // draw skybox last
         glDepthFunc(GL_LEQUAL);
@@ -938,10 +1004,142 @@ int main()
     return 0;
 }
 
+// Helper function to check if a position already has a bomb
+bool HasBomb(int gridX, int gridY, const std::vector<Bomb>& bombs)
+{
+    for (const auto& bomb : bombs)
+    {
+        if (!bomb.exploded && bomb.gridX == gridX && bomb.gridY == gridY)
+            return true;
+    }
+    return false;
+}
+
+// Helper function to check if a position can have a bomb placed
+bool CanPlaceBomb(int gridX, int gridY, const std::vector<std::pair<int, int>>& breakableBlocks)
+{
+    // Can't place on border
+    if (gridX == 0 || gridX == MAP_SIZE - 1 || gridY == 0 || gridY == MAP_SIZE - 1)
+        return false;
+    // Can't place on red blocks
+    if (isRedBlock(gridX, gridY))
+        return false;
+    // Can't place on breakable blocks
+    for (const auto& pos : breakableBlocks)
+    {
+        if (pos.first == gridX && pos.second == gridY)
+            return false;
+    }
+    return true;
+}
+
+// Function to explode bomb and destroy breakable blocks in cross pattern
+void ExplodeBomb(const Bomb& bomb, std::vector<std::pair<int, int>>& breakableBlocks)
+{
+    const int EXPLOSION_RANGE = 2;  // 2 blocks in each direction
+    
+    // Center (bomb position) - already handled
+    
+    // Up (decrease Y)
+    for (int i = 1; i <= EXPLOSION_RANGE; i++)
+    {
+        int x = bomb.gridX;
+        int y = bomb.gridY - i;
+        
+        // Stop if hit unbreakable block or border
+        if (y < 0 || y >= MAP_SIZE || isRedBlock(x, y))
+            break;
+        
+        // Remove breakable block if exists
+        breakableBlocks.erase(
+            std::remove_if(breakableBlocks.begin(), breakableBlocks.end(),
+                [x, y](const std::pair<int, int>& pos) { return pos.first == x && pos.second == y; }),
+            breakableBlocks.end()
+        );
+    }
+    
+    // Down (increase Y)
+    for (int i = 1; i <= EXPLOSION_RANGE; i++)
+    {
+        int x = bomb.gridX;
+        int y = bomb.gridY + i;
+        
+        // Stop if hit unbreakable block or border
+        if (y < 0 || y >= MAP_SIZE || isRedBlock(x, y))
+            break;
+        
+        // Remove breakable block if exists
+        breakableBlocks.erase(
+            std::remove_if(breakableBlocks.begin(), breakableBlocks.end(),
+                [x, y](const std::pair<int, int>& pos) { return pos.first == x && pos.second == y; }),
+            breakableBlocks.end()
+        );
+    }
+    
+    // Left (decrease X)
+    for (int i = 1; i <= EXPLOSION_RANGE; i++)
+    {
+        int x = bomb.gridX - i;
+        int y = bomb.gridY;
+        
+        // Stop if hit unbreakable block or border
+        if (x < 0 || x >= MAP_SIZE || isRedBlock(x, y))
+            break;
+        
+        // Remove breakable block if exists
+        breakableBlocks.erase(
+            std::remove_if(breakableBlocks.begin(), breakableBlocks.end(),
+                [x, y](const std::pair<int, int>& pos) { return pos.first == x && pos.second == y; }),
+            breakableBlocks.end()
+        );
+    }
+    
+    // Right (increase X)
+    for (int i = 1; i <= EXPLOSION_RANGE; i++)
+    {
+        int x = bomb.gridX + i;
+        int y = bomb.gridY;
+        
+        // Stop if hit unbreakable block or border
+        if (x < 0 || x >= MAP_SIZE || isRedBlock(x, y))
+            break;
+        
+        // Remove breakable block if exists
+        breakableBlocks.erase(
+            std::remove_if(breakableBlocks.begin(), breakableBlocks.end(),
+                [x, y](const std::pair<int, int>& pos) { return pos.first == x && pos.second == y; }),
+            breakableBlocks.end()
+        );
+    }
+}
+
+// Update bombs: countdown timers and explosions
+void UpdateBombs(std::vector<Bomb>& bombs, std::vector<std::pair<int, int>>& breakableBlocks, float deltaTime)
+{
+    for (auto& bomb : bombs)
+    {
+        if (!bomb.exploded)
+        {
+            bomb.timer -= deltaTime;
+            
+            if (bomb.timer <= 0.0f)
+            {
+                // Explode!
+                ExplodeBomb(bomb, breakableBlocks);
+                bomb.exploded = true;
+            }
+        }
+    }
+    
+    // Remove exploded bombs (optional - can keep them for visual effects)
+    // For now, we'll keep them but mark as exploded
+}
+
 // process all input: query GLFW whether relevant keys are pressed/released this frame and react accordingly
 void processInput(GLFWwindow *window, std::vector<std::pair<int, int>>& breakableBlockPositions, 
                  std::mt19937& gen, const std::function<void(std::vector<std::pair<int, int>>&, std::mt19937&)>& generateBlocks,
-                 CharacterPose& leftCharacter, CharacterPose& rightCharacter)
+                 CharacterPose& leftCharacter, CharacterPose& rightCharacter,
+                 std::vector<Bomb>& bombs)
 {
     if (glfwGetKey(window, GLFW_KEY_ESCAPE) == GLFW_PRESS)
         glfwSetWindowShouldClose(window, true);
@@ -959,16 +1157,58 @@ void processInput(GLFWwindow *window, std::vector<std::pair<int, int>>& breakabl
         rKeyPressed = false;
     }
 
+    // Bomb placement: P1 (Q key) and P2 (M key)
+    static bool qKeyPressed = false;
+    static bool mKeyPressed = false;
+    
+    // P1 places bomb with Q
+    if (glfwGetKey(window, GLFW_KEY_Q) == GLFW_PRESS && !qKeyPressed)
+    {
+        qKeyPressed = true;
+        int bombX = leftCharacter.gridX;
+        int bombY = leftCharacter.gridY;
+        
+        if (CanPlaceBomb(bombX, bombY, breakableBlockPositions) && 
+            !HasBomb(bombX, bombY, bombs))
+        {
+            bombs.push_back(Bomb(bombX, bombY, 1));
+            std::cout << "P1 placed bomb at (" << bombX << ", " << bombY << ")" << std::endl;
+        }
+    }
+    else if (glfwGetKey(window, GLFW_KEY_Q) == GLFW_RELEASE)
+    {
+        qKeyPressed = false;
+    }
+    
+    // P2 places bomb with M
+    if (glfwGetKey(window, GLFW_KEY_M) == GLFW_PRESS && !mKeyPressed)
+    {
+        mKeyPressed = true;
+        int bombX = rightCharacter.gridX;
+        int bombY = rightCharacter.gridY;
+        
+        if (CanPlaceBomb(bombX, bombY, breakableBlockPositions) && 
+            !HasBomb(bombX, bombY, bombs))
+        {
+            bombs.push_back(Bomb(bombX, bombY, 2));
+            std::cout << "P2 placed bomb at (" << bombX << ", " << bombY << ")" << std::endl;
+        }
+    }
+    else if (glfwGetKey(window, GLFW_KEY_M) == GLFW_RELEASE)
+    {
+        mKeyPressed = false;
+    }
+
     // Character Movement Input
     // Left character (P1) uses WASD
     bool leftMoving = ProcessCharacterInput(window, leftCharacter, 
                                             GLFW_KEY_W, GLFW_KEY_S, GLFW_KEY_A, GLFW_KEY_D,
-                                            breakableBlockPositions, rightCharacter);
+                                            breakableBlockPositions, rightCharacter, bombs);
     
     // Right character (P2) uses Arrow keys
     bool rightMoving = ProcessCharacterInput(window, rightCharacter,
                                               GLFW_KEY_UP, GLFW_KEY_DOWN, GLFW_KEY_LEFT, GLFW_KEY_RIGHT,
-                                              breakableBlockPositions, leftCharacter);
+                                              breakableBlockPositions, leftCharacter, bombs);
 }
 
 // glfw: whenever the window size changed (by OS or user resize) this callback function executes

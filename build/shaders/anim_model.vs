@@ -17,10 +17,13 @@ const int MAX_BONE_INFLUENCE = 4;
 uniform mat4 finalBonesMatrices[MAX_BONES];
 
 out vec2 TexCoords;
+out vec3 FragPos;
+out vec3 Normal;
 
 void main()
 {
     vec4 totalPosition = vec4(0.0f);
+    bool hasBones = false;
     for(int i = 0 ; i < MAX_BONE_INFLUENCE ; i++)
     {
         if(boneIds[i] == -1) 
@@ -28,13 +31,23 @@ void main()
         if(boneIds[i] >= MAX_BONES) 
         {
             totalPosition = vec4(pos, 1.0f);
+            hasBones = true;
             break;
         }
         vec4 localPosition = finalBonesMatrices[boneIds[i]] * vec4(pos, 1.0f);
         totalPosition += localPosition * weights[i];
+        hasBones = true;
+    }
+    
+    // Fallback: if no bones, use original position
+    if(!hasBones)
+    {
+        totalPosition = vec4(pos, 1.0f);
     }
 
     TexCoords = tex;
+    FragPos = vec3(model * totalPosition);
+    Normal = mat3(transpose(inverse(model))) * norm;
     gl_Position = projection * view * model * totalPosition;
 }
 
