@@ -1,4 +1,4 @@
-CMakeFiles/PlayableCharacter.dir/src/main.cpp.o: \
+CMakeFiles/RunGame.dir/src/main.cpp.o: \
   /Users/sarootareerattanawetch/OpenGL/GameEngProject-Palbom/src/main.cpp \
   /Users/sarootareerattanawetch/OpenGL/GameEngProject-Palbom/build/thirdparty/glad/include/glad/glad.h \
   /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk/usr/include/c++/v1/stddef.h \

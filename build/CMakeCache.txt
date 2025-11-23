@@ -305,7 +305,7 @@ CMAKE_PROJECT_DESCRIPTION:STATIC=
 CMAKE_PROJECT_HOMEPAGE_URL:STATIC=
 
 //Value Computed by CMake
-CMAKE_PROJECT_NAME:STATIC=PlayableCharacter
+CMAKE_PROJECT_NAME:STATIC=RunGame
 
 //Value Computed by CMake
 CMAKE_PROJECT_VERSION:STATIC=
@@ -490,6 +490,15 @@ PlayableCharacter_SOURCE_DIR:STATIC=/Users/sarootareerattanawetch/OpenGL/GameEng
 
 //Path to a library.
 RT_LIBRARY:FILEPATH=RT_LIBRARY-NOTFOUND
+
+//Value Computed by CMake
+RunGame_BINARY_DIR:STATIC=/Users/sarootareerattanawetch/OpenGL/GameEngProject-Palbom/build
+
+//Value Computed by CMake
+RunGame_IS_TOP_LEVEL:STATIC=ON
+
+//Value Computed by CMake
+RunGame_SOURCE_DIR:STATIC=/Users/sarootareerattanawetch/OpenGL/GameEngProject-Palbom
 
 //Path to a file.
 ZLIB_INCLUDE_DIR:PATH=/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk/usr/include

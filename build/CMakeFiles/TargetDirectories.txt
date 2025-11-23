@@ -1,4 +1,4 @@
-/Users/sarootareerattanawetch/OpenGL/GameEngProject-Palbom/build/CMakeFiles/PlayableCharacter.dir
+/Users/sarootareerattanawetch/OpenGL/GameEngProject-Palbom/build/CMakeFiles/RunGame.dir
 /Users/sarootareerattanawetch/OpenGL/GameEngProject-Palbom/build/CMakeFiles/glad.dir
 /Users/sarootareerattanawetch/OpenGL/GameEngProject-Palbom/build/CMakeFiles/edit_cache.dir
 /Users/sarootareerattanawetch/OpenGL/GameEngProject-Palbom/build/CMakeFiles/rebuild_cache.dir

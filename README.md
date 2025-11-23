@@ -124,7 +124,7 @@ cmake --build build
 3. **รันโปรแกรม**:
 ```bash
 cd build
-./PlayableCharacter
+./RunGame
 ```
 
 ### สำหรับ Windows
@@ -133,7 +133,7 @@ cd build
 cmake -S . -B build
 cmake --build build --config Release
 cd build/Release
-PlayableCharacter.exe
+RunGame.exe
 ```
 
 ## 💻 คำอธิบายโค้ด (Code Explanation)
@@ -1506,7 +1506,7 @@ file(DOWNLOAD
 
 ```cmake
 cmake_minimum_required(VERSION 3.16)
-project(PlayableCharacter)
+project(RunGame)
 set(CMAKE_CXX_STANDARD 17)
 set(CMAKE_CXX_STANDARD_REQUIRED ON)
 ```
@@ -1635,9 +1635,9 @@ include_directories(
 
 ```cmake
 set(SRC src/main.cpp)
-add_executable(PlayableCharacter ${SRC})
+add_executable(RunGame ${SRC})
 
-target_include_directories(PlayableCharacter PRIVATE
+target_include_directories(RunGame PRIVATE
   ${CMAKE_BINARY_DIR}
   ${CMAKE_BINARY_DIR}/learnopengl
 )
@@ -1645,7 +1645,7 @@ target_include_directories(PlayableCharacter PRIVATE
 add_library(glad STATIC ${GLAD_SOURCE_FILE})
 target_include_directories(glad PUBLIC ${GLAD_INCLUDE_DIR})
 
-target_link_libraries(PlayableCharacter PRIVATE glfw glad assimp glm)
+target_link_libraries(RunGame PRIVATE glfw glad assimp glm)
 ```
 
 **คำอธิบาย:**
@@ -1657,10 +1657,10 @@ target_link_libraries(PlayableCharacter PRIVATE glfw glad assimp glm)
 **OpenGL Linking:**
 ```cmake
 if (WIN32)
-    target_link_libraries(PlayableCharacter PRIVATE opengl32)
+    target_link_libraries(RunGame PRIVATE opengl32)
 else()
     find_package(OpenGL REQUIRED)
-    target_link_libraries(PlayableCharacter PRIVATE OpenGL::GL)
+    target_link_libraries(RunGame PRIVATE OpenGL::GL)
 endif()
 ```
 
@@ -1671,15 +1671,15 @@ endif()
 #### ส่วนที่ 7: Copy Resources
 
 ```cmake
-add_custom_command(TARGET PlayableCharacter POST_BUILD
+add_custom_command(TARGET RunGame POST_BUILD
   COMMAND ${CMAKE_COMMAND} -E copy_directory
-    ${CMAKE_SOURCE_DIR}/assets $<TARGET_FILE_DIR:PlayableCharacter>/assets
+    ${CMAKE_SOURCE_DIR}/assets $<TARGET_FILE_DIR:RunGame>/assets
   COMMENT "Copying assets to the target binary directory"
 )
 
-add_custom_command(TARGET PlayableCharacter POST_BUILD
+add_custom_command(TARGET RunGame POST_BUILD
   COMMAND ${CMAKE_COMMAND} -E copy_directory
-    ${CMAKE_SOURCE_DIR}/shaders $<TARGET_FILE_DIR:PlayableCharacter>/shaders
+    ${CMAKE_SOURCE_DIR}/shaders $<TARGET_FILE_DIR:RunGame>/shaders
   COMMENT "Copying shaders to the target binary directory"
 )
 ```
@@ -1702,7 +1702,7 @@ install(DIRECTORY ${CMAKE_SOURCE_DIR}/assets
 
 **Visual Studio Debugger Setup:**
 ```cmake
-set_target_properties(PlayableCharacter PROPERTIES
+set_target_properties(RunGame PROPERTIES
     VS_DEBUGGER_WORKING_DIRECTORY "${CMAKE_SOURCE_DIR}"
     VS_DEBUGGER_ENVIRONMENT "LOGL_ROOT_PATH=${CMAKE_SOURCE_DIR}"
 )

@@ -63,14 +63,14 @@ CMAKE_BINARY_DIR = /Users/sarootareerattanawetch/OpenGL/GameEngProject-Palbom/bu
 # Directory level rules for the build root directory
 
 # The main recursive "all" target.
-all: CMakeFiles/PlayableCharacter.dir/all
+all: CMakeFiles/RunGame.dir/all
 all: CMakeFiles/glad.dir/all
 all: _deps/glfw-build/all
 all: _deps/assimp-build/all
 .PHONY : all
 
 # The main recursive "codegen" target.
-codegen: CMakeFiles/PlayableCharacter.dir/codegen
+codegen: CMakeFiles/RunGame.dir/codegen
 codegen: CMakeFiles/glad.dir/codegen
 codegen: _deps/glfw-build/codegen
 codegen: _deps/assimp-build/codegen
@@ -82,7 +82,7 @@ preinstall: _deps/assimp-build/preinstall
 .PHONY : preinstall
 
 # The main recursive "clean" target.
-clean: CMakeFiles/PlayableCharacter.dir/clean
+clean: CMakeFiles/RunGame.dir/clean
 clean: CMakeFiles/glad.dir/clean
 clean: _deps/glfw-build/clean
 clean: _deps/assimp-build/clean
@@ -294,38 +294,38 @@ _deps/glfw-build/tests/clean: _deps/glfw-build/tests/CMakeFiles/windows.dir/clea
 .PHONY : _deps/glfw-build/tests/clean
 
 #=============================================================================
-# Target rules for target CMakeFiles/PlayableCharacter.dir
+# Target rules for target CMakeFiles/RunGame.dir
 
 # All Build rule for target.
-CMakeFiles/PlayableCharacter.dir/all: CMakeFiles/glad.dir/all
-CMakeFiles/PlayableCharacter.dir/all: _deps/glfw-build/src/CMakeFiles/glfw.dir/all
-CMakeFiles/PlayableCharacter.dir/all: _deps/assimp-build/code/CMakeFiles/assimp.dir/all
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/PlayableCharacter.dir/build.make CMakeFiles/PlayableCharacter.dir/depend
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/PlayableCharacter.dir/build.make CMakeFiles/PlayableCharacter.dir/build
-	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --progress-dir=/Users/sarootareerattanawetch/OpenGL/GameEngProject-Palbom/build/CMakeFiles --progress-num= "Built target PlayableCharacter"
-.PHONY : CMakeFiles/PlayableCharacter.dir/all
+CMakeFiles/RunGame.dir/all: CMakeFiles/glad.dir/all
+CMakeFiles/RunGame.dir/all: _deps/glfw-build/src/CMakeFiles/glfw.dir/all
+CMakeFiles/RunGame.dir/all: _deps/assimp-build/code/CMakeFiles/assimp.dir/all
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/RunGame.dir/build.make CMakeFiles/RunGame.dir/depend
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/RunGame.dir/build.make CMakeFiles/RunGame.dir/build
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --progress-dir=/Users/sarootareerattanawetch/OpenGL/GameEngProject-Palbom/build/CMakeFiles --progress-num= "Built target RunGame"
+.PHONY : CMakeFiles/RunGame.dir/all
 
 # Build rule for subdir invocation for target.
-CMakeFiles/PlayableCharacter.dir/rule: cmake_check_build_system
+CMakeFiles/RunGame.dir/rule: cmake_check_build_system
 	$(CMAKE_COMMAND) -E cmake_progress_start /Users/sarootareerattanawetch/OpenGL/GameEngProject-Palbom/build/CMakeFiles 70
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 CMakeFiles/PlayableCharacter.dir/all
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 CMakeFiles/RunGame.dir/all
 	$(CMAKE_COMMAND) -E cmake_progress_start /Users/sarootareerattanawetch/OpenGL/GameEngProject-Palbom/build/CMakeFiles 0
-.PHONY : CMakeFiles/PlayableCharacter.dir/rule
+.PHONY : CMakeFiles/RunGame.dir/rule
 
 # Convenience name for target.
-PlayableCharacter: CMakeFiles/PlayableCharacter.dir/rule
-.PHONY : PlayableCharacter
+RunGame: CMakeFiles/RunGame.dir/rule
+.PHONY : RunGame
 
 # codegen rule for target.
-CMakeFiles/PlayableCharacter.dir/codegen:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/PlayableCharacter.dir/build.make CMakeFiles/PlayableCharacter.dir/codegen
-	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --progress-dir=/Users/sarootareerattanawetch/OpenGL/GameEngProject-Palbom/build/CMakeFiles --progress-num= "Finished codegen for target PlayableCharacter"
-.PHONY : CMakeFiles/PlayableCharacter.dir/codegen
+CMakeFiles/RunGame.dir/codegen:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/RunGame.dir/build.make CMakeFiles/RunGame.dir/codegen
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --progress-dir=/Users/sarootareerattanawetch/OpenGL/GameEngProject-Palbom/build/CMakeFiles --progress-num= "Finished codegen for target RunGame"
+.PHONY : CMakeFiles/RunGame.dir/codegen
 
 # clean rule for target.
-CMakeFiles/PlayableCharacter.dir/clean:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/PlayableCharacter.dir/build.make CMakeFiles/PlayableCharacter.dir/clean
-.PHONY : CMakeFiles/PlayableCharacter.dir/clean
+CMakeFiles/RunGame.dir/clean:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/RunGame.dir/build.make CMakeFiles/RunGame.dir/clean
+.PHONY : CMakeFiles/RunGame.dir/clean
 
 #=============================================================================
 # Target rules for target CMakeFiles/glad.dir

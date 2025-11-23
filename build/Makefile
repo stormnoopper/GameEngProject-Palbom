@@ -162,17 +162,17 @@ depend:
 .PHONY : depend
 
 #=============================================================================
-# Target rules for targets named PlayableCharacter
+# Target rules for targets named RunGame
 
 # Build rule for target.
-PlayableCharacter: cmake_check_build_system
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 PlayableCharacter
-.PHONY : PlayableCharacter
+RunGame: cmake_check_build_system
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 RunGame
+.PHONY : RunGame
 
 # fast build rule for target.
-PlayableCharacter/fast:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/PlayableCharacter.dir/build.make CMakeFiles/PlayableCharacter.dir/build
-.PHONY : PlayableCharacter/fast
+RunGame/fast:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/RunGame.dir/build.make CMakeFiles/RunGame.dir/build
+.PHONY : RunGame/fast
 
 #=============================================================================
 # Target rules for targets named glad
@@ -645,7 +645,7 @@ src/main.o: src/main.cpp.o
 
 # target to build an object file
 src/main.cpp.o:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/PlayableCharacter.dir/build.make CMakeFiles/PlayableCharacter.dir/src/main.cpp.o
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/RunGame.dir/build.make CMakeFiles/RunGame.dir/src/main.cpp.o
 .PHONY : src/main.cpp.o
 
 src/main.i: src/main.cpp.i
@@ -653,7 +653,7 @@ src/main.i: src/main.cpp.i
 
 # target to preprocess a source file
 src/main.cpp.i:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/PlayableCharacter.dir/build.make CMakeFiles/PlayableCharacter.dir/src/main.cpp.i
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/RunGame.dir/build.make CMakeFiles/RunGame.dir/src/main.cpp.i
 .PHONY : src/main.cpp.i
 
 src/main.s: src/main.cpp.s
@@ -661,7 +661,7 @@ src/main.s: src/main.cpp.s
 
 # target to generate assembly for a file
 src/main.cpp.s:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/PlayableCharacter.dir/build.make CMakeFiles/PlayableCharacter.dir/src/main.cpp.s
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/RunGame.dir/build.make CMakeFiles/RunGame.dir/src/main.cpp.s
 .PHONY : src/main.cpp.s
 
 # Help Target
@@ -678,7 +678,7 @@ help:
 	@echo "... rebuild_cache"
 	@echo "... uninstall"
 	@echo "... update_mappings"
-	@echo "... PlayableCharacter"
+	@echo "... RunGame"
 	@echo "... assimp"
 	@echo "... boing"
 	@echo "... clipboard"
