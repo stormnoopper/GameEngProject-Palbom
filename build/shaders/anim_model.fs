@@ -15,15 +15,21 @@ void main()
 {    
     vec4 texColor = texture(texture_diffuse1, TexCoords);
     
-    // If this is a bomb, force black color
-    if (isBomb)
+    // If texture is invalid/missing (completely black or transparent), use fallback colors
+    bool hasValidTexture = (texColor.r > 0.01 || texColor.g > 0.01 || texColor.b > 0.01);
+    
+    if (!hasValidTexture)
     {
-        texColor = vec4(0.1, 0.1, 0.1, 1.0); // Black color for bomb
-    }
-    // For characters, use original texture color (with fallback for very dark textures)
-    else if (texColor.r < 0.01 && texColor.g < 0.01 && texColor.b < 0.01)
-    {
-        texColor = vec4(0.4, 0.7, 0.9, 1.0); // Default color for characters
+        if (isBomb)
+        {
+            // Bomb without texture: use a visible dark charcoal/gray color
+            texColor = vec4(0.3, 0.3, 0.3, 1.0);
+        }
+        else
+        {
+            // Character without texture: use default blue color
+            texColor = vec4(0.4, 0.7, 0.9, 1.0);
+        }
     }
     
     // Apply lighting
@@ -45,12 +51,6 @@ void main()
     
     // Combine lighting with texture
     vec3 result = (ambient + diffuse + specular) * texColor.rgb;
-    
-    // For bombs, limit maximum brightness to keep it dark
-    if (isBomb)
-    {
-        result = min(result, vec3(0.3, 0.3, 0.3)); // Maximum dark gray/black
-    }
     
     FragColor = vec4(result, texColor.a);
 }

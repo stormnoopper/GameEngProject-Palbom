@@ -33,6 +33,10 @@ struct CharacterPose
     float moveProgress = 0.0f;  // 0.0 to 1.0 for smooth movement
     int targetGridX = 1;
     int targetGridY = 1;
+    
+    // Health system
+    int health = 3;  // 3 hearts
+    float invulnerabilityTimer = 0.0f;  // Prevent multiple hits from one explosion
 };
 
 struct CharacterTextures
@@ -63,8 +67,10 @@ void processInput(GLFWwindow *window, std::vector<std::pair<int, int>>& breakabl
 unsigned int loadCubemap(const std::vector<std::string>& faces);
 bool HasBomb(int gridX, int gridY, const std::vector<Bomb>& bombs);
 bool CanPlaceBomb(int gridX, int gridY, const std::vector<std::pair<int, int>>& breakableBlocks);
-void ExplodeBomb(const Bomb& bomb, std::vector<std::pair<int, int>>& breakableBlocks);
-void UpdateBombs(std::vector<Bomb>& bombs, std::vector<std::pair<int, int>>& breakableBlocks, float deltaTime);
+void ExplodeBomb(const Bomb& bomb, std::vector<std::pair<int, int>>& breakableBlocks, 
+                 CharacterPose& leftPlayer, CharacterPose& rightPlayer);
+void UpdateBombs(std::vector<Bomb>& bombs, std::vector<std::pair<int, int>>& breakableBlocks, 
+                 CharacterPose& leftPlayer, CharacterPose& rightPlayer, float deltaTime);
 
 // settings
 const unsigned int SCR_WIDTH = 1280;
@@ -119,12 +125,6 @@ bool IsWalkable(int gridX, int gridY, const std::vector<std::pair<int, int>>& br
             return false;
     }
 
-    // Check bombs
-    for (const auto& bomb : bombs)
-    {
-        if (!bomb.exploded && bomb.gridX == gridX && bomb.gridY == gridY)
-            return false;
-    }
 
     // Check other character collision
     // Note: This is a simple check. Ideally, we should check if the other character is moving into this tile too.
@@ -743,6 +743,49 @@ int main()
     rightPose.targetGridX = 13;
     rightPose.targetGridY = 13;
 
+    // ------------------------------------------------------------------
+    // UI Setup
+    // ------------------------------------------------------------------
+    const std::string uiVSPath = FileSystem::getPath("shaders/ui.vs");
+    const std::string uiFSPath = FileSystem::getPath("shaders/ui.fs");
+    Shader uiShader(uiVSPath.c_str(), uiFSPath.c_str());
+    
+    // Load UI textures
+    stbi_set_flip_vertically_on_load(true);  // UI textures need to be flipped
+    const std::string heartFullPath = FileSystem::getPath("assets/UI/heart_1.png");
+    const std::string heartEmptyPath = FileSystem::getPath("assets/UI/heart_0.png");
+    const std::string gameOverPath = FileSystem::getPath("assets/UI/gameover.png");
+    unsigned int heartFullTex = loadTexture(heartFullPath.c_str());
+    unsigned int heartEmptyTex = loadTexture(heartEmptyPath.c_str());
+    unsigned int gameOverTex = loadTexture(gameOverPath.c_str());
+    
+    // Create UI quad VAO/VBO
+    float quadVertices[] = {
+        // pos      // tex
+        0.0f, 1.0f, 0.0f, 1.0f,
+        1.0f, 0.0f, 1.0f, 0.0f,
+        0.0f, 0.0f, 0.0f, 0.0f, 
+    
+        0.0f, 1.0f, 0.0f, 1.0f,
+        1.0f, 1.0f, 1.0f, 1.0f,
+        1.0f, 0.0f, 1.0f, 0.0f
+    };
+    unsigned int quadVAO, quadVBO;
+    glGenVertexArrays(1, &quadVAO);
+    glGenBuffers(1, &quadVBO);
+    glBindVertexArray(quadVAO);
+    glBindBuffer(GL_ARRAY_BUFFER, quadVBO);
+    glBufferData(GL_ARRAY_BUFFER, sizeof(quadVertices), quadVertices, GL_STATIC_DRAW);
+    glEnableVertexAttribArray(0);
+    glVertexAttribPointer(0, 2, GL_FLOAT, GL_FALSE, 4 * sizeof(float), (void*)0);
+    glEnableVertexAttribArray(1);
+    glVertexAttribPointer(1, 2, GL_FLOAT, GL_FALSE, 4 * sizeof(float), (void*)(2 * sizeof(float)));
+    glBindVertexArray(0);
+    
+    // Game state
+    bool gameOver = false;
+    int winnerPlayer = 0;  // 1 or 2
+
     float deltaTime = 0.0f;
     float lastFrame = glfwGetTime(); // Initialize with current time to avoid large delta on first frame
     float skyboxRotation = 0.0f; // Skybox rotation angle in radians
@@ -767,7 +810,7 @@ int main()
         processInput(window, breakableBlockPositions, gen, generateBreakableBlocks, leftPose, rightPose, bombs);
 
         // Update bombs
-        UpdateBombs(bombs, breakableBlockPositions, deltaTime);
+        UpdateBombs(bombs, breakableBlockPositions, leftPose, rightPose, deltaTime);
 
         // Update Character Animations
         UpdateCharacterMovement(leftPose, deltaTime);
@@ -785,6 +828,23 @@ int main()
 
         animatorP1.UpdateAnimation(deltaTime);
         animatorP2.UpdateAnimation(deltaTime);
+        
+        // Check for game over
+        if (!gameOver)
+        {
+            if (leftPose.health <= 0)
+            {
+                gameOver = true;
+                winnerPlayer = 2;
+                std::cout << "Game Over! Player 2 Wins!" << std::endl;
+            }
+            else if (rightPose.health <= 0)
+            {
+                gameOver = true;
+                winnerPlayer = 1;
+                std::cout << "Game Over! Player 1 Wins!" << std::endl;
+            }
+        }
 
         // render
         glClearColor(0.1f, 0.1f, 0.15f, 1.0f);
@@ -987,6 +1047,80 @@ int main()
         glDrawArrays(GL_TRIANGLES, 0, 36);
         glBindVertexArray(0);
         glDepthFunc(GL_LESS);
+        
+        // Render UI (hearts and game over)
+        glEnable(GL_BLEND);
+        glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
+        glDisable(GL_DEPTH_TEST);  // UI always on top
+        
+        uiShader.use();
+        glm::mat4 uiProjection = glm::ortho(0.0f, (float)SCR_WIDTH, 0.0f, (float)SCR_HEIGHT);
+        uiShader.setMat4("projection", uiProjection);
+        glBindVertexArray(quadVAO);
+        
+        // Render hearts for Player 1 (top-left)
+        float heartSize = 40.0f;
+        float heartSpacing = 45.0f;
+        float p1StartX = 20.0f;
+        float p1Y = SCR_HEIGHT - 50.0f;
+        
+        for (int i = 0; i < 3; i++)
+        {
+            glm::mat4 model = glm::mat4(1.0f);
+            model = glm::translate(model, glm::vec3(p1StartX + i * heartSpacing, p1Y, 0.0f));
+            model = glm::scale(model, glm::vec3(heartSize, heartSize, 1.0f));
+            uiShader.setMat4("model", model);
+            
+            glActiveTexture(GL_TEXTURE0);
+            if (i < leftPose.health)
+                glBindTexture(GL_TEXTURE_2D, heartFullTex);
+            else
+                glBindTexture(GL_TEXTURE_2D, heartEmptyTex);
+            
+            glDrawArrays(GL_TRIANGLES, 0, 6);
+        }
+        
+        // Render hearts for Player 2 (top-right)
+        float p2StartX = SCR_WIDTH - 20.0f - (3 * heartSpacing);
+        float p2Y = SCR_HEIGHT - 50.0f;
+        
+        for (int i = 0; i < 3; i++)
+        {
+            glm::mat4 model = glm::mat4(1.0f);
+            model = glm::translate(model, glm::vec3(p2StartX + i * heartSpacing, p2Y, 0.0f));
+            model = glm::scale(model, glm::vec3(heartSize, heartSize, 1.0f));
+            uiShader.setMat4("model", model);
+            
+            glActiveTexture(GL_TEXTURE0);
+            if (i < rightPose.health)
+                glBindTexture(GL_TEXTURE_2D, heartFullTex);
+            else
+                glBindTexture(GL_TEXTURE_2D, heartEmptyTex);
+            
+            glDrawArrays(GL_TRIANGLES, 0, 6);
+        }
+        
+        // Render game over screen if game is over
+        if (gameOver)
+        {
+            float gameOverWidth = 600.0f;
+            float gameOverHeight = 400.0f;
+            float gameOverX = (SCR_WIDTH - gameOverWidth) / 2.0f;
+            float gameOverY = (SCR_HEIGHT - gameOverHeight) / 2.0f;
+            
+            glm::mat4 model = glm::mat4(1.0f);
+            model = glm::translate(model, glm::vec3(gameOverX, gameOverY, 0.0f));
+            model = glm::scale(model, glm::vec3(gameOverWidth, gameOverHeight, 1.0f));
+            uiShader.setMat4("model", model);
+            
+            glActiveTexture(GL_TEXTURE0);
+            glBindTexture(GL_TEXTURE_2D, gameOverTex);
+            glDrawArrays(GL_TRIANGLES, 0, 6);
+        }
+        
+        glBindVertexArray(0);
+        glEnable(GL_DEPTH_TEST);
+        glDisable(GL_BLEND);
 
         glfwSwapBuffers(window);
         glfwPollEvents();
@@ -1034,11 +1168,24 @@ bool CanPlaceBomb(int gridX, int gridY, const std::vector<std::pair<int, int>>& 
 }
 
 // Function to explode bomb and destroy breakable blocks in cross pattern
-void ExplodeBomb(const Bomb& bomb, std::vector<std::pair<int, int>>& breakableBlocks)
+void ExplodeBomb(const Bomb& bomb, std::vector<std::pair<int, int>>& breakableBlocks,
+                 CharacterPose& leftPlayer, CharacterPose& rightPlayer)
 {
     const int EXPLOSION_RANGE = 2;  // 2 blocks in each direction
     
-    // Center (bomb position) - already handled
+    // Helper lambda to check and damage player
+    auto checkPlayerDamage = [](CharacterPose& player, int x, int y) {
+        if (player.gridX == x && player.gridY == y && player.invulnerabilityTimer <= 0.0f)
+        {
+            player.health--;
+            player.invulnerabilityTimer = 0.5f;  // 0.5 second invulnerability
+            std::cout << "Player hit! Health remaining: " << player.health << std::endl;
+        }
+    };
+    
+    // Check center (bomb position)
+    checkPlayerDamage(leftPlayer, bomb.gridX, bomb.gridY);
+    checkPlayerDamage(rightPlayer, bomb.gridX, bomb.gridY);
     
     // Up (decrease Y)
     for (int i = 1; i <= EXPLOSION_RANGE; i++)
@@ -1050,12 +1197,28 @@ void ExplodeBomb(const Bomb& bomb, std::vector<std::pair<int, int>>& breakableBl
         if (y < 0 || y >= MAP_SIZE || isRedBlock(x, y))
             break;
         
-        // Remove breakable block if exists
+        // Check player damage
+        checkPlayerDamage(leftPlayer, x, y);
+        checkPlayerDamage(rightPlayer, x, y);
+        
+        // Remove breakable block if exists (and stop explosion if block was there)
+        bool hitBlock = false;
+        for (const auto& pos : breakableBlocks)
+        {
+            if (pos.first == x && pos.second == y)
+            {
+                hitBlock = true;
+                break;
+            }
+        }
+        
         breakableBlocks.erase(
             std::remove_if(breakableBlocks.begin(), breakableBlocks.end(),
                 [x, y](const std::pair<int, int>& pos) { return pos.first == x && pos.second == y; }),
             breakableBlocks.end()
         );
+        
+        if (hitBlock) break;  // Stop explosion after destroying block
     }
     
     // Down (increase Y)
@@ -1068,12 +1231,28 @@ void ExplodeBomb(const Bomb& bomb, std::vector<std::pair<int, int>>& breakableBl
         if (y < 0 || y >= MAP_SIZE || isRedBlock(x, y))
             break;
         
-        // Remove breakable block if exists
+        // Check player damage
+        checkPlayerDamage(leftPlayer, x, y);
+        checkPlayerDamage(rightPlayer, x, y);
+        
+        // Remove breakable block if exists (and stop explosion if block was there)
+        bool hitBlock = false;
+        for (const auto& pos : breakableBlocks)
+        {
+            if (pos.first == x && pos.second == y)
+            {
+                hitBlock = true;
+                break;
+            }
+        }
+        
         breakableBlocks.erase(
             std::remove_if(breakableBlocks.begin(), breakableBlocks.end(),
                 [x, y](const std::pair<int, int>& pos) { return pos.first == x && pos.second == y; }),
             breakableBlocks.end()
         );
+        
+        if (hitBlock) break;
     }
     
     // Left (decrease X)
@@ -1086,12 +1265,28 @@ void ExplodeBomb(const Bomb& bomb, std::vector<std::pair<int, int>>& breakableBl
         if (x < 0 || x >= MAP_SIZE || isRedBlock(x, y))
             break;
         
-        // Remove breakable block if exists
+        // Check player damage
+        checkPlayerDamage(leftPlayer, x, y);
+        checkPlayerDamage(rightPlayer, x, y);
+        
+        // Remove breakable block if exists (and stop explosion if block was there)
+        bool hitBlock = false;
+        for (const auto& pos : breakableBlocks)
+        {
+            if (pos.first == x && pos.second == y)
+            {
+                hitBlock = true;
+                break;
+            }
+        }
+        
         breakableBlocks.erase(
             std::remove_if(breakableBlocks.begin(), breakableBlocks.end(),
                 [x, y](const std::pair<int, int>& pos) { return pos.first == x && pos.second == y; }),
             breakableBlocks.end()
         );
+        
+        if (hitBlock) break;
     }
     
     // Right (increase X)
@@ -1104,18 +1299,41 @@ void ExplodeBomb(const Bomb& bomb, std::vector<std::pair<int, int>>& breakableBl
         if (x < 0 || x >= MAP_SIZE || isRedBlock(x, y))
             break;
         
-        // Remove breakable block if exists
+        // Check player damage
+        checkPlayerDamage(leftPlayer, x, y);
+        checkPlayerDamage(rightPlayer, x, y);
+        
+        // Remove breakable block if exists (and stop explosion if block was there)
+        bool hitBlock = false;
+        for (const auto& pos : breakableBlocks)
+        {
+            if (pos.first == x && pos.second == y)
+            {
+                hitBlock = true;
+                break;
+            }
+        }
+        
         breakableBlocks.erase(
             std::remove_if(breakableBlocks.begin(), breakableBlocks.end(),
                 [x, y](const std::pair<int, int>& pos) { return pos.first == x && pos.second == y; }),
             breakableBlocks.end()
         );
+        
+        if (hitBlock) break;
     }
 }
 
 // Update bombs: countdown timers and explosions
-void UpdateBombs(std::vector<Bomb>& bombs, std::vector<std::pair<int, int>>& breakableBlocks, float deltaTime)
+void UpdateBombs(std::vector<Bomb>& bombs, std::vector<std::pair<int, int>>& breakableBlocks,
+                 CharacterPose& leftPlayer, CharacterPose& rightPlayer, float deltaTime)
 {
+    // Update invulnerability timers
+    if (leftPlayer.invulnerabilityTimer > 0.0f)
+        leftPlayer.invulnerabilityTimer -= deltaTime;
+    if (rightPlayer.invulnerabilityTimer > 0.0f)
+        rightPlayer.invulnerabilityTimer -= deltaTime;
+    
     for (auto& bomb : bombs)
     {
         if (!bomb.exploded)
@@ -1125,7 +1343,7 @@ void UpdateBombs(std::vector<Bomb>& bombs, std::vector<std::pair<int, int>>& bre
             if (bomb.timer <= 0.0f)
             {
                 // Explode!
-                ExplodeBomb(bomb, breakableBlocks);
+                ExplodeBomb(bomb, breakableBlocks, leftPlayer, rightPlayer);
                 bomb.exploded = true;
             }
         }
