@@ -112,6 +112,16 @@ if(TARGET assimp)
   endif()
 endif()
 
+# FreeType for text rendering - use system installation
+find_package(Freetype REQUIRED)
+if(FREETYPE_FOUND)
+  message(STATUS "Found FreeType: ${FREETYPE_LIBRARIES}")
+  include_directories(${FREETYPE_INCLUDE_DIRS})
+else()
+  message(FATAL_ERROR "FreeType not found. Please install it with: brew install freetype")
+endif()
+
+
 # GLAD setup - use GLAD files from LearnOpenGL
 set(LEARNOPENGL_PATH "${CMAKE_SOURCE_DIR}/../LearnOpenGL")
 if(EXISTS "${LEARNOPENGL_PATH}/src/glad.c")
@@ -155,7 +165,7 @@ target_include_directories(RunGame PRIVATE
 add_library(glad STATIC ${GLAD_SOURCE_FILE})
 target_include_directories(glad PUBLIC ${GLAD_INCLUDE_DIR})
 
-target_link_libraries(RunGame PRIVATE glfw glad assimp glm)
+target_link_libraries(RunGame PRIVATE glfw glad assimp glm ${FREETYPE_LIBRARIES})
 
 if (WIN32)
     target_link_libraries(RunGame PRIVATE opengl32)

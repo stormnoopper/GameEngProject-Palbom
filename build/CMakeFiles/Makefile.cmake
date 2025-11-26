@@ -53,6 +53,7 @@ set(CMAKE_MAKEFILE_DEPENDS
   "/usr/local/share/cmake/Modules/FetchContent.cmake"
   "/usr/local/share/cmake/Modules/FetchContent/CMakeLists.cmake.in"
   "/usr/local/share/cmake/Modules/FindDoxygen.cmake"
+  "/usr/local/share/cmake/Modules/FindFreetype.cmake"
   "/usr/local/share/cmake/Modules/FindGit.cmake"
   "/usr/local/share/cmake/Modules/FindOpenGL.cmake"
   "/usr/local/share/cmake/Modules/FindPackageHandleStandardArgs.cmake"
@@ -78,6 +79,7 @@ set(CMAKE_MAKEFILE_DEPENDS
   "/usr/local/share/cmake/Modules/Platform/Linker/Apple-AppleClang-CXX.cmake"
   "/usr/local/share/cmake/Modules/Platform/Linker/Apple-AppleClang.cmake"
   "/usr/local/share/cmake/Modules/Platform/UnixPaths.cmake"
+  "/usr/local/share/cmake/Modules/SelectLibraryConfigurations.cmake"
   "/usr/local/share/cmake/Modules/WriteBasicConfigVersionFile.cmake"
   )
 

@@ -20,6 +20,17 @@
 #include <learnopengl/model.h>
 
 #include "audio_player.h"
+#include <ft2build.h>
+#include FT_FREETYPE_H
+#include <map>
+
+// Text Rendering Structures
+struct Character {
+    unsigned int TextureID;  // ID handle of the glyph texture
+    glm::ivec2   Size;       // Size of glyph
+    glm::ivec2   Bearing;    // Offset from baseline to left/top of glyph
+    unsigned int Advance;    // Offset to advance to next glyph
+};
 
 // Character System Structs
 struct CharacterPose
@@ -63,7 +74,7 @@ void framebuffer_size_callback(GLFWwindow* window, int width, int height);
 void processInput(GLFWwindow *window, std::vector<std::pair<int, int>>& breakableBlockPositions, 
                  std::mt19937& gen, const std::function<void(std::vector<std::pair<int, int>>&, std::mt19937&)>& generateBlocks,
                  CharacterPose& leftCharacter, CharacterPose& rightCharacter,
-                 std::vector<Bomb>& bombs);
+                 std::vector<Bomb>& bombs, bool gameOver);
 unsigned int loadCubemap(const std::vector<std::string>& faces);
 bool HasBomb(int gridX, int gridY, const std::vector<Bomb>& bombs);
 bool CanPlaceBomb(int gridX, int gridY, const std::vector<std::pair<int, int>>& breakableBlocks);
@@ -71,6 +82,8 @@ void ExplodeBomb(const Bomb& bomb, std::vector<std::pair<int, int>>& breakableBl
                  CharacterPose& leftPlayer, CharacterPose& rightPlayer);
 void UpdateBombs(std::vector<Bomb>& bombs, std::vector<std::pair<int, int>>& breakableBlocks, 
                  CharacterPose& leftPlayer, CharacterPose& rightPlayer, float deltaTime);
+void RenderText(Shader& shader, const std::string& text, float x, float y, float scale, 
+                glm::vec3 color, const std::map<char, Character>& Characters, unsigned int VAO, unsigned int VBO);
 
 // settings
 const unsigned int SCR_WIDTH = 1280;
@@ -782,6 +795,132 @@ int main()
     glVertexAttribPointer(1, 2, GL_FLOAT, GL_FALSE, 4 * sizeof(float), (void*)(2 * sizeof(float)));
     glBindVertexArray(0);
     
+    // Load player profile textures (swapped: P1 gets P2 image, P2 gets P1 image)
+    stbi_set_flip_vertically_on_load(true);  // Ensure textures are flipped for OpenGL
+    const std::string player1ProfilePath = FileSystem::getPath("assets/UI/Player2-Profile.png");  // Swapped
+    const std::string player2ProfilePath = FileSystem::getPath("assets/UI/Player1-Profile.png");  // Swapped
+    unsigned int player1ProfileTex = loadTexture(player1ProfilePath.c_str());
+    unsigned int player2ProfileTex = loadTexture(player2ProfilePath.c_str());
+    
+    std::cout << "Player 1 Profile Texture ID: " << player1ProfileTex << std::endl;
+    std::cout << "Player 2 Profile Texture ID: " << player2ProfileTex << std::endl;
+    
+    if (player1ProfileTex == 0 || player2ProfileTex == 0) {
+        std::cout << "ERROR: Failed to load player profile textures!" << std::endl;
+    }
+
+    
+    // ------------------------------------------------------------------
+    // Text Rendering Setup with FreeType
+    // ------------------------------------------------------------------
+    const std::string textVSPath = FileSystem::getPath("shaders/text.vs");
+    const std::string textFSPath = FileSystem::getPath("shaders/text.fs");
+    Shader textShader(textVSPath.c_str(), textFSPath.c_str());
+    
+    FT_Library ft;
+    if (FT_Init_FreeType(&ft))
+    {
+        std::cout << "ERROR::FREETYPE: Could not init FreeType Library" << std::endl;
+        return -1;
+    }
+    
+    // Load font - try to use a system font
+    FT_Face face;
+    // Try common font paths for macOS
+    const char* fontPaths[] = {
+        "/System/Library/Fonts/Supplemental/Arial Bold.ttf",
+        "/System/Library/Fonts/Supplemental/Arial.ttf",
+        "/Library/Fonts/Arial.ttf"
+    };
+    
+    bool fontLoaded = false;
+    for (const char* fontPath : fontPaths)
+    {
+        if (FT_New_Face(ft, fontPath, 0, &face) == 0)
+        {
+            fontLoaded = true;
+            std::cout << "Loaded font: " << fontPath << std::endl;
+            break;
+        }
+    }
+    
+    if (!fontLoaded)
+    {
+        std::cout << "ERROR::FREETYPE: Failed to load font" << std::endl;
+        return -1;
+    }
+    
+    FT_Set_Pixel_Sizes(face, 0, 48);
+    
+    // Disable byte-alignment restriction
+    glPixelStorei(GL_UNPACK_ALIGNMENT, 1);
+    
+    // Load first 128 characters of ASCII set
+    std::map<char, Character> Characters;
+    for (unsigned char c = 0; c < 128; c++)
+    {
+        // Load character glyph
+        if (FT_Load_Char(face, c, FT_LOAD_RENDER))
+        {
+            std::cout << "ERROR::FREETYTPE: Failed to load Glyph" << std::endl;
+            continue;
+        }
+        
+        // Generate texture
+        unsigned int texture;
+        glGenTextures(1, &texture);
+        glBindTexture(GL_TEXTURE_2D, texture);
+        glTexImage2D(
+            GL_TEXTURE_2D,
+            0,
+            GL_RED,
+            face->glyph->bitmap.width,
+            face->glyph->bitmap.rows,
+            0,
+            GL_RED,
+            GL_UNSIGNED_BYTE,
+            face->glyph->bitmap.buffer
+        );
+        
+        // Set texture options
+        glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_CLAMP_TO_EDGE);
+        glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_CLAMP_TO_EDGE);
+        glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR);
+        glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
+        
+        // Store character for later use
+        Character character = {
+            texture,
+            glm::ivec2(face->glyph->bitmap.width, face->glyph->bitmap.rows),
+            glm::ivec2(face->glyph->bitmap_left, face->glyph->bitmap_top),
+            static_cast<unsigned int>(face->glyph->advance.x)
+        };
+        Characters.insert(std::pair<char, Character>(c, character));
+    }
+    glBindTexture(GL_TEXTURE_2D, 0);
+    
+    // Destroy FreeType once we're finished
+    FT_Done_Face(face);
+    FT_Done_FreeType(ft);
+    
+    // Configure VAO/VBO for text rendering
+    unsigned int textVAO, textVBO;
+    glGenVertexArrays(1, &textVAO);
+    glGenBuffers(1, &textVBO);
+    glBindVertexArray(textVAO);
+    glBindBuffer(GL_ARRAY_BUFFER, textVBO);
+    glBufferData(GL_ARRAY_BUFFER, sizeof(float) * 6 * 4, NULL, GL_DYNAMIC_DRAW);
+    glEnableVertexAttribArray(0);
+    glVertexAttribPointer(0, 4, GL_FLOAT, GL_FALSE, 4 * sizeof(float), 0);
+    glBindBuffer(GL_ARRAY_BUFFER, 0);
+    glBindVertexArray(0);
+    
+    // Set text shader projection
+    glm::mat4 textProjection = glm::ortho(0.0f, (float)SCR_WIDTH, 0.0f, (float)SCR_HEIGHT);
+    textShader.use();
+    textShader.setMat4("projection", textProjection);
+
+    
     // Game state
     bool gameOver = false;
     int winnerPlayer = 0;  // 1 or 2
@@ -807,10 +946,13 @@ int main()
         }
 
         // input
-        processInput(window, breakableBlockPositions, gen, generateBreakableBlocks, leftPose, rightPose, bombs);
+        processInput(window, breakableBlockPositions, gen, generateBreakableBlocks, leftPose, rightPose, bombs, gameOver);
 
-        // Update bombs
-        UpdateBombs(bombs, breakableBlockPositions, leftPose, rightPose, deltaTime);
+        // Update bombs (only if game is not over)
+        if (!gameOver)
+        {
+            UpdateBombs(bombs, breakableBlockPositions, leftPose, rightPose, deltaTime);
+        }
 
         // Update Character Animations
         UpdateCharacterMovement(leftPose, deltaTime);
@@ -1053,21 +1195,44 @@ int main()
         glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
         glDisable(GL_DEPTH_TEST);  // UI always on top
         
+        
+        // ------------------------------------------------------------------
+        // Render Player Profile UI
+        // ------------------------------------------------------------------
         uiShader.use();
         glm::mat4 uiProjection = glm::ortho(0.0f, (float)SCR_WIDTH, 0.0f, (float)SCR_HEIGHT);
         uiShader.setMat4("projection", uiProjection);
+        uiShader.setInt("texture1", 0);
         glBindVertexArray(quadVAO);
         
-        // Render hearts for Player 1 (top-left)
+        // Profile and heart dimensions
+        float profileSize = 100.0f;
         float heartSize = 40.0f;
         float heartSpacing = 45.0f;
-        float p1StartX = 20.0f;
-        float p1Y = SCR_HEIGHT - 50.0f;
+        float textPadding = 15.0f;  // Consistent padding between profile and text
         
+        // ===== PLAYER 1 (Left side) =====
+        float p1ProfileX = 20.0f;
+        float p1ProfileY = SCR_HEIGHT - 20.0f - profileSize;
+        
+        // Player 1 Profile image
+        glm::mat4 model = glm::mat4(1.0f);
+        model = glm::translate(model, glm::vec3(p1ProfileX, p1ProfileY, 0.0f));
+        model = glm::scale(model, glm::vec3(profileSize, profileSize, 1.0f));
+        uiShader.setMat4("model", model);
+        glActiveTexture(GL_TEXTURE0);
+        glBindTexture(GL_TEXTURE_2D, player1ProfileTex);
+        glDrawArrays(GL_TRIANGLES, 0, 6);
+        
+        // Player 1 text and hearts start position (to the right of profile)
+        float p1TextX = p1ProfileX + profileSize + textPadding;
+        float p1HeartsY = p1ProfileY + 20.0f;
+        
+        // Player 1 hearts
         for (int i = 0; i < 3; i++)
         {
             glm::mat4 model = glm::mat4(1.0f);
-            model = glm::translate(model, glm::vec3(p1StartX + i * heartSpacing, p1Y, 0.0f));
+            model = glm::translate(model, glm::vec3(p1TextX + i * heartSpacing, p1HeartsY, 0.0f));
             model = glm::scale(model, glm::vec3(heartSize, heartSize, 1.0f));
             uiShader.setMat4("model", model);
             
@@ -1080,14 +1245,30 @@ int main()
             glDrawArrays(GL_TRIANGLES, 0, 6);
         }
         
-        // Render hearts for Player 2 (top-right)
-        float p2StartX = SCR_WIDTH - 20.0f - (3 * heartSpacing);
-        float p2Y = SCR_HEIGHT - 50.0f;
+        // ===== PLAYER 2 (Right side - mirrored layout) =====
+        float p2ProfileX = SCR_WIDTH - 20.0f - profileSize;
+        float p2ProfileY = SCR_HEIGHT - 20.0f - profileSize;
         
+        // Player 2 Profile image
+        model = glm::mat4(1.0f);
+        model = glm::translate(model, glm::vec3(p2ProfileX, p2ProfileY, 0.0f));
+        model = glm::scale(model, glm::vec3(profileSize, profileSize, 1.0f));
+        uiShader.setMat4("model", model);
+        glActiveTexture(GL_TEXTURE0);
+        glBindTexture(GL_TEXTURE_2D, player2ProfileTex);
+        glDrawArrays(GL_TRIANGLES, 0, 6);
+        
+        // Player 2 text and hearts end position (to the left of profile, mirrored)
+        // Hearts should end at the left edge of the profile with same padding
+        float p2HeartsEndX = p2ProfileX - textPadding;  // Right edge of hearts area
+        float p2TextX = p2HeartsEndX - (3 * heartSpacing - heartSpacing + heartSize);  // Start of first heart
+        float p2HeartsY = p2ProfileY + 20.0f;
+        
+        // Player 2 hearts
         for (int i = 0; i < 3; i++)
         {
             glm::mat4 model = glm::mat4(1.0f);
-            model = glm::translate(model, glm::vec3(p2StartX + i * heartSpacing, p2Y, 0.0f));
+            model = glm::translate(model, glm::vec3(p2TextX + i * heartSpacing, p2HeartsY, 0.0f));
             model = glm::scale(model, glm::vec3(heartSize, heartSize, 1.0f));
             uiShader.setMat4("model", model);
             
@@ -1100,9 +1281,23 @@ int main()
             glDrawArrays(GL_TRIANGLES, 0, 6);
         }
         
+        // Unbind VAO before text rendering
+        glBindVertexArray(0);
+        
+        // ===== TEXT RENDERING =====
+        // Render text after all texture-based UI to avoid state conflicts
+        float p1TextY = p1ProfileY + profileSize - 15.0f;
+        RenderText(textShader, "PLAYER 1", p1TextX, p1TextY, 0.5f, glm::vec3(1.0f, 1.0f, 1.0f), Characters, textVAO, textVBO);
+        
+        float p2TextY = p2ProfileY + profileSize - 15.0f;
+        RenderText(textShader, "PLAYER 2", p2TextX, p2TextY, 0.5f, glm::vec3(1.0f, 1.0f, 1.0f), Characters, textVAO, textVBO);
+        
         // Render game over screen if game is over
         if (gameOver)
         {
+            uiShader.use();  // Ensure UI shader is active
+            glBindVertexArray(quadVAO);
+            
             float gameOverWidth = 600.0f;
             float gameOverHeight = 400.0f;
             float gameOverX = (SCR_WIDTH - gameOverWidth) / 2.0f;
@@ -1357,10 +1552,14 @@ void UpdateBombs(std::vector<Bomb>& bombs, std::vector<std::pair<int, int>>& bre
 void processInput(GLFWwindow *window, std::vector<std::pair<int, int>>& breakableBlockPositions, 
                  std::mt19937& gen, const std::function<void(std::vector<std::pair<int, int>>&, std::mt19937&)>& generateBlocks,
                  CharacterPose& leftCharacter, CharacterPose& rightCharacter,
-                 std::vector<Bomb>& bombs)
+                 std::vector<Bomb>& bombs, bool gameOver)
 {
     if (glfwGetKey(window, GLFW_KEY_ESCAPE) == GLFW_PRESS)
         glfwSetWindowShouldClose(window, true);
+    
+    // Disable all game controls if game is over
+    if (gameOver)
+        return;
     
     // R key to regenerate breakable blocks
     static bool rKeyPressed = false;
@@ -1467,3 +1666,58 @@ unsigned int loadCubemap(const std::vector<std::string>& faces)
 
     return textureID;
 }
+
+// Function to render text
+void RenderText(Shader& shader, const std::string& text, float x, float y, float scale, 
+                glm::vec3 color, const std::map<char, Character>& Characters, unsigned int VAO, unsigned int VBO)
+{
+    shader.use();
+    shader.setVec3("textColor", color);
+    glActiveTexture(GL_TEXTURE0);
+    glBindVertexArray(VAO);
+
+    // iterate through all characters
+    std::string::const_iterator c;
+    for (c = text.begin(); c != text.end(); c++)
+    {
+        auto it = Characters.find(*c);
+        if (it == Characters.end())
+            continue;  // Skip characters not in our map
+            
+        Character ch = it->second;
+
+        float xpos = x + ch.Bearing.x * scale;
+        float ypos = y - (ch.Size.y - ch.Bearing.y) * scale;
+
+        float w = ch.Size.x * scale;
+        float h = ch.Size.y * scale;
+        
+        // update VBO for each character
+        float vertices[6][4] = {
+            { xpos,     ypos + h,   0.0f, 0.0f },            
+            { xpos,     ypos,       0.0f, 1.0f },
+            { xpos + w, ypos,       1.0f, 1.0f },
+
+            { xpos,     ypos + h,   0.0f, 0.0f },
+            { xpos + w, ypos,       1.0f, 1.0f },
+            { xpos + w, ypos + h,   1.0f, 0.0f }           
+        };
+        
+        // render glyph texture over quad
+        glBindTexture(GL_TEXTURE_2D, ch.TextureID);
+        
+        // update content of VBO memory
+        glBindBuffer(GL_ARRAY_BUFFER, VBO);
+        glBufferSubData(GL_ARRAY_BUFFER, 0, sizeof(vertices), vertices);
+        glBindBuffer(GL_ARRAY_BUFFER, 0);
+        
+        // render quad
+        glDrawArrays(GL_TRIANGLES, 0, 6);
+        
+        // advance cursors for next glyph
+        x += (ch.Advance >> 6) * scale;
+    }
+    glBindVertexArray(0);
+    glBindTexture(GL_TEXTURE_2D, 0);
+}
+

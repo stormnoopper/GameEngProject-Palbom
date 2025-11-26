@@ -1237,4 +1237,22 @@ CMakeFiles/RunGame.dir/src/main.cpp.o: \
   /Users/sarootareerattanawetch/OpenGL/GameEngProject-Palbom/build/learnopengl/mesh.h \
   /Users/sarootareerattanawetch/OpenGL/GameEngProject-Palbom/build/learnopengl/shader.h \
   /Users/sarootareerattanawetch/OpenGL/GameEngProject-Palbom/build/learnopengl/model.h \
-  /Users/sarootareerattanawetch/OpenGL/GameEngProject-Palbom/src/audio_player.h
+  /Users/sarootareerattanawetch/OpenGL/GameEngProject-Palbom/src/audio_player.h \
+  /usr/local/include/freetype2/ft2build.h \
+  /usr/local/include/freetype2/freetype/config/ftheader.h \
+  /usr/local/include/freetype2/freetype/freetype.h \
+  /usr/local/include/freetype2/freetype/config/ftconfig.h \
+  /usr/local/include/freetype2/freetype/config/ftoption.h \
+  /usr/local/include/freetype2/freetype/config/ftstdlib.h \
+  /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk/usr/include/setjmp.h \
+  /usr/local/include/freetype2/freetype/config/integer-types.h \
+  /usr/local/include/freetype2/freetype/config/public-macros.h \
+  /usr/local/include/freetype2/freetype/config/mac-support.h \
+  /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk/usr/include/AvailabilityMacros.h \
+  /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk/usr/include/TargetConditionals.h \
+  /usr/local/include/freetype2/freetype/fttypes.h \
+  /usr/local/include/freetype2/freetype/ftsystem.h \
+  /usr/local/include/freetype2/freetype/ftimage.h \
+  /usr/local/include/freetype2/freetype/fterrors.h \
+  /usr/local/include/freetype2/freetype/ftmoderr.h \
+  /usr/local/include/freetype2/freetype/fterrdef.h

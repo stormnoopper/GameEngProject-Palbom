@@ -114,6 +114,7 @@ RunGame: CMakeFiles/RunGame.dir/build.make
 RunGame: _deps/glfw-build/src/libglfw3.a
 RunGame: libglad.a
 RunGame: _deps/assimp-build/lib/libassimp.a
+RunGame: /usr/local/lib/libfreetype.dylib
 RunGame: /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk/System/Library/Frameworks/OpenGL.framework
 RunGame: /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk/usr/lib/libz.tbd
 RunGame: CMakeFiles/RunGame.dir/link.txt

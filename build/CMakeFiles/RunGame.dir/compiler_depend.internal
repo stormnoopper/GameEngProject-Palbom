@@ -2017,7 +2017,9 @@ CMakeFiles/RunGame.dir/src/main.cpp.o
  /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk/usr/include/Availability.h
  /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk/usr/include/AvailabilityInternal.h
  /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk/usr/include/AvailabilityInternalLegacy.h
+ /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk/usr/include/AvailabilityMacros.h
  /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk/usr/include/AvailabilityVersions.h
+ /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk/usr/include/TargetConditionals.h
  /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk/usr/include/___wctype.h
  /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk/usr/include/__wctype.h
  /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk/usr/include/__xlocale.h
@@ -2765,6 +2767,7 @@ CMakeFiles/RunGame.dir/src/main.cpp.o
  /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk/usr/include/pthread/sched.h
  /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk/usr/include/runetype.h
  /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk/usr/include/sched.h
+ /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk/usr/include/setjmp.h
  /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk/usr/include/stddef.h
  /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk/usr/include/stdint.h
  /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk/usr/include/stdio.h
@@ -3252,4 +3255,19 @@ CMakeFiles/RunGame.dir/src/main.cpp.o
  /Users/sarootareerattanawetch/OpenGL/GameEngProject-Palbom/build/thirdparty/glad/include/KHR/khrplatform.h
  /Users/sarootareerattanawetch/OpenGL/GameEngProject-Palbom/build/thirdparty/glad/include/glad/glad.h
  /Users/sarootareerattanawetch/OpenGL/GameEngProject-Palbom/src/audio_player.h
+ /usr/local/include/freetype2/freetype/config/ftconfig.h
+ /usr/local/include/freetype2/freetype/config/ftheader.h
+ /usr/local/include/freetype2/freetype/config/ftoption.h
+ /usr/local/include/freetype2/freetype/config/ftstdlib.h
+ /usr/local/include/freetype2/freetype/config/integer-types.h
+ /usr/local/include/freetype2/freetype/config/mac-support.h
+ /usr/local/include/freetype2/freetype/config/public-macros.h
+ /usr/local/include/freetype2/freetype/freetype.h
+ /usr/local/include/freetype2/freetype/fterrdef.h
+ /usr/local/include/freetype2/freetype/fterrors.h
+ /usr/local/include/freetype2/freetype/ftimage.h
+ /usr/local/include/freetype2/freetype/ftmoderr.h
+ /usr/local/include/freetype2/freetype/ftsystem.h
+ /usr/local/include/freetype2/freetype/fttypes.h
+ /usr/local/include/freetype2/ft2build.h
 
