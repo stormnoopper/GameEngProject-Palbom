@@ -111,7 +111,7 @@ void framebuffer_size_callback(GLFWwindow* window, int width, int height);
 void processInput(GLFWwindow *window, std::vector<std::pair<int, int>>& breakableBlockPositions, 
                  std::mt19937& gen, const std::function<void(std::vector<std::pair<int, int>>&, std::mt19937&)>& generateBlocks,
                  CharacterPose& leftCharacter, CharacterPose& rightCharacter,
-                 std::vector<Bomb>& bombs, bool gameOver);
+                 std::vector<Bomb>& bombs, bool gameOver, std::vector<AudioPlayer>& bombSounds, int& bombSoundIndex);
 unsigned int loadCubemap(const std::vector<std::string>& faces);
 bool HasBomb(int gridX, int gridY, const std::vector<Bomb>& bombs);
 bool CanPlaceBomb(int gridX, int gridY, const std::vector<std::pair<int, int>>& breakableBlocks);
@@ -120,7 +120,7 @@ void ExplodeBomb(const Bomb& bomb, std::vector<std::pair<int, int>>& breakableBl
                  CharacterPose& leftPlayer, CharacterPose& rightPlayer, std::vector<PowerUp>& powerUps);
 void UpdateBombs(std::vector<Bomb>& bombs, std::vector<std::pair<int, int>>& breakableBlocks, 
                  CharacterPose& leftPlayer, CharacterPose& rightPlayer, float deltaTime, std::vector<PowerUp>& powerUps);
-void UpdatePowerUps(std::vector<PowerUp>& powerUps, CharacterPose& leftPlayer, CharacterPose& rightPlayer, float deltaTime);
+void UpdatePowerUps(std::vector<PowerUp>& powerUps, CharacterPose& leftPlayer, CharacterPose& rightPlayer, float deltaTime, std::vector<AudioPlayer>& pickupSounds, int& pickupSoundIndex);
 void RenderText(Shader& shader, const std::string& text, float x, float y, float scale, 
                 glm::vec3 color, const std::map<char, Character>& Characters, unsigned int VAO, unsigned int VBO);
 void mouse_button_callback(GLFWwindow* window, int button, int action, int mods);
@@ -630,6 +630,34 @@ int main()
     
     // Set global pointer for volume control from settings UI
     globalBackgroundMusic = &backgroundMusic;
+    
+    // Initialize item pickup sound effect with multiple instances for stacking
+    const int ITEM_SOUND_POOL_SIZE = 5;
+    std::vector<AudioPlayer> itemPickupSounds(ITEM_SOUND_POOL_SIZE);
+    int currentItemSoundIndex = 0;
+    
+    std::string itemSoundPath = FileSystem::getPath("assets/sound/GetItem.wav");
+    for (int i = 0; i < ITEM_SOUND_POOL_SIZE; i++) {
+        if (itemPickupSounds[i].loadFile(itemSoundPath)) {
+            itemPickupSounds[i].setVolume(0.3f);  // 30% volume - lighter sound
+        } else {
+            std::cout << "Warning: Could not load item pickup sound " << i << " from: " << itemSoundPath << std::endl;
+        }
+    }
+    
+    // Initialize bomb placement sound effect with multiple instances for stacking
+    const int BOMB_SOUND_POOL_SIZE = 5;
+    std::vector<AudioPlayer> bombPlaceSounds(BOMB_SOUND_POOL_SIZE);
+    int currentBombSoundIndex = 0;
+    
+    std::string bombSoundPath = FileSystem::getPath("assets/sound/BombEffect.MP3");
+    for (int i = 0; i < BOMB_SOUND_POOL_SIZE; i++) {
+        if (bombPlaceSounds[i].loadFile(bombSoundPath)) {
+            bombPlaceSounds[i].setVolume(0.3f);  // 30% volume - lighter sound
+        } else {
+            std::cout << "Warning: Could not load bomb placement sound " << i << " from: " << bombSoundPath << std::endl;
+        }
+    }
 
     // build and compile shaders
     Shader shader("shaders/tile.vs", "shaders/tile.fs");
@@ -1247,14 +1275,14 @@ int main()
         }
 
         // input
-        processInput(window, breakableBlockPositions, gen, generateBreakableBlocks, leftPose, rightPose, bombs, gameOver);
+        processInput(window, breakableBlockPositions, gen, generateBreakableBlocks, leftPose, rightPose, bombs, gameOver, bombPlaceSounds, currentBombSoundIndex);
 
 
         // Update bombs (only if game is not over)
         if (!gameOver)
         {
             UpdateBombs(bombs, breakableBlockPositions, leftPose, rightPose, deltaTime, powerUps);
-            UpdatePowerUps(powerUps, leftPose, rightPose, deltaTime);
+            UpdatePowerUps(powerUps, leftPose, rightPose, deltaTime, itemPickupSounds, currentItemSoundIndex);
         }
 
         // Update Character Animations
@@ -2336,7 +2364,7 @@ void UpdateBombs(std::vector<Bomb>& bombs, std::vector<std::pair<int, int>>& bre
 }
 
 // Update power-ups: handle spinning animation and pickup detection
-void UpdatePowerUps(std::vector<PowerUp>& powerUps, CharacterPose& leftPlayer, CharacterPose& rightPlayer, float deltaTime)
+void UpdatePowerUps(std::vector<PowerUp>& powerUps, CharacterPose& leftPlayer, CharacterPose& rightPlayer, float deltaTime, std::vector<AudioPlayer>& pickupSounds, int& pickupSoundIndex)
 {
     const float SPIN_SPEED = 2.0f;  // Rotations per second
     const float BOOST_DURATION = 10.0f;  // 10 seconds of boost
@@ -2405,6 +2433,10 @@ void UpdatePowerUps(std::vector<PowerUp>& powerUps, CharacterPose& leftPlayer, C
         
         if (pickedUp)
         {
+            // Play pickup sound from pool (allows stacking)
+            pickupSounds[pickupSoundIndex].play();
+            pickupSoundIndex = (pickupSoundIndex + 1) % pickupSounds.size();
+            
             it = powerUps.erase(it);  // Remove picked up power-up
         }
         else
@@ -2418,7 +2450,7 @@ void UpdatePowerUps(std::vector<PowerUp>& powerUps, CharacterPose& leftPlayer, C
 void processInput(GLFWwindow *window, std::vector<std::pair<int, int>>& breakableBlockPositions, 
                  std::mt19937& gen, const std::function<void(std::vector<std::pair<int, int>>&, std::mt19937&)>& generateBlocks,
                  CharacterPose& leftCharacter, CharacterPose& rightCharacter,
-                 std::vector<Bomb>& bombs, bool gameOver)
+                 std::vector<Bomb>& bombs, bool gameOver, std::vector<AudioPlayer>& bombSounds, int& bombSoundIndex)
 {
     if (glfwGetKey(window, GLFW_KEY_ESCAPE) == GLFW_PRESS)
         glfwSetWindowShouldClose(window, true);
@@ -2458,6 +2490,11 @@ void processInput(GLFWwindow *window, std::vector<std::pair<int, int>>& breakabl
         {
             bombs.push_back(Bomb(bombX, bombY, 1));
             leftCharacter.activeBombCount++;
+            
+            // Play bomb placement sound from pool (allows stacking)
+            bombSounds[bombSoundIndex].play();
+            bombSoundIndex = (bombSoundIndex + 1) % bombSounds.size();
+            
             std::cout << "P1 placed bomb at (" << bombX << ", " << bombY << ") [" 
                       << leftCharacter.activeBombCount << "/3]" << std::endl;
         }
@@ -2485,6 +2522,11 @@ void processInput(GLFWwindow *window, std::vector<std::pair<int, int>>& breakabl
         {
             bombs.push_back(Bomb(bombX, bombY, 2));
             rightCharacter.activeBombCount++;
+            
+            // Play bomb placement sound from pool (allows stacking)
+            bombSounds[bombSoundIndex].play();
+            bombSoundIndex = (bombSoundIndex + 1) % bombSounds.size();
+            
             std::cout << "P2 placed bomb at (" << bombX << ", " << bombY << ") [" 
                       << rightCharacter.activeBombCount << "/3]" << std::endl;
         }
