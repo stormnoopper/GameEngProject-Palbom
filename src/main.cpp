@@ -78,6 +78,7 @@ void processInput(GLFWwindow *window, std::vector<std::pair<int, int>>& breakabl
 unsigned int loadCubemap(const std::vector<std::string>& faces);
 bool HasBomb(int gridX, int gridY, const std::vector<Bomb>& bombs);
 bool CanPlaceBomb(int gridX, int gridY, const std::vector<std::pair<int, int>>& breakableBlocks);
+std::vector<std::pair<int, int>> GetExplosionTiles(const Bomb& bomb, const std::vector<std::pair<int, int>>& breakableBlocks);
 void ExplodeBomb(const Bomb& bomb, std::vector<std::pair<int, int>>& breakableBlocks, 
                  CharacterPose& leftPlayer, CharacterPose& rightPlayer);
 void UpdateBombs(std::vector<Bomb>& bombs, std::vector<std::pair<int, int>>& breakableBlocks, 
@@ -677,9 +678,20 @@ int main()
     unsigned int borderTexture = loadTexture(borderTexturePath.c_str());
     if (borderTexture == 0)
     {
-        std::cout << "Failed to load border texture. Trying alternative path..." << std::endl;
+        std::cerr << "Warning: Failed to load borderTexture from " << borderTexturePath << ", trying relative path..." << std::endl;
         borderTexture = loadTexture("assets/Unbreakable_Block/tudor_wall_01_basecolor_1k.png");
     }
+    
+    // Load bomb range texture (lava rocks for dramatic effect)
+    std::string bombRangeTexturePath = FileSystem::getPath("assets/BombRange/lava_rocks_01_color_1k.png");
+    unsigned int bombRangeTexture = loadTexture(bombRangeTexturePath.c_str());
+    if (bombRangeTexture == 0)
+    {
+        std::cerr << "Warning: Failed to load bombRangeTexture from " << bombRangeTexturePath << ", trying relative path..." << std::endl;
+        bombRangeTexture = loadTexture("assets/BombRange/lava_rocks_01_color_1k.png");
+    }
+    std::cout << "Bomb range texture loaded successfully" << std::endl;
+
 
     std::string breakableTexturePath = FileSystem::getPath("assets/Breakable_Block/wood_05_baseColor_1k.png");
     unsigned int breakableTexture = loadTexture(breakableTexturePath.c_str());
@@ -1330,6 +1342,59 @@ int main()
             glDrawElements(GL_TRIANGLES, 36, GL_UNSIGNED_INT, 0);
         }
 
+        // Render bomb explosion range indicators (semi-transparent overlays)
+        if (!bombs.empty())
+        {
+            glEnable(GL_BLEND);
+            glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
+            
+            // Use a simple colored shader or reuse existing shader
+            // We'll render using the current shader with a solid red color texture
+            // Since we don't have a solid color texture loaded, we'll use the existing shader
+            // and render slightly above ground to show the effect
+            
+            for (const auto& bomb : bombs)
+            {
+                if (!bomb.exploded)
+                {
+                    // Get all tiles that will be affected by this bomb
+                    std::vector<std::pair<int, int>> explosionTiles = GetExplosionTiles(bomb, breakableBlockPositions);
+                    
+                    // Calculate pulsing alpha based on bomb timer
+                    // More transparent as timer gets closer to 0 (more urgent)
+                    float timerRatio = bomb.timer / 3.0f;  // 3.0f is the initial timer value
+                    float pulseFrequency = 3.0f;  // Pulse faster as time runs out
+                    float pulsePhase = glfwGetTime() * pulseFrequency * (1.0f + (1.0f - timerRatio));
+                    float baseAlpha = 0.3f + 0.2f * (1.0f - timerRatio);  // Increase base alpha as timer decreases
+                    float pulseAlpha = baseAlpha + 0.15f * sin(pulsePhase);
+                    
+                    // Render semi-transparent quads on each affected tile
+                    for (const auto& tile : explosionTiles)
+                    {
+                        int x = tile.first;
+                        int y = tile.second;
+                        
+                        float tileX = MAP_OFFSET + x * TILE_SIZE;
+                        float tileZ = MAP_OFFSET + y * TILE_SIZE;
+                        
+                        // Render a flat quad slightly above the ground
+                        glm::mat4 model = glm::mat4(1.0f);
+                        model = glm::translate(model, glm::vec3(tileX, BLOCK_HEIGHT + 0.01f, tileZ));
+                        // Scale to cover the tile and make it flat (very thin in Y direction)
+                        model = glm::scale(model, glm::vec3(TILE_SIZE * 0.9f, 0.001f, TILE_SIZE * 0.9f));
+                        shader.setMat4("model", model);
+                        
+                        // Use the lava rocks bomb range texture for dramatic effect
+                        glBindTexture(GL_TEXTURE_2D, bombRangeTexture);
+                        
+                        glDrawElements(GL_TRIANGLES, 36, GL_UNSIGNED_INT, 0);
+                    }
+                }
+            }
+            
+            glDisable(GL_BLEND);
+        }
+
         // glfw: swap buffers and poll IO events
 
         // Render characters
@@ -1701,6 +1766,122 @@ bool CanPlaceBomb(int gridX, int gridY, const std::vector<std::pair<int, int>>& 
             return false;
     }
     return true;
+}
+
+// Helper function to get all tiles that will be affected by bomb explosion
+std::vector<std::pair<int, int>> GetExplosionTiles(const Bomb& bomb, const std::vector<std::pair<int, int>>& breakableBlocks)
+{
+    const int EXPLOSION_RANGE = 2;  // 2 blocks in each direction
+    std::vector<std::pair<int, int>> explosionTiles;
+    
+    // Add center (bomb position)
+    explosionTiles.push_back({bomb.gridX, bomb.gridY});
+    
+    // Up (decrease Y)
+    for (int i = 1; i <= EXPLOSION_RANGE; i++)
+    {
+        int x = bomb.gridX;
+        int y = bomb.gridY - i;
+        
+        // Stop if hit unbreakable block or border
+        if (y < 0 || y >= MAP_SIZE || isRedBlock(x, y))
+            break;
+        
+        explosionTiles.push_back({x, y});
+        
+        // Check if there's a breakable block here (stop after this tile if so)
+        bool hitBlock = false;
+        for (const auto& pos : breakableBlocks)
+        {
+            if (pos.first == x && pos.second == y)
+            {
+                hitBlock = true;
+                break;
+            }
+        }
+        
+        if (hitBlock) break;
+    }
+    
+    // Down (increase Y)
+    for (int i = 1; i <= EXPLOSION_RANGE; i++)
+    {
+        int x = bomb.gridX;
+        int y = bomb.gridY + i;
+        
+        // Stop if hit unbreakable block or border
+        if (y < 0 || y >= MAP_SIZE || isRedBlock(x, y))
+            break;
+        
+        explosionTiles.push_back({x, y});
+        
+        // Check if there's a breakable block here
+        bool hitBlock = false;
+        for (const auto& pos : breakableBlocks)
+        {
+            if (pos.first == x && pos.second == y)
+            {
+                hitBlock = true;
+                break;
+            }
+        }
+        
+        if (hitBlock) break;
+    }
+    
+    // Left (decrease X)
+    for (int i = 1; i <= EXPLOSION_RANGE; i++)
+    {
+        int x = bomb.gridX - i;
+        int y = bomb.gridY;
+        
+        // Stop if hit unbreakable block or border
+        if (x < 0 || x >= MAP_SIZE || isRedBlock(x, y))
+            break;
+        
+        explosionTiles.push_back({x, y});
+        
+        // Check if there's a breakable block here
+        bool hitBlock = false;
+        for (const auto& pos : breakableBlocks)
+        {
+            if (pos.first == x && pos.second == y)
+            {
+                hitBlock = true;
+                break;
+            }
+        }
+        
+        if (hitBlock) break;
+    }
+    
+    // Right (increase X)
+    for (int i = 1; i <= EXPLOSION_RANGE; i++)
+    {
+        int x = bomb.gridX + i;
+        int y = bomb.gridY;
+        
+        // Stop if hit unbreakable block or border
+        if (x < 0 || x >= MAP_SIZE || isRedBlock(x, y))
+            break;
+        
+        explosionTiles.push_back({x, y});
+        
+        // Check if there's a breakable block here
+        bool hitBlock = false;
+        for (const auto& pos : breakableBlocks)
+        {
+            if (pos.first == x && pos.second == y)
+            {
+                hitBlock = true;
+                break;
+            }
+        }
+        
+        if (hitBlock) break;
+    }
+    
+    return explosionTiles;
 }
 
 // Function to explode bomb and destroy breakable blocks in cross pattern
