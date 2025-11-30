@@ -158,6 +158,12 @@ bool IsWalkable(int gridX, int gridY, const std::vector<std::pair<int, int>>& br
             return false;
     }
 
+    // Check bombs - players cannot walk through bombs
+    for (const auto& bomb : bombs)
+    {
+        if (!bomb.exploded && bomb.gridX == gridX && bomb.gridY == gridY)
+            return false;
+    }
 
     // Check other character collision
     // Note: This is a simple check. Ideally, we should check if the other character is moving into this tile too.
