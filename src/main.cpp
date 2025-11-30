@@ -82,9 +82,10 @@ struct Bomb
 // Power-Up Type Enum
 enum class PowerUpType {
     RANGE_BOOST,      // Blue power - increases bomb range for 10 seconds
-    BOMB_CAPACITY,    // Red bomb - increases max bomb count permanently
+    BOMB_CAPACITY,    // Orange bomb - increases max bomb count permanently
     SHIELD,           // White shield - protects from damage for 5 seconds
-    SPEED_BOOST       // Green speed - increases movement speed for 10 seconds
+    SPEED_BOOST,      // Green speed - increases movement speed for 10 seconds
+    HEART             // Red heart - restores 1 health point (max 3)
 };
 
 // Power-Up System Struct
@@ -906,6 +907,10 @@ int main()
     const std::string speedModelPath = FileSystem::getPath("assets/item/Speed.glb");
     Model speedModel(speedModelPath);
     std::cout << "Speed model loaded from: " << speedModelPath << std::endl;
+    
+    const std::string heartModelPath = FileSystem::getPath("assets/item/Heart.glb");
+    Model heartModel(heartModelPath);
+    std::cout << "Heart model loaded from: " << heartModelPath << std::endl;
 
 
     // ------------------------------------------------------------------
@@ -1611,6 +1616,17 @@ int main()
                 characterShader.setVec3("objectColor", glm::vec3(0.2f, 1.0f, 0.2f));
                 
                 speedModel.Draw(characterShader);
+            } else if (powerUp.type == PowerUpType::HEART) {
+                // Red heart.glb model
+                // Just scale, no extra rotation needed for Y-spin
+                model = glm::scale(model, glm::vec3(3.0f));  // Medium size
+                characterShader.setMat4("model", model);
+                
+                // Use RED LIGHT for bright red heart
+                characterShader.setVec3("lightColor", glm::vec3(4.0f, 0.0f, 0.0f));
+                characterShader.setVec3("objectColor", glm::vec3(1.0f, 0.0f, 0.0f));
+                
+                heartModel.Draw(characterShader);
             }
         }
         
@@ -2167,23 +2183,26 @@ void ExplodeBomb(const Bomb& bomb, std::vector<std::pair<int, int>>& breakableBl
         
         // Randomly spawn power-up if block was destroyed
         if (blockDestroyed && dropChance(gen) < POWERUP_DROP_RATE) {
-            // Randomly choose power-up type (25% each for 4 types)
+            // Randomly choose power-up type (20% each for 5 types)
             float typeRoll = dropChance(gen);
             PowerUpType type;
-            if (typeRoll < 0.25f) {
+            if (typeRoll < 0.20f) {
                 type = PowerUpType::RANGE_BOOST;
-            } else if (typeRoll < 0.50f) {
+            } else if (typeRoll < 0.40f) {
                 type = PowerUpType::BOMB_CAPACITY;
-            } else if (typeRoll < 0.75f) {
+            } else if (typeRoll < 0.60f) {
                 type = PowerUpType::SHIELD;
-            } else {
+            } else if (typeRoll < 0.80f) {
                 type = PowerUpType::SPEED_BOOST;
+            } else {
+                type = PowerUpType::HEART;
             }
             
             powerUps.push_back(PowerUp(x, y, type));
             std::string typeName = (type == PowerUpType::RANGE_BOOST) ? "RANGE_BOOST" :
                                   (type == PowerUpType::BOMB_CAPACITY) ? "BOMB_CAPACITY" :
-                                  (type == PowerUpType::SHIELD) ? "SHIELD" : "SPEED_BOOST";
+                                  (type == PowerUpType::SHIELD) ? "SHIELD" :
+                                  (type == PowerUpType::SPEED_BOOST) ? "SPEED_BOOST" : "HEART";
             std::cout << "Power-up spawned at (" << x << ", " << y << ") - Type: " << typeName << std::endl;
         }
         
@@ -2344,6 +2363,13 @@ void UpdatePowerUps(std::vector<PowerUp>& powerUps, CharacterPose& leftPlayer, C
             } else if (it->type == PowerUpType::SPEED_BOOST) {
                 leftPlayer.speedBoostTimer = BOOST_DURATION;  // Speed boost lasts 10 seconds
                 std::cout << "P1 picked up SPEED BOOST! Movement speed increased for 10 seconds" << std::endl;
+            } else if (it->type == PowerUpType::HEART) {
+                if (leftPlayer.health < 3) {
+                    leftPlayer.health++;
+                    std::cout << "P1 picked up HEART! Health restored to " << leftPlayer.health << "/3" << std::endl;
+                } else {
+                    std::cout << "P1 picked up HEART but health is already full (3/3)" << std::endl;
+                }
             }
             pickedUp = true;
         }
@@ -2362,6 +2388,13 @@ void UpdatePowerUps(std::vector<PowerUp>& powerUps, CharacterPose& leftPlayer, C
             } else if (it->type == PowerUpType::SPEED_BOOST) {
                 rightPlayer.speedBoostTimer = BOOST_DURATION;  // Speed boost lasts 10 seconds
                 std::cout << "P2 picked up SPEED BOOST! Movement speed increased for 10 seconds" << std::endl;
+            } else if (it->type == PowerUpType::HEART) {
+                if (rightPlayer.health < 3) {
+                    rightPlayer.health++;
+                    std::cout << "P2 picked up HEART! Health restored to " << rightPlayer.health << "/3" << std::endl;
+                } else {
+                    std::cout << "P2 picked up HEART but health is already full (3/3)" << std::endl;
+                }
             }
             pickedUp = true;
         }
