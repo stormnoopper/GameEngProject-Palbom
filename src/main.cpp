@@ -84,6 +84,8 @@ void UpdateBombs(std::vector<Bomb>& bombs, std::vector<std::pair<int, int>>& bre
                  CharacterPose& leftPlayer, CharacterPose& rightPlayer, float deltaTime);
 void RenderText(Shader& shader, const std::string& text, float x, float y, float scale, 
                 glm::vec3 color, const std::map<char, Character>& Characters, unsigned int VAO, unsigned int VBO);
+void mouse_button_callback(GLFWwindow* window, int button, int action, int mods);
+bool isPointInRect(float px, float py, float rx, float ry, float rw, float rh);
 
 // settings
 const unsigned int SCR_WIDTH = 1280;
@@ -91,6 +93,23 @@ const unsigned int SCR_HEIGHT = 720;
 const int MAP_SIZE = 15;
 const float TILE_SIZE = 1.0f;
 const float BLOCK_HEIGHT = 0.2f;
+
+// Settings UI globals
+bool showSettingsPopup = false;
+float currentVolume = 0.5f;
+AudioPlayer* globalBackgroundMusic = nullptr;
+
+// Game restart globals (pointers to game state for restart functionality)
+CharacterPose* globalLeftPose = nullptr;
+CharacterPose* globalRightPose = nullptr;
+std::vector<std::pair<int, int>>* globalBreakableBlocks = nullptr;
+std::vector<Bomb>* globalBombs = nullptr;
+std::mt19937* globalGen = nullptr;
+bool* globalGameOver = nullptr;
+int* globalWinnerPlayer = nullptr;
+bool requestGameRestart = false;
+
+
 
 // Helper function to check if a position is a red block (unbreakable pattern)
 bool isRedBlock(int x, int z) {
@@ -393,6 +412,119 @@ unsigned int loadTexture(const char* path)
     return textureID;
 }
 
+// Helper function to check if a point is inside a rectangle
+bool isPointInRect(float px, float py, float rx, float ry, float rw, float rh)
+{
+    return px >= rx && px <= rx + rw && py >= ry && py <= ry + rh;
+}
+
+// Mouse button callback for UI interactions
+void mouse_button_callback(GLFWwindow* window, int button, int action, int mods)
+{
+    if (button == GLFW_MOUSE_BUTTON_LEFT && action == GLFW_PRESS)
+    {
+        double xpos, ypos;
+        glfwGetCursorPos(window, &xpos, &ypos);
+        
+        // Convert to screen coordinates (GLFW Y is top-down, OpenGL Y is bottom-up)
+        float screenX = (float)xpos;
+        float screenY = (float)(SCR_HEIGHT - ypos);
+        
+        // Settings button bounds (bottom-left, 60x60)
+        float settingsBtnX = 20.0f;
+        float settingsBtnY = 20.0f;
+        float settingsBtnSize = 60.0f;
+        
+        if (!showSettingsPopup)
+        {
+            // Check if clicked on settings button
+            if (isPointInRect(screenX, screenY, settingsBtnX, settingsBtnY, settingsBtnSize, settingsBtnSize))
+            {
+                showSettingsPopup = true;
+                std::cout << "Settings popup opened" << std::endl;
+                return;
+            }
+        }
+        else
+        {
+            // Popup is showing - handle popup interactions
+            float popupWidth = 600.0f;  // Updated to match new background size
+            float popupHeight = 400.0f;  // Updated to match new background size
+            float popupX = (SCR_WIDTH - popupWidth) / 2.0f;
+            float popupY = (SCR_HEIGHT - popupHeight) / 2.0f;
+            
+            // Close button at top-right of popup
+            float closeBtnSize = 60.0f;  // Size of close button
+            float closeBtnX = popupX + popupWidth - closeBtnSize - 20.0f;
+            float closeBtnY = popupY + popupHeight - closeBtnSize - 20.0f;
+            
+            if (isPointInRect(screenX, screenY, closeBtnX, closeBtnY, closeBtnSize, closeBtnSize))
+            {
+                showSettingsPopup = false;
+                std::cout << "Settings popup closed" << std::endl;
+                return;
+            }
+            
+            // Mute checkbox - positioned on LEFT side to match rendering
+            float checkboxSize = 60.0f;
+            float checkboxLeftX = popupX + 100.0f;  // Match rendering position
+            float checkboxLeftY = popupY + popupHeight / 2.0f + 20.0f;
+            
+            if (isPointInRect(screenX, screenY, checkboxLeftX, checkboxLeftY, checkboxSize, checkboxSize))
+            {
+                if (currentVolume > 0.0f) {
+                    currentVolume = 0.0f;  // Mute
+                    std::cout << "Muted" << std::endl;
+                } else {
+                    currentVolume = 0.5f;  // Unmute to 50%
+                    std::cout << "Unmuted (50%)" << std::endl;
+                }
+                if (globalBackgroundMusic) {
+                    globalBackgroundMusic->setVolume(currentVolume);
+                }
+                return;
+            }
+
+            
+            // Quit button (left of center) - updated size to 200x60 with spacing
+            float quitBtnWidth = 200.0f;
+            float quitBtnHeight = 60.0f;
+            float buttonSpacing = 40.0f;
+            float quitBtnX = popupX + popupWidth / 2.0f - quitBtnWidth - buttonSpacing / 2.0f;
+            float quitBtnY = popupY + 50.0f;
+            
+            if (isPointInRect(screenX, screenY, quitBtnX, quitBtnY, quitBtnWidth, quitBtnHeight))
+            {
+                std::cout << "Quit button clicked - exiting game" << std::endl;
+                glfwSetWindowShouldClose(window, true);
+                return;
+            }
+            
+            // Restart button (right of center) - updated size to 200x60 with spacing
+            float restartBtnWidth = 200.0f;
+            float restartBtnHeight = 60.0f;
+            float restartBtnX = popupX + popupWidth / 2.0f + buttonSpacing / 2.0f;
+            float restartBtnY = popupY + 50.0f;
+
+            
+            if (isPointInRect(screenX, screenY, restartBtnX, restartBtnY, restartBtnWidth, restartBtnHeight))
+            {
+                std::cout << "Restart button clicked - resetting game" << std::endl;
+                requestGameRestart = true;
+                showSettingsPopup = false;
+                return;
+            }
+            
+            // Click outside popup closes it
+            if (!isPointInRect(screenX, screenY, popupX, popupY, popupWidth, popupHeight))
+            {
+                showSettingsPopup = false;
+                std::cout << "Settings popup closed (clicked outside)" << std::endl;
+            }
+        }
+    }
+}
+
 int main()
 {
     // glfw: initialize and configure
@@ -416,6 +548,7 @@ int main()
     }
     glfwMakeContextCurrent(window);
     glfwSetFramebufferSizeCallback(window, framebuffer_size_callback);
+    glfwSetMouseButtonCallback(window, mouse_button_callback);
 
     // glad: load all OpenGL function pointers
     if (!gladLoadGLLoader((GLADloadproc)glfwGetProcAddress))
@@ -447,6 +580,9 @@ int main()
             std::cout << "Background music started playing (looping) from alternative path" << std::endl;
         }
     }
+    
+    // Set global pointer for volume control from settings UI
+    globalBackgroundMusic = &backgroundMusic;
 
     // build and compile shaders
     Shader shader("shaders/tile.vs", "shaders/tile.fs");
@@ -768,9 +904,30 @@ int main()
     const std::string heartFullPath = FileSystem::getPath("assets/UI/heart_1.png");
     const std::string heartEmptyPath = FileSystem::getPath("assets/UI/heart_0.png");
     const std::string gameOverPath = FileSystem::getPath("assets/UI/gameover.png");
+    const std::string settingsPath = FileSystem::getPath("assets/UI/setting.png");
+    const std::string settingBackgroundPath = FileSystem::getPath("assets/UI/SettingBackground.png");
+    const std::string closeButtonPath = FileSystem::getPath("assets/UI/CloseButton.png");
+    const std::string barPath = FileSystem::getPath("assets/UI/Bar.png");
+    const std::string emptyBarPath = FileSystem::getPath("assets/UI/EmptyBar.png");
+    const std::string quitButtonPath = FileSystem::getPath("assets/UI/Quit.png");
+    const std::string restartButtonPath = FileSystem::getPath("assets/UI/Restart.png");
+    const std::string checkboxCheckedPath = FileSystem::getPath("assets/UI/Check.png");
+    const std::string checkboxUncheckedPath = FileSystem::getPath("assets/UI/Uncheck.png");
+    
+    
     unsigned int heartFullTex = loadTexture(heartFullPath.c_str());
     unsigned int heartEmptyTex = loadTexture(heartEmptyPath.c_str());
     unsigned int gameOverTex = loadTexture(gameOverPath.c_str());
+    unsigned int settingsTex = loadTexture(settingsPath.c_str());
+    unsigned int settingBackgroundTex = loadTexture(settingBackgroundPath.c_str());
+    unsigned int closeButtonTex = loadTexture(closeButtonPath.c_str());
+    unsigned int barTex = loadTexture(barPath.c_str());
+    unsigned int emptyBarTex = loadTexture(emptyBarPath.c_str());
+    unsigned int quitButtonTex = loadTexture(quitButtonPath.c_str());
+    unsigned int restartButtonTex = loadTexture(restartButtonPath.c_str());
+    unsigned int checkboxCheckedTex = loadTexture(checkboxCheckedPath.c_str());
+    unsigned int checkboxUncheckedTex = loadTexture(checkboxUncheckedPath.c_str());
+    
     
     // Create UI quad VAO/VBO
     float quadVertices[] = {
@@ -925,9 +1082,20 @@ int main()
     bool gameOver = false;
     int winnerPlayer = 0;  // 1 or 2
 
+    // Set global pointers for game restart functionality
+    globalLeftPose = &leftPose;
+    globalRightPose = &rightPose;
+    globalBreakableBlocks = &breakableBlockPositions;
+    globalBombs = &bombs;
+    globalGen = &gen;
+    globalGameOver = &gameOver;
+    globalWinnerPlayer = &winnerPlayer;
+
+
     float deltaTime = 0.0f;
     float lastFrame = glfwGetTime(); // Initialize with current time to avoid large delta on first frame
     float skyboxRotation = 0.0f; // Skybox rotation angle in radians
+
 
     // render loop
     while (!glfwWindowShouldClose(window))
@@ -939,6 +1107,55 @@ int main()
         // Cap deltaTime to avoid huge jumps (e.g. during debugging or lag)
         if (deltaTime > 0.1f) deltaTime = 0.1f;
 
+        // Check for game restart request
+        if (requestGameRestart)
+        {
+            std::cout << "Restarting game..." << std::endl;
+            
+            // Reset player 1 (left) position and health
+            leftPose.gridX = 1;
+            leftPose.gridY = 1;
+            leftPose.targetGridX = 1;
+            leftPose.targetGridY = 1;
+            leftPose.position = GridToWorld(1, 1);
+            leftPose.position.y = BLOCK_HEIGHT + 0.3f;
+            leftPose.rotation = 0.0f;
+            leftPose.health = 3;
+            leftPose.isMoving = false;
+            leftPose.moveProgress = 0.0f;
+            leftPose.invulnerabilityTimer = 0.0f;
+            
+            // Reset player 2 (right) position and health
+            rightPose.gridX = 13;
+            rightPose.gridY = 13;
+            rightPose.targetGridX = 13;
+            rightPose.targetGridY = 13;
+            rightPose.position = GridToWorld(13, 13);
+            rightPose.position.y = BLOCK_HEIGHT + 0.3f;
+            rightPose.rotation = glm::radians(180.0f);
+            rightPose.health = 3;
+            rightPose.isMoving = false;
+            rightPose.moveProgress = 0.0f;
+            rightPose.invulnerabilityTimer = 0.0f;
+            
+            // Clear all bombs
+            bombs.clear();
+            
+            // Regenerate breakable blocks
+            generateBreakableBlocks(breakableBlockPositions, gen);
+            
+            // Reset game over state
+            gameOver = false;
+            winnerPlayer = 0;
+            
+            // Reset animations to idle
+            SetAnimation(leftPose, animatorP1, CharacterPose::State::Idle, &idleAnimation, &walkAnimation);
+            SetAnimation(rightPose, animatorP2, CharacterPose::State::Idle, &idleAnimation, &walkAnimation);
+            
+            requestGameRestart = false;
+            std::cout << "Game restarted successfully!" << std::endl;
+        }
+
         // Update skybox rotation (slow rotation: 3 degrees per second)
         skyboxRotation += glm::radians(3.0f) * deltaTime;
         if (skyboxRotation > glm::two_pi<float>()) {
@@ -947,6 +1164,7 @@ int main()
 
         // input
         processInput(window, breakableBlockPositions, gen, generateBreakableBlocks, leftPose, rightPose, bombs, gameOver);
+
 
         // Update bombs (only if game is not over)
         if (!gameOver)
@@ -1312,6 +1530,129 @@ int main()
             glBindTexture(GL_TEXTURE_2D, gameOverTex);
             glDrawArrays(GL_TRIANGLES, 0, 6);
         }
+        
+        // ===== SETTINGS BUTTON =====
+        // Render settings button at bottom-left
+        uiShader.use();
+        glBindVertexArray(quadVAO);
+        
+        float settingsBtnSize = 60.0f;
+        float settingsBtnX = 20.0f;
+        float settingsBtnY = 20.0f;
+        
+        model = glm::mat4(1.0f);
+        model = glm::translate(model, glm::vec3(settingsBtnX, settingsBtnY, 0.0f));
+        model = glm::scale(model, glm::vec3(settingsBtnSize, settingsBtnSize, 1.0f));
+        uiShader.setMat4("model", model);
+        
+        glActiveTexture(GL_TEXTURE0);
+        glBindTexture(GL_TEXTURE_2D, settingsTex);
+        glDrawArrays(GL_TRIANGLES, 0, 6);
+        
+        // ===== SETTINGS POPUP =====
+        if (showSettingsPopup)
+        {
+            // Popup panel with new background
+            float popupWidth = 600.0f;  // Updated size to match new background
+            float popupHeight = 400.0f;
+            float popupX = (SCR_WIDTH - popupWidth) / 2.0f;
+            float popupY = (SCR_HEIGHT - popupHeight) / 2.0f;
+            
+            // Draw popup background using SettingBackground.png
+            model = glm::mat4(1.0f);
+            model = glm::translate(model, glm::vec3(popupX, popupY, 0.0f));
+            model = glm::scale(model, glm::vec3(popupWidth, popupHeight, 1.0f));
+            uiShader.setMat4("model", model);
+            
+            glBindTexture(GL_TEXTURE_2D, settingBackgroundTex);
+            glDrawArrays(GL_TRIANGLES, 0, 6);
+            
+            // Calculate checkbox size for later use
+            float checkboxSize = 60.0f;
+            float checkboxY = popupY + popupHeight / 2.0f + 20.0f;
+            
+            // Note: Checkbox will be rendered later on the left side with text
+
+
+            
+            // Close button at top-right
+            float closeBtnSize = 60.0f;
+            float closeBtnX = popupX + popupWidth - closeBtnSize - 20.0f;
+            float closeBtnY = popupY + popupHeight - closeBtnSize - 20.0f;
+            
+            model = glm::mat4(1.0f);
+            model = glm::translate(model, glm::vec3(closeBtnX, closeBtnY, 0.0f));
+            model = glm::scale(model, glm::vec3(closeBtnSize, closeBtnSize, 1.0f));
+            uiShader.setMat4("model", model);
+            
+            glBindTexture(GL_TEXTURE_2D, closeButtonTex);
+            glDrawArrays(GL_TRIANGLES, 0, 6);
+            
+            // Quit button (left of center) - reduced size with more spacing
+            float quitBtnWidth = 200.0f;  // Reduced from 250
+            float quitBtnHeight = 60.0f;  // Reduced from 70
+            float buttonSpacing = 40.0f;  // Gap between buttons
+            float quitBtnX = popupX + popupWidth / 2.0f - quitBtnWidth - buttonSpacing / 2.0f;
+            float quitBtnY = popupY + 50.0f;
+            
+            model = glm::mat4(1.0f);
+            model = glm::translate(model, glm::vec3(quitBtnX, quitBtnY, 0.0f));
+            model = glm::scale(model, glm::vec3(quitBtnWidth, quitBtnHeight, 1.0f));
+            uiShader.setMat4("model", model);
+            
+            glBindTexture(GL_TEXTURE_2D, quitButtonTex);
+            glDrawArrays(GL_TRIANGLES, 0, 6);
+            
+            // Restart button (right of center) - reduced size with more spacing
+            float restartBtnWidth = 200.0f;  // Reduced from 250
+            float restartBtnHeight = 60.0f;  // Reduced from 70
+            float restartBtnX = popupX + popupWidth / 2.0f + buttonSpacing / 2.0f;
+            float restartBtnY = popupY + 50.0f;
+
+
+            
+            model = glm::mat4(1.0f);
+            model = glm::translate(model, glm::vec3(restartBtnX, restartBtnY, 0.0f));
+            model = glm::scale(model, glm::vec3(restartBtnWidth, restartBtnHeight, 1.0f));
+            uiShader.setMat4("model", model);
+            
+            glBindTexture(GL_TEXTURE_2D, restartButtonTex);
+            glDrawArrays(GL_TRIANGLES, 0, 6);
+            
+            // Render text labels (after UI elements)
+            RenderText(textShader, "SETTING", popupX + popupWidth / 2.0f - 65.0f, popupY + popupHeight - 80.0f, 0.8f, glm::vec3(0.0f, 0.0f, 0.0f), Characters, textVAO, textVBO);
+            
+            // Mute status - positioned on the LEFT side
+            std::string muteStatus = (currentVolume > 0.0f) ? "UNMUTED" : "MUTED";
+            float checkboxLeftX = popupX + 100.0f;  // Position from left edge
+            float checkboxLeftY = checkboxY;
+            float muteTextX = checkboxLeftX + checkboxSize + 10.0f;  // Text to the right of checkbox
+            float muteTextY = checkboxY + 15.0f;
+            
+            // Switch back to UI shader and render checkbox on the left
+            uiShader.use();
+            glBindVertexArray(quadVAO);
+            
+            model = glm::mat4(1.0f);
+            model = glm::translate(model, glm::vec3(checkboxLeftX, checkboxLeftY, 0.0f));
+            model = glm::scale(model, glm::vec3(checkboxSize, checkboxSize, 1.0f));
+            uiShader.setMat4("model", model);
+            
+            if (currentVolume > 0.0f) {
+                glBindTexture(GL_TEXTURE_2D, checkboxCheckedTex);
+            } else {
+                glBindTexture(GL_TEXTURE_2D, checkboxUncheckedTex);
+            }
+            glDrawArrays(GL_TRIANGLES, 0, 6);
+            
+            // Now render text to the right of checkbox
+            RenderText(textShader, muteStatus, muteTextX, muteTextY, 0.6f, glm::vec3(0.0f, 0.0f, 0.0f), Characters, textVAO, textVBO);
+        }
+
+
+        
+
+        
         
         glBindVertexArray(0);
         glEnable(GL_DEPTH_TEST);
