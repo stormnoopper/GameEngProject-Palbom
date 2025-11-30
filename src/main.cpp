@@ -1222,6 +1222,9 @@ int main()
             // Clear all bombs
             bombs.clear();
             
+            // Clear all power-ups
+            powerUps.clear();
+            
             // Regenerate breakable blocks
             generateBreakableBlocks(breakableBlockPositions, gen);
             
