@@ -145,8 +145,13 @@ std::vector<std::pair<int, int>>* globalBreakableBlocks = nullptr;
 std::vector<Bomb>* globalBombs = nullptr;
 std::mt19937* globalGen = nullptr;
 bool* globalGameOver = nullptr;
+bool* globalGameStarted = nullptr;  // For intro screen
 int* globalWinnerPlayer = nullptr;
 bool requestGameRestart = false;
+
+// Global pointers for sound pools
+std::vector<AudioPlayer>* globalItemSounds = nullptr;
+std::vector<AudioPlayer>* globalBombSounds = nullptr;
 
 
 
@@ -477,6 +482,27 @@ void mouse_button_callback(GLFWwindow* window, int button, int action, int mods)
         float screenX = (float)xpos;
         float screenY = (float)(SCR_HEIGHT - ypos);
         
+        // Check if game hasn't started - handle start button click
+        if (globalGameStarted && !(*globalGameStarted))
+        {
+            float introWidth = 600.0f;
+            float introHeight = 300.0f;
+            float introX = (SCR_WIDTH - introWidth) / 2.0f;
+            float introY = SCR_HEIGHT / 2.0f - 50.0f;
+            
+            float startButtonWidth = 200.0f;
+            float startButtonHeight = 80.0f;
+            float startButtonX = (SCR_WIDTH - startButtonWidth) / 2.0f;
+            float startButtonY = introY - startButtonHeight - 30.0f;
+            
+            if (isPointInRect(screenX, screenY, startButtonX, startButtonY, startButtonWidth, startButtonHeight))
+            {
+                *globalGameStarted = true;
+                std::cout << "Start button clicked - game started!" << std::endl;
+                return;
+            }
+        }
+        
         // Settings button bounds (bottom-left, 60x60)
         float settingsBtnX = 20.0f;
         float settingsBtnY = 20.0f;
@@ -526,8 +552,26 @@ void mouse_button_callback(GLFWwindow* window, int button, int action, int mods)
                     currentVolume = 0.5f;  // Unmute to 50%
                     std::cout << "Unmuted (50%)" << std::endl;
                 }
+                
+                // Update background music
                 if (globalBackgroundMusic) {
                     globalBackgroundMusic->setVolume(currentVolume);
+                }
+                
+                // Update item sounds (30% volume when unmuted)
+                if (globalItemSounds) {
+                    float itemVolume = (currentVolume > 0.0f) ? 0.3f : 0.0f;
+                    for (auto& sound : *globalItemSounds) {
+                        sound.setVolume(itemVolume);
+                    }
+                }
+                
+                // Update bomb sounds (30% volume when unmuted)
+                if (globalBombSounds) {
+                    float bombVolume = (currentVolume > 0.0f) ? 0.3f : 0.0f;
+                    for (auto& sound : *globalBombSounds) {
+                        sound.setVolume(bombVolume);
+                    }
                 }
                 return;
             }
@@ -1013,6 +1057,8 @@ int main()
     const std::string heartFullPath = FileSystem::getPath("assets/UI/heart_1.png");
     const std::string heartEmptyPath = FileSystem::getPath("assets/UI/heart_0.png");
     const std::string gameOverPath = FileSystem::getPath("assets/UI/gameover.png");
+    const std::string introPath = FileSystem::getPath("assets/UI/Intro.png");
+    const std::string startButtonPath = FileSystem::getPath("assets/UI/Start.png");
     const std::string settingsPath = FileSystem::getPath("assets/UI/setting.png");
     const std::string settingBackgroundPath = FileSystem::getPath("assets/UI/SettingBackground.png");
     const std::string closeButtonPath = FileSystem::getPath("assets/UI/CloseButton.png");
@@ -1027,6 +1073,8 @@ int main()
     unsigned int heartFullTex = loadTexture(heartFullPath.c_str());
     unsigned int heartEmptyTex = loadTexture(heartEmptyPath.c_str());
     unsigned int gameOverTex = loadTexture(gameOverPath.c_str());
+    unsigned int introTex = loadTexture(introPath.c_str());
+    unsigned int startButtonTex = loadTexture(startButtonPath.c_str());
     unsigned int settingsTex = loadTexture(settingsPath.c_str());
     unsigned int settingBackgroundTex = loadTexture(settingBackgroundPath.c_str());
     unsigned int closeButtonTex = loadTexture(closeButtonPath.c_str());
@@ -1189,7 +1237,8 @@ int main()
     
     // Game state
     bool gameOver = false;
-    int winnerPlayer = 0;  // 1 or 2
+    bool gameStarted = false;  // Game starts after clicking start button
+    int winnerPlayer = 0;
 
     // Set global pointers for game restart functionality
     globalLeftPose = &leftPose;
@@ -1198,7 +1247,10 @@ int main()
     globalBombs = &bombs;
     globalGen = &gen;
     globalGameOver = &gameOver;
+    globalGameStarted = &gameStarted;
     globalWinnerPlayer = &winnerPlayer;
+    globalItemSounds = &itemPickupSounds;
+    globalBombSounds = &bombPlaceSounds;
 
 
     float deltaTime = 0.0f;
@@ -1274,12 +1326,13 @@ int main()
             skyboxRotation -= glm::two_pi<float>();
         }
 
-        // input
-        processInput(window, breakableBlockPositions, gen, generateBreakableBlocks, leftPose, rightPose, bombs, gameOver, bombPlaceSounds, currentBombSoundIndex);
+        // input (only if game has started)
+        if (gameStarted) {
+            processInput(window, breakableBlockPositions, gen, generateBreakableBlocks, leftPose, rightPose, bombs, gameOver, bombPlaceSounds, currentBombSoundIndex);
+        }
 
-
-        // Update bombs (only if game is not over)
-        if (!gameOver)
+        // Update bombs (only if game is not over and has started)
+        if (!gameOver && gameStarted)
         {
             UpdateBombs(bombs, breakableBlockPositions, leftPose, rightPose, deltaTime, powerUps);
             UpdatePowerUps(powerUps, leftPose, rightPose, deltaTime, itemPickupSounds, currentItemSoundIndex);
@@ -1852,6 +1905,42 @@ int main()
             RenderText(textShader, "SPEED", p2ProfileX + profileSize - speedWidth, p2SpeedY, 0.5f, glm::vec3(0.2f, 1.0f, 0.3f), Characters, textVAO, textVBO);
         }
 
+        
+        // Render intro screen if game hasn't started
+        if (!gameStarted)
+        {
+            uiShader.use();
+            glBindVertexArray(quadVAO);
+            
+            // Render intro image (centered)
+            float introWidth = 600.0f;
+            float introHeight = 300.0f;
+            float introX = (SCR_WIDTH - introWidth) / 2.0f;
+            float introY = SCR_HEIGHT / 2.0f - 50.0f;  // Centered vertically
+            
+            glm::mat4 model = glm::mat4(1.0f);
+            model = glm::translate(model, glm::vec3(introX, introY, 0.0f));
+            model = glm::scale(model, glm::vec3(introWidth, introHeight, 1.0f));
+            uiShader.setMat4("model", model);
+            
+            glActiveTexture(GL_TEXTURE0);
+            glBindTexture(GL_TEXTURE_2D, introTex);
+            glDrawArrays(GL_TRIANGLES, 0, 6);
+            
+            // Render start button below intro
+            float startButtonWidth = 200.0f;
+            float startButtonHeight = 80.0f;
+            float startButtonX = (SCR_WIDTH - startButtonWidth) / 2.0f;
+            float startButtonY = introY - startButtonHeight - 30.0f;  // Just below intro with gap
+            
+            model = glm::mat4(1.0f);
+            model = glm::translate(model, glm::vec3(startButtonX, startButtonY, 0.0f));
+            model = glm::scale(model, glm::vec3(startButtonWidth, startButtonHeight, 1.0f));
+            uiShader.setMat4("model", model);
+            
+            glBindTexture(GL_TEXTURE_2D, startButtonTex);
+            glDrawArrays(GL_TRIANGLES, 0, 6);
+        }
         
         // Render game over screen if game is over
         if (gameOver)
