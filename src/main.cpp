@@ -56,6 +56,7 @@ struct CharacterPose
     // Power-up system
     float bombRangeBoostTimer = 0.0f;  // Remaining time for +1 bomb range boost
     float shieldTimer = 0.0f;           // Remaining time for damage shield
+    float speedBoostTimer = 0.0f;       // Remaining time for speed boost
 };
 
 struct CharacterTextures
@@ -82,7 +83,8 @@ struct Bomb
 enum class PowerUpType {
     RANGE_BOOST,      // Blue power - increases bomb range for 10 seconds
     BOMB_CAPACITY,    // Red bomb - increases max bomb count permanently
-    SHIELD            // White shield - protects from damage for 10 seconds
+    SHIELD,           // White shield - protects from damage for 5 seconds
+    SPEED_BOOST       // Green speed - increases movement speed for 10 seconds
 };
 
 // Power-Up System Struct
@@ -360,7 +362,9 @@ void UpdateCharacterMovement(CharacterPose& character, float deltaTime)
 {
     if(character.isMoving)
     {
-        const float moveSpeed = 3.0f;  // Blocks per second
+        // Double movement speed when speed boost is active
+        const float baseSpeed = 3.0f;  // Blocks per second
+        const float moveSpeed = (character.speedBoostTimer > 0.0f) ? baseSpeed * 2.0f : baseSpeed;
         character.moveProgress += moveSpeed * deltaTime;
 
         if(character.moveProgress >= 1.0f)
@@ -898,6 +902,10 @@ int main()
     const std::string shieldModelPath = FileSystem::getPath("assets/item/Shield.glb");
     Model shieldModel(shieldModelPath);
     std::cout << "Shield model loaded from: " << shieldModelPath << std::endl;
+    
+    const std::string speedModelPath = FileSystem::getPath("assets/item/Speed.glb");
+    Model speedModel(speedModelPath);
+    std::cout << "Speed model loaded from: " << speedModelPath << std::endl;
 
 
     // ------------------------------------------------------------------
@@ -1547,21 +1555,15 @@ int main()
             glm::mat4 model = glm::mat4(1.0f);
             model = glm::translate(model, powerUpPos);
             
-            // Apply rotation based on power-up type (shield needs different rotation axis)
-            if (powerUp.type == PowerUpType::SHIELD) {
-                // Rotate around Z axis for shield (spins flat)
-                model = glm::rotate(model, powerUp.rotation, glm::vec3(0.0f, 0.0f, 1.0f));
-            } else {
-                // Rotate around Y axis for other power-ups (standard spin)
-                model = glm::rotate(model, powerUp.rotation, glm::vec3(0.0f, 1.0f, 0.0f));
-            }
+            // All power-ups rotate around Y axis (vertical spin)
+            model = glm::rotate(model, powerUp.rotation, glm::vec3(0.0f, 1.0f, 0.0f));
             
             // Set color, scale, rotation, and model based on power-up type
             if (powerUp.type == PowerUpType::RANGE_BOOST) {
-                // Blue Power.glb model - NEEDS TO BE BIG
-                // Rotate 90 degrees around X axis to orient correctly (standard for this model)
-                model = glm::rotate(model, glm::radians(-90.0f), glm::vec3(1.0f, 0.0f, 0.0f));
-                model = glm::rotate(model, glm::radians(-90.0f), glm::vec3(1.0f, 0.0f, 0.0f));
+                // Blue Power.glb model - orient then spin
+                // Apply orientation rotation BEFORE the Y-spin to fix center point
+                glm::mat4 orientation = glm::rotate(glm::mat4(1.0f), glm::radians(-90.0f), glm::vec3(1.0f, 0.0f, 0.0f));
+                model = model * orientation;
                 model = glm::scale(model, glm::vec3(8.0f)); 
                 characterShader.setMat4("model", model);
                 
@@ -1584,16 +1586,31 @@ int main()
                 
                 bombModel.Draw(characterShader);
             } else if (powerUp.type == PowerUpType::SHIELD) {
-                // White shield.glb model  
-                // NO X ROTATION - just let it spin around Y axis from its center
+                // White shield.glb model - orient then spin  
+                // Apply same orientation as Power to spin from center
+                glm::mat4 orientation = glm::rotate(glm::mat4(1.0f), glm::radians(-90.0f), glm::vec3(1.0f, 0.0f, 0.0f));
+                model = model * orientation;
                 model = glm::scale(model, glm::vec3(5.0f));  // Larger size for visibility
                 characterShader.setMat4("model", model);
                 
-                // Use WHITE LIGHT for bright white shield
-                characterShader.setVec3("lightColor", glm::vec3(3.0f, 3.0f, 3.0f));
+                // Use VERY BRIGHT WHITE LIGHT to ensure pure white color
+                characterShader.setVec3("lightColor", glm::vec3(5.0f, 5.0f, 5.0f));
                 characterShader.setVec3("objectColor", glm::vec3(1.0f, 1.0f, 1.0f));
                 
                 shieldModel.Draw(characterShader);
+            } else if (powerUp.type == PowerUpType::SPEED_BOOST) {
+                // Green speed.glb model
+                // Rotate to make it stand upright with sole on ground
+                model = glm::rotate(model, glm::radians(-90.0f), glm::vec3(1.0f, 0.0f, 0.0f)); // Stand upright
+                model = glm::rotate(model, glm::radians(180.0f), glm::vec3(0.0f, 0.0f, 1.0f)); // Flip 180 to put sole down
+                model = glm::scale(model, glm::vec3(8.0f));  // Bigger size for visibility
+                characterShader.setMat4("model", model);
+                
+                // Use GREEN LIGHT for bright green speed boost
+                characterShader.setVec3("lightColor", glm::vec3(0.2f, 4.0f, 0.2f));
+                characterShader.setVec3("objectColor", glm::vec3(0.2f, 1.0f, 0.2f));
+                
+                speedModel.Draw(characterShader);
             }
         }
         
@@ -1769,6 +1786,22 @@ int main()
             float p2ShieldY = p2BombCounterY - 60.0f;  // Below POWER text
             float p2ShieldX = p2ProfileX + (profileSize / 2.0f) - 40.0f;  // Centered
             RenderText(textShader, "SHIELD", p2ShieldX, p2ShieldY, 0.5f, glm::vec3(0.5f, 1.0f, 1.0f), Characters, textVAO, textVBO);
+        }
+        
+        // ===== SPEED INDICATOR =====
+        // Display "SPEED" text below SHIELD when speed boost is active
+        if (leftPose.speedBoostTimer > 0.0f)
+        {
+            float p1SpeedY = p1BombCounterY - 90.0f;  // Below SHIELD text
+            float p1SpeedX = p1ProfileX + (profileSize / 2.0f) - 30.0f;  // Centered
+            RenderText(textShader, "SPEED", p1SpeedX, p1SpeedY, 0.5f, glm::vec3(0.2f, 1.0f, 0.3f), Characters, textVAO, textVBO);
+        }
+        
+        if (rightPose.speedBoostTimer > 0.0f)
+        {
+            float p2SpeedY = p2BombCounterY - 90.0f;  // Below SHIELD text
+            float p2SpeedX = p2ProfileX + (profileSize / 2.0f) - 30.0f;  // Centered
+            RenderText(textShader, "SPEED", p2SpeedX, p2SpeedY, 0.5f, glm::vec3(0.2f, 1.0f, 0.3f), Characters, textVAO, textVBO);
         }
 
         
@@ -2134,20 +2167,23 @@ void ExplodeBomb(const Bomb& bomb, std::vector<std::pair<int, int>>& breakableBl
         
         // Randomly spawn power-up if block was destroyed
         if (blockDestroyed && dropChance(gen) < POWERUP_DROP_RATE) {
-            // Randomly choose power-up type (33.3% each for 3 types)
+            // Randomly choose power-up type (25% each for 4 types)
             float typeRoll = dropChance(gen);
             PowerUpType type;
-            if (typeRoll < 0.333f) {
+            if (typeRoll < 0.25f) {
                 type = PowerUpType::RANGE_BOOST;
-            } else if (typeRoll < 0.666f) {
+            } else if (typeRoll < 0.50f) {
                 type = PowerUpType::BOMB_CAPACITY;
-            } else {
+            } else if (typeRoll < 0.75f) {
                 type = PowerUpType::SHIELD;
+            } else {
+                type = PowerUpType::SPEED_BOOST;
             }
             
             powerUps.push_back(PowerUp(x, y, type));
             std::string typeName = (type == PowerUpType::RANGE_BOOST) ? "RANGE_BOOST" :
-                                  (type == PowerUpType::BOMB_CAPACITY) ? "BOMB_CAPACITY" : "SHIELD";
+                                  (type == PowerUpType::BOMB_CAPACITY) ? "BOMB_CAPACITY" :
+                                  (type == PowerUpType::SHIELD) ? "SHIELD" : "SPEED_BOOST";
             std::cout << "Power-up spawned at (" << x << ", " << y << ") - Type: " << typeName << std::endl;
         }
         
@@ -2242,6 +2278,8 @@ void UpdateBombs(std::vector<Bomb>& bombs, std::vector<std::pair<int, int>>& bre
     if (rightPlayer.bombRangeBoostTimer > 0) rightPlayer.bombRangeBoostTimer -= deltaTime;
     if (leftPlayer.shieldTimer > 0) leftPlayer.shieldTimer -= deltaTime;
     if (rightPlayer.shieldTimer > 0) rightPlayer.shieldTimer -= deltaTime;
+    if (leftPlayer.speedBoostTimer > 0) leftPlayer.speedBoostTimer -= deltaTime;
+    if (rightPlayer.speedBoostTimer > 0) rightPlayer.speedBoostTimer -= deltaTime;
     
     for (auto& bomb : bombs)
     {
@@ -2303,6 +2341,9 @@ void UpdatePowerUps(std::vector<PowerUp>& powerUps, CharacterPose& leftPlayer, C
             } else if (it->type == PowerUpType::SHIELD) {
                 leftPlayer.shieldTimer = 5.0f;  // Shield lasts 5 seconds
                 std::cout << "P1 picked up SHIELD! Protected from damage for 5 seconds" << std::endl;
+            } else if (it->type == PowerUpType::SPEED_BOOST) {
+                leftPlayer.speedBoostTimer = BOOST_DURATION;  // Speed boost lasts 10 seconds
+                std::cout << "P1 picked up SPEED BOOST! Movement speed increased for 10 seconds" << std::endl;
             }
             pickedUp = true;
         }
@@ -2318,6 +2359,9 @@ void UpdatePowerUps(std::vector<PowerUp>& powerUps, CharacterPose& leftPlayer, C
             } else if (it->type == PowerUpType::SHIELD) {
                 rightPlayer.shieldTimer = 5.0f;  // Shield lasts 5 seconds
                 std::cout << "P2 picked up SHIELD! Protected from damage for 5 seconds" << std::endl;
+            } else if (it->type == PowerUpType::SPEED_BOOST) {
+                rightPlayer.speedBoostTimer = BOOST_DURATION;  // Speed boost lasts 10 seconds
+                std::cout << "P2 picked up SPEED BOOST! Movement speed increased for 10 seconds" << std::endl;
             }
             pickedUp = true;
         }
