@@ -50,7 +50,11 @@ struct CharacterPose
     float invulnerabilityTimer = 0.0f;  // Prevent multiple hits from one explosion
     
     // Bomb limit system
-    int activeBombCount = 0;  // Track active bombs (max 3)
+    int activeBombCount = 0;  // Track active bombs
+    int maxBombCount = 3;     // Maximum bombs (increases with red bomb power-up)
+    
+    // Power-up system
+    float bombRangeBoostTimer = 0.0f;  // Remaining time for +1 bomb range boost
 };
 
 struct CharacterTextures
@@ -73,6 +77,31 @@ struct Bomb
     Bomb(int x, int y, int ownerId) : gridX(x), gridY(y), timer(3.0f), owner(ownerId) {}
 };
 
+// Power-Up Type Enum
+enum class PowerUpType {
+    RANGE_BOOST,      // Blue power - increases bomb range for 10 seconds
+    BOMB_CAPACITY     // Red bomb - increases max bomb count permanently
+};
+
+// Power-Up System Struct
+struct PowerUp
+{
+    int gridX;
+    int gridY;
+    glm::vec3 position;
+    float rotation = 0.0f;  // For spinning animation
+    PowerUpType type;       // Type of power-up
+    
+    PowerUp(int x, int y, PowerUpType t) : gridX(x), gridY(y), type(t) {
+        const float MAP_OFFSET = -(15 - 1) * 1.0f / 2.0f;
+        position = glm::vec3(
+            MAP_OFFSET + x * 1.0f,
+            0.3f,  // Slightly above ground
+            MAP_OFFSET + y * 1.0f
+        );
+    }
+};
+
 void framebuffer_size_callback(GLFWwindow* window, int width, int height);
 void processInput(GLFWwindow *window, std::vector<std::pair<int, int>>& breakableBlockPositions, 
                  std::mt19937& gen, const std::function<void(std::vector<std::pair<int, int>>&, std::mt19937&)>& generateBlocks,
@@ -81,11 +110,12 @@ void processInput(GLFWwindow *window, std::vector<std::pair<int, int>>& breakabl
 unsigned int loadCubemap(const std::vector<std::string>& faces);
 bool HasBomb(int gridX, int gridY, const std::vector<Bomb>& bombs);
 bool CanPlaceBomb(int gridX, int gridY, const std::vector<std::pair<int, int>>& breakableBlocks);
-std::vector<std::pair<int, int>> GetExplosionTiles(const Bomb& bomb, const std::vector<std::pair<int, int>>& breakableBlocks);
+std::vector<std::pair<int, int>> GetExplosionTiles(const Bomb& bomb, const std::vector<std::pair<int, int>>& breakableBlocks, int explosionRange);
 void ExplodeBomb(const Bomb& bomb, std::vector<std::pair<int, int>>& breakableBlocks, 
-                 CharacterPose& leftPlayer, CharacterPose& rightPlayer);
+                 CharacterPose& leftPlayer, CharacterPose& rightPlayer, std::vector<PowerUp>& powerUps);
 void UpdateBombs(std::vector<Bomb>& bombs, std::vector<std::pair<int, int>>& breakableBlocks, 
-                 CharacterPose& leftPlayer, CharacterPose& rightPlayer, float deltaTime);
+                 CharacterPose& leftPlayer, CharacterPose& rightPlayer, float deltaTime, std::vector<PowerUp>& powerUps);
+void UpdatePowerUps(std::vector<PowerUp>& powerUps, CharacterPose& leftPlayer, CharacterPose& rightPlayer, float deltaTime);
 void RenderText(Shader& shader, const std::string& text, float x, float y, float scale, 
                 glm::vec3 color, const std::map<char, Character>& Characters, unsigned int VAO, unsigned int VBO);
 void mouse_button_callback(GLFWwindow* window, int button, int action, int mods);
@@ -856,6 +886,15 @@ int main()
     std::cout << "Bomb model loaded from: " << bombModelPath << std::endl;
 
     // ------------------------------------------------------------------
+    // Power-Up Setup
+    // ------------------------------------------------------------------
+    std::vector<PowerUp> powerUps;
+    const std::string powerUpModelPath = FileSystem::getPath("assets/item/Power.glb");
+    Model powerUpModel(powerUpModelPath);
+    std::cout << "Power-up model loaded from: " << powerUpModelPath << std::endl;
+
+
+    // ------------------------------------------------------------------
     // Character Setup
     // ------------------------------------------------------------------
     const std::string shaderVSPath = FileSystem::getPath("shaders/anim_model.vs");
@@ -1192,7 +1231,8 @@ int main()
         // Update bombs (only if game is not over)
         if (!gameOver)
         {
-            UpdateBombs(bombs, breakableBlockPositions, leftPose, rightPose, deltaTime);
+            UpdateBombs(bombs, breakableBlockPositions, leftPose, rightPose, deltaTime, powerUps);
+            UpdatePowerUps(powerUps, leftPose, rightPose, deltaTime);
         }
 
         // Update Character Animations
@@ -1368,8 +1408,16 @@ int main()
             {
                 if (!bomb.exploded)
                 {
+                    // Calculate explosion range for preview
+                    int explosionRange = 2;  // Base range
+                    if (bomb.owner == 1 && leftPose.bombRangeBoostTimer > 0.0f) {
+                        explosionRange = 3;
+                    } else if (bomb.owner == 2 && rightPose.bombRangeBoostTimer > 0.0f) {
+                        explosionRange = 3;
+                    }
+                    
                     // Get all tiles that will be affected by this bomb
-                    std::vector<std::pair<int, int>> explosionTiles = GetExplosionTiles(bomb, breakableBlockPositions);
+                    std::vector<std::pair<int, int>> explosionTiles = GetExplosionTiles(bomb, breakableBlockPositions, explosionRange);
                     
                     // Calculate pulsing alpha based on bomb timer
                     // More transparent as timer gets closer to 0 (more urgent)
@@ -1468,6 +1516,67 @@ int main()
                 bombModel.Draw(characterShader);
             }
         }
+        
+        
+        // Render power-ups using different models based on type
+        characterShader.use();
+        
+        // Upload identity bone matrices for static power-up models (no animation)
+        for(int i = 0; i < 100; ++i)
+        {
+            characterShader.setMat4("finalBonesMatrices[" + std::to_string(i) + "]", glm::mat4(1.0f));
+        }
+        
+        // Set stable blue color for power-ups
+        characterShader.setVec3("lightPos", lightPos);
+        characterShader.setVec3("lightColor", glm::vec3(2.0f, 2.0f, 2.0f));  // White light (no color variation)
+        characterShader.setVec3("viewPos", cameraPos);
+        characterShader.setBool("isBomb", false);
+        
+        for (const auto& powerUp : powerUps)
+        {
+            glm::vec3 powerUpPos = powerUp.position;
+            powerUpPos.y = BLOCK_HEIGHT + 0.5f;  // Much higher for visibility
+            
+            glm::mat4 model = glm::mat4(1.0f);
+            model = glm::translate(model, powerUpPos);
+            // Rotate around Y axis for spinning effect
+            model = glm::rotate(model, powerUp.rotation, glm::vec3(0.0f, 1.0f, 0.0f));
+            // Rotate 90 degrees around X axis to orient correctly
+            model = glm::rotate(model, glm::radians(-90.0f), glm::vec3(1.0f, 0.0f, 0.0f));
+            // Set color, scale, and model based on power-up type
+            if (powerUp.type == PowerUpType::RANGE_BOOST) {
+                // Blue Power.glb model - NEEDS TO BE BIG
+                // Rotate 90 degrees around X axis to orient correctly (standard for this model)
+                model = glm::rotate(model, glm::radians(-90.0f), glm::vec3(1.0f, 0.0f, 0.0f));
+                model = glm::scale(model, glm::vec3(8.0f)); 
+                characterShader.setMat4("model", model);
+                
+                // Use BLUE LIGHT to force it to look blue
+                characterShader.setVec3("lightColor", glm::vec3(0.2f, 0.5f, 2.0f));
+                characterShader.setVec3("objectColor", glm::vec3(0.2f, 0.5f, 1.0f));
+                
+                powerUpModel.Draw(characterShader);
+            } else {
+                // Red bomb.glb model - NEEDS TO BE SMALL
+                // Rotate 90 degrees POSITIVE to make it stand up (flip from -90)
+                model = glm::rotate(model, glm::radians(90.0f), glm::vec3(1.0f, 0.0f, 0.0f));
+                model = glm::scale(model, glm::vec3(0.3f)); 
+                characterShader.setMat4("model", model);
+                
+                // Use RED LIGHT to force it to look red (like regular bombs)
+                characterShader.setVec3("lightColor", glm::vec3(3.0f, 0.0f, 0.0f));
+                characterShader.setVec3("objectColor", glm::vec3(1.0f, 0.0f, 0.0f));
+                
+                bombModel.Draw(characterShader);
+            }
+        }
+        
+        // Reset light color
+        characterShader.setVec3("lightColor", lightColor);
+
+
+
 
         // draw skybox last
         glDepthFunc(GL_LEQUAL);
@@ -1586,13 +1695,14 @@ int main()
         float p2TextY = p2ProfileY + profileSize - 15.0f;
         RenderText(textShader, "PLAYER 2", p2TextX, p2TextY, 0.5f, glm::vec3(1.0f, 1.0f, 1.0f), Characters, textVAO, textVBO);
         
+        
         // ===== BOMB COUNTER DISPLAY =====
         // Display remaining bombs below each player's profile
-        int p1RemainingBombs = 3 - leftPose.activeBombCount;
-        int p2RemainingBombs = 3 - rightPose.activeBombCount;
+        int p1RemainingBombs = leftPose.maxBombCount - leftPose.activeBombCount;
+        int p2RemainingBombs = rightPose.maxBombCount - rightPose.activeBombCount;
         
-        std::string p1BombText = "X" + std::to_string(p1RemainingBombs);
-        std::string p2BombText = "X" + std::to_string(p2RemainingBombs);
+        std::string p1BombText = "X" + std::to_string(p1RemainingBombs) + "/" + std::to_string(leftPose.maxBombCount);
+        std::string p2BombText = "X" + std::to_string(p2RemainingBombs) + "/" + std::to_string(rightPose.maxBombCount);
         
         // Position bomb counter below P1 profile (centered below profile image)
         float p1BombCounterY = p1ProfileY - 35.0f;  // Below profile
@@ -1603,6 +1713,22 @@ int main()
         float p2BombCounterY = p2ProfileY - 35.0f;  // Below profile
         float p2BombCounterX = p2ProfileX + (profileSize / 2.0f) - 15.0f;  // Centered
         RenderText(textShader, p2BombText, p2BombCounterX, p2BombCounterY, 0.7f, glm::vec3(1.0f, 0.8f, 0.2f), Characters, textVAO, textVBO);
+        
+        // ===== POWER-UP INDICATOR =====
+        // Display "POWER" text below bomb counter when power-up is active
+        if (leftPose.bombRangeBoostTimer > 0.0f)
+        {
+            float p1PowerY = p1BombCounterY - 30.0f;  // Below bomb counter
+            float p1PowerX = p1ProfileX + (profileSize / 2.0f) - 35.0f;  // Centered
+            RenderText(textShader, "POWER", p1PowerX, p1PowerY, 0.5f, glm::vec3(0.2f, 1.0f, 0.3f), Characters, textVAO, textVBO);
+        }
+        
+        if (rightPose.bombRangeBoostTimer > 0.0f)
+        {
+            float p2PowerY = p2BombCounterY - 30.0f;  // Below bomb counter
+            float p2PowerX = p2ProfileX + (profileSize / 2.0f) - 35.0f;  // Centered
+            RenderText(textShader, "POWER", p2PowerX, p2PowerY, 0.5f, glm::vec3(0.2f, 1.0f, 0.3f), Characters, textVAO, textVBO);
+        }
 
         
         // Render game over screen if game is over
@@ -1799,16 +1925,15 @@ bool CanPlaceBomb(int gridX, int gridY, const std::vector<std::pair<int, int>>& 
 }
 
 // Helper function to get all tiles that will be affected by bomb explosion
-std::vector<std::pair<int, int>> GetExplosionTiles(const Bomb& bomb, const std::vector<std::pair<int, int>>& breakableBlocks)
+std::vector<std::pair<int, int>> GetExplosionTiles(const Bomb& bomb, const std::vector<std::pair<int, int>>& breakableBlocks, int explosionRange)
 {
-    const int EXPLOSION_RANGE = 2;  // 2 blocks in each direction
     std::vector<std::pair<int, int>> explosionTiles;
     
     // Add center (bomb position)
     explosionTiles.push_back({bomb.gridX, bomb.gridY});
     
     // Up (decrease Y)
-    for (int i = 1; i <= EXPLOSION_RANGE; i++)
+    for (int i = 1; i <= explosionRange; i++)
     {
         int x = bomb.gridX;
         int y = bomb.gridY - i;
@@ -1834,7 +1959,7 @@ std::vector<std::pair<int, int>> GetExplosionTiles(const Bomb& bomb, const std::
     }
     
     // Down (increase Y)
-    for (int i = 1; i <= EXPLOSION_RANGE; i++)
+    for (int i = 1; i <= explosionRange; i++)
     {
         int x = bomb.gridX;
         int y = bomb.gridY + i;
@@ -1860,7 +1985,7 @@ std::vector<std::pair<int, int>> GetExplosionTiles(const Bomb& bomb, const std::
     }
     
     // Left (decrease X)
-    for (int i = 1; i <= EXPLOSION_RANGE; i++)
+    for (int i = 1; i <= explosionRange; i++)
     {
         int x = bomb.gridX - i;
         int y = bomb.gridY;
@@ -1886,7 +2011,7 @@ std::vector<std::pair<int, int>> GetExplosionTiles(const Bomb& bomb, const std::
     }
     
     // Right (increase X)
-    for (int i = 1; i <= EXPLOSION_RANGE; i++)
+    for (int i = 1; i <= explosionRange; i++)
     {
         int x = bomb.gridX + i;
         int y = bomb.gridY;
@@ -1916,9 +2041,21 @@ std::vector<std::pair<int, int>> GetExplosionTiles(const Bomb& bomb, const std::
 
 // Function to explode bomb and destroy breakable blocks in cross pattern
 void ExplodeBomb(const Bomb& bomb, std::vector<std::pair<int, int>>& breakableBlocks,
-                 CharacterPose& leftPlayer, CharacterPose& rightPlayer)
+                 CharacterPose& leftPlayer, CharacterPose& rightPlayer, std::vector<PowerUp>& powerUps)
 {
-    const int EXPLOSION_RANGE = 2;  // 2 blocks in each direction
+    // Determine explosion range based on bomb owner's boost
+    int explosionRange = 2;  // Base range
+    if (bomb.owner == 1 && leftPlayer.bombRangeBoostTimer > 0.0f) {
+        explosionRange = 3;  // Boosted range
+    } else if (bomb.owner ==2 && rightPlayer.bombRangeBoostTimer > 0.0f) {
+        explosionRange = 3;  // Boosted range
+    }
+    
+    // Random number generator for power-up drops
+    static std::random_device rd;
+    static std::mt19937 gen(rd());
+    static std::uniform_real_distribution<float> dropChance(0.0f, 1.0f);
+    const float POWERUP_DROP_RATE = 0.3f;  // 30% chance
     
     // Helper lambda to check and damage player
     auto checkPlayerDamage = [](CharacterPose& player, int x, int y) {
@@ -1930,12 +2067,43 @@ void ExplodeBomb(const Bomb& bomb, std::vector<std::pair<int, int>>& breakableBl
         }
     };
     
+    // Helper lambda to destroy block and possibly spawn power-up
+    auto destroyBlock = [&](int x, int y) {
+        bool blockDestroyed = false;
+        
+        // Check if there's a block to destroy
+        for (const auto& pos : breakableBlocks) {
+            if (pos.first == x && pos.second == y) {
+                blockDestroyed = true;
+                break;
+            }
+        }
+        
+        // Remove the block
+        breakableBlocks.erase(
+            std::remove_if(breakableBlocks.begin(), breakableBlocks.end(),
+                [x, y](const std::pair<int, int>& pos) { return pos.first == x && pos.second == y; }),
+            breakableBlocks.end()
+        );
+        
+        // Randomly spawn power-up if block was destroyed
+        if (blockDestroyed && dropChance(gen) < POWERUP_DROP_RATE) {
+            // Randomly choose power-up type (50% each)
+            PowerUpType type = (dropChance(gen) < 0.5f) ? PowerUpType::RANGE_BOOST : PowerUpType::BOMB_CAPACITY;
+            powerUps.push_back(PowerUp(x, y, type));
+            std::cout << "Power-up spawned at (" << x << ", " << y << ") - Type: " 
+                      << (type == PowerUpType::RANGE_BOOST ? "RANGE_BOOST" : "BOMB_CAPACITY") << std::endl;
+        }
+        
+        return blockDestroyed;
+    };
+    
     // Check center (bomb position)
     checkPlayerDamage(leftPlayer, bomb.gridX, bomb.gridY);
     checkPlayerDamage(rightPlayer, bomb.gridX, bomb.gridY);
     
     // Up (decrease Y)
-    for (int i = 1; i <= EXPLOSION_RANGE; i++)
+    for (int i = 1; i <= explosionRange; i++)
     {
         int x = bomb.gridX;
         int y = bomb.gridY - i;
@@ -1948,28 +2116,12 @@ void ExplodeBomb(const Bomb& bomb, std::vector<std::pair<int, int>>& breakableBl
         checkPlayerDamage(leftPlayer, x, y);
         checkPlayerDamage(rightPlayer, x, y);
         
-        // Remove breakable block if exists (and stop explosion if block was there)
-        bool hitBlock = false;
-        for (const auto& pos : breakableBlocks)
-        {
-            if (pos.first == x && pos.second == y)
-            {
-                hitBlock = true;
-                break;
-            }
-        }
-        
-        breakableBlocks.erase(
-            std::remove_if(breakableBlocks.begin(), breakableBlocks.end(),
-                [x, y](const std::pair<int, int>& pos) { return pos.first == x && pos.second == y; }),
-            breakableBlocks.end()
-        );
-        
-        if (hitBlock) break;  // Stop explosion after destroying block
+        // Destroy block and possibly spawn power-up
+        if (destroyBlock(x, y)) break;  // Stop explosion after destroying block
     }
     
     // Down (increase Y)
-    for (int i = 1; i <= EXPLOSION_RANGE; i++)
+    for (int i = 1; i <= explosionRange; i++)
     {
         int x = bomb.gridX;
         int y = bomb.gridY + i;
@@ -1982,28 +2134,12 @@ void ExplodeBomb(const Bomb& bomb, std::vector<std::pair<int, int>>& breakableBl
         checkPlayerDamage(leftPlayer, x, y);
         checkPlayerDamage(rightPlayer, x, y);
         
-        // Remove breakable block if exists (and stop explosion if block was there)
-        bool hitBlock = false;
-        for (const auto& pos : breakableBlocks)
-        {
-            if (pos.first == x && pos.second == y)
-            {
-                hitBlock = true;
-                break;
-            }
-        }
-        
-        breakableBlocks.erase(
-            std::remove_if(breakableBlocks.begin(), breakableBlocks.end(),
-                [x, y](const std::pair<int, int>& pos) { return pos.first == x && pos.second == y; }),
-            breakableBlocks.end()
-        );
-        
-        if (hitBlock) break;
+        // Destroy block and possibly spawn power-up
+        if (destroyBlock(x, y)) break;
     }
     
     // Left (decrease X)
-    for (int i = 1; i <= EXPLOSION_RANGE; i++)
+    for (int i = 1; i <= explosionRange; i++)
     {
         int x = bomb.gridX - i;
         int y = bomb.gridY;
@@ -2016,28 +2152,12 @@ void ExplodeBomb(const Bomb& bomb, std::vector<std::pair<int, int>>& breakableBl
         checkPlayerDamage(leftPlayer, x, y);
         checkPlayerDamage(rightPlayer, x, y);
         
-        // Remove breakable block if exists (and stop explosion if block was there)
-        bool hitBlock = false;
-        for (const auto& pos : breakableBlocks)
-        {
-            if (pos.first == x && pos.second == y)
-            {
-                hitBlock = true;
-                break;
-            }
-        }
-        
-        breakableBlocks.erase(
-            std::remove_if(breakableBlocks.begin(), breakableBlocks.end(),
-                [x, y](const std::pair<int, int>& pos) { return pos.first == x && pos.second == y; }),
-            breakableBlocks.end()
-        );
-        
-        if (hitBlock) break;
+        // Destroy block and possibly spawn power-up
+        if (destroyBlock(x, y)) break;
     }
     
     // Right (increase X)
-    for (int i = 1; i <= EXPLOSION_RANGE; i++)
+    for (int i = 1; i <= explosionRange; i++)
     {
         int x = bomb.gridX + i;
         int y = bomb.gridY;
@@ -2050,36 +2170,26 @@ void ExplodeBomb(const Bomb& bomb, std::vector<std::pair<int, int>>& breakableBl
         checkPlayerDamage(leftPlayer, x, y);
         checkPlayerDamage(rightPlayer, x, y);
         
-        // Remove breakable block if exists (and stop explosion if block was there)
-        bool hitBlock = false;
-        for (const auto& pos : breakableBlocks)
-        {
-            if (pos.first == x && pos.second == y)
-            {
-                hitBlock = true;
-                break;
-            }
-        }
-        
-        breakableBlocks.erase(
-            std::remove_if(breakableBlocks.begin(), breakableBlocks.end(),
-                [x, y](const std::pair<int, int>& pos) { return pos.first == x && pos.second == y; }),
-            breakableBlocks.end()
-        );
-        
-        if (hitBlock) break;
+        // Destroy block and possibly spawn power-up
+        if (destroyBlock(x, y)) break;
     }
 }
 
 // Update bombs: countdown timers and explosions
 void UpdateBombs(std::vector<Bomb>& bombs, std::vector<std::pair<int, int>>& breakableBlocks,
-                 CharacterPose& leftPlayer, CharacterPose& rightPlayer, float deltaTime)
+                 CharacterPose& leftPlayer, CharacterPose& rightPlayer, float deltaTime, std::vector<PowerUp>& powerUps)
 {
     // Update invulnerability timers
     if (leftPlayer.invulnerabilityTimer > 0.0f)
         leftPlayer.invulnerabilityTimer -= deltaTime;
     if (rightPlayer.invulnerabilityTimer > 0.0f)
         rightPlayer.invulnerabilityTimer -= deltaTime;
+    
+    // Update bomb range boost timers
+    if (leftPlayer.bombRangeBoostTimer > 0.0f)
+        leftPlayer.bombRangeBoostTimer -= deltaTime;
+    if (rightPlayer.bombRangeBoostTimer > 0.0f)
+        rightPlayer.bombRangeBoostTimer -= deltaTime;
     
     for (auto& bomb : bombs)
     {
@@ -2090,19 +2200,19 @@ void UpdateBombs(std::vector<Bomb>& bombs, std::vector<std::pair<int, int>>& bre
             if (bomb.timer <= 0.0f)
             {
                 // Explode!
-                ExplodeBomb(bomb, breakableBlocks, leftPlayer, rightPlayer);
+                ExplodeBomb(bomb, breakableBlocks, leftPlayer, rightPlayer, powerUps);
                 bomb.exploded = true;
                 
                 // Decrement active bomb count for the owner
                 if (bomb.owner == 1)
                 {
                     leftPlayer.activeBombCount--;
-                    std::cout << "P1 bomb exploded. Active bombs: " << leftPlayer.activeBombCount << "/3" << std::endl;
+                    std::cout << "P1 bomb exploded. Active bombs: " << leftPlayer.activeBombCount << "/" << leftPlayer.maxBombCount << std::endl;
                 }
                 else if (bomb.owner == 2)
                 {
                     rightPlayer.activeBombCount--;
-                    std::cout << "P2 bomb exploded. Active bombs: " << rightPlayer.activeBombCount << "/3" << std::endl;
+                    std::cout << "P2 bomb exploded. Active bombs: " << rightPlayer.activeBombCount << "/" << rightPlayer.maxBombCount << std::endl;
                 }
             }
         }
@@ -2110,6 +2220,59 @@ void UpdateBombs(std::vector<Bomb>& bombs, std::vector<std::pair<int, int>>& bre
     
     // Remove exploded bombs (optional - can keep them for visual effects)
     // For now, we'll keep them but mark as exploded
+}
+
+// Update power-ups: handle spinning animation and pickup detection
+void UpdatePowerUps(std::vector<PowerUp>& powerUps, CharacterPose& leftPlayer, CharacterPose& rightPlayer, float deltaTime)
+{
+    const float SPIN_SPEED = 2.0f;  // Rotations per second
+    const float BOOST_DURATION = 10.0f;  // 10 seconds of boost
+    
+    //Update spin animation for all power-ups
+    for (auto& powerUp : powerUps)
+    {
+        powerUp.rotation += SPIN_SPEED * deltaTime * 2.0f * 3.14159f;  // Convert to radians
+    }
+    
+    // Check for pickups
+    for (auto it = powerUps.begin(); it != powerUps.end(); )
+    {
+        bool pickedUp = false;
+        
+        // Check P1 pickup
+        if (leftPlayer.gridX == it->gridX && leftPlayer.gridY == it->gridY)
+        {
+            if (it->type == PowerUpType::RANGE_BOOST) {
+                leftPlayer.bombRangeBoostTimer = BOOST_DURATION;
+                std::cout << "P1 picked up RANGE BOOST! Bomb range +1 for 10 seconds" << std::endl;
+            } else if (it->type == PowerUpType::BOMB_CAPACITY) {
+                leftPlayer.maxBombCount++;
+                std::cout << "P1 picked up BOMB CAPACITY! Max bombs: " << leftPlayer.maxBombCount << std::endl;
+            }
+            pickedUp = true;
+        }
+        // Check P2 pickup
+        else if (rightPlayer.gridX == it->gridX && rightPlayer.gridY == it->gridY)
+        {
+            if (it->type == PowerUpType::RANGE_BOOST) {
+                rightPlayer.bombRangeBoostTimer = BOOST_DURATION;
+                std::cout << "P2 picked up RANGE BOOST! Bomb range +1 for 10 seconds" << std::endl;
+            } else if (it->type == PowerUpType::BOMB_CAPACITY) {
+                rightPlayer.maxBombCount++;
+                std::cout << "P2 picked up BOMB CAPACITY! Max bombs: " << rightPlayer.maxBombCount << std::endl;
+            }
+            pickedUp = true;
+        }
+        
+        if (pickedUp)
+        {
+            it = powerUps.erase(it);  // Remove picked up power-up
+        }
+        else
+        {
+            ++it;
+        }
+    }
 }
 
 // process all input: query GLFW whether relevant keys are pressed/released this frame and react accordingly
@@ -2150,7 +2313,7 @@ void processInput(GLFWwindow *window, std::vector<std::pair<int, int>>& breakabl
         int bombY = leftCharacter.gridY;
         
         // Check bomb limit (max 3 active bombs)
-        if (leftCharacter.activeBombCount < 3 &&
+        if (leftCharacter.activeBombCount < leftCharacter.maxBombCount &&
             CanPlaceBomb(bombX, bombY, breakableBlockPositions) && 
             !HasBomb(bombX, bombY, bombs))
         {
@@ -2159,9 +2322,9 @@ void processInput(GLFWwindow *window, std::vector<std::pair<int, int>>& breakabl
             std::cout << "P1 placed bomb at (" << bombX << ", " << bombY << ") [" 
                       << leftCharacter.activeBombCount << "/3]" << std::endl;
         }
-        else if (leftCharacter.activeBombCount >= 3)
+        else if (leftCharacter.activeBombCount >= leftCharacter.maxBombCount)
         {
-            std::cout << "P1 bomb limit reached (3/3)" << std::endl;
+            std::cout << "P1 bomb limit reached (" << leftCharacter.activeBombCount << "/" << leftCharacter.maxBombCount << ")" << std::endl;
         }
     }
     else if (glfwGetKey(window, GLFW_KEY_Q) == GLFW_RELEASE)
@@ -2177,7 +2340,7 @@ void processInput(GLFWwindow *window, std::vector<std::pair<int, int>>& breakabl
         int bombY = rightCharacter.gridY;
         
         // Check bomb limit (max 3 active bombs)
-        if (rightCharacter.activeBombCount < 3 &&
+        if (rightCharacter.activeBombCount < rightCharacter.maxBombCount &&
             CanPlaceBomb(bombX, bombY, breakableBlockPositions) && 
             !HasBomb(bombX, bombY, bombs))
         {
@@ -2186,9 +2349,9 @@ void processInput(GLFWwindow *window, std::vector<std::pair<int, int>>& breakabl
             std::cout << "P2 placed bomb at (" << bombX << ", " << bombY << ") [" 
                       << rightCharacter.activeBombCount << "/3]" << std::endl;
         }
-        else if (rightCharacter.activeBombCount >= 3)
+        else if (rightCharacter.activeBombCount >= rightCharacter.maxBombCount)
         {
-            std::cout << "P2 bomb limit reached (3/3)" << std::endl;
+            std::cout << "P2 bomb limit reached (" << rightCharacter.activeBombCount << "/" << rightCharacter.maxBombCount << ")" << std::endl;
         }
     }
     else if (glfwGetKey(window, GLFW_KEY_M) == GLFW_RELEASE)
