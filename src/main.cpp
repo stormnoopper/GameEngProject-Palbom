@@ -55,6 +55,7 @@ struct CharacterPose
     
     // Power-up system
     float bombRangeBoostTimer = 0.0f;  // Remaining time for +1 bomb range boost
+    float shieldTimer = 0.0f;           // Remaining time for damage shield
 };
 
 struct CharacterTextures
@@ -80,7 +81,8 @@ struct Bomb
 // Power-Up Type Enum
 enum class PowerUpType {
     RANGE_BOOST,      // Blue power - increases bomb range for 10 seconds
-    BOMB_CAPACITY     // Red bomb - increases max bomb count permanently
+    BOMB_CAPACITY,    // Red bomb - increases max bomb count permanently
+    SHIELD            // White shield - protects from damage for 10 seconds
 };
 
 // Power-Up System Struct
@@ -892,6 +894,10 @@ int main()
     const std::string powerUpModelPath = FileSystem::getPath("assets/item/Power.glb");
     Model powerUpModel(powerUpModelPath);
     std::cout << "Power-up model loaded from: " << powerUpModelPath << std::endl;
+    
+    const std::string shieldModelPath = FileSystem::getPath("assets/item/Shield.glb");
+    Model shieldModel(shieldModelPath);
+    std::cout << "Shield model loaded from: " << shieldModelPath << std::endl;
 
 
     // ------------------------------------------------------------------
@@ -1540,14 +1546,21 @@ int main()
             
             glm::mat4 model = glm::mat4(1.0f);
             model = glm::translate(model, powerUpPos);
-            // Rotate around Y axis for spinning effect
-            model = glm::rotate(model, powerUp.rotation, glm::vec3(0.0f, 1.0f, 0.0f));
-            // Rotate 90 degrees around X axis to orient correctly
-            model = glm::rotate(model, glm::radians(-90.0f), glm::vec3(1.0f, 0.0f, 0.0f));
-            // Set color, scale, and model based on power-up type
+            
+            // Apply rotation based on power-up type (shield needs different rotation axis)
+            if (powerUp.type == PowerUpType::SHIELD) {
+                // Rotate around Z axis for shield (spins flat)
+                model = glm::rotate(model, powerUp.rotation, glm::vec3(0.0f, 0.0f, 1.0f));
+            } else {
+                // Rotate around Y axis for other power-ups (standard spin)
+                model = glm::rotate(model, powerUp.rotation, glm::vec3(0.0f, 1.0f, 0.0f));
+            }
+            
+            // Set color, scale, rotation, and model based on power-up type
             if (powerUp.type == PowerUpType::RANGE_BOOST) {
                 // Blue Power.glb model - NEEDS TO BE BIG
                 // Rotate 90 degrees around X axis to orient correctly (standard for this model)
+                model = glm::rotate(model, glm::radians(-90.0f), glm::vec3(1.0f, 0.0f, 0.0f));
                 model = glm::rotate(model, glm::radians(-90.0f), glm::vec3(1.0f, 0.0f, 0.0f));
                 model = glm::scale(model, glm::vec3(8.0f)); 
                 characterShader.setMat4("model", model);
@@ -1557,9 +1570,10 @@ int main()
                 characterShader.setVec3("objectColor", glm::vec3(0.2f, 0.5f, 1.0f));
                 
                 powerUpModel.Draw(characterShader);
-            } else {
+            } else if (powerUp.type == PowerUpType::BOMB_CAPACITY) {
                 // Red bomb.glb model - NEEDS TO BE SMALL
-                // Rotate 90 degrees POSITIVE to make it stand up (flip from -90)
+                // Rotate 90 degrees around X axis, then flip
+                model = glm::rotate(model, glm::radians(-90.0f), glm::vec3(1.0f, 0.0f, 0.0f));
                 model = glm::rotate(model, glm::radians(90.0f), glm::vec3(1.0f, 0.0f, 0.0f));
                 model = glm::scale(model, glm::vec3(0.3f)); 
                 characterShader.setMat4("model", model);
@@ -1569,6 +1583,17 @@ int main()
                 characterShader.setVec3("objectColor", glm::vec3(1.0f, 0.0f, 0.0f));
                 
                 bombModel.Draw(characterShader);
+            } else if (powerUp.type == PowerUpType::SHIELD) {
+                // White shield.glb model  
+                // NO X ROTATION - just let it spin around Y axis from its center
+                model = glm::scale(model, glm::vec3(5.0f));  // Larger size for visibility
+                characterShader.setMat4("model", model);
+                
+                // Use WHITE LIGHT for bright white shield
+                characterShader.setVec3("lightColor", glm::vec3(3.0f, 3.0f, 3.0f));
+                characterShader.setVec3("objectColor", glm::vec3(1.0f, 1.0f, 1.0f));
+                
+                shieldModel.Draw(characterShader);
             }
         }
         
@@ -1728,6 +1753,22 @@ int main()
             float p2PowerY = p2BombCounterY - 30.0f;  // Below bomb counter
             float p2PowerX = p2ProfileX + (profileSize / 2.0f) - 35.0f;  // Centered
             RenderText(textShader, "POWER", p2PowerX, p2PowerY, 0.5f, glm::vec3(0.2f, 1.0f, 0.3f), Characters, textVAO, textVBO);
+        }
+        
+        // ===== SHIELD INDICATOR =====
+        // Display "SHIELD" text below POWER when shield is active
+        if (leftPose.shieldTimer > 0.0f)
+        {
+            float p1ShieldY = p1BombCounterY - 60.0f;  // Below POWER text
+            float p1ShieldX = p1ProfileX + (profileSize / 2.0f) - 40.0f;  // Centered
+            RenderText(textShader, "SHIELD", p1ShieldX, p1ShieldY, 0.5f, glm::vec3(0.5f, 1.0f, 1.0f), Characters, textVAO, textVBO);
+        }
+        
+        if (rightPose.shieldTimer > 0.0f)
+        {
+            float p2ShieldY = p2BombCounterY - 60.0f;  // Below POWER text
+            float p2ShieldX = p2ProfileX + (profileSize / 2.0f) - 40.0f;  // Centered
+            RenderText(textShader, "SHIELD", p2ShieldX, p2ShieldY, 0.5f, glm::vec3(0.5f, 1.0f, 1.0f), Characters, textVAO, textVBO);
         }
 
         
@@ -2059,10 +2100,15 @@ void ExplodeBomb(const Bomb& bomb, std::vector<std::pair<int, int>>& breakableBl
     
     // Helper lambda to check and damage player
     auto checkPlayerDamage = [](CharacterPose& player, int x, int y) {
-        if (player.gridX == x && player.gridY == y && player.invulnerabilityTimer <= 0.0f)
-        {
+        if (player.gridX == x && player.gridY == y && player.invulnerabilityTimer <= 0.0f) {
+            // Check if player has shield active
+            if (player.shieldTimer > 0.0f) {
+                std::cout << "Shield blocked damage!" << std::endl;
+                return;  // Shield protects from damage
+            }
+            
             player.health--;
-            player.invulnerabilityTimer = 0.5f;  // 0.5 second invulnerability
+            player.invulnerabilityTimer = 1.0f;  // 1 second invulnerability after hit
             std::cout << "Player hit! Health remaining: " << player.health << std::endl;
         }
     };
@@ -2088,11 +2134,21 @@ void ExplodeBomb(const Bomb& bomb, std::vector<std::pair<int, int>>& breakableBl
         
         // Randomly spawn power-up if block was destroyed
         if (blockDestroyed && dropChance(gen) < POWERUP_DROP_RATE) {
-            // Randomly choose power-up type (50% each)
-            PowerUpType type = (dropChance(gen) < 0.5f) ? PowerUpType::RANGE_BOOST : PowerUpType::BOMB_CAPACITY;
+            // Randomly choose power-up type (33.3% each for 3 types)
+            float typeRoll = dropChance(gen);
+            PowerUpType type;
+            if (typeRoll < 0.333f) {
+                type = PowerUpType::RANGE_BOOST;
+            } else if (typeRoll < 0.666f) {
+                type = PowerUpType::BOMB_CAPACITY;
+            } else {
+                type = PowerUpType::SHIELD;
+            }
+            
             powerUps.push_back(PowerUp(x, y, type));
-            std::cout << "Power-up spawned at (" << x << ", " << y << ") - Type: " 
-                      << (type == PowerUpType::RANGE_BOOST ? "RANGE_BOOST" : "BOMB_CAPACITY") << std::endl;
+            std::string typeName = (type == PowerUpType::RANGE_BOOST) ? "RANGE_BOOST" :
+                                  (type == PowerUpType::BOMB_CAPACITY) ? "BOMB_CAPACITY" : "SHIELD";
+            std::cout << "Power-up spawned at (" << x << ", " << y << ") - Type: " << typeName << std::endl;
         }
         
         return blockDestroyed;
@@ -2179,17 +2235,13 @@ void ExplodeBomb(const Bomb& bomb, std::vector<std::pair<int, int>>& breakableBl
 void UpdateBombs(std::vector<Bomb>& bombs, std::vector<std::pair<int, int>>& breakableBlocks,
                  CharacterPose& leftPlayer, CharacterPose& rightPlayer, float deltaTime, std::vector<PowerUp>& powerUps)
 {
-    // Update invulnerability timers
-    if (leftPlayer.invulnerabilityTimer > 0.0f)
-        leftPlayer.invulnerabilityTimer -= deltaTime;
-    if (rightPlayer.invulnerabilityTimer > 0.0f)
-        rightPlayer.invulnerabilityTimer -= deltaTime;
-    
-    // Update bomb range boost timers
-    if (leftPlayer.bombRangeBoostTimer > 0.0f)
-        leftPlayer.bombRangeBoostTimer -= deltaTime;
-    if (rightPlayer.bombRangeBoostTimer > 0.0f)
-        rightPlayer.bombRangeBoostTimer -= deltaTime;
+    // Update timers
+    if (leftPlayer.invulnerabilityTimer > 0) leftPlayer.invulnerabilityTimer -= deltaTime;
+    if (rightPlayer.invulnerabilityTimer > 0) rightPlayer.invulnerabilityTimer -= deltaTime;
+    if (leftPlayer.bombRangeBoostTimer > 0) leftPlayer.bombRangeBoostTimer -= deltaTime;
+    if (rightPlayer.bombRangeBoostTimer > 0) rightPlayer.bombRangeBoostTimer -= deltaTime;
+    if (leftPlayer.shieldTimer > 0) leftPlayer.shieldTimer -= deltaTime;
+    if (rightPlayer.shieldTimer > 0) rightPlayer.shieldTimer -= deltaTime;
     
     for (auto& bomb : bombs)
     {
@@ -2248,6 +2300,9 @@ void UpdatePowerUps(std::vector<PowerUp>& powerUps, CharacterPose& leftPlayer, C
             } else if (it->type == PowerUpType::BOMB_CAPACITY) {
                 leftPlayer.maxBombCount++;
                 std::cout << "P1 picked up BOMB CAPACITY! Max bombs: " << leftPlayer.maxBombCount << std::endl;
+            } else if (it->type == PowerUpType::SHIELD) {
+                leftPlayer.shieldTimer = 5.0f;  // Shield lasts 5 seconds
+                std::cout << "P1 picked up SHIELD! Protected from damage for 5 seconds" << std::endl;
             }
             pickedUp = true;
         }
@@ -2260,6 +2315,9 @@ void UpdatePowerUps(std::vector<PowerUp>& powerUps, CharacterPose& leftPlayer, C
             } else if (it->type == PowerUpType::BOMB_CAPACITY) {
                 rightPlayer.maxBombCount++;
                 std::cout << "P2 picked up BOMB CAPACITY! Max bombs: " << rightPlayer.maxBombCount << std::endl;
+            } else if (it->type == PowerUpType::SHIELD) {
+                rightPlayer.shieldTimer = 5.0f;  // Shield lasts 5 seconds
+                std::cout << "P2 picked up SHIELD! Protected from damage for 5 seconds" << std::endl;
             }
             pickedUp = true;
         }
