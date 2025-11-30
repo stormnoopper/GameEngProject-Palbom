@@ -48,6 +48,9 @@ struct CharacterPose
     // Health system
     int health = 3;  // 3 hearts
     float invulnerabilityTimer = 0.0f;  // Prevent multiple hits from one explosion
+    
+    // Bomb limit system
+    int activeBombCount = 0;  // Track active bombs (max 3)
 };
 
 struct CharacterTextures
@@ -899,6 +902,7 @@ int main()
     leftPose.rotation = 0.0f;
     leftPose.targetGridX = 1;
     leftPose.targetGridY = 1;
+    leftPose.activeBombCount = 0;
 
     // P2 at (13,13) - Bottom-Right
     CharacterPose rightPose;
@@ -909,6 +913,7 @@ int main()
     rightPose.rotation = glm::radians(180.0f);
     rightPose.targetGridX = 13;
     rightPose.targetGridY = 13;
+    rightPose.activeBombCount = 0;
 
     // ------------------------------------------------------------------
     // UI Setup
@@ -1581,6 +1586,25 @@ int main()
         float p2TextY = p2ProfileY + profileSize - 15.0f;
         RenderText(textShader, "PLAYER 2", p2TextX, p2TextY, 0.5f, glm::vec3(1.0f, 1.0f, 1.0f), Characters, textVAO, textVBO);
         
+        // ===== BOMB COUNTER DISPLAY =====
+        // Display remaining bombs below each player's profile
+        int p1RemainingBombs = 3 - leftPose.activeBombCount;
+        int p2RemainingBombs = 3 - rightPose.activeBombCount;
+        
+        std::string p1BombText = "X" + std::to_string(p1RemainingBombs);
+        std::string p2BombText = "X" + std::to_string(p2RemainingBombs);
+        
+        // Position bomb counter below P1 profile (centered below profile image)
+        float p1BombCounterY = p1ProfileY - 35.0f;  // Below profile
+        float p1BombCounterX = p1ProfileX + (profileSize / 2.0f) - 15.0f;  // Centered
+        RenderText(textShader, p1BombText, p1BombCounterX, p1BombCounterY, 0.7f, glm::vec3(1.0f, 0.8f, 0.2f), Characters, textVAO, textVBO);
+        
+        // Position bomb counter below P2 profile (centered below profile image)
+        float p2BombCounterY = p2ProfileY - 35.0f;  // Below profile
+        float p2BombCounterX = p2ProfileX + (profileSize / 2.0f) - 15.0f;  // Centered
+        RenderText(textShader, p2BombText, p2BombCounterX, p2BombCounterY, 0.7f, glm::vec3(1.0f, 0.8f, 0.2f), Characters, textVAO, textVBO);
+
+        
         // Render game over screen if game is over
         if (gameOver)
         {
@@ -2068,6 +2092,18 @@ void UpdateBombs(std::vector<Bomb>& bombs, std::vector<std::pair<int, int>>& bre
                 // Explode!
                 ExplodeBomb(bomb, breakableBlocks, leftPlayer, rightPlayer);
                 bomb.exploded = true;
+                
+                // Decrement active bomb count for the owner
+                if (bomb.owner == 1)
+                {
+                    leftPlayer.activeBombCount--;
+                    std::cout << "P1 bomb exploded. Active bombs: " << leftPlayer.activeBombCount << "/3" << std::endl;
+                }
+                else if (bomb.owner == 2)
+                {
+                    rightPlayer.activeBombCount--;
+                    std::cout << "P2 bomb exploded. Active bombs: " << rightPlayer.activeBombCount << "/3" << std::endl;
+                }
             }
         }
     }
@@ -2113,11 +2149,19 @@ void processInput(GLFWwindow *window, std::vector<std::pair<int, int>>& breakabl
         int bombX = leftCharacter.gridX;
         int bombY = leftCharacter.gridY;
         
-        if (CanPlaceBomb(bombX, bombY, breakableBlockPositions) && 
+        // Check bomb limit (max 3 active bombs)
+        if (leftCharacter.activeBombCount < 3 &&
+            CanPlaceBomb(bombX, bombY, breakableBlockPositions) && 
             !HasBomb(bombX, bombY, bombs))
         {
             bombs.push_back(Bomb(bombX, bombY, 1));
-            std::cout << "P1 placed bomb at (" << bombX << ", " << bombY << ")" << std::endl;
+            leftCharacter.activeBombCount++;
+            std::cout << "P1 placed bomb at (" << bombX << ", " << bombY << ") [" 
+                      << leftCharacter.activeBombCount << "/3]" << std::endl;
+        }
+        else if (leftCharacter.activeBombCount >= 3)
+        {
+            std::cout << "P1 bomb limit reached (3/3)" << std::endl;
         }
     }
     else if (glfwGetKey(window, GLFW_KEY_Q) == GLFW_RELEASE)
@@ -2132,11 +2176,19 @@ void processInput(GLFWwindow *window, std::vector<std::pair<int, int>>& breakabl
         int bombX = rightCharacter.gridX;
         int bombY = rightCharacter.gridY;
         
-        if (CanPlaceBomb(bombX, bombY, breakableBlockPositions) && 
+        // Check bomb limit (max 3 active bombs)
+        if (rightCharacter.activeBombCount < 3 &&
+            CanPlaceBomb(bombX, bombY, breakableBlockPositions) && 
             !HasBomb(bombX, bombY, bombs))
         {
             bombs.push_back(Bomb(bombX, bombY, 2));
-            std::cout << "P2 placed bomb at (" << bombX << ", " << bombY << ")" << std::endl;
+            rightCharacter.activeBombCount++;
+            std::cout << "P2 placed bomb at (" << bombX << ", " << bombY << ") [" 
+                      << rightCharacter.activeBombCount << "/3]" << std::endl;
+        }
+        else if (rightCharacter.activeBombCount >= 3)
+        {
+            std::cout << "P2 bomb limit reached (3/3)" << std::endl;
         }
     }
     else if (glfwGetKey(window, GLFW_KEY_M) == GLFW_RELEASE)
