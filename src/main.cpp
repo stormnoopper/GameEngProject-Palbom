@@ -1747,11 +1747,16 @@ int main()
         
         // ===== TEXT RENDERING =====
         // Render text after all texture-based UI to avoid state conflicts
-        float p1TextY = p1ProfileY + profileSize - 15.0f;
-        RenderText(textShader, "PLAYER 1", p1TextX, p1TextY, 0.5f, glm::vec3(1.0f, 1.0f, 1.0f), Characters, textVAO, textVBO);
+        // P1: To the right of profile, above hearts
+        float p1TextY = p1HeartsY + heartSize + 5.0f;  // Above hearts
+        float p1NameX = p1ProfileX + profileSize + 20.0f;  // To the right of profile
+        RenderText(textShader, "PLAYER 1", p1NameX, p1TextY, 0.5f, glm::vec3(1.0f, 1.0f, 1.0f), Characters, textVAO, textVBO);
         
-        float p2TextY = p2ProfileY + profileSize - 15.0f;
-        RenderText(textShader, "PLAYER 2", p2TextX, p2TextY, 0.5f, glm::vec3(1.0f, 1.0f, 1.0f), Characters, textVAO, textVBO);
+        // P2: To the right of profile, above hearts (both players go right)
+        float p2TextY = p2HeartsY + heartSize + 5.0f;  // Above hearts
+        float p2TextWidth = 90.0f;  // Approximate width of "PLAYER 2" text
+        float p2NameX = p2ProfileX - p2TextWidth - 50.0f;  // To the left of profile
+        RenderText(textShader, "PLAYER 2", p2NameX, p2TextY, 0.5f, glm::vec3(1.0f, 1.0f, 1.0f), Characters, textVAO, textVBO);
         
         
         // ===== BOMB COUNTER DISPLAY =====
@@ -1762,30 +1767,28 @@ int main()
         std::string p1BombText = "X" + std::to_string(p1RemainingBombs) + "/" + std::to_string(leftPose.maxBombCount);
         std::string p2BombText = "X" + std::to_string(p2RemainingBombs) + "/" + std::to_string(rightPose.maxBombCount);
         
-        // Position bomb counter below P1 profile (centered below profile image)
+        // P1: Left-aligned bomb counter
         float p1BombCounterY = p1ProfileY - 35.0f;  // Below profile
-        float p1BombCounterX = p1ProfileX + (profileSize / 2.0f) - 15.0f;  // Centered
-        RenderText(textShader, p1BombText, p1BombCounterX, p1BombCounterY, 0.7f, glm::vec3(1.0f, 0.8f, 0.2f), Characters, textVAO, textVBO);
+        RenderText(textShader, p1BombText, p1ProfileX, p1BombCounterY, 0.7f, glm::vec3(1.0f, 0.8f, 0.2f), Characters, textVAO, textVBO);
         
-        // Position bomb counter below P2 profile (centered below profile image)
-        float p2BombCounterY = p2ProfileY - 35.0f;  // Below profile
-        float p2BombCounterX = p2ProfileX + (profileSize / 2.0f) - 15.0f;  // Centered
-        RenderText(textShader, p2BombText, p2BombCounterX, p2BombCounterY, 0.7f, glm::vec3(1.0f, 0.8f, 0.2f), Characters, textVAO, textVBO);
+        // P2: Right-aligned bomb counter
+        float p2BombCounterY = p2ProfileY - 35.0f;
+        float p2BombTextWidth = p1BombText.length() * 20.0f;  // Approximate width
+        RenderText(textShader, p2BombText, p2ProfileX + profileSize - p2BombTextWidth, p2BombCounterY, 0.7f, glm::vec3(1.0f, 0.8f, 0.2f), Characters, textVAO, textVBO);
         
         // ===== POWER-UP INDICATOR =====
         // Display "POWER" text below bomb counter when power-up is active
         if (leftPose.bombRangeBoostTimer > 0.0f)
         {
             float p1PowerY = p1BombCounterY - 30.0f;  // Below bomb counter
-            float p1PowerX = p1ProfileX + (profileSize / 2.0f) - 35.0f;  // Centered
-            RenderText(textShader, "POWER", p1PowerX, p1PowerY, 0.5f, glm::vec3(0.2f, 1.0f, 0.3f), Characters, textVAO, textVBO);
+            RenderText(textShader, "POWER", p1ProfileX, p1PowerY, 0.5f, glm::vec3(0.2f, 1.0f, 0.3f), Characters, textVAO, textVBO);
         }
         
         if (rightPose.bombRangeBoostTimer > 0.0f)
         {
             float p2PowerY = p2BombCounterY - 30.0f;  // Below bomb counter
-            float p2PowerX = p2ProfileX + (profileSize / 2.0f) - 35.0f;  // Centered
-            RenderText(textShader, "POWER", p2PowerX, p2PowerY, 0.5f, glm::vec3(0.2f, 1.0f, 0.3f), Characters, textVAO, textVBO);
+            float powerWidth = 60.0f;  // Approximate width of "POWER"
+            RenderText(textShader, "POWER", p2ProfileX + profileSize - powerWidth, p2PowerY, 0.5f, glm::vec3(0.2f, 1.0f, 0.3f), Characters, textVAO, textVBO);
         }
         
         // ===== SHIELD INDICATOR =====
@@ -1793,15 +1796,14 @@ int main()
         if (leftPose.shieldTimer > 0.0f)
         {
             float p1ShieldY = p1BombCounterY - 60.0f;  // Below POWER text
-            float p1ShieldX = p1ProfileX + (profileSize / 2.0f) - 40.0f;  // Centered
-            RenderText(textShader, "SHIELD", p1ShieldX, p1ShieldY, 0.5f, glm::vec3(0.5f, 1.0f, 1.0f), Characters, textVAO, textVBO);
+            RenderText(textShader, "SHIELD", p1ProfileX, p1ShieldY, 0.5f, glm::vec3(0.5f, 1.0f, 1.0f), Characters, textVAO, textVBO);
         }
         
         if (rightPose.shieldTimer > 0.0f)
         {
             float p2ShieldY = p2BombCounterY - 60.0f;  // Below POWER text
-            float p2ShieldX = p2ProfileX + (profileSize / 2.0f) - 40.0f;  // Centered
-            RenderText(textShader, "SHIELD", p2ShieldX, p2ShieldY, 0.5f, glm::vec3(0.5f, 1.0f, 1.0f), Characters, textVAO, textVBO);
+            float shieldWidth = 70.0f;  // Approximate width of "SHIELD"
+            RenderText(textShader, "SHIELD", p2ProfileX + profileSize - shieldWidth, p2ShieldY, 0.5f, glm::vec3(0.5f, 1.0f, 1.0f), Characters, textVAO, textVBO);
         }
         
         // ===== SPEED INDICATOR =====
@@ -1809,15 +1811,14 @@ int main()
         if (leftPose.speedBoostTimer > 0.0f)
         {
             float p1SpeedY = p1BombCounterY - 90.0f;  // Below SHIELD text
-            float p1SpeedX = p1ProfileX + (profileSize / 2.0f) - 30.0f;  // Centered
-            RenderText(textShader, "SPEED", p1SpeedX, p1SpeedY, 0.5f, glm::vec3(0.2f, 1.0f, 0.3f), Characters, textVAO, textVBO);
+            RenderText(textShader, "SPEED", p1ProfileX, p1SpeedY, 0.5f, glm::vec3(0.2f, 1.0f, 0.3f), Characters, textVAO, textVBO);
         }
         
         if (rightPose.speedBoostTimer > 0.0f)
         {
             float p2SpeedY = p2BombCounterY - 90.0f;  // Below SHIELD text
-            float p2SpeedX = p2ProfileX + (profileSize / 2.0f) - 30.0f;  // Centered
-            RenderText(textShader, "SPEED", p2SpeedX, p2SpeedY, 0.5f, glm::vec3(0.2f, 1.0f, 0.3f), Characters, textVAO, textVBO);
+            float speedWidth = 60.0f;  // Approximate width of "SPEED"
+            RenderText(textShader, "SPEED", p2ProfileX + profileSize - speedWidth, p2SpeedY, 0.5f, glm::vec3(0.2f, 1.0f, 0.3f), Characters, textVAO, textVBO);
         }
 
         
