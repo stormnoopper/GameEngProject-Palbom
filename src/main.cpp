@@ -1573,16 +1573,16 @@ int main()
                 
                 powerUpModel.Draw(characterShader);
             } else if (powerUp.type == PowerUpType::BOMB_CAPACITY) {
-                // Red bomb.glb model - NEEDS TO BE SMALL
-                // Rotate 90 degrees around X axis, then flip
-                model = glm::rotate(model, glm::radians(-90.0f), glm::vec3(1.0f, 0.0f, 0.0f));
-                model = glm::rotate(model, glm::radians(90.0f), glm::vec3(1.0f, 0.0f, 0.0f));
+                // Orange bomb.glb model - NEEDS TO BE SMALL
+                // Apply orientation to make fuse point up
+                glm::mat4 orientation = glm::rotate(glm::mat4(1.0f), glm::radians(-90.0f), glm::vec3(1.0f, 0.0f, 0.0f));
+                model = model * orientation;
                 model = glm::scale(model, glm::vec3(0.3f)); 
                 characterShader.setMat4("model", model);
                 
-                // Use RED LIGHT to force it to look red (like regular bombs)
-                characterShader.setVec3("lightColor", glm::vec3(3.0f, 0.0f, 0.0f));
-                characterShader.setVec3("objectColor", glm::vec3(1.0f, 0.0f, 0.0f));
+                // Use ORANGE LIGHT for bright orange color
+                characterShader.setVec3("lightColor", glm::vec3(3.0f, 0.6f, 0.0f));
+                characterShader.setVec3("objectColor", glm::vec3(1.0f, 0.3f, 0.0f));
                 
                 bombModel.Draw(characterShader);
             } else if (powerUp.type == PowerUpType::SHIELD) {
