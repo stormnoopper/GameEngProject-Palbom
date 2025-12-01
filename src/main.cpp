@@ -482,6 +482,37 @@ void mouse_button_callback(GLFWwindow* window, int button, int action, int mods)
         float screenX = (float)xpos;
         float screenY = (float)(SCR_HEIGHT - ypos);
         
+        // Check if game is over - handle quit and restart buttons
+        if (globalGameOver && *globalGameOver)
+        {
+            float gameOverWidth = 600.0f;
+            float gameOverHeight = 400.0f;
+            float gameOverY = (SCR_HEIGHT - gameOverHeight) / 2.0f;
+            
+            float btnWidth = 200.0f;
+            float btnHeight = 60.0f;
+            float btnSpacing = 40.0f;
+            float btnY = gameOverY - btnHeight - 30.0f;
+            
+            // Quit button
+            float quitBtnX = (SCR_WIDTH / 2.0f) - btnWidth - (btnSpacing / 2.0f);
+            if (isPointInRect(screenX, screenY, quitBtnX, btnY, btnWidth, btnHeight))
+            {
+                std::cout << "Game Over - Quit button clicked" << std::endl;
+                glfwSetWindowShouldClose(window, true);
+                return;
+            }
+            
+            // Restart button
+            float restartBtnX = (SCR_WIDTH / 2.0f) + (btnSpacing / 2.0f);
+            if (isPointInRect(screenX, screenY, restartBtnX, btnY, btnWidth, btnHeight))
+            {
+                std::cout << "Game Over - Restart button clicked" << std::endl;
+                requestGameRestart = true;
+                return;
+            }
+        }
+        
         // Check if game hasn't started - handle start button click
         if (globalGameStarted && !(*globalGameStarted))
         {
@@ -1957,6 +1988,30 @@ int main()
             glActiveTexture(GL_TEXTURE0);
             glBindTexture(GL_TEXTURE_2D, gameOverTex);
             glDrawArrays(GL_TRIANGLES, 0, 6);
+            
+            // Add Quit and Restart buttons below the game over image
+            float btnWidth = 200.0f;
+            float btnHeight = 60.0f;
+            float btnSpacing = 40.0f;
+            float btnY = gameOverY - btnHeight - 30.0f;  // Below game over image
+            
+            // Quit button (left)
+            float quitBtnX = (SCR_WIDTH / 2.0f) - btnWidth - (btnSpacing / 2.0f);
+            model = glm::mat4(1.0f);
+            model = glm::translate(model, glm::vec3(quitBtnX, btnY, 0.0f));
+            model = glm::scale(model, glm::vec3(btnWidth, btnHeight, 1.0f));
+            uiShader.setMat4("model", model);
+            glBindTexture(GL_TEXTURE_2D, quitButtonTex);
+            glDrawArrays(GL_TRIANGLES, 0, 6);
+            
+            // Restart button (right)
+            float restartBtnX = (SCR_WIDTH / 2.0f) + (btnSpacing / 2.0f);
+            model = glm::mat4(1.0f);
+            model = glm::translate(model, glm::vec3(restartBtnX, btnY, 0.0f));
+            model = glm::scale(model, glm::vec3(btnWidth, btnHeight, 1.0f));
+            uiShader.setMat4("model", model);
+            glBindTexture(GL_TEXTURE_2D, restartButtonTex);
+            glDrawArrays(GL_TRIANGLES, 0, 6);
         }
         
         // ===== SETTINGS BUTTON =====
@@ -2544,19 +2599,6 @@ void processInput(GLFWwindow *window, std::vector<std::pair<int, int>>& breakabl
     if (gameOver)
         return;
     
-    // R key to regenerate breakable blocks
-    static bool rKeyPressed = false;
-    if (glfwGetKey(window, GLFW_KEY_R) == GLFW_PRESS && !rKeyPressed)
-    {
-        rKeyPressed = true;
-        generateBlocks(breakableBlockPositions, gen);
-        std::cout << "Breakable blocks regenerated! (" << breakableBlockPositions.size() << " blocks)" << std::endl;
-    }
-    else if (glfwGetKey(window, GLFW_KEY_R) == GLFW_RELEASE)
-    {
-        rKeyPressed = false;
-    }
-
     // Bomb placement: P1 (Q key) and P2 (M key)
     static bool qKeyPressed = false;
     static bool mKeyPressed = false;
