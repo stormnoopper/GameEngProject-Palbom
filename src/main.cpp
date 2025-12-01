@@ -1855,10 +1855,9 @@ int main()
         float p1BombCounterY = p1ProfileY - 35.0f;  // Below profile
         RenderText(textShader, p1BombText, p1ProfileX, p1BombCounterY, 0.7f, glm::vec3(1.0f, 0.8f, 0.2f), Characters, textVAO, textVBO);
         
-        // P2: Right-aligned bomb counter
+        // P2: Left-aligned bomb counter (same as P1, starts from left edge of profile)
         float p2BombCounterY = p2ProfileY - 35.0f;
-        float p2BombTextWidth = p1BombText.length() * 20.0f;  // Approximate width
-        RenderText(textShader, p2BombText, p2ProfileX + profileSize - p2BombTextWidth, p2BombCounterY, 0.7f, glm::vec3(1.0f, 0.8f, 0.2f), Characters, textVAO, textVBO);
+        RenderText(textShader, p2BombText, p2ProfileX, p2BombCounterY, 0.7f, glm::vec3(1.0f, 0.8f, 0.2f), Characters, textVAO, textVBO);
         
         // ===== POWER-UP INDICATOR =====
         // Display "POWER" text below bomb counter when power-up is active
@@ -1871,8 +1870,7 @@ int main()
         if (rightPose.bombRangeBoostTimer > 0.0f)
         {
             float p2PowerY = p2BombCounterY - 30.0f;  // Below bomb counter
-            float powerWidth = 60.0f;  // Approximate width of "POWER"
-            RenderText(textShader, "POWER", p2ProfileX + profileSize - powerWidth, p2PowerY, 0.5f, glm::vec3(0.2f, 1.0f, 0.3f), Characters, textVAO, textVBO);
+            RenderText(textShader, "POWER", p2ProfileX, p2PowerY, 0.5f, glm::vec3(0.2f, 1.0f, 0.3f), Characters, textVAO, textVBO);
         }
         
         // ===== SHIELD INDICATOR =====
@@ -1886,8 +1884,7 @@ int main()
         if (rightPose.shieldTimer > 0.0f)
         {
             float p2ShieldY = p2BombCounterY - 60.0f;  // Below POWER text
-            float shieldWidth = 70.0f;  // Approximate width of "SHIELD"
-            RenderText(textShader, "SHIELD", p2ProfileX + profileSize - shieldWidth, p2ShieldY, 0.5f, glm::vec3(0.5f, 1.0f, 1.0f), Characters, textVAO, textVBO);
+            RenderText(textShader, "SHIELD", p2ProfileX, p2ShieldY, 0.5f, glm::vec3(0.5f, 1.0f, 1.0f), Characters, textVAO, textVBO);
         }
         
         // ===== SPEED INDICATOR =====
@@ -1901,8 +1898,7 @@ int main()
         if (rightPose.speedBoostTimer > 0.0f)
         {
             float p2SpeedY = p2BombCounterY - 90.0f;  // Below SHIELD text
-            float speedWidth = 60.0f;  // Approximate width of "SPEED"
-            RenderText(textShader, "SPEED", p2ProfileX + profileSize - speedWidth, p2SpeedY, 0.5f, glm::vec3(0.2f, 1.0f, 0.3f), Characters, textVAO, textVBO);
+            RenderText(textShader, "SPEED", p2ProfileX, p2SpeedY, 0.5f, glm::vec3(0.2f, 1.0f, 0.3f), Characters, textVAO, textVBO);
         }
 
         
