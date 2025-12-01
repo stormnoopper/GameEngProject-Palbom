@@ -19,6 +19,8 @@
 
 ![Gameplay Preview 2](github/Preview2.png)
 
+[![Gameplay Preview](https://img.youtube.com/vi/prRvsXtaU6k/0.jpg)](https://www.youtube.com/watch?v=prRvsXtaU6k)
+
 ## ⭐ Feature หลัก
 
 ### 💥 ระบบระเบิด (Bomb System)
