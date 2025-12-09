@@ -19,7 +19,7 @@
 
 ![Gameplay Preview 2](github/Preview2.png)
 
-[![Gameplay Preview](https://img.youtube.com/vi/prRvsXtaU6k/0.jpg)](https://www.youtube.com/watch?v=prRvsXtaU6k)
+[![Gameplay Preview](https://img.youtube.com/vi/LlpMabR5wDs/0.jpg)](https://www.youtube.com/watch?v=LlpMabR5wDs)
 
 ## ⭐ Feature หลัก
 
