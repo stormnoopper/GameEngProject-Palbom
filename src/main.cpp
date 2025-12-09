@@ -107,6 +107,28 @@ struct PowerUp
     }
 };
 
+// Fire Particle System Struct
+struct FireParticle
+{
+    glm::vec3 position;
+    glm::vec3 velocity;
+    float lifetime;      // Current lifetime
+    float maxLifetime;   // Maximum lifetime
+    float size;          // Particle size
+    
+    FireParticle(glm::vec3 pos, glm::vec3 vel, float life, float sz) 
+        : position(pos), velocity(vel), lifetime(life), maxLifetime(life), size(sz) {}
+    
+    bool isAlive() const { return lifetime > 0.0f; }
+    
+    void update(float deltaTime) {
+        lifetime -= deltaTime;
+        position += velocity * deltaTime;
+        // Add some upward drift
+        velocity.y += 0.5f * deltaTime; // Slight upward acceleration
+    }
+};
+
 void framebuffer_size_callback(GLFWwindow* window, int width, int height);
 void processInput(GLFWwindow *window, std::vector<std::pair<int, int>>& breakableBlockPositions, 
                  std::mt19937& gen, const std::function<void(std::vector<std::pair<int, int>>&, std::mt19937&)>& generateBlocks,
@@ -994,6 +1016,38 @@ int main()
     const std::string bombModelPath = FileSystem::getPath("assets/item/bomb.glb");
     Model bombModel(bombModelPath);
     std::cout << "Bomb model loaded from: " << bombModelPath << std::endl;
+    
+    // Load fire effect model for bomb explosion range visualization
+    const std::string fireEffectModelPath = FileSystem::getPath("assets/item/fire.glb");
+    Model fireEffectModel(fireEffectModelPath);
+    std::cout << "Fire effect model loaded from: " << fireEffectModelPath << std::endl;
+    
+    // Apply bombRangeTexture (lava rocks) to the fire effect model
+    // Override all diffuse textures in the fire effect model to use the lava rocks texture
+    for(auto& textureSlot : fireEffectModel.textures_loaded)
+    {
+        if(textureSlot.type == "texture_diffuse")
+        {
+            textureSlot.id = bombRangeTexture;
+            textureSlot.path = "bombRange_diffuse";
+        }
+    }
+    for(auto& mesh : fireEffectModel.meshes)
+    {
+        for(auto& textureSlot : mesh.textures)
+        {
+            if(textureSlot.type == "texture_diffuse")
+            {
+                textureSlot.id = bombRangeTexture;
+                textureSlot.path = "bombRange_diffuse";
+            }
+        }
+    }
+    std::cout << "Applied bomb range texture (lava rocks) to fire effect model" << std::endl;
+    std::cout << "Fire effect model meshes: " << fireEffectModel.meshes.size() << std::endl;
+    
+    // Fire particles for bomb range visualization
+    std::vector<std::vector<FireParticle>> bombFireParticles; // One vector of particles per bomb
 
     // ------------------------------------------------------------------
     // Power-Up Setup
@@ -1367,6 +1421,81 @@ int main()
         {
             UpdateBombs(bombs, breakableBlockPositions, leftPose, rightPose, deltaTime, powerUps);
             UpdatePowerUps(powerUps, leftPose, rightPose, deltaTime, itemPickupSounds, currentItemSoundIndex);
+            
+            // Update fire particles system
+            // Ensure bombFireParticles vector matches bombs size
+            while (bombFireParticles.size() < bombs.size()) {
+                bombFireParticles.push_back(std::vector<FireParticle>());
+            }
+            while (bombFireParticles.size() > bombs.size()) {
+                bombFireParticles.pop_back();
+            }
+            
+            // Generate and update particles for each bomb
+            for (size_t i = 0; i < bombs.size(); ++i) {
+                if (!bombs[i].exploded) {
+                    auto& particles = bombFireParticles[i];
+                    
+                    // Spawn new particles (spawn rate: ~10 particles per second)
+                    static float particleSpawnTimer = 0.0f;
+                    particleSpawnTimer += deltaTime;
+                    if (particleSpawnTimer > 0.05f) { // Spawn every 0.05 seconds
+                        particleSpawnTimer = 0.0f;
+                        
+                        // Get explosion tiles for this bomb
+                        int explosionRange = 2;
+                        if (bombs[i].owner == 1 && leftPose.bombRangeBoostTimer > 0.0f) {
+                            explosionRange = 3;
+                        } else if (bombs[i].owner == 2 && rightPose.bombRangeBoostTimer > 0.0f) {
+                            explosionRange = 3;
+                        }
+                        std::vector<std::pair<int, int>> explosionTiles = GetExplosionTiles(bombs[i], breakableBlockPositions, explosionRange);
+                        
+                        // Spawn particles at random positions within explosion range
+                        for (const auto& tile : explosionTiles) {
+                            float tileX = MAP_OFFSET + tile.first * TILE_SIZE;
+                            float tileZ = MAP_OFFSET + tile.second * TILE_SIZE;
+                            
+                            // Random offset within tile
+                            std::uniform_real_distribution<float> offsetDist(-0.3f, 0.3f);
+                            float offsetX = offsetDist(gen);
+                            float offsetZ = offsetDist(gen);
+                            
+                            glm::vec3 particlePos(
+                                tileX + offsetX,
+                                BLOCK_HEIGHT + 0.1f,
+                                tileZ + offsetZ
+                            );
+                            
+                            // Random velocity (upward and slightly outward)
+                            std::uniform_real_distribution<float> velDist(-0.2f, 0.2f);
+                            glm::vec3 vel(
+                                velDist(gen),
+                                0.5f + velDist(gen), // Upward
+                                velDist(gen)
+                            );
+                            
+                            // Random lifetime and size
+                            std::uniform_real_distribution<float> lifeDist(0.3f, 0.6f);
+                            std::uniform_real_distribution<float> sizeDist(0.01f, 0.03f);
+                            
+                            particles.push_back(FireParticle(particlePos, vel, lifeDist(gen), sizeDist(gen)));
+                        }
+                    }
+                    
+                    // Update existing particles
+                    for (auto& particle : particles) {
+                        particle.update(deltaTime);
+                    }
+                    
+                    // Remove dead particles
+                    particles.erase(
+                        std::remove_if(particles.begin(), particles.end(), 
+                            [](const FireParticle& p) { return !p.isAlive(); }),
+                        particles.end()
+                    );
+                }
+            }
         }
 
         // Update Character Animations
@@ -1553,15 +1682,34 @@ int main()
                     // Get all tiles that will be affected by this bomb
                     std::vector<std::pair<int, int>> explosionTiles = GetExplosionTiles(bomb, breakableBlockPositions, explosionRange);
                     
-                    // Calculate pulsing alpha based on bomb timer
-                    // More transparent as timer gets closer to 0 (more urgent)
+                    // Calculate pulsing intensity based on bomb timer
+                    // More intense as timer gets closer to 0 (more urgent)
                     float timerRatio = bomb.timer / 3.0f;  // 3.0f is the initial timer value
-                    float pulseFrequency = 3.0f;  // Pulse faster as time runs out
+                    float pulseFrequency = 1.5f;  // Reduced from 3.0f for slower pulsing
                     float pulsePhase = glfwGetTime() * pulseFrequency * (1.0f + (1.0f - timerRatio));
                     float baseAlpha = 0.3f + 0.2f * (1.0f - timerRatio);  // Increase base alpha as timer decreases
                     float pulseAlpha = baseAlpha + 0.15f * sin(pulsePhase);
                     
-                    // Render semi-transparent quads on each affected tile
+                    // Calculate fire animation parameters
+                    float fireRotation = glfwGetTime() * 2.0f;  // Rotate fire effect
+                    float fireScale = 0.03f + 0.02f * sin(pulsePhase);  // Pulsing scale (further reduced)
+                    
+                    // Switch to character shader for rendering 3D fire effect models
+                    characterShader.use();
+                    characterShader.setMat4("view", view);
+                    characterShader.setMat4("projection", projection);
+                    characterShader.setVec3("lightPos", lightPos);
+                    characterShader.setVec3("lightColor", lightColor);
+                    characterShader.setVec3("viewPos", cameraPos);
+                    characterShader.setBool("isBomb", true);
+                    
+                    // Upload identity bone matrices for static fire effect model (no skeletal animation)
+                    for(int i = 0; i < 100; ++i)
+                    {
+                        characterShader.setMat4("finalBonesMatrices[" + std::to_string(i) + "]", glm::mat4(1.0f));
+                    }
+                    
+                    // Render fire effect models on each affected tile
                     for (const auto& tile : explosionTiles)
                     {
                         int x = tile.first;
@@ -1570,18 +1718,53 @@ int main()
                         float tileX = MAP_OFFSET + x * TILE_SIZE;
                         float tileZ = MAP_OFFSET + y * TILE_SIZE;
                         
-                        // Render a flat quad slightly above the ground
+                        // Render fire effect model slightly above the ground
                         glm::mat4 model = glm::mat4(1.0f);
-                        model = glm::translate(model, glm::vec3(tileX, BLOCK_HEIGHT + 0.01f, tileZ));
-                        // Scale to cover the tile and make it flat (very thin in Y direction)
-                        model = glm::scale(model, glm::vec3(TILE_SIZE * 0.9f, 0.001f, TILE_SIZE * 0.9f));
-                        shader.setMat4("model", model);
+                        model = glm::translate(model, glm::vec3(tileX, BLOCK_HEIGHT + 0.5f, tileZ));  // Higher position
+                        model = glm::rotate(model, fireRotation, glm::vec3(0.0f, 1.0f, 0.0f));  // Spinning animation
+                        model = glm::scale(model, glm::vec3(fireScale));  // Larger scale
+                        characterShader.setMat4("model", model);
                         
-                        // Use the lava rocks bomb range texture for dramatic effect
-                        glBindTexture(GL_TEXTURE_2D, bombRangeTexture);
-                        
-                        glDrawElements(GL_TRIANGLES, 36, GL_UNSIGNED_INT, 0);
+                        // Draw fire effect model (will use lava rocks texture from the model's materials)
+                        fireEffectModel.Draw(characterShader);
                     }
+                    
+                    // Render fire particles
+                    for (size_t i = 0; i < bombs.size(); ++i) {
+                        if (!bombs[i].exploded && i < bombFireParticles.size()) {
+                            const auto& particles = bombFireParticles[i];
+                            
+                            // Enable point sprites for particles
+                            glEnable(GL_PROGRAM_POINT_SIZE);
+                            glEnable(GL_BLEND);
+                            glBlendFunc(GL_SRC_ALPHA, GL_ONE); // Additive blending for fire glow
+                            
+                            for (const auto& particle : particles) {
+                                if (particle.isAlive()) {
+                                    glm::mat4 model = glm::mat4(1.0f);
+                                    model = glm::translate(model, particle.position);
+                                    
+                                    // Calculate alpha based on lifetime (fade out as particle dies)
+                                    float alpha = particle.lifetime / particle.maxLifetime;
+                                    float particleScale = particle.size * alpha;
+                                    
+                                    model = glm::scale(model, glm::vec3(particleScale));
+                                    characterShader.setMat4("model", model);
+                                    
+                                    // Render a very small fire model as particle
+                                    fireEffectModel.Draw(characterShader);
+                                }
+                            }
+                            
+                            glDisable(GL_PROGRAM_POINT_SIZE);
+                            glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA); // Restore normal blending
+                        }
+                    }
+                    
+                    // Switch back to tile shader for regular rendering
+                    shader.use();
+                    shader.setMat4("view", view);
+                    shader.setMat4("projection", projection);
                 }
             }
             
